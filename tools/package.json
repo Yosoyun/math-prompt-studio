@@ -1,0 +1,8 @@
+{
+  "name": "math-prompt-studio-tools",
+  "private": true,
+  "type": "module",
+  "description": "Build the PDF prompt book + quick-start guide for Maths Prompt Studio (headless Chrome).",
+  "scripts": { "build-pdf": "node build-docs.mjs" },
+  "dependencies": { "puppeteer-core": "^25.1.0" }
+}
