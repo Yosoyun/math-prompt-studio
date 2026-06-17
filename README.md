@@ -1,68 +1,56 @@
 # Maths Prompt Studio
 
-### 136+ ready-to-use AI prompts for mathematics teachers — by **Indrajeet Yadav**
+### 500+ free AI prompts for mathematics teachers & students — by **Indrajeet Yadav**
 
-A free, no-coding-required library of copy-paste prompts that turn any maths problem into
-**beautiful handwritten solutions, full question papers, worksheets, DPPs, formula sheets,
-mind maps, quizzes and more** — using free AI tools like ChatGPT, Gemini, Claude or Copilot.
+A free, no‑coding‑required website of copy‑paste prompts that turn any maths problem into
+**handwritten solutions, full question papers, worksheets, DPPs, formula sheets, books and more** —
+using free AI tools like **ChatGPT** and **Claude** (also AI Studio, Gemini, Grok).
 
-Every prompt politely asks the AI to **sign the work in the author's name**, so a little
-piece of Indrajeet Yadav travels with everything you create.
+Built for brilliant teachers who are new to computers: it includes a **complete, illustrated
+beginner's guide** (including exactly how to attach a photo) and a **Learn 10× guide** for studying
+smarter. Every prompt asks the AI to **sign the work in the author's name**.
 
 > **Live site:** https://yosoyun.github.io/math-prompt-studio/
+
+There is **no bulk download** — use prompts one at a time on the site, and please **share it**
+with one more teacher or student. That's the only "payment" asked.
 
 ---
 
 ## What's inside
+- **505 prompts** across **31 categories / 7 groups** (incl. **Book & Study‑Material Writing**)
+- **18 handwritten "5‑method solution" art styles** (the flagship collection)
+- **Beginner's Guide**: what AI is, pick a tool, *how to attach a photo* (phone/computer, illustrated), copy‑paste, a 60‑second walkthrough
+- **Learn 10×**: the highest‑leverage ways to study with ChatGPT/Claude (Feynman loop, active recall, Socratic tutor, exam simulator…)
+- **About** the author, a **Feedback** box (rating + suggestion → email; optional Google Form / WhatsApp), and a **Share** section
+- Every prompt: a colour reliability dot (🟢 any free AI · 🟡 makes images · 🔵 attach a photo), a "how to use effectively" list, and a "what to say if it's wrong" line
 
-- **136 prompts** across **13 categories**
-- **18 handwritten "5-method solution" art styles** (the flagship collection)
-- A crystal-clear, non-technical **how-to** built for busy teachers
-- Search + filter + one-tap **Copy** for every prompt
-- **Downloads:** the complete Prompt Book (PDF, 176 pages), a 1-page Quick-Start Guide (PDF),
-  and an editable Word document (DOCX)
-
-### The 13 categories
-Handwritten 5-Method Solution Art · Single Perfect Solution · Multiple Methods (Notes) ·
-Formula Sheets & Cheat Sheets · Question Paper & Exam Generators · Assignments & Worksheets ·
-Daily Practice Problems (DPP) · Concept Explainers & Mind Maps · Diagrams, Graphs & Figures ·
-Slides, Video Scripts & Reels · Doubt Solving & Error Analysis · Quiz, MCQ & Flashcards ·
-Real-World, Projects & Engagement
-
----
-
-## How a teacher uses it (4 steps)
-
-1. **Pick a prompt** and tap **Copy**.
-2. **Open a free AI chat** — ChatGPT, Gemini, Claude or Copilot.
-3. **Attach a photo** of the question (only if the prompt asks), then **paste**.
-4. **Fill the `[BRACKETS]`** with your details and **press Enter**. Download, print, teach.
-
----
-
-## Run it locally
-
-```bash
-python3 -m http.server 8911 --directory .
-# then open http://localhost:8911
+## Owner settings — `config.js`
+Edit three lines to switch on extra contact buttons:
+```js
+window.MPS_CONFIG = {
+  email: "you@example.com",   // where the feedback form sends
+  googleFormUrl: "",          // paste a Google Form link → shows "Open suggestions form"
+  whatsapp: "",               // digits incl. country code → shows the WhatsApp button
+  photoUrl: ""                // optional photo for the About section
+};
 ```
 
-## Rebuild the content & documents (optional, for maintainers)
-
+## Run it locally
 ```bash
-cd tools
-npm install                       # installs puppeteer-core
-node assemble.mjs <workflow.json> # regenerate data/prompts.js
-node build-docs.mjs               # rebuild the two PDFs (headless Chrome)
-python3 build-docx.py             # rebuild the Word document
+python3 -m http.server 8911 --directory .
+# open http://localhost:8911
+```
+
+## Regenerate / expand content (maintainers)
+```bash
+cd tools && npm install          # puppeteer-core (only needed if rebuilding the optional PDFs)
+node assemble.mjs <workflow.json>  # rebuild data/prompts.js from a content-workflow output
 ```
 
 ---
 
 ## Credits
-
-**Created, authored and signed by Indrajeet Yadav.**
-Free forever. If it helps you, please share it — and keep the signature on the outputs.
-
-The original five flagship style prompts were authored by Indrajeet Yadav; the wider library
-was expanded from that foundation.
+**Created, authored and signed by Indrajeet Yadav.** Free forever. If it helps you, please share it
+and keep the signature on the outputs. Prompt structure follows the best practices of the top
+prompt‑engineering resources (f/awesome‑chatgpt‑prompts, promptslab, ai‑boost, Anthropic & OpenAI guides).
