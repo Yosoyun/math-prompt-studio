@@ -1,15 +1,17 @@
 /* ====== EDIT ME ======================================================
-   Maths Prompt Studio - owner settings. Change these 3 lines anytime.
-   - email:        where feedback emails are sent.
-   - googleFormUrl: paste your Google Form share link here to show the
-                    "Open suggestions form" button (leave "" to hide it).
-   - whatsapp:     your number with country code, digits only
-                    (e.g. 919876543210). Leave "" to hide the WhatsApp button.
+   Maths Prompt Studio - owner settings. Change these lines anytime.
+   - email:        where the feedback form sends.
+   - whatsapp:     number with country code, digits only.
+   - instagram:    your handle WITHOUT the @ (assumed Instagram - if your
+                   @indrajeetsirallen is on YouTube/X/Telegram instead,
+                   tell me and I'll switch the link).
+   - googleFormUrl: paste a Google Form share link to show that button.
    - photoUrl:     a link to your photo for the About section (optional).
    ===================================================================== */
 window.MPS_CONFIG = {
-  email: "vandanay2012@gmail.com",
+  email: "indrajeetsirallen@gmail.com",
+  whatsapp: "918072965053",
+  instagram: "indrajeetsirallen",
   googleFormUrl: "",
-  whatsapp: "",
   photoUrl: ""
 };

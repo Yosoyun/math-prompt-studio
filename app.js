@@ -176,6 +176,8 @@
     if (formLink && CFG.googleFormUrl) { formLink.href = CFG.googleFormUrl; formLink.hidden = false; }
     var wa = document.getElementById('fbWaLink');
     if (wa && CFG.whatsapp) { wa.href = 'https://wa.me/' + String(CFG.whatsapp).replace(/[^0-9]/g, '') + '?text=' + encodeURIComponent('Hi Indrajeet, feedback on Maths Prompt Studio: '); wa.hidden = false; }
+    var insta = document.getElementById('fbInstaLink');
+    if (insta && CFG.instagram) { insta.href = 'https://instagram.com/' + String(CFG.instagram).replace(/^@/, ''); insta.hidden = false; }
   }
 
   /* ---------- SHARE ---------- */

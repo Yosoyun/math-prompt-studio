@@ -430,3 +430,13 @@ textarea.fb-input{resize:vertical}
 .share-link{font-family:var(--font-mono);font-size:14px;color:var(--ink-soft);background:var(--surface-2);border:1px dashed var(--line-2);border-radius:10px;padding:10px 16px;display:inline-block;word-break:break-all}
 
 [hidden]{display:none!important}
+
+/* ---------- MORE TOOLS ---------- */
+.more-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.more-card{display:flex;flex-direction:column;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-sm);color:var(--ink)!important;text-decoration:none!important;transition:transform .15s,box-shadow .15s,border-color .15s}
+.more-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--gold)}
+.more-ic{font-size:30px}
+.more-card b{font-family:var(--font-head);font-weight:700;font-size:18px}
+.more-desc{color:var(--ink-soft);font-size:14px;flex:1}
+.more-go{color:var(--blue-2);font-weight:700;font-size:14px;margin-top:4px}
+.more-foot{text-align:center;color:var(--ink-soft);font-size:14.5px;margin-top:24px}
