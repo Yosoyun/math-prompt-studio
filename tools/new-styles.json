@@ -1,0 +1,90 @@
+[
+  {
+    "name": "Nordic Frost Minimalist",
+    "icon": "❄️",
+    "concept": "A serene Scandinavian-Muji solution page where vast calm white space, hairline rules, and a single cool accent let the mathematics breathe like a quiet winter morning.",
+    "surface": "Soft warm-white uncoated paper (a barely-there oat tint), faintly textured like premium Muji notebook stock, with generous 1.4in margins on all sides and clean unembellished page edges; the only structure is a single thin slate-grey baseline grid so faint it reads as atmosphere, never as lines.",
+    "handwriting": "Main work in calm dark-slate ink (#2E3338), a relaxed neat upright hand with airy spacing; headings in a slightly heavier slate; side-notes and reasoning in a muted dove-grey; emphasis (final answers, key pivots) in one disciplined cool accent only - a soft Nordic fjord-blue (#5B7A99); optional pencil for scaffolding in the lightest silver-grey.",
+    "decorative": "Almost nothing - that is the point: a single small filled circle as a step bullet, one slim horizontal hairline (60 percent width, centred) as the only divider, and a tiny corner registration tick; absolutely no ornament, no shading blocks, no doodles.",
+    "composition": "One generous single column with a narrow left gutter for step numbers; each of the five methods opens with a short underlined header, then numbered steps with one full blank line between them so the eye glides; final answer sits alone in a slim hairline box with wide breathing room.",
+    "premiumTest": "Museum-grade comes from restraint and ratio: huge margins, perfect alignment, exactly one accent colour, and silence around every line. Avoid clutter, busy borders, multiple colours, heavy boxes, or any decorative noise - if it looks crowded it has failed.",
+    "whatYouGet": "Five impossibly clean, calming solution pages that look like a luxury Scandinavian study journal."
+  },
+  {
+    "name": "Bauhaus Geometric Primer",
+    "icon": "🔷",
+    "concept": "A bold De Stijl / Bauhaus solution sheet where mathematics is organised on a strict geometric grid with primary-colour blocks, confident black rules, and pure functional clarity.",
+    "surface": "Bright neutral cream art-board, smooth and matte, framed by a thick charcoal-black keyline border with squared corners and 1in margins; a subtle visible modular grid (light grey) divides the page into clean rectangular fields.",
+    "handwriting": "Main work in solid jet-black, a tidy geometric upright hand sitting on the grid; headings reversed-out inside small primary-colour banners (Bauhaus red #C8102E, blue #005EB8, yellow #FFC72C); notes in mid-grey; emphasis underlined in a single primary colour; pencil construction lines in pale grey kept perfectly straight.",
+    "decorative": "Restrained Bauhaus motifs only - a small solid red circle, blue square and yellow triangle used as the three step-marker shapes; a divider made of one thick black bar with a single coloured block at its left end; no gradients, no texture, no extra shapes.",
+    "composition": "A disciplined two-field grid: a slim left column carries coloured step-shapes and method labels, the wide right field carries the working; each method occupies one clear horizontal band separated by the black-bar divider, so the page reads like a Bauhaus poster turned into a worksheet.",
+    "premiumTest": "It looks museum-grade through perfect grid alignment, true flat primary colours, and fearless black structure. Avoid muddy mixed colours, tilted text, more than three accent colours, drop shadows, or any hand-wobble that breaks the geometric discipline.",
+    "whatYouGet": "Five striking Bauhaus-grid solution pages that feel like collectible design posters of the maths."
+  },
+  {
+    "name": "Engineer Field Notebook",
+    "icon": "📐",
+    "concept": "A mid-century engineering field-book aesthetic on a precise green engineer's grid, where each method reads like a meticulous calculation entry signed off in a working notebook.",
+    "surface": "Pale sage engineer's quadrille paper with a fine green 5mm grid and slightly heavier major lines every centimetre; a rugged kraft-tan margin strip down the left, a red vertical margin rule, and softly worn page edges with a faint coffee-ring ghost in one corner for authenticity.",
+    "handwriting": "Main work in dark navy-blue technical ink, a crisp draughtsman's print hand aligned to the grid; headings in bold black block capitals; running notes in pencil-grey; emphasis and final results boxed in engineer's red; light-blue construction marks for setup.",
+    "decorative": "Functional notebook motifs only - a small CALC. / CHECK. stamp-style label per method, a tidy units-and-given key, and a divider made of a dashed grid-aligned rule with a small red node at centre; optional faint drafting triangle silhouette in a corner, nothing whimsical.",
+    "composition": "Strict grid-snapped layout: a left data column (given / find / units) and a right working column; every step numbered like a logbook entry, intermediate results underlined, and a ruled CHECK row at the foot of each method confirming the answer two ways.",
+    "premiumTest": "It earns its quality from authentic technical precision - everything snapped to the grid, ruler-straight underlines, real engineering conventions. Avoid messy freehand, off-grid drift, cartoonish stamps, neon colours, or fake grime that looks like a filter rather than honest wear.",
+    "whatYouGet": "Five rigorous engineer's-logbook solution pages that look professionally calculated and checked."
+  },
+  {
+    "name": "Kraft and Chalk-White",
+    "icon": "🟫",
+    "concept": "A warm kraft-paper page worked entirely in white and pale chalk inks, like an artisan's recipe card for solving the problem - cosy, tactile and quietly luxurious.",
+    "surface": "Rich recycled kraft-brown paper with visible fibre flecks and a soft matte grain, deckled torn edges, and a faint darker vignette at the border; no printed grid, just honest paper warmth with 1.2in margins.",
+    "handwriting": "Main work in opaque chalk-white ink, a friendly rounded hand that sits beautifully on the brown; headings in warm cream; side-notes in a soft dusty-sage; emphasis in a muted terracotta-clay for final answers and key results; light pencil-style construction in pale taupe.",
+    "decorative": "Hand-craft motifs in restraint - small white botanical sprig or single wheat stalk at a method header, tiny hand-drawn corner brackets, and a divider of three small white dots flanked by short tapered strokes; warm and handmade, never busy.",
+    "composition": "A relaxed single column with comfortable line spacing; each method introduced by a small cream label tab, steps flowing naturally with the occasional indented sub-note in sage; the final answer enclosed in a hand-drawn white rounded frame with a soft terracotta tick beside it.",
+    "premiumTest": "Museum quality comes from the convincing chalk-on-kraft contrast and tasteful warmth - opaque clean white strokes, real paper texture, only one earthy accent. Avoid grey muddy 'white', over-decoration, rainbow colours, or a scrapbook feel that cheapens it.",
+    "whatYouGet": "Five warm, tactile kraft-and-white solution cards that feel handcrafted and inviting."
+  },
+  {
+    "name": "Topographic Survey Chart",
+    "icon": "🗺️",
+    "concept": "A refined topographic-map aesthetic where the mathematics is laid over faint contour lines and survey markings, as if each method were charted terrain to be navigated.",
+    "surface": "Aged warm-ivory map paper printed with very pale sepia contour lines and a soft graticule of latitude/longitude tick marks; a thin double survey border, a small compass-rose watermark in one corner, and gently foxed edges - all subtle enough to never compete with the writing.",
+    "handwriting": "Main work in deep sepia-brown ink, a confident cartographer's hand; headings in dark forest-green like map labels; notes in muted ochre; emphasis (final answers, key turning points) in a survey-red used sparingly as 'marked locations'; light contour-grey for setup lines.",
+    "decorative": "Map motifs used with discipline - a tiny benchmark triangle or elevation dot beside each major step, a small north-arrow at the top of each method, and a divider styled as a dotted survey route line with a single red waypoint; a slim legend strip may name the method's 'route'.",
+    "composition": "A single mapped column with a narrow left margin of elevation-style step markers; each method opens with a header band like a map title block (method name, 'scale', key idea), the working charted downward, and the answer pinned in a small framed 'destination' box.",
+    "premiumTest": "It looks museum-grade when the contour underlay stays whisper-faint and the maths stays crisp on top - elegant cartographic restraint, one red accent only. Avoid loud map clutter, contours dark enough to fight the text, neon, or a video-game treasure-map vibe.",
+    "whatYouGet": "Five elegant topographic-chart solution pages that turn each method into beautifully surveyed terrain."
+  },
+  {
+    "name": "Art Deco Gold Geometry",
+    "icon": "🏛️",
+    "concept": "A Gatsby-era Art Deco solution page with symmetrical fan motifs, fine gold linework and a deep ink ground, where each method is presented like a piece of luxury stationery.",
+    "surface": "Deep ink-teal or near-black charcoal card with a smooth lacquered matte finish, framed by a slim stepped Art Deco border in thin metallic gold; symmetrical sunburst fan corners and 1in margins; the surface is rich and even, never glossy-cheap.",
+    "handwriting": "Main work in warm ivory ink, an elegant slightly tall hand; headings in metallic gold small-caps; notes in soft champagne-grey; emphasis and final answers in bright gold; faint pewter-grey for construction strokes.",
+    "decorative": "Signature Deco motifs in moderation - a small stepped chevron or fan ornament at each method header, slender twin gold rules framing key results, and a divider of a central gold lozenge flanked by tapering double lines; strictly symmetrical, never cluttered.",
+    "composition": "A centred, symmetrical layout with a refined header cartouche naming the method; working presented in a single graceful column with generous leading; the final answer crowned in a small stepped gold frame at the foot, balanced left-right like a theatre marquee.",
+    "premiumTest": "Luxury reads through thin precise gold lines, true symmetry and a deep even ground - jewellery-box restraint. Avoid thick gaudy gold fills, asymmetry, more than the ivory-and-gold palette, glare/bevel effects, or so much ornament that the maths drowns.",
+    "whatYouGet": "Five opulent Art Deco solution pages that look like luxury hotel stationery for mathematics."
+  },
+  {
+    "name": "Pastel Risograph Terrazzo",
+    "icon": "🎨",
+    "concept": "A cheerful contemporary risograph-print look in soft pastel ink layers with playful terrazzo speckles, keeping the maths bright, friendly and gallery-modern.",
+    "surface": "Soft off-white recycled stock with the gentle grain and faint mis-register charm of a riso print; a light scatter of tiny terrazzo flecks (pale mint, peach, lilac, butter) confined to the wide margins only, leaving a clean writing field with 1.2in margins and tidy squared edges.",
+    "handwriting": "Main work in soft charcoal-plum risograph ink, a friendly modern hand; headings in a flat pastel-coral overprint; notes in dusty-teal; emphasis in a warm mustard-yellow for final answers and key steps; light pastel-blue for construction marks - all in flat matte 'riso' tones.",
+    "decorative": "Modern flat motifs in restraint - one small pastel shape (soft arch, blob or half-circle) as a method marker, a couple of terrazzo flecks as accents, and a divider of a flat pastel rounded bar with a single contrasting dot; clean and contemporary, not childish.",
+    "composition": "A relaxed single column with airy spacing and a slim left ribbon of pastel method tabs; each method headed by a flat coloured pill label, steps clearly numbered, and the final answer set inside a soft pastel rounded panel with a friendly check mark.",
+    "premiumTest": "It looks gallery-modern when the pastels stay flat, muted and well-balanced with crisp dark maths on top - design-studio polish. Avoid neon brights, gradients, heavy speckle over the working, more than three pastels at once, or a cute-sticker look that reads as cheap.",
+    "whatYouGet": "Five bright, contemporary risograph-style solution pages that feel like a modern design studio made them."
+  },
+  {
+    "name": "Stained-Glass Cathedral Light",
+    "icon": "🪟",
+    "concept": "A reverent stained-glass aesthetic where slim lead-line frames and jewel-toned light surround the mathematics, as if each method were illuminated through a cathedral window.",
+    "surface": "Deep slate-charcoal ground that reads like stone, with each method's working sitting within a luminous frosted-glass panel of softly graded jewel light (sapphire, ruby, emerald, amber) bounded by thin dark 'lead came' lines; a slim leaded border, gentle inner glow, 1in margins, no glare.",
+    "handwriting": "Main work in clean warm-ivory ink on the lit glass, a graceful upright hand kept fully legible; headings in luminous gold-leaf; notes in pale stone-grey; emphasis and final answers in a single deep jewel tone matching that method's glass; faint silver for construction lines.",
+    "decorative": "Cathedral motifs in restraint - a small leaded rosette or trefoil at each header, thin came lines used only to frame panels (never across the working), and a divider of a slender lead bar with a single jewel cabochon at centre; dignified, never busy.",
+    "composition": "Each of the five methods is its own tall illuminated window-panel in a jewel hue, stacked or arranged in a balanced row; a small leaded header cartouche names the method, the working glows clearly within, and the final answer rests in a small framed quatrefoil at the foot of the panel.",
+    "premiumTest": "It becomes museum-grade through luminous yet soft glass tints, crisp ivory text that stays perfectly readable, and thin elegant lead lines - reverent and clean. Avoid garish saturated glass, text laid over busy patterns, thick clumsy leading, or glow so strong the maths is lost.",
+    "whatYouGet": "Five luminous stained-glass solution panels where each method glows like cathedral light around the maths."
+  }
+]
