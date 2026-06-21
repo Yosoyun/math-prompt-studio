@@ -41,12 +41,18 @@
 
   /* ---------- open in tool ---------- */
   function openTool(text, tool, btn) {
+    var base = tool === 'claude' ? 'https://claude.ai/new' : 'https://chatgpt.com/';
+    var name = tool === 'claude' ? 'Claude' : 'ChatGPT';
+    var limit = tool === 'claude' ? 10000 : 6000; // keep within safe URL length
+    var full = base + '?q=' + encodeURIComponent(text);
+    var carried = full.length <= limit;
     clip(text).then(function () {
-      var url = tool === 'claude' ? 'https://claude.ai/new' : 'https://chatgpt.com/';
-      var name = tool === 'claude' ? 'Claude' : 'ChatGPT';
+      var url = carried ? full : base;
       try { window.open(url, '_blank', 'noopener'); } catch (e) { location.href = url; }
       copyBtn(btn, '&#10003; Opened');
-      showToast(name + ' opened and your prompt is copied! Paste it (long-press > Paste, or Ctrl/Cmd+V), fill the [brackets], then send.');
+      showToast(carried
+        ? name + ' is opening with your prompt already loaded - fill the [brackets] and send. (Also copied, just in case.)'
+        : name + ' opened. This prompt is long, so it is copied for you - paste it (Ctrl/Cmd+V or long-press > Paste), then send.');
     });
   }
 
@@ -84,16 +90,12 @@
     var id = p._id;
     return '<article class="card" data-id="' + id + '"><div class="card-tags"><span class="tag tag-cat">' + esc(p._catTitle) + '</span>' + tagChip(p) + '</div>' +
       '<h4>' + esc(p.title) + '</h4><p class="card-what">' + esc(p.whatYouGet) + '</p><div class="card-rel">' + relBadge(p) + '</div>' +
-      '<div class="card-actions">' +
-      '<button class="btn-copy" data-copy="' + id + '">&#128203; Copy</button>' +
-      '<button class="btn-tool t-gpt" data-open="' + id + '" data-tool="gpt">Open ChatGPT</button>' +
-      '<button class="btn-tool t-claude" data-open="' + id + '" data-tool="claude">Open Claude</button>' +
+      '<div class="card-open">' +
+      '<button class="btn-tool t-gpt" data-open="' + id + '" data-tool="gpt">&#129302; ChatGPT</button>' +
+      '<button class="btn-tool t-claude" data-open="' + id + '" data-tool="claude">&#128172; Claude</button>' +
+      '<button class="btn-soft" data-copy="' + id + '">&#128203; Copy</button>' +
       '</div>' +
-      '<div class="card-fmt"><span class="fmt-label">Export answer:</span>' +
-      '<button class="fmt-btn" data-fmt="' + id + '" data-kind="word">&#128196; Word</button>' +
-      '<button class="fmt-btn" data-fmt="' + id + '" data-kind="pdf">&#128209; PDF</button>' +
-      '<button class="fmt-btn" data-fmt="' + id + '" data-kind="ppt">&#128202; PPT</button>' +
-      '<button class="card-more" data-view="' + id + '">How to use</button></div>' +
+      '<button class="card-more" data-view="' + id + '">How to use it &middot; get it as Word / PDF / PPT &rarr;</button>' +
       '</article>';
   }
   function matches(p) {

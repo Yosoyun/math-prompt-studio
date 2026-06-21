@@ -484,3 +484,18 @@ textarea.fb-input{resize:vertical}
   .btn-tool{font-size:12.5px;min-width:88px;padding:9px 8px}
   .card-more{margin-left:0}
 }
+
+/* ============================================================
+   v5 - cleaner, more attractive card actions
+   ============================================================ */
+.card-open{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+.card-open>button{flex:1 1 30%;min-width:96px;font-size:13px;font-weight:700;padding:10px 8px;border-radius:11px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1.5px solid var(--line-2);transition:transform .12s,box-shadow .12s,filter .12s}
+.card-open>button:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+.btn-tool.t-gpt{background:#e6f6f0;border-color:#1aa583;color:#0b7a5e}
+.btn-tool.t-claude{background:#fcecdf;border-color:#d98a52;color:#ad5f29}
+.btn-soft{background:var(--surface);color:var(--ink)}
+.btn-soft.done{background:var(--green-soft);color:var(--green);border-color:var(--green)}
+[data-theme=dark] .btn-tool.t-gpt{background:#12302a;color:#63d6b2;border-color:#1aa583}
+[data-theme=dark] .btn-tool.t-claude{background:#33241a;color:#eaa471;border-color:#d98a52}
+.card-more{display:block;width:100%;margin-top:11px;padding:11px 0 2px;border:none;border-top:1px dashed var(--line);background:none;color:var(--blue-2);font-weight:700;font-size:12.8px;cursor:pointer;text-align:center}
+.card-more:hover{color:var(--violet);text-decoration:underline}
