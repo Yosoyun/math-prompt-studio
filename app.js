@@ -51,8 +51,8 @@
       try { window.open(url, '_blank', 'noopener'); } catch (e) { location.href = url; }
       copyBtn(btn, '&#10003; Opened');
       showToast(carried
-        ? name + ' is opening with your prompt already loaded - fill the [brackets] and send. (Also copied, just in case.)'
-        : name + ' opened. This prompt is long, so it is copied for you - paste it (Ctrl/Cmd+V or long-press > Paste), then send.');
+        ? name + ' is opening with your prompt. It is also copied - if the box is empty, just paste it (Ctrl/Cmd+V or long-press > Paste), fill the [brackets] and send.'
+        : name + ' opened. This prompt is long, so it is copied - paste it (Ctrl/Cmd+V or long-press > Paste), then send.');
     });
   }
 
@@ -91,11 +91,11 @@
     return '<article class="card" data-id="' + id + '"><div class="card-tags"><span class="tag tag-cat">' + esc(p._catTitle) + '</span>' + tagChip(p) + '</div>' +
       '<h4>' + esc(p.title) + '</h4><p class="card-what">' + esc(p.whatYouGet) + '</p><div class="card-rel">' + relBadge(p) + '</div>' +
       '<div class="card-open">' +
-      '<button class="btn-tool t-gpt" data-open="' + id + '" data-tool="gpt">&#129302; ChatGPT</button>' +
-      '<button class="btn-tool t-claude" data-open="' + id + '" data-tool="claude">&#128172; Claude</button>' +
-      '<button class="btn-soft" data-copy="' + id + '">&#128203; Copy</button>' +
+      '<button class="btn-tool t-gpt" data-open="' + id + '" data-tool="gpt">&#129302; Open in ChatGPT</button>' +
+      '<button class="btn-tool t-claude" data-open="' + id + '" data-tool="claude">&#128172; Open in Claude</button>' +
       '</div>' +
-      '<button class="card-more" data-view="' + id + '">How to use it &middot; get it as Word / PDF / PPT &rarr;</button>' +
+      '<button class="btn-soft card-copy" data-copy="' + id + '">&#128203; Copy prompt</button>' +
+      '<button class="card-more" data-view="' + id + '">How to use this &rarr;</button>' +
       '</article>';
   }
   function matches(p) {
@@ -153,16 +153,10 @@
       '<div class="modal-open"><span class="mo-lbl">Open it in one click (the prompt is copied for you):</span><div class="mo-btns"><button class="btn-tool t-gpt" id="mGpt">&#129302; Open in ChatGPT</button><button class="btn-tool t-claude" id="mClaude">&#128172; Open in Claude</button></div></div>' +
       steps + fix +
       '<div class="modal-lbl">COPY THE PROMPT</div><div class="prompt-box"><pre>' + esc(p.promptText) + '</pre></div>' +
-      '<div class="modal-actions"><button class="btn-copy" id="mCopy">&#128203; Copy prompt</button>' +
-      '<button class="fmt-btn" id="mWord">&#128196; Copy for Word</button><button class="fmt-btn" id="mPdf">&#128209; Copy for PDF</button><button class="fmt-btn" id="mPpt">&#128202; Copy for PPT/Slides</button></div>' +
-      '<p class="modal-fmt-note">&ldquo;Word / PDF / PPT&rdquo; copy a version that asks the AI to format the answer that way - paste it into ChatGPT or Claude, then into Word, Print-to-PDF, or PowerPoint/Slides.</p>' +
-      '<div class="modal-actions" style="margin-top:8px"><button class="btn-view" data-close>Close</button></div>';
+      '<div class="modal-actions"><button class="btn-copy" id="mCopy">&#128203; Copy prompt</button><button class="btn-view" data-close>Close</button></div>';
     document.getElementById('mGpt').addEventListener('click', function () { openTool(p.promptText, 'gpt', this); });
     document.getElementById('mClaude').addEventListener('click', function () { openTool(p.promptText, 'claude', this); });
     document.getElementById('mCopy').addEventListener('click', function () { copyText(p.promptText, this, 'Copied! Paste it into your AI chat.'); });
-    document.getElementById('mWord').addEventListener('click', function () { copyFormatted(p.promptText, 'word', this); });
-    document.getElementById('mPdf').addEventListener('click', function () { copyFormatted(p.promptText, 'pdf', this); });
-    document.getElementById('mPpt').addEventListener('click', function () { copyFormatted(p.promptText, 'ppt', this); });
     body.querySelectorAll('[data-close]').forEach(function (x) { x.addEventListener('click', closeModal); });
     var m = document.getElementById('modal'); m.classList.add('open'); m.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden';
   }
