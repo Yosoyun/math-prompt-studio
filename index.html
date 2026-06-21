@@ -203,7 +203,8 @@
     <p class="sub">500+ prompts. Pick a group, search, open a card, copy. Every card tells you whether it works on free AI and exactly how to use it. No download needed &mdash; just copy what you need.</p>
   </div>
   <div class="library-controls">
-    <div class="search-wrap"><span class="search-ic">&#128269;</span><input type="search" id="search" placeholder="Search e.g. 'question paper', 'integration', 'flashcards', 'book chapter'..." aria-label="Search prompts" /></div>
+    <div class="search-wrap"><span class="search-ic">&#128269;</span><input type="search" id="search" placeholder="Search e.g. 'question paper', 'integration', 'flashcards', 'book chapter'..." aria-label="Search prompts" /><button class="search-clear" id="searchClear" aria-label="Clear search" hidden>&times;</button></div>
+    <div class="result-count" id="resultCount" aria-live="polite"></div>
     <div class="filter-chips" id="groupChips" role="tablist" aria-label="Filter by group"></div>
     <div class="legend">
       <span class="lg"><span class="dot dot-green"></span> Works on any free AI</span>
