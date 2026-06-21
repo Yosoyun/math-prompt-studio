@@ -90,11 +90,11 @@
     var id = p._id;
     return '<article class="card" data-id="' + id + '"><div class="card-tags"><span class="tag tag-cat">' + esc(p._catTitle) + '</span>' + tagChip(p) + '</div>' +
       '<h4>' + esc(p.title) + '</h4><p class="card-what">' + esc(p.whatYouGet) + '</p><div class="card-rel">' + relBadge(p) + '</div>' +
+      '<button class="card-copy-main" data-copy="' + id + '">&#128203; Copy prompt</button>' +
       '<div class="card-open">' +
-      '<button class="btn-tool t-gpt" data-open="' + id + '" data-tool="gpt">&#129302; Open in ChatGPT</button>' +
-      '<button class="btn-tool t-claude" data-open="' + id + '" data-tool="claude">&#128172; Open in Claude</button>' +
+      '<button class="btn-tool t-gpt" data-open="' + id + '" data-tool="gpt">&#129302; Open ChatGPT</button>' +
+      '<button class="btn-tool t-claude" data-open="' + id + '" data-tool="claude">&#128172; Open Claude</button>' +
       '</div>' +
-      '<button class="btn-soft card-copy" data-copy="' + id + '">&#128203; Copy prompt</button>' +
       '<button class="card-more" data-view="' + id + '">How to use this &rarr;</button>' +
       '</article>';
   }

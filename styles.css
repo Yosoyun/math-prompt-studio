@@ -511,3 +511,13 @@ textarea.fb-input{resize:vertical}
 .card-copy.done{background:var(--green-soft);color:var(--green);border-color:var(--green)}
 .card-more{display:block;width:100%;margin-top:9px;padding-top:9px;border:none;border-top:1px dashed var(--line);background:none;color:var(--blue-2);font-weight:700;font-size:12.5px;cursor:pointer;text-align:center}
 .card-more:hover{color:var(--violet);text-decoration:underline}
+
+/* ============================================================
+   v7 - Copy as the primary (works everywhere incl. phone apps)
+   ============================================================ */
+.card-copy-main{width:100%;margin-top:2px;padding:12px;border-radius:12px;border:none;cursor:pointer;font-weight:700;font-size:14px;background:linear-gradient(150deg,var(--blue),var(--violet));color:#fff;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:var(--shadow-sm);transition:transform .12s,box-shadow .12s}
+.card-copy-main:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.card-copy-main.done{background:linear-gradient(150deg,var(--green),#3a9c6a)}
+.card-open{margin-top:8px}
+.lib-tip{max-width:680px;margin:10px auto 0;text-align:center;font-size:13px;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:9px 16px}
+.lib-tip b{color:var(--ink)}
