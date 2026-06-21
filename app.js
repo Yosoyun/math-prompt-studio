@@ -41,14 +41,16 @@
 
   /* ---------- open in tool ---------- */
   function openTool(text, tool, btn) {
-    // Reliable on every device: phone apps ignore URL prefill, ChatGPT ?q= auto-submits
-    // half-filled templates, and Claude removed ?q=. So we ALWAYS copy + open a fresh chat.
+    // Try to pre-fill via ?q= (works on ChatGPT/Gemini web; Claude may ignore it). ALWAYS copy too,
+    // so it works on phone apps that ignore the URL: the toast tells the teacher to paste if empty.
     var base = tool === 'claude' ? 'https://claude.ai/new' : 'https://chatgpt.com/';
     var name = tool === 'claude' ? 'Claude' : 'ChatGPT';
+    var full = base + '?q=' + encodeURIComponent(text);
+    var url = full.length <= 7000 ? full : base; // very long prompts -> open bare + rely on clipboard
     clip(text).then(function () {
-      try { window.open(base, '_blank', 'noopener'); } catch (e) { location.href = base; }
-      copyBtn(btn, '&#10003; Copied + opened');
-      showToast(name + ' opened in a new tab and your prompt is COPIED. Now paste it (long-press > Paste, or Ctrl/Cmd+V), fill the [brackets], and send.');
+      try { window.open(url, '_blank', 'noopener'); } catch (e) { location.href = url; }
+      copyBtn(btn, '&#10003; Opened');
+      showToast(name + ' is opening with your prompt loaded. It is also copied - if the box is empty (some phone apps), just paste it, fill the [brackets], and send.');
     });
   }
 

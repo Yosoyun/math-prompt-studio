@@ -66,8 +66,9 @@ var P="ROLE: Act as a mathematics teacher and visual designer creating a printab
 function toast(m){var t=document.getElementById('t');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2600);}
 function clip(x){return (navigator.clipboard&&navigator.clipboard.writeText)?navigator.clipboard.writeText(x):new Promise(function(r){var a=document.createElement('textarea');a.value=x;a.style.position='fixed';a.style.opacity=0;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(a);r();});}
 document.getElementById('cp').onclick=function(){clip(P).then(function(){toast('Copied! Paste it into your AI chat.')})};
-document.getElementById('gpt').onclick=function(){clip(P).then(function(){window.open('https://chatgpt.com/','_blank','noopener');toast('ChatGPT opened + prompt copied. Paste it, fill the [brackets], send.')})};
-document.getElementById('cla').onclick=function(){clip(P).then(function(){window.open('https://claude.ai/new','_blank','noopener');toast('Claude opened + prompt copied. Paste it, fill the [brackets], send.')})};
+function openT(base,name){var full=base+'?q='+encodeURIComponent(P);var u=full.length<=7000?full:base;clip(P).then(function(){window.open(u,'_blank','noopener');toast(name+' opening with your prompt loaded. Also copied - if empty, just paste it.')})}
+document.getElementById('gpt').onclick=function(){openT('https://chatgpt.com/','ChatGPT')};
+document.getElementById('cla').onclick=function(){openT('https://claude.ai/new','Claude')};
 document.getElementById('lnk').onclick=function(){clip(URL).then(function(){toast('Link copied - share it with a teacher!')})};
 document.getElementById('sh').onclick=function(){var msg='Free AI prompt for maths teachers - '+document.title.split(' - ')[0]+': ';if(navigator.share){navigator.share({title:'Maths Prompt Studio',text:msg,url:URL}).catch(function(){})}else{window.open('https://wa.me/?text='+encodeURIComponent(msg+' '+URL),'_blank')}};
 </script>
