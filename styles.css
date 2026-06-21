@@ -532,3 +532,21 @@ html:not([data-theme="dark"]){--ink-faint:#6f6a60}
   *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   .reveal{opacity:1!important;transform:none!important}
 }
+
+/* ============================================================
+   Phase 2 - Trust section + report link
+   ============================================================ */
+.trust-card{max-width:920px;margin:0 auto;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(28px,4vw,46px);box-shadow:var(--shadow)}
+.trust-card .kicker{margin-bottom:14px}
+.trust-card>h2{font-size:clamp(24px,3.6vw,36px);font-weight:800;letter-spacing:-.02em}
+.trust-card>p{color:var(--ink-soft);font-size:16px;line-height:1.6;margin:14px auto 26px;max-width:660px}
+.trust-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;text-align:left;margin-bottom:28px}
+.tg{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px}
+.tg span{font-size:24px;line-height:1}
+.tg b{display:block;font-family:var(--font-head);font-size:16px;margin:8px 0 4px}
+.tg p{color:var(--ink-soft);font-size:13.5px;margin:0;line-height:1.5}
+.trust-card .btn-primary{font-size:17px;padding:15px 32px}
+.trust-note{color:var(--ink-faint);font-size:13.5px;margin:16px 0 0;font-style:italic}
+.modal-report{margin:12px 0 0;text-align:center}
+.modal-report a{color:var(--ink-faint);font-size:13px;font-weight:600}
+.modal-report a:hover{color:var(--rose)}

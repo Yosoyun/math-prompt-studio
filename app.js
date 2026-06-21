@@ -152,7 +152,8 @@
       '<div class="modal-actions"><button class="btn-copy" id="mCopy">&#128203; Copy prompt</button>' +
       '<button class="btn-soft" id="mShare">&#128241; Share this prompt</button>' +
       '<button class="btn-soft" id="mLink">&#128279; Copy link</button>' +
-      '<button class="btn-view" data-close>Close</button></div>';
+      '<button class="btn-view" data-close>Close</button></div>' +
+      '<p class="modal-report"><a href="#" id="mReport">&#9888;&#65039; Report a problem with this prompt</a></p>';
     var PAGE = SITE + 'p/' + (p.slug || '') + '/';
     document.getElementById('mGpt').addEventListener('click', function () { openTool(p.promptText, 'gpt', this); });
     document.getElementById('mClaude').addEventListener('click', function () { openTool(p.promptText, 'claude', this); });
@@ -163,6 +164,11 @@
       else { window.open('https://wa.me/?text=' + encodeURIComponent(msg + ' ' + PAGE), '_blank'); }
     });
     document.getElementById('mLink').addEventListener('click', function () { copyText(PAGE, this, 'Link copied - send this prompt to a teacher!'); });
+    document.getElementById('mReport').addEventListener('click', function (e) {
+      e.preventDefault();
+      var b = 'Prompt: ' + p.title + ' (' + (p.slug || p._id) + ')\nPage: ' + PAGE + '\n\nWhat went wrong (e.g. wrong answer, unclear step, bad formatting):\n';
+      window.location.href = 'mailto:' + CFG.email + '?subject=' + encodeURIComponent('Problem with prompt: ' + p.title) + '&body=' + encodeURIComponent(b);
+    });
     body.querySelectorAll('[data-close]').forEach(function (x) { x.addEventListener('click', closeModal); });
     if (p.slug) { try { history.replaceState(null, '', '#p/' + p.slug); } catch (e) {} }
     var m = document.getElementById('modal'); m.classList.add('open'); m.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden';
@@ -220,6 +226,7 @@
   }
   function initAbout() { var a = document.getElementById('aboutAvatar'); if (a && CFG.photoUrl) { a.style.backgroundImage = 'url(' + CFG.photoUrl + ')'; a.style.backgroundSize = 'cover'; a.style.backgroundPosition = 'center'; a.textContent = ''; } }
   function initAnalytics() { if (!CFG.analyticsSrc) return; var s = document.createElement('script'); s.defer = true; s.src = CFG.analyticsSrc; if (CFG.analyticsDomain) s.setAttribute('data-domain', CFG.analyticsDomain); document.head.appendChild(s); }
+  function initTrust() { var btn = document.getElementById('verifyBtn'); if (!btn) return; btn.addEventListener('click', function () { var p = findSlug('double-check-any-ai-maths-answer') || ALL.find(function (x) { return /double-check/i.test(x.title); }); if (p) openModal(p); else { document.getElementById('library').scrollIntoView({ behavior: 'smooth' }); } }); }
   function initTabs() { document.querySelectorAll('.tabs').forEach(function (set) { set.querySelectorAll('.tab').forEach(function (tab) { tab.addEventListener('click', function () { var name = tab.getAttribute('data-tab'); set.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); }); tab.classList.add('active'); set.parentElement.querySelectorAll('.tabpane').forEach(function (pane) { pane.classList.toggle('active', pane.getAttribute('data-pane') === name); }); }); }); }); }
   function initReveal() { var els = document.querySelectorAll('.reveal'); if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; } var io = new IntersectionObserver(function (ents) { ents.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }); }, { threshold: 0.12 }); els.forEach(function (e) { io.observe(e); }); }
   function initTheme() { var saved = null; try { saved = localStorage.getItem('mps-theme'); } catch (e) {} if (saved) document.documentElement.setAttribute('data-theme', saved); var btn = document.getElementById('themeBtn'); function sync() { btn.innerHTML = document.documentElement.getAttribute('data-theme') === 'dark' ? '&#9728;' : '&#9790;'; } sync(); btn.addEventListener('click', function () { var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', next); try { localStorage.setItem('mps-theme', next); } catch (e) {} sync(); }); }
@@ -243,7 +250,7 @@
     document.getElementById('year').textContent = new Date().getFullYear();
     initTheme(); initTabs(); renderLearn(); initFeedback(); initShare(); initAbout(); initReveal(); initAnalytics();
     if (!DATA.length) { document.getElementById('catStream').innerHTML = '<div class="no-results">The library is still being prepared. Please refresh in a moment.</div>'; return; }
-    setStats(); buildChips(); wireStream(); render(); initSearch();
+    setStats(); buildChips(); wireStream(); render(); initSearch(); initTrust();
     document.querySelectorAll('#modal [data-close]').forEach(function (x) { x.addEventListener('click', closeModal); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
     openFromHash(); window.addEventListener('hashchange', openFromHash);

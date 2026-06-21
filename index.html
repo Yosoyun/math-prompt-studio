@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=8" />
+<link rel="stylesheet" href="styles.css?v=9" />
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -42,6 +42,7 @@
   <nav class="head-nav" aria-label="Primary">
     <a href="#guide">Beginner's Guide</a>
     <a href="#learn">Learn 10&times;</a>
+    <a href="#trust">Verify</a>
     <a href="#library">Prompts</a>
     <a href="#about">About</a>
     <a href="#feedback">Feedback</a>
@@ -205,6 +206,23 @@
   </div>
   <div class="learn-grid" id="learnGrid"></div>
   <div class="learn-foot">Share these with your students &mdash; an honest, AI-assisted study routine genuinely multiplies how fast anyone learns maths.</div>
+</section>
+
+<!-- ===== TRUST ===== -->
+<section class="section" id="trust">
+  <div class="trust-card">
+    <span class="kicker">Built on trust, not blind faith</span>
+    <h2>Can you trust the maths? Yes &mdash; and here's how.</h2>
+    <p>AI is brilliant but not perfect. So this studio is built for <strong>verification</strong>: every solution prompt makes the AI show and double-check its working, and you get a one-tap way to independently re-check <em>any</em> answer before you use it in class.</p>
+    <div class="trust-grid">
+      <div class="tg"><span aria-hidden="true">&#128260;</span><b>Double-check button</b><p>Paste any AI answer into the verifier for an independent GREEN / AMBER / RED verdict and the fix.</p></div>
+      <div class="tg"><span aria-hidden="true">&#9989;</span><b>Self-verifying prompts</b><p>Every solution prompt makes the AI re-solve a second way and show the numbers, not just claim "verified".</p></div>
+      <div class="tg"><span aria-hidden="true">&#128208;</span><b>Exact diagrams</b><p>Geometry &amp; graphs come as GeoGebra / Desmos / TikZ code &mdash; accurate, never a fuzzy AI picture.</p></div>
+      <div class="tg"><span aria-hidden="true">&#9888;&#65039;</span><b>Report anything</b><p>Spot a wrong output? One tap reports it (with the prompt name) so it gets fixed on priority.</p></div>
+    </div>
+    <button class="btn btn-primary" id="verifyBtn">&#128260; Double-check any AI answer</button>
+    <p class="trust-note">Your expert eye is always the final word &mdash; the AI does the typing, you do the teaching.</p>
+  </div>
 </section>
 
 <!-- ===== LIBRARY ===== -->
@@ -399,8 +417,8 @@
   ]
 }
 </script>
-<script src="config.js?v=8"></script>
-<script src="data/prompts.js?v=8"></script>
-<script src="app.js?v=8"></script>
+<script src="config.js?v=9"></script>
+<script src="data/prompts.js?v=9"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>
