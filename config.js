@@ -13,5 +13,9 @@ window.MPS_CONFIG = {
   whatsapp: "918072965053",
   instagram: "indrajeetsirallen",
   googleFormUrl: "",
-  photoUrl: ""
+  photoUrl: "",
+  // OPTIONAL analytics (free, privacy-friendly). To turn on, make a free account at
+  // cloudflare web analytics / plausible / umami / goatcounter and paste its script src + your domain:
+  analyticsSrc: "",      // e.g. "https://plausible.io/js/script.js" or your Umami/Cloudflare beacon src
+  analyticsDomain: ""    // e.g. "mathspromptstudio.com" (Plausible/Umami data-domain)
 };

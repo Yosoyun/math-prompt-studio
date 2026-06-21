@@ -149,14 +149,27 @@
       '<div class="modal-open"><span class="mo-lbl">Open it in one click (the prompt is copied for you):</span><div class="mo-btns"><button class="btn-tool t-gpt" id="mGpt">&#129302; Open in ChatGPT</button><button class="btn-tool t-claude" id="mClaude">&#128172; Open in Claude</button></div></div>' +
       steps + fix +
       '<div class="modal-lbl">COPY THE PROMPT</div><div class="prompt-box"><pre>' + esc(p.promptText) + '</pre></div>' +
-      '<div class="modal-actions"><button class="btn-copy" id="mCopy">&#128203; Copy prompt</button><button class="btn-view" data-close>Close</button></div>';
+      '<div class="modal-actions"><button class="btn-copy" id="mCopy">&#128203; Copy prompt</button>' +
+      '<button class="btn-soft" id="mShare">&#128241; Share this prompt</button>' +
+      '<button class="btn-soft" id="mLink">&#128279; Copy link</button>' +
+      '<button class="btn-view" data-close>Close</button></div>';
+    var PAGE = SITE + 'p/' + (p.slug || '') + '/';
     document.getElementById('mGpt').addEventListener('click', function () { openTool(p.promptText, 'gpt', this); });
     document.getElementById('mClaude').addEventListener('click', function () { openTool(p.promptText, 'claude', this); });
     document.getElementById('mCopy').addEventListener('click', function () { copyText(p.promptText, this, 'Copied! Paste it into your AI chat.'); });
+    document.getElementById('mShare').addEventListener('click', function () {
+      var msg = 'Free AI prompt for maths teachers - ' + p.title + ':';
+      if (p.slug && navigator.share) { navigator.share({ title: 'Maths Prompt Studio', text: msg, url: PAGE }).catch(function () {}); }
+      else { window.open('https://wa.me/?text=' + encodeURIComponent(msg + ' ' + PAGE), '_blank'); }
+    });
+    document.getElementById('mLink').addEventListener('click', function () { copyText(PAGE, this, 'Link copied - send this prompt to a teacher!'); });
     body.querySelectorAll('[data-close]').forEach(function (x) { x.addEventListener('click', closeModal); });
+    if (p.slug) { try { history.replaceState(null, '', '#p/' + p.slug); } catch (e) {} }
     var m = document.getElementById('modal'); m.classList.add('open'); m.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden';
   }
-  function closeModal() { var m = document.getElementById('modal'); m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
+  function closeModal() { var m = document.getElementById('modal'); m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; if ((location.hash || '').indexOf('#p/') === 0) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} } }
+  function findSlug(slug) { for (var i = 0; i < ALL.length; i++) if (ALL[i].slug === slug) return ALL[i]; return null; }
+  function openFromHash() { var h = location.hash || ''; if (h.indexOf('#p/') === 0) { var p = findSlug(decodeURIComponent(h.slice(3))); if (p) openModal(p); } }
 
   /* ---------- LEARN 10x ---------- */
   var LEARN = [
@@ -206,6 +219,7 @@
     var link = document.getElementById('shareLink'); if (link) link.textContent = SITE;
   }
   function initAbout() { var a = document.getElementById('aboutAvatar'); if (a && CFG.photoUrl) { a.style.backgroundImage = 'url(' + CFG.photoUrl + ')'; a.style.backgroundSize = 'cover'; a.style.backgroundPosition = 'center'; a.textContent = ''; } }
+  function initAnalytics() { if (!CFG.analyticsSrc) return; var s = document.createElement('script'); s.defer = true; s.src = CFG.analyticsSrc; if (CFG.analyticsDomain) s.setAttribute('data-domain', CFG.analyticsDomain); document.head.appendChild(s); }
   function initTabs() { document.querySelectorAll('.tabs').forEach(function (set) { set.querySelectorAll('.tab').forEach(function (tab) { tab.addEventListener('click', function () { var name = tab.getAttribute('data-tab'); set.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); }); tab.classList.add('active'); set.parentElement.querySelectorAll('.tabpane').forEach(function (pane) { pane.classList.toggle('active', pane.getAttribute('data-pane') === name); }); }); }); }); }
   function initReveal() { var els = document.querySelectorAll('.reveal'); if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; } var io = new IntersectionObserver(function (ents) { ents.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }); }, { threshold: 0.12 }); els.forEach(function (e) { io.observe(e); }); }
   function initTheme() { var saved = null; try { saved = localStorage.getItem('mps-theme'); } catch (e) {} if (saved) document.documentElement.setAttribute('data-theme', saved); var btn = document.getElementById('themeBtn'); function sync() { btn.innerHTML = document.documentElement.getAttribute('data-theme') === 'dark' ? '&#9728;' : '&#9790;'; } sync(); btn.addEventListener('click', function () { var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', next); try { localStorage.setItem('mps-theme', next); } catch (e) {} sync(); }); }
@@ -227,11 +241,12 @@
 
   function init() {
     document.getElementById('year').textContent = new Date().getFullYear();
-    initTheme(); initTabs(); renderLearn(); initFeedback(); initShare(); initAbout(); initReveal();
+    initTheme(); initTabs(); renderLearn(); initFeedback(); initShare(); initAbout(); initReveal(); initAnalytics();
     if (!DATA.length) { document.getElementById('catStream').innerHTML = '<div class="no-results">The library is still being prepared. Please refresh in a moment.</div>'; return; }
     setStats(); buildChips(); wireStream(); render(); initSearch();
     document.querySelectorAll('#modal [data-close]').forEach(function (x) { x.addEventListener('click', closeModal); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    openFromHash(); window.addEventListener('hashchange', openFromHash);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
