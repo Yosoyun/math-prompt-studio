@@ -521,3 +521,14 @@ textarea.fb-input{resize:vertical}
 .card-open{margin-top:8px}
 .lib-tip{max-width:680px;margin:10px auto 0;text-align:center;font-size:13px;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:9px 16px}
 .lib-tip b{color:var(--ink)}
+
+/* ============================================================
+   v8 - accessibility & contrast
+   ============================================================ */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--violet);outline-offset:2px;border-radius:8px}
+html:not([data-theme="dark"]){--ink-faint:#6f6a60}
+.card-what{font-size:14.5px}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1!important;transform:none!important}
+}

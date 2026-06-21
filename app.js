@@ -41,18 +41,14 @@
 
   /* ---------- open in tool ---------- */
   function openTool(text, tool, btn) {
+    // Reliable on every device: phone apps ignore URL prefill, ChatGPT ?q= auto-submits
+    // half-filled templates, and Claude removed ?q=. So we ALWAYS copy + open a fresh chat.
     var base = tool === 'claude' ? 'https://claude.ai/new' : 'https://chatgpt.com/';
     var name = tool === 'claude' ? 'Claude' : 'ChatGPT';
-    var limit = tool === 'claude' ? 10000 : 6000; // keep within safe URL length
-    var full = base + '?q=' + encodeURIComponent(text);
-    var carried = full.length <= limit;
     clip(text).then(function () {
-      var url = carried ? full : base;
-      try { window.open(url, '_blank', 'noopener'); } catch (e) { location.href = url; }
-      copyBtn(btn, '&#10003; Opened');
-      showToast(carried
-        ? name + ' is opening with your prompt. It is also copied - if the box is empty, just paste it (Ctrl/Cmd+V or long-press > Paste), fill the [brackets] and send.'
-        : name + ' opened. This prompt is long, so it is copied - paste it (Ctrl/Cmd+V or long-press > Paste), then send.');
+      try { window.open(base, '_blank', 'noopener'); } catch (e) { location.href = base; }
+      copyBtn(btn, '&#10003; Copied + opened');
+      showToast(name + ' opened in a new tab and your prompt is COPIED. Now paste it (long-press > Paste, or Ctrl/Cmd+V), fill the [brackets], and send.');
     });
   }
 
