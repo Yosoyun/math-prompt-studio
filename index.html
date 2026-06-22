@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=10" />
+<link rel="stylesheet" href="styles.css?v=11" />
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -41,6 +41,7 @@
   </a>
   <nav class="head-nav" aria-label="Primary">
     <a href="#guide">Beginner's Guide</a>
+    <a href="#builder">Paper Builder</a>
     <a href="#learn">Learn 10&times;</a>
     <a href="#trust">Verify</a>
     <a href="#library">Prompts</a>
@@ -222,6 +223,50 @@
     </div>
     <button class="btn btn-primary" id="verifyBtn">&#128260; Double-check any AI answer</button>
     <p class="trust-note">Your expert eye is always the final word &mdash; the AI does the typing, you do the teaching.</p>
+  </div>
+</section>
+
+<!-- ===== PAPER BUILDER ===== -->
+<section class="section section-tint" id="builder">
+  <div class="section-head">
+    <span class="kicker">No typing, no [brackets]</span>
+    <h2>The 3-Tap Exam-Paper Builder</h2>
+    <p class="sub">Pick a few options and get a complete, ready-to-paste prompt - the AI then writes the whole paper (with answer key). Perfect if you don't want to fill anything in yourself.</p>
+  </div>
+  <div class="builder">
+    <div class="builder-form">
+      <div class="bf-row">
+        <label>Class / Grade
+          <select id="bClass"><option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option selected>Class 10</option><option>Class 11</option><option>Class 12</option><option>College / University</option></select>
+        </label>
+        <label>Board / Exam
+          <select id="bBoard"><option selected>CBSE</option><option>ICSE</option><option>State Board</option><option>JEE Main</option><option>JEE Advanced</option><option>NEET</option><option>General</option></select>
+        </label>
+      </div>
+      <div class="bf-row">
+        <label>What to make
+          <select id="bType"><option selected>Full question paper</option><option>Unit test</option><option>Sample / model paper</option><option>Worksheet</option><option>Daily Practice (DPP)</option><option>MCQ test</option></select>
+        </label>
+        <label>Difficulty
+          <select id="bDiff"><option selected>Balanced</option><option>Easy-leaning</option><option>Challenging</option></select>
+        </label>
+      </div>
+      <label>Chapters / topics to cover
+        <input id="bChapters" type="text" placeholder="e.g. Trigonometry, Quadratic Equations, Probability" />
+      </label>
+      <div class="bf-row">
+        <label>Total marks<input id="bMarks" type="text" value="40" /></label>
+        <label>Time<input id="bTime" type="text" value="1.5 hours" /></label>
+      </div>
+      <button class="btn btn-primary" id="bBuild">&#10024; Build my prompt</button>
+    </div>
+    <div class="builder-out" id="bOut" hidden>
+      <div class="modal-lbl">YOUR READY-TO-USE PROMPT</div>
+      <div class="prompt-box"><pre id="bPre"></pre></div>
+      <button class="card-copy-main" id="bCopy">&#128203; Copy prompt</button>
+      <div class="card-open"><button class="btn-tool t-gpt" id="bGpt">&#129302; Open ChatGPT</button><button class="btn-tool t-claude" id="bCla">&#128172; Open Claude</button></div>
+      <p class="builder-tip">&#128161; Tip: for an extra-safe answer key, paste the finished paper into a FRESH chat and ask it to re-solve it as an unseen exam.</p>
+    </div>
   </div>
 </section>
 
@@ -417,8 +462,8 @@
   ]
 }
 </script>
-<script src="config.js?v=10"></script>
-<script src="data/prompts.js?v=10"></script>
-<script src="app.js?v=10"></script>
+<script src="config.js?v=11"></script>
+<script src="data/prompts.js?v=11"></script>
+<script src="app.js?v=11"></script>
 </body>
 </html>

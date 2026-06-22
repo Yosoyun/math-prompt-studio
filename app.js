@@ -146,20 +146,31 @@
     var steps = (p.effectiveUsage && p.effectiveUsage.length) ? '<div class="modal-eff"><h4>&#9989; How to use this effectively</h4><ol>' + p.effectiveUsage.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol></div>' : '';
     var fix = p.commonFix ? '<div class="modal-fix"><b>&#128295; If it is not right, reply with this:</b> ' + esc(p.commonFix) + '</div>' : '';
     var body = document.getElementById('modalBody');
+    var _toks = [];
+    (p.promptText.match(/\[[^\]\n]{1,80}\]/g) || []).forEach(function (t) { if (_toks.indexOf(t) === -1) _toks.push(t); });
+    _toks = _toks.slice(0, 12);
+    function filled() { var t = p.promptText; _toks.forEach(function (tok, i) { var elx = body.querySelector('[data-tok="' + i + '"]'); var v = elx ? elx.value.trim() : ''; if (v) t = t.split(tok).join(v); }); return t; }
+    var fillHTML = '';
+    if (_toks.length) {
+      fillHTML = '<details class="modal-fill"><summary>&#9999;&#65039; Fill in the blanks here (optional)</summary><p class="mf-note">Type your details - the prompt below and the Copy / Open buttons update automatically.</p><div class="mf-grid">' +
+        _toks.map(function (t, i) { var label = esc(t.replace(/^\[|\]$/g, '').slice(0, 52)); var long = /PASTE|ATTACH|QUESTION|DATA|LIST|DESCRIBE|CHAPTER|TOPIC|SYLLABUS|WRITE YOURS|FIGURE/i.test(t); return '<label class="mf-f"><span>' + label + '</span>' + (long ? '<textarea data-tok="' + i + '" rows="2"></textarea>' : '<input data-tok="' + i + '" type="text" />') + '</label>'; }).join('') +
+        '</div></details>';
+    }
     body.innerHTML = '<h3 id="modalTitle">' + esc(p.title) + '</h3><div class="modal-tags"><span class="tag tag-cat">' + esc(p._catTitle) + '</span>' + tagChip(p) + '</div>' +
       '<div class="card-rel" style="margin:0 0 14px">' + relBadge(p) + ' &nbsp;&middot;&nbsp; <span class="rel">Best tool: <b>&nbsp;' + esc(p.bestTool || 'Any AI chat') + '</b></span></div>' +
       '<div class="modal-open"><span class="mo-lbl">Open it in one click (the prompt is copied for you):</span><div class="mo-btns"><button class="btn-tool t-gpt" id="mGpt">&#129302; Open in ChatGPT</button><button class="btn-tool t-claude" id="mClaude">&#128172; Open in Claude</button></div></div>' +
-      steps + fix +
-      '<div class="modal-lbl">COPY THE PROMPT</div><div class="prompt-box"><pre>' + esc(p.promptText) + '</pre></div>' +
+      steps + fix + fillHTML +
+      '<div class="modal-lbl">COPY THE PROMPT</div><div class="prompt-box"><pre id="mPre">' + esc(p.promptText) + '</pre></div>' +
       '<div class="modal-actions"><button class="btn-copy" id="mCopy">&#128203; Copy prompt</button>' +
       '<button class="btn-soft" id="mShare">&#128241; Share this prompt</button>' +
       '<button class="btn-soft" id="mLink">&#128279; Copy link</button>' +
       '<button class="btn-view" data-close>Close</button></div>' +
       '<p class="modal-report"><a href="#" id="mReport">&#9888;&#65039; Report a problem with this prompt</a></p>';
     var PAGE = SITE + 'p/' + (p.slug || '') + '/';
-    document.getElementById('mGpt').addEventListener('click', function () { openTool(p.promptText, 'gpt', this); });
-    document.getElementById('mClaude').addEventListener('click', function () { openTool(p.promptText, 'claude', this); });
-    document.getElementById('mCopy').addEventListener('click', function () { copyText(p.promptText, this, 'Copied! Paste it into your AI chat.'); });
+    document.getElementById('mGpt').addEventListener('click', function () { openTool(filled(), 'gpt', this); });
+    document.getElementById('mClaude').addEventListener('click', function () { openTool(filled(), 'claude', this); });
+    document.getElementById('mCopy').addEventListener('click', function () { copyText(filled(), this, 'Copied! Paste it into your AI chat.'); });
+    body.querySelectorAll('[data-tok]').forEach(function (elx) { elx.addEventListener('input', function () { var pre = document.getElementById('mPre'); if (pre) pre.textContent = filled(); }); });
     document.getElementById('mShare').addEventListener('click', function () {
       var msg = 'Free AI prompt for maths teachers - ' + p.title + ':';
       if (p.slug && navigator.share) { navigator.share({ title: 'Maths Prompt Studio', text: msg, url: PAGE }).catch(function () {}); }
@@ -227,6 +238,43 @@
     var link = document.getElementById('shareLink'); if (link) link.textContent = SITE;
   }
   function initAbout() { var a = document.getElementById('aboutAvatar'); if (a && CFG.photoUrl) { a.style.backgroundImage = 'url(' + CFG.photoUrl + ')'; a.style.backgroundSize = 'cover'; a.style.backgroundPosition = 'center'; a.textContent = ''; } }
+  function buildPaperPrompt(o) {
+    var foot = '\n\nSIGNATURE: End your ENTIRE response with exactly this footer block:\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\u270D\uFE0F Crafted with prompts by Indrajeet Yadav \u00B7 Maths Faculty\n\uD83D\uDD17 Free tools & to reach me: ' + SITE + '\nQuestions, feedback or appreciation are always welcome.\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501';
+    var sectioned = /paper|test/i.test(o.type);
+    return 'ROLE: Act as a senior ' + o.board + ' mathematics paper-setter and answer-key writer with 25 years of experience.\n\n' +
+      'CONTEXT: Make a ' + o.type + ' for ' + o.cls + ' students (' + o.board + '). Total marks: ' + o.marks + '. Time: ' + o.time + '. Difficulty: ' + o.diff + '.\n\n' +
+      'CHAPTERS / TOPICS to draw from (use ONLY these, and only the CURRENT syllabus): ' + o.chapters + '\n\n' +
+      'YOUR TASK:\n' +
+      '1. Start with a clean header block: exam name, subject (Mathematics), class, board, time, max marks, and 5-7 numbered General Instructions.\n' +
+      (sectioned
+        ? '2. Organise into standard ' + o.board + ' sections (e.g. Section A objective/MCQ, B very-short, C short, D long, E case/source-based) suited to the marks. Number questions continuously; show marks in brackets on the right; add internal choice (OR) where the pattern expects it.\n'
+        : '2. Present it as a clean ' + o.type + ': a graded set of questions from easy to hard, numbered, with marks/level shown.\n') +
+      '3. Add a mark-distribution table; the grand total MUST equal ' + o.marks + '.\n' +
+      '4. Then, clearly separated under a heading "ANSWER KEY", give a complete step-wise solution and marking scheme for every question.\n\n' +
+      'HOW TO WORK IT OUT: Silently solve every question first to confirm it is solvable and unambiguous. Check the marks sum exactly to ' + o.marks + '. Keep all maths in readable plain text (a/b, x^2, sqrt(x)) - never raw LaTeX.\n\n' +
+      'OUTPUT FILE FORMAT: present everything ready to paste into Microsoft Word or Google Docs and print as an A4 PDF; keep the ANSWER KEY clearly separated.\n\n' +
+      'GROUND RULES: stay strictly inside the given chapters and the current ' + o.board + ' syllabus; do not invent out-of-syllabus topics, fake data, or marks you were not asked for. If a chapter name is unclear, ask me before including it.' +
+      foot;
+  }
+  function initBuilder() {
+    var btn = document.getElementById('bBuild'); if (!btn) return;
+    function gen() {
+      return buildPaperPrompt({
+        cls: (document.getElementById('bClass') || {}).value || 'Class 10',
+        board: (document.getElementById('bBoard') || {}).value || 'CBSE',
+        type: (document.getElementById('bType') || {}).value || 'Full question paper',
+        diff: (document.getElementById('bDiff') || {}).value || 'Balanced',
+        chapters: ((document.getElementById('bChapters') || {}).value || '').trim() || '[type your chapters here]',
+        marks: ((document.getElementById('bMarks') || {}).value || '40').trim(),
+        time: ((document.getElementById('bTime') || {}).value || '1.5 hours').trim()
+      });
+    }
+    function refresh() { var pre = document.getElementById('bPre'); if (pre) pre.textContent = gen(); }
+    btn.addEventListener('click', function () { var o = document.getElementById('bOut'); o.hidden = false; refresh(); o.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); });
+    var c = document.getElementById('bCopy'); if (c) c.addEventListener('click', function () { copyText(gen(), this, 'Copied! Paste it into ChatGPT or Claude.'); });
+    var g = document.getElementById('bGpt'); if (g) g.addEventListener('click', function () { openTool(gen(), 'gpt', this); });
+    var cl = document.getElementById('bCla'); if (cl) cl.addEventListener('click', function () { openTool(gen(), 'claude', this); });
+  }
   function initAnalytics() { if (!CFG.analyticsSrc) return; var s = document.createElement('script'); s.defer = true; s.src = CFG.analyticsSrc; if (CFG.analyticsDomain) s.setAttribute('data-domain', CFG.analyticsDomain); document.head.appendChild(s); }
   function initTrust() { var btn = document.getElementById('verifyBtn'); if (!btn) return; btn.addEventListener('click', function () { var p = findSlug('double-check-any-ai-maths-answer') || ALL.find(function (x) { return /double-check/i.test(x.title); }); if (p) openModal(p); else { document.getElementById('library').scrollIntoView({ behavior: 'smooth' }); } }); }
   function initTabs() { document.querySelectorAll('.tabs').forEach(function (set) { set.querySelectorAll('.tab').forEach(function (tab) { tab.addEventListener('click', function () { var name = tab.getAttribute('data-tab'); set.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); }); tab.classList.add('active'); set.parentElement.querySelectorAll('.tabpane').forEach(function (pane) { pane.classList.toggle('active', pane.getAttribute('data-pane') === name); }); }); }); }); }
@@ -252,7 +300,7 @@
     document.getElementById('year').textContent = new Date().getFullYear();
     initTheme(); initTabs(); renderLearn(); initFeedback(); initShare(); initAbout(); initReveal(); initAnalytics();
     if (!DATA.length) { document.getElementById('catStream').innerHTML = '<div class="no-results">The library is still being prepared. Please refresh in a moment.</div>'; return; }
-    setStats(); buildChips(); wireStream(); render(); initSearch(); initTrust();
+    setStats(); buildChips(); wireStream(); render(); initSearch(); initTrust(); initBuilder();
     document.querySelectorAll('#modal [data-close]').forEach(function (x) { x.addEventListener('click', closeModal); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
     openFromHash(); window.addEventListener('hashchange', openFromHash);
