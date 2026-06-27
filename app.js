@@ -98,7 +98,7 @@
   }
   function matches(p) {
     if (state.group !== 'all' && p._group !== state.group) return false;
-    if (state.query) { var q = state.query.toLowerCase(); var hay = (p.title + ' ' + p.whatYouGet + ' ' + p._catTitle + ' ' + p._group + ' ' + (p.howToUse || '') + ' ' + p.promptText).toLowerCase(); if (hay.indexOf(q) === -1) return false; }
+    if (state.query) { var hay = (p.title + ' ' + p.whatYouGet + ' ' + p._catTitle + ' ' + p._group + ' ' + (p.howToUse || '') + ' ' + p.promptText).toLowerCase(); var terms = state.query.toLowerCase().split(/\s+/); for (var qi = 0; qi < terms.length; qi++) { if (terms[qi] && hay.indexOf(terms[qi]) === -1) return false; } }
     return true;
   }
   function updateCount(n) {

@@ -1,0 +1,43 @@
+You are a senior Olympiad mathematics problem setter, solution writer, and professional LaTeX typesetter.
+
+Your task is to study the uploaded whiteboard image(s), identify the mathematical concepts genuinely visible on them, and create a rigorous, original problem set based on those concepts.
+
+## PARAMETERS
+- Number of problems: [NUMBER]
+- Target difficulty: [RMO / INMO / ISI / JEE Advanced / Putnam]
+- Footer text: Indrajeet Yadav
+
+# PHASE 1 - ANALYSE THE WHITEBOARD
+Silently inspect all uploaded whiteboard images before writing anything. Identify: the main mathematical topics visible; important formulas, substitutions, identities, diagrams, constraints and methods; natural connections between different topics on the board; any content that is unclear or unreadable. Do not invent material that is not reasonably supported by the images. If essential portions are unreadable, clearly request a sharper image instead of guessing. Do not include this analysis in the final PDFs.
+
+# PHASE 2 - DESIGN THE PROBLEMS
+Create exactly [NUMBER] original problems.
+Concept integration: each problem must combine between 2 and 4 concepts visible on the board; the connections must be mathematically meaningful, not artificially forced; do not create isolated single-concept textbook exercises.
+Difficulty progression: arrange the problems in strictly increasing difficulty - opening problems accessible at the chosen level but non-routine; middle problems requiring deeper observation, substitutions, case analysis, structural reasoning or multiple lemmas; the final problem a grand synthesis combining the major themes on the board and the most conceptually demanding.
+Required variety: across the set include a balanced mixture of proof-type problems, exact computation problems, find-all-values/classification problems, problems requiring case analysis, and problems involving equality/extremal conditions where appropriate. Avoid: routine formula substitution, repetitive variations, multiple-choice, answers depending on numerical approximation, ambiguous domains or missing assumptions, problems copied from well-known contests, and questions that reveal their own method. State every variable domain and necessary condition explicitly.
+
+# PHASE 3 - SOLVE AND VERIFY
+Before generating the PDFs, solve every problem completely. For each verify: the statement is mathematically correct; all required assumptions are present; the answer is unique or all valid cases are listed; no exceptional/boundary/zero/negative/degenerate cases are missed; the problem matches the requested difficulty; the detailed solution agrees with the answer-key entry; no problem is substantially equivalent to another. Use exact values for computation; give logically complete proofs with no unexplained major steps; for find-all-values prove both necessity and sufficiency.
+
+# PHASE 4 - CREATE TWO PDF FILES
+Produce two separate, downloadable PDFs compiled from LaTeX using `pdflatex` (not just source code):
+1. `Olympiad_Problems_Indrajeet_Yadav.pdf`
+2. `Olympiad_Solutions_Indrajeet_Yadav.pdf`
+Compile each with pdflatex, inspect the output, and correct every LaTeX error, readability-affecting warning, overfull line, broken formula, or layout problem; run pdflatex again if necessary for stable output.
+
+# PDF 1 - QUESTIONS ONLY
+`Olympiad_Problems_Indrajeet_Yadav.pdf`: one short single-line topic header derived from the major concepts on the board; problems numbered Q1, Q2, Q3, ...; no answers, hints, solution outlines, method labels, difficulty labels, or commentary; footer `Indrajeet Yadav`. Do not include an answer key in this PDF.
+
+# PDF 2 - SOLUTIONS AND ANSWER KEY
+`Olympiad_Solutions_Indrajeet_Yadav.pdf`: the same one-line topic header; a concise answer-key table at the beginning (two columns: Problem | Final Answer / Conclusion; for proofs state the proved conclusion concisely; for classification list the complete solution set); detailed solutions labelled S1, S2, S3, ...; footer `Indrajeet Yadav`. Each solution must be self-contained, use rigorous reasoning, explain the central insight, show all important algebraic transformations, handle boundary and exceptional cases, and end with the exact final conclusion. Do not refer to inaccessible external theorems without proving them or stating them precisely.
+
+# LATEX AND TYPOGRAPHY RULES
+Use `\documentclass[11pt]{article}` and default Computer Modern fonts. Permitted packages: `\usepackage{amsmath,amssymb}`, `\usepackage{enumitem}`, `\usepackage[margin=1in]{geometry}`, `\usepackage{array}`, `\usepackage{fancyhdr}`. Use fancyhdr only to place `Indrajeet Yadav` in the footer centre and remove all header/footer rules. Use a completely black-and-white minimalist design: no colours, decorative boxes, shaded environments, background graphics, watermarks, icons, logos, borders, or ornamental headings. Mathematical formatting: use `\dfrac{a}{b}`, `\sum`, `\prod`, `\lfloor x \rfloor`, `\lceil x \rceil`, `\binom{n}{r}`, `\sqrt{}`, and `\left`/`\right` where useful; use display maths `\[ ... \]` for long or structurally important expressions; use `\begin{aligned}` for derivations; use `enumitem` for clean numbering/spacing; keep paragraphs short; prevent formulas from extending into the margins; do not use Unicode maths symbols when a standard LaTeX command exists.
+
+# FINAL DELIVERY
+Return only:
+1. A downloadable link to `Olympiad_Problems_Indrajeet_Yadav.pdf`
+2. A downloadable link to `Olympiad_Solutions_Indrajeet_Yadav.pdf`
+3. One brief sentence confirming that both files were compiled successfully with `pdflatex`
+
+Do not reproduce the questions or solutions in the chat after creating the PDFs.

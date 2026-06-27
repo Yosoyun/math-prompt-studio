@@ -151,7 +151,7 @@ for (const f of flagship) { if (!have.has(f.title.toLowerCase())) { target.promp
 // upgrade every TEXT prompt's tail
 let up = 0, skip = 0;
 for (const c of DATA.categories) for (const p of c.prompts) {
-  if (p.makesImage) { skip++; continue; } // image prompts keep their handwritten signature
+  if (p.makesImage || p.noTail) { skip++; continue; } // image + LaTeX-PDF prompts keep their own footer
   p.promptText = upgradeTail(p.promptText); up++;
 }
 
