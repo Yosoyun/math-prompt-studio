@@ -1,0 +1,71 @@
+Create a vertical mathematics solution poster on an antique parchment sheet, inspired by an old archival manuscript or vintage saloon notice.
+
+VISUAL STYLE
+- Portrait orientation, approximately 4:5 ratio.
+- A single aged parchment sheet with naturally torn, darkened, slightly curled edges.
+- Warm tan, sepia, and brown colour palette.
+- Subtle stains, fibres, wrinkles, and uneven ageing.
+- Background outside the parchment should be very dark brown or black, making the page stand out.
+- Use hand-inked dark-brown lettering.
+- Ornamentation should be minimal: tiny flourishes, horizontal rules, banner ends, and vintage corner details.
+- The result should feel historic, rugged, tactile, and mathematically clean.
+
+TITLE
+At the top centre, write in bold vintage hand lettering:
+"[QUESTION NUMBER] - [SHORT TOPIC OR KEY WORD]"
+Add small symmetrical flourishes around the title. Place a thin ornamental divider underneath.
+
+PROBLEM BOX
+Create a large hand-drawn rectangular frame. Inside it write the exact question:
+"[INSERT THE COMPLETE MATHEMATICS QUESTION VERBATIM]"
+Highlight the key word or repeated object using slightly thicker ink or underlining.
+
+METHOD BANNER
+Below the problem, create a ribbon-style parchment banner reading:
+"Method: [INSERT METHOD NAME]"
+
+STEP-BY-STEP SOLUTION
+Organise the body into large numbered steps using hand-drawn circled numerals.
+
+STEP 1
+Heading: "[INSERT STEP 1 HEADING]"
+Show:
+[FORMULA OR COUNT]
+= [INTERMEDIATE CALCULATION]
+= [RESULT]
+Add a small parenthetical note on the right:
+"([INSERT RELEVANT CONDITION, SUCH AS 'two O's are identical'])"
+
+STEP 2
+Heading: "[INSERT STEP 2 HEADING]"
+Use an arrow to explain the transformation:
+"-> [INSERT GROUPING, BLOCK, GAP, OR COMPLEMENT IDEA]"
+Then write:
+"Arrange [INSERT THE RESULTING UNITS]"
+"([NUMBER AND TYPE OF UNITS])"
+Show:
+= [FORMULA]
+= [RESULT]
+Underline the special block, repeated object, or grouped unit.
+
+STEP 3
+Heading: "Required number ([INSERT REQUIRED CONDITION])"
+Write:
+"= [TOTAL COUNT] - [UNWANTED COUNT]"
+"= [NUMERICAL SUBTRACTION]"
+"= [FINAL ANSWER]"
+Underline the final intermediate result twice.
+
+FINAL ANSWER
+At the bottom centre, create an antique double-line answer cartouche with tiny ornamental flourishes. Inside it write:
+"Final Answer: [FINAL ANSWER]"
+Make the number large, bold, and exceptionally clear.
+
+MATHEMATICAL SAFEGUARDS
+- Verify whether repeated objects are identical.
+- Use n!/r! only when the denominator is mathematically justified.
+- In block-method problems, count the block as one unit.
+- In complement counting, subtract only the exact unwanted set.
+- If several forbidden cases overlap, use inclusion-exclusion rather than simple subtraction.
+- Preserve all supplied notation and wording.
+- No modern fonts, no colourful flowers, no digital icons, no extra historical props, no spelling errors, and no invented arithmetic.

@@ -1,0 +1,82 @@
+Design a highly polished vertical mathematics infographic in a playful engineering-blueprint and mechanical-machine style.
+
+FORMAT AND VISUAL IDENTITY
+- Portrait orientation, approximately 4:5 ratio.
+- White or very pale blue graph-paper background with faint square grid lines.
+- Use deep cobalt blue for outlines, handwriting, borders, and machinery.
+- Use small accents of green for valid choices and yellow for important calculations.
+- The appearance should combine a technical blueprint, classroom notebook, and whimsical counting machine.
+- Keep the page clean, precise, symmetric, and highly legible.
+
+TITLE AREA
+At the top, create a bold hand-drawn heading:
+"[QUESTION NUMBER] - [SHORT TOPIC TITLE]"
+Add a small mechanical gear illustration on the left.
+Add a compact digital counter or counting-machine illustration on the right.
+Use a dashed blue divider below the title.
+
+PROBLEM BOX
+Place the full problem inside a rounded rectangular dashed-line box:
+"[INSERT THE COMPLETE MATHEMATICS QUESTION VERBATIM]"
+
+METHOD BANNER
+Below the problem, add a mechanical label or taped banner:
+"Method: [INSERT METHOD NAME]"
+
+CENTRAL MACHINE DIAGRAM
+Construct a horizontal machine containing labelled position boxes.
+For a number-formation question, use: [THOUSANDS] [HUNDREDS] [TENS] [UNITS]
+For a general arrangement question, adapt the labels to: [POSITION 1] [POSITION 2] [POSITION 3] [POSITION 4]
+Show connecting pipes, bolts, wires, or conveyor details, but do not obstruct the content.
+Below the machine, show the available objects:
+"{[INSERT AVAILABLE DIGITS, LETTERS, OR OBJECTS]}"
+Also display the restriction:
+"([INSERT RESTRICTION, SUCH AS 'No repetition allowed'])"
+
+CASE ANALYSIS
+Divide the main body into clearly separated side-by-side case panels.
+
+CASE 1:
+Heading: "CASE 1: [INSERT FIRST CASE CONDITION]"
+Show a miniature slot diagram. Then list:
+- "[FIRST CHOICE COUNT OR FIXED CONDITION]"
+- "[SECOND CHOICE COUNT OR RESTRICTION]"
+- "[ARRANGEMENT OF REMAINING POSITIONS]"
+Highlight valid choice sets in pale green boxes.
+Show the computation in a pale-yellow formula box:
+"[FORMULA] = [CALCULATION] = [VALUE]"
+At the bottom of the panel:
+"Total for Case 1 = [PRODUCT] = [CASE 1 TOTAL]"
+
+CASE 2:
+Heading: "CASE 2: [INSERT SECOND CASE CONDITION]"
+Use the same visual structure:
+- "[NUMBER OF CHOICES FOR THE SPECIAL POSITION]"
+- "[NUMBER OF VALID CHOICES FOR THE LEADING OR RESTRICTED POSITION]"
+- "[ARRANGEMENT OF THE REMAINING POSITIONS]"
+Formula box: "[FORMULA] = [CALCULATION] = [VALUE]"
+At the bottom: "Total for Case 2 = [PRODUCT] = [CASE 2 TOTAL]"
+Add more case panels only when mathematically necessary.
+
+FINAL ADDITION
+At the bottom-left, add a small "ADD UP" machine with a pipe pointing to a calculation box. Write:
+"Required total
+= [CASE 1 TOTAL] + [CASE 2 TOTAL]
+= [FINAL ADDITION]
+= [FINAL ANSWER]"
+
+FINAL ANSWER DISPLAY
+At the bottom-right, create a large digital-machine display reading:
+"ANSWER"
+and underneath:
+"[FINAL ANSWER]"
+Add a small glowing yellow lightbulb beside it.
+
+ACCURACY AND RENDERING RULES
+- Preserve all supplied wording and notation exactly.
+- Verify every case count and arithmetic operation.
+- Ensure leading zero restrictions are handled correctly whenever relevant.
+- Every case must be mutually exclusive and collectively exhaustive.
+- Use mathematically correct permutation or combination notation.
+- Do not overcrowd the machine illustrations.
+- No 3D photorealism, no random decorative text, no malformed numerals, no duplicated digits, and no extra cases.

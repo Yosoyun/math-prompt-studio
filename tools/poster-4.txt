@@ -1,0 +1,72 @@
+Create a dramatic, premium vertical mathematics poster on a black chalkboard, using a structured analytical ledger layout.
+
+STYLE
+- Portrait orientation, approximately 4:5 ratio.
+- Deep matte-black chalkboard background with faint chalk dust and subtle texture.
+- Fine antique-gold border with geometric corner ornaments.
+- Main text in warm white chalk.
+- Gold for titles, important letters, factorial expressions, and the final answer.
+- Turquoise for method headings.
+- Green for valid smaller elements or positive counts.
+- Pink-red for the problem label.
+- Blue for contribution calculations.
+- The design should feel like an elite mathematical investigation board.
+
+TITLE
+At the top centre, write:
+"[QUESTION NUMBER] - [DRAMATIC SHORT TITLE]"
+Use large hand-lettered gold chalk. Add a small relevant line-art icon, such as a magnifying glass, fingerprint, ledger, ranking tag, or compass.
+
+PROBLEM PANEL
+Inside a thin gold rectangular panel, write:
+"Problem:" in pink-red chalk.
+Then: "[INSERT THE COMPLETE MATHEMATICS QUESTION VERBATIM]"
+Highlight the principal word, number, or expression in gold.
+
+METHOD
+Write: "Method:" in turquoise.
+Beside it, write: "[INSERT METHOD NAME]" in white chalk.
+
+SOURCE DATA ROW
+If the problem uses letters or objects, display the sorted or organised set inside individual green-outlined cells:
+"[ITEM 1] [ITEM 2] [ITEM 3] ... [ITEM n]"
+Add: "([NUMBER] distinct [letters/items])"
+
+ANALYSIS TABLE
+Create a precise chalkboard ledger table with these adaptable columns:
+1. Position
+2. Fixed Prefix / Previous Choices
+3. Current Item
+4. Eligible Smaller Items / Available Choices
+5. Count
+6. Contribution
+7. Running Sum
+Fill the table with the exact data supplied. Use formulas such as:
+"[COUNT] x [REMAINING POSITIONS]! = [CONTRIBUTION]"
+Maintain a running sum after every row. Use a dash when the count is zero. Do not place incorrect items in the "smaller" or "available" column.
+
+EXPLANATION BOX
+At the lower-left, add a dashed green chalk box titled:
+"Explanation:"
+Write a concise rule: "[INSERT THE GENERAL COUNTING PRINCIPLE IN 2-3 LINES]"
+Example: "At each position, count the valid items that can appear before the current item, multiply by the number of arrangements of the remaining positions, and add the contribution."
+
+FINAL CALCULATION
+At the lower-right, write:
+"Total before the target = [TOTAL]"
+Then: "[REQUIRED QUANTITY] = [TOTAL] + [OFFSET]"
+Then: "= [FINAL ANSWER]"
+Place "[FINAL ANSWER]" inside a large thick gold chalk box with two small chalk rays beside it.
+
+FINAL STATEMENT
+Across the bottom, write:
+"Therefore, [INSERT COMPLETE CONCLUSION]."
+Highlight the final answer in green or gold.
+
+PRECISION RULES
+- Alphabetical or numerical ordering must be correct.
+- For lexicographic rank, include the target itself by adding 1 only when appropriate.
+- Repeated objects must be handled using multinomial denominators when necessary.
+- Every contribution and running sum must be arithmetically correct.
+- Use consistent row alignment and legible chalk lettering.
+- No neon glow, no photorealistic classroom, no random equations, no missing table columns, and no malformed words.

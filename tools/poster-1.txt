@@ -1,0 +1,66 @@
+Create a premium vertical educational mathematics poster in an elegant botanical watercolor style.
+
+FORMAT AND COMPOSITION
+- Portrait orientation, approximately 4:5 ratio.
+- Warm ivory handmade-paper background with very subtle paper texture.
+- Thin muted-olive rectangular border near the edges.
+- Generous margins and balanced negative space.
+- Decorative watercolor flowers and leaves only around the corners and outer margins.
+- Use lavender sprigs near the upper-left corner, delicate green branches near the top-right, a soft pink peony near the lower-left, and a white lily near the lower-right.
+- Decorations must never overlap mathematical text.
+- The page should feel refined, calm, premium, and academically trustworthy.
+
+TYPOGRAPHY
+- Use highly legible handwritten-style lettering.
+- Main title: large dark sage-green hand-lettered text.
+- Section headings: purple or muted green.
+- Main explanation: dark charcoal ink.
+- Important variables, restrictions, and final numerical answer: selectively highlighted in purple and green.
+- Mathematical symbols, factorials, fractions, combinations, and permutations must be typeset accurately.
+- Do not distort letters, numbers, subscripts, superscripts, or punctuation.
+
+CONTENT TO DISPLAY EXACTLY
+
+TITLE:
+"[QUESTION NUMBER] - [SHORT TOPIC TITLE]"
+
+PROBLEM SECTION:
+Add a small purple flower icon beside the heading:
+"Problem:"
+Inside a pale blush-pink watercolor rectangle, write:
+"[INSERT THE COMPLETE MATHEMATICS QUESTION VERBATIM]"
+
+METHOD SECTION:
+Use a small leaf icon beside:
+"Method: [INSERT METHOD NAME]"
+Then show the solution as 3-5 concise bullet points.
+
+Suggested structure:
+- "[FIRST KEY OBSERVATION OR RESTRICTION]"
+- "Therefore, the required pattern is:"
+
+Create a clean central diagram showing:
+[INSERT SLOT/POSITION DIAGRAM, FOR EXAMPLE: F  _  _  R]
+Label fixed positions using small purple braces and the word "fixed."
+
+Continue:
+- "[EXPLAIN WHAT FILLS THE REMAINING POSITIONS]"
+- "Number of ways = [FORMULA]"
+- "= [SIMPLIFIED CALCULATION]"
+- "= [FINAL NUMBER]"
+
+FINAL ANSWER
+At the bottom centre, create a refined double-line rectangular answer box decorated with tiny leaves.
+Inside it write:
+"Final Answer:"
+and below it, in large purple numerals:
+"[FINAL ANSWER]"
+
+ACCURACY REQUIREMENTS
+- Copy every word and mathematical expression exactly as supplied.
+- Verify the arithmetic independently before rendering.
+- Do not add an alternative method.
+- Do not omit restrictions such as "without repetition," "distinct," "fixed," or "identical."
+- Keep the solution concise enough to remain readable at mobile-screen size.
+- Maintain a clear visual hierarchy: title -> problem -> method -> reasoning -> answer.
+- No photorealistic objects, no modern digital interface, no excessive decoration, no spelling mistakes, and no illegible handwriting.

@@ -1,0 +1,87 @@
+Create a sophisticated vertical mathematics solution sheet resembling a vintage mathematician's handwritten research notebook.
+
+AESTHETIC
+- Portrait orientation, approximately 4:5 ratio.
+- Warm cream paper with subtle ageing, faint fibre texture, and slightly darker edges.
+- Dark navy-blue fountain-pen handwriting for mathematics and primary text.
+- Muted brown-red ink for dividers, cancellations, annotations, and emphasis.
+- Sparse pencil-like marginal notes.
+- The atmosphere should feel intellectual, archival, elegant, and rigorous.
+- Avoid excessive decoration; the mathematical derivation is the visual focus.
+
+TITLE
+At the top centre, write in elegant cursive:
+"[QUESTION NUMBER] - [CONCEPTUAL TITLE]"
+Underline the title with a slightly imperfect hand-drawn line. Add one tiny star or mathematical sparkle symbol beside it.
+
+LEFT MARGIN GOAL
+Along the left margin, write a compact goal statement:
+"Goal:
+[INSERT THE MAIN OBJECTIVE OF THE PROBLEM]"
+Example structure: "Evaluate [EXPRESSION] by spotting a hidden pattern."
+
+PROBLEM BOX
+Create a large clean rectangular box near the top. Inside it write:
+"Problem:"
+Then display the exact problem:
+"[INSERT COMPLETE PROBLEM VERBATIM]"
+Use professionally rendered mathematical notation for summation signs, factorials, limits, superscripts, subscripts, fractions, brackets, and equations.
+
+METHOD
+Below the problem box, write:
+"Method: [INSERT METHOD NAME]"
+Add a concise explanatory sentence:
+"[INSERT THE CENTRAL STRATEGIC IDEA]"
+
+KEY IDENTITY OR CLAIM
+Write: "Claim (Key Identity):"
+Place the central identity inside a prominent double-line rectangular box:
+"[INSERT KEY IDENTITY EXACTLY]"
+
+VERIFICATION
+Write: "Verification:"
+Show a short line-by-line algebraic verification:
+[LEFT-HAND OR RIGHT-HAND EXPRESSION]
+= [FIRST TRANSFORMATION]
+= [SECOND TRANSFORMATION]
+= [TARGET EXPRESSION]  (tick)
+Use aligned equals signs. Do not skip algebraically necessary steps. Add a thin muted red dashed divider beneath this section.
+
+MAIN DERIVATION
+Use a heading such as: "[INSERT DERIVATION HEADING, E.G. 'Telescoping the Sum']"
+Show:
+[ORIGINAL EXPRESSION]
+= [SUBSTITUTION USING THE KEY IDENTITY]
+= [EXPANDED FIRST FEW TERMS]
+= [VISIBLE CANCELLATION PATTERN]
+= [SIMPLIFIED RESULT]
+Use thin muted-red diagonal cancellation marks only over terms that genuinely cancel.
+Place the resulting general formula inside a blue rectangular box:
+"[INSERT GENERAL RESULT]"
+
+FINISH
+Below another dashed divider, write: "Finish:"
+Then display the final substitution and solving steps:
+"Given [INSERT GIVEN EQUATION], we have"
+[GENERAL RESULT] = [GIVEN VALUE]
+[REARRANGEMENT]
+[CANCELLATION OR COMPARISON]
+"Therefore, [VARIABLE] = [FINAL ANSWER]."
+Place the final result inside a small double-line box at the bottom-right:
+"[VARIABLE] = [FINAL ANSWER]"
+
+MARGINAL INSIGHT
+Add one small taped-paper note near the upper-right:
+"[INSERT A SHORT STRATEGIC REMINDER]"
+Example: "Look for a form A_k - A_(k-1) to make the sum collapse."
+Add one brief handwritten reflection near the lower-left:
+"[INSERT A SHORT MATHEMATICAL INSIGHT, MAXIMUM 12 WORDS]"
+
+ACCURACY REQUIREMENTS
+- All identities must be algebraically valid.
+- Never invent a telescoping identity.
+- Verify the endpoint terms carefully.
+- Ensure cancellation marks correspond exactly to matching terms.
+- Render factorials and summation limits correctly.
+- Keep all text legible and avoid pseudo-handwriting gibberish.
+- No bright colours, no cartoon decorations, no modern interface, and no unnecessary solution branches.
