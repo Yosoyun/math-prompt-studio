@@ -96,25 +96,71 @@
       '<button class="card-more" data-view="' + id + '">How to use this &rarr;</button>' +
       '</article>';
   }
-  function matches(p) {
+  /* Tool names and common words teachers search for that the prompt texts may not
+     contain verbatim - each maps to related words we also try, so a search for
+     "wolfram" or "kahoot" surfaces the prompts that do that job. */
+  var SYNONYMS = {
+    wolfram: ['check', 'verify', 'graph', 'calculator', 'steps'],
+    wolframalpha: ['check', 'verify', 'graph', 'calculator', 'steps'],
+    desmos: ['graph', 'plot', 'function'],
+    geogebra: ['graph', 'geometry', 'construction', 'diagram'],
+    symbolab: ['solve', 'steps', 'check'],
+    photomath: ['photo', 'solve', 'doubt'],
+    mathway: ['solve', 'check', 'steps'],
+    overleaf: ['latex', 'pdf'],
+    stackexchange: ['doubt', 'proof', 'concept'],
+    oeis: ['sequence', 'pattern'],
+    khan: ['explain', 'concept', 'practice'],
+    phet: ['interactive', 'activity', 'visual'],
+    colab: ['python', 'code'],
+    python: ['code', 'latex'],
+    kahoot: ['quiz', 'game', 'mcq'],
+    quizizz: ['quiz', 'mcq', 'test'],
+    blooket: ['quiz', 'game'],
+    forms: ['quiz', 'mcq', 'test', 'feedback'],
+    excel: ['table', 'marks', 'tracker'],
+    sheets: ['table', 'marks', 'tracker'],
+    ppt: ['slide', 'presentation'],
+    powerpoint: ['slide', 'presentation'],
+    gamma: ['slide', 'presentation'],
+    reels: ['reel', 'video', 'script'],
+    youtube: ['video', 'script'],
+    insta: ['instagram', 'social'],
+    whatsapp: ['parent', 'message', 'communication']
+  };
+  function termHits(hayFull, hayCard, term, useSyn) {
+    if (hayFull.indexOf(term) !== -1) return true;
+    if (!useSyn) return false;
+    // synonyms only match the short card fields, else generic words like "check" match everything;
+    // word-start boundary so "graph" hits "graphs/graphing" but not "topographic"
+    var alts = SYNONYMS[term]; if (!alts) return false;
+    for (var ai = 0; ai < alts.length; ai++) { if (new RegExp('\\b' + alts[ai].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).test(hayCard)) return true; }
+    return false;
+  }
+  function matches(p, useSyn) {
     if (state.group !== 'all' && p._group !== state.group) return false;
-    if (state.query) { var hay = (p.title + ' ' + p.whatYouGet + ' ' + p._catTitle + ' ' + p._group + ' ' + (p.howToUse || '') + ' ' + p.promptText).toLowerCase(); var terms = state.query.toLowerCase().split(/\s+/); for (var qi = 0; qi < terms.length; qi++) { if (terms[qi] && hay.indexOf(terms[qi]) === -1) return false; } }
+    if (state.query) { var hayFull = (p.title + ' ' + p.whatYouGet + ' ' + p._catTitle + ' ' + p._group + ' ' + (p.howToUse || '') + ' ' + p.promptText).toLowerCase(); var hayCard = (p.title + ' ' + p.whatYouGet + ' ' + p._catTitle).toLowerCase(); var terms = state.query.toLowerCase().split(/\s+/); for (var qi = 0; qi < terms.length; qi++) { if (terms[qi] && !termHits(hayFull, hayCard, terms[qi], useSyn)) return false; } }
     return true;
   }
-  function updateCount(n) {
+  function updateCount(n, viaSynonyms) {
     var c = document.getElementById('resultCount'); if (!c) return;
-    if (state.query) c.innerHTML = '<b>' + n + '</b> prompt' + (n === 1 ? '' : 's') + ' found for &ldquo;' + esc(state.query) + '&rdquo;' + (n ? '' : ' - try another word');
+    if (state.query && viaSynonyms) c.innerHTML = '<b>' + n + '</b> related prompt' + (n === 1 ? '' : 's') + ' for &ldquo;' + esc(state.query) + '&rdquo;';
+    else if (state.query) c.innerHTML = '<b>' + n + '</b> prompt' + (n === 1 ? '' : 's') + ' found for &ldquo;' + esc(state.query) + '&rdquo;' + (n ? '' : ' - try another word');
     else if (state.group !== 'all') c.innerHTML = '<b>' + n + '</b> prompts in ' + esc(state.group);
     else c.innerHTML = 'Browse all <b>' + n + '</b> prompts';
   }
+  var SUGGEST_TERMS = ['graph', 'worksheet', 'quiz', 'lesson plan', 'formula sheet', 'photo', 'JEE', 'parents'];
   function render() {
     var stream = document.getElementById('catStream'); if (!stream) return; stream.innerHTML = ''; var count = 0;
+    var useSyn = false;
+    // exact pass first; if a search finds nothing, retry once letting tool-name synonyms match
+    if (state.query && !ALL.some(function (p) { return matches(p, false); }) && ALL.some(function (p) { return matches(p, true); })) useSyn = true;
     GROUPS.forEach(function (g) {
       if (state.group !== 'all' && state.group !== g) return;
       var catsIn = DATA.filter(function (c) { return c.group === g; });
       var has = false; var frag = document.createDocumentFragment();
       catsIn.forEach(function (cat) {
-        var prompts = (cat.prompts || []).filter(matches); if (!prompts.length) return; has = true; count += prompts.length;
+        var prompts = (cat.prompts || []).filter(function (p) { return matches(p, useSyn); }); if (!prompts.length) return; has = true; count += prompts.length;
         var block = el('<section class="cat-block" id="cat-' + cat.category + '"></section>');
         block.appendChild(el('<div class="cat-block-head"><span class="cat-ic">' + (cat.categoryIcon || '') + '</span><h3>' + esc(cat.categoryTitle) + '</h3><span class="cat-count">' + prompts.length + ' prompts</span></div>'));
         if (cat.categoryBlurb) block.appendChild(el('<p class="cat-blurb">' + esc(cat.categoryBlurb) + '</p>'));
@@ -122,8 +168,18 @@
       });
       if (has) { stream.appendChild(el('<div class="group-head"><h3>' + esc(g) + '</h3></div>')); stream.appendChild(frag); }
     });
-    if (!count) stream.appendChild(el('<div class="no-results">No prompts match &ldquo;' + esc(state.query) + '&rdquo;. Try another word, or tap All.</div>'));
-    updateCount(count);
+    if (useSyn && count) stream.insertBefore(el('<div class="no-results" style="margin-bottom:18px">No prompt mentions &ldquo;' + esc(state.query) + '&rdquo; by name yet, so here are the prompts that do that job. Every prompt works in any AI chat - paste it there first.</div>'), stream.firstChild);
+    if (!count) {
+      var nr = el('<div class="no-results">No prompts match &ldquo;' + esc(state.query) + '&rdquo;. Try one of these:<div class="fchips" style="margin-top:12px"></div></div>');
+      var chipWrap = nr.querySelector('.fchips');
+      SUGGEST_TERMS.forEach(function (t) {
+        var b = el('<button class="fchip" type="button">' + esc(t) + '</button>');
+        b.addEventListener('click', function () { var s = document.getElementById('search'); if (s) s.value = t; state.query = t; var cl = document.getElementById('searchClear'); if (cl) cl.hidden = false; render(); });
+        chipWrap.appendChild(b);
+      });
+      stream.appendChild(nr);
+    }
+    updateCount(count, useSyn);
   }
 
   function findPrompt(id) { for (var i = 0; i < ALL.length; i++) if (ALL[i]._id === id) return ALL[i]; return null; }

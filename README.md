@@ -18,7 +18,7 @@ with one more teacher or student. That's the only "payment" asked.
 ---
 
 ## What's inside
-- **505 prompts** across **31 categories / 7 groups** (incl. **Book & Study‑Material Writing**)
+- **589 prompts** across **33 categories / 7 groups** (incl. **Book & Study‑Material Writing**)
 - **18 handwritten "5‑method solution" art styles** (the flagship collection)
 - **Beginner's Guide**: what AI is, pick a tool, *how to attach a photo* (phone/computer, illustrated), copy‑paste, a 60‑second walkthrough
 - **Learn 10×**: the highest‑leverage ways to study with ChatGPT/Claude (Feynman loop, active recall, Socratic tutor, exam simulator…)
