@@ -17,7 +17,13 @@
   var GROUPS = GROUP_ORDER.filter(function (g) { return DATA.some(function (c) { return c.group === g; }); });
   DATA.forEach(function (c) { if (GROUPS.indexOf(c.group) === -1) GROUPS.push(c.group); });
 
-  var state = { group: 'all', query: '', prevEmpty: true };
+  var state = { group: 'all', query: '', prevEmpty: true, lang: 'en', exam: 'all', aud: 'all' };
+  try { if (localStorage.getItem('mps-lang') === 'hi') state.lang = 'hi'; } catch (e) {}
+
+  /* Bilingual: every prompt may carry a p.hi = {title, whatYouGet, howToUse, effectiveUsage, commonFix, promptText}.
+     T() returns the Hindi field when the teacher chose Hindi and a translation exists, else English. */
+  function T(p, field) { return (state.lang === 'hi' && p.hi && p.hi[field]) ? p.hi[field] : p[field]; }
+  function setLang(lang) { state.lang = lang; try { localStorage.setItem('mps-lang', lang); } catch (e) {} document.querySelectorAll('.lang-chip').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-lang') === lang); }); if (typeof buildFacets === 'function') buildFacets(); render(); }
 
   function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
   function el(html) { var t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstChild; }
@@ -32,9 +38,9 @@
 
   /* ---------- export formats ---------- */
   var FMT = {
-    word: '\n\n----------\nFORMAT THE OUTPUT: After solving, present your ENTIRE response as a clean document ready to paste straight into Microsoft Word or Google Docs - use a bold title, clear section headings, bold key terms, neatly numbered steps, and tables where helpful. Keep all mathematics fully readable. Keep the "Prepared by ' + 'Indrajeet Yadav" footer line.',
-    pdf: '\n\n----------\nFORMAT THE OUTPUT: After solving, lay out your ENTIRE response as a clean, print-ready A4 page I can save as PDF (File > Print > Save as PDF) - a clear title, well-spaced headings, numbered sections and generous margins. Keep all mathematics fully readable. Keep the "Prepared by ' + 'Indrajeet Yadav" footer line.',
-    ppt: '\n\n----------\nFORMAT THE OUTPUT: After solving, turn your ENTIRE response into a slide-by-slide deck for PowerPoint, Google Slides, Canva or Gamma. For each slide give "Slide N - Title", then 3 to 5 short bullet points, then a "Speaker notes:" line. Begin with a title slide and end with a summary slide. Put "Compiled by ' + 'Indrajeet Yadav" on the title slide.'
+    word: '\n\n----------\nFORMAT THE OUTPUT: After solving, present your ENTIRE response as a clean document ready to paste straight into Microsoft Word or Google Docs - use a bold title, clear section headings, bold key terms, neatly numbered steps, and tables where helpful. Keep all mathematics fully readable. If a "Prepared by" footer is present, keep it.',
+    pdf: '\n\n----------\nFORMAT THE OUTPUT: After solving, lay out your ENTIRE response as a clean, print-ready A4 page I can save as PDF (File > Print > Save as PDF) - a clear title, well-spaced headings, numbered sections and generous margins. Keep all mathematics fully readable. If a "Prepared by" footer is present, keep it.',
+    ppt: '\n\n----------\nFORMAT THE OUTPUT: After solving, turn your ENTIRE response into a slide-by-slide deck for PowerPoint, Google Slides, Canva or Gamma. For each slide give "Slide N - Title", then 3 to 5 short bullet points, then a "Speaker notes:" line. Begin with a title slide and end with a summary slide. Put the "Compiled by" line from the prompt (if any) on the title slide.'
   };
   var FMT_MSG = { word: 'Copied a Word-ready version - paste into ChatGPT or Claude, then into Word/Docs.', pdf: 'Copied a print-ready (PDF) version - paste into your AI, then Print > Save as PDF.', ppt: 'Copied a slide-deck version - paste into your AI, then into PowerPoint/Slides/Gamma.' };
   function copyFormatted(text, kind, btn) { copyText(text + (FMT[kind] || ''), btn, FMT_MSG[kind]); }
@@ -73,6 +79,64 @@
     });
   }
 
+  /* ---------- facet filters: exam + audience ---------- */
+  var EXAMS = [
+    { id: 'all', en: 'All exams', hi: 'सभी परीक्षाएँ' },
+    { id: 'boards', en: 'Boards', hi: 'बोर्ड' },
+    { id: 'jee-main', en: 'JEE Main', hi: 'JEE Main' },
+    { id: 'jee-advanced', en: 'JEE Advanced', hi: 'JEE Advanced' },
+    { id: 'olympiad', en: 'Olympiad', hi: 'ओलंपियाड' },
+    { id: 'foundation', en: 'Foundation (6-8)', hi: 'फ़ाउंडेशन (6-8)' }
+  ];
+  var AUDS = [
+    { id: 'all', en: 'Everyone', hi: 'सबके लिए' },
+    { id: 'teacher', en: 'For teachers', hi: 'शिक्षकों के लिए' },
+    { id: 'student', en: 'For students', hi: 'छात्रों के लिए' }
+  ];
+  function buildFacets() {
+    var chips = document.getElementById('groupChips'); if (!chips) return;
+    var old = document.getElementById('facetChips'); if (old) old.remove();
+    var hi = state.lang === 'hi';
+    var wrap = el('<div class="fchips" id="facetChips" style="margin-top:10px"></div>');
+    function addChip(list, key, item) {
+      var n = item.id === 'all' ? null : ALL.filter(function (p) { return key === 'exam' ? (p.exams || []).indexOf(item.id) !== -1 : (p.aud === item.id || p.aud === 'both'); }).length;
+      var b = el('<button class="fchip' + (state[key] === item.id ? ' active' : '') + '" type="button">' + esc(hi ? item.hi : item.en) + (n != null ? ' <span class="fchip-ct">' + n + '</span>' : '') + '</button>');
+      b.addEventListener('click', function () { state[key] = item.id; buildFacets(); render(); });
+      wrap.appendChild(b);
+    }
+    EXAMS.forEach(function (x) { addChip(EXAMS, 'exam', x); });
+    var sep = el('<span style="display:inline-block;width:14px"></span>'); wrap.appendChild(sep);
+    AUDS.forEach(function (x) { addChip(AUDS, 'aud', x); });
+    chips.parentNode.insertBefore(wrap, chips.nextSibling);
+  }
+
+  /* ---------- header language switch: one tap, always on top ---------- */
+  var LANGS = [
+    { code: 'en', label: 'English', live: true },
+    { code: 'hi', label: 'हिंदी', live: true },
+    { code: 'bn', label: 'বাংলা', live: false },
+    { code: 'mr', label: 'मराठी', live: false },
+    { code: 'te', label: 'తెలుగు', live: false }
+  ];
+  function initLangSwitch() {
+    var head = document.querySelector('.site-head'); if (!head) return;
+    var themeBtn = document.getElementById('themeBtn');
+    var wrap = el('<div class="lang-switch" style="display:inline-flex;align-items:center;gap:4px;margin-right:8px">' +
+      LANGS.map(function (l) {
+        return '<button type="button" class="lang-chip fchip' + (state.lang === l.code ? ' active' : '') + (l.live ? '' : ' lang-soon') + '" data-lang="' + l.code + '"' +
+          (l.live ? '' : ' title="Coming soon / जल्द आ रही है" style="opacity:.45"') + '>' + l.label + '</button>';
+      }).join('') + '</div>');
+    wrap.querySelectorAll('.lang-chip').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var code = b.getAttribute('data-lang');
+        var lang = null; LANGS.forEach(function (l) { if (l.code === code) lang = l; });
+        if (!lang.live) { showToast(lang.label + ' is coming soon — English and हिंदी are live today.'); return; }
+        setLang(code);
+      });
+    });
+    head.insertBefore(wrap, themeBtn);
+  }
+
   /* ---------- cards ---------- */
   function relBadge(p) {
     if (p.makesImage) return '<span class="rel"><span class="dot dot-amber"></span>' + esc(p.worksOnFree || 'Needs an image-making AI') + '</span>';
@@ -86,14 +150,15 @@
   }
   function cardHTML(p) {
     var id = p._id;
+    var hi = state.lang === 'hi';
     return '<article class="card" data-id="' + id + '"><div class="card-tags"><span class="tag tag-cat">' + esc(p._catTitle) + '</span>' + tagChip(p) + '</div>' +
-      '<h4>' + esc(p.title) + '</h4><p class="card-what">' + esc(p.whatYouGet) + '</p><div class="card-rel">' + relBadge(p) + '</div>' +
-      '<button class="card-copy-main" data-copy="' + id + '">&#128203; Copy prompt</button>' +
+      '<h4>' + esc(T(p, 'title')) + '</h4><p class="card-what">' + esc(T(p, 'whatYouGet')) + '</p><div class="card-rel">' + relBadge(p) + '</div>' +
+      '<button class="card-copy-main" data-copy="' + id + '">&#128203; ' + (hi ? 'प्रॉम्प्ट कॉपी करें' : 'Copy prompt') + '</button>' +
       '<div class="card-open">' +
       '<button class="btn-tool t-gpt" data-open="' + id + '" data-tool="gpt">&#129302; Open ChatGPT</button>' +
       '<button class="btn-tool t-claude" data-open="' + id + '" data-tool="claude">&#128172; Open Claude</button>' +
       '</div>' +
-      '<button class="card-more" data-view="' + id + '">How to use this &rarr;</button>' +
+      '<button class="card-more" data-view="' + id + '">' + (hi ? 'इस्तेमाल कैसे करें' : 'How to use this') + ' &rarr;</button>' +
       '</article>';
   }
   /* Tool names and common words teachers search for that the prompt texts may not
@@ -139,7 +204,16 @@
   }
   function matches(p, useSyn) {
     if (state.group !== 'all' && p._group !== state.group) return false;
-    if (state.query) { var hayFull = (p.title + ' ' + p.whatYouGet + ' ' + p._catTitle + ' ' + p._group + ' ' + (p.howToUse || '') + ' ' + p.promptText).toLowerCase(); var hayCard = (p.title + ' ' + p.whatYouGet + ' ' + p._catTitle).toLowerCase(); var terms = state.query.toLowerCase().split(/\s+/); for (var qi = 0; qi < terms.length; qi++) { if (terms[qi] && !termHits(hayFull, hayCard, terms[qi], useSyn)) return false; } }
+    if (state.exam !== 'all' && (p.exams || []).indexOf(state.exam) === -1) return false;
+    if (state.aud !== 'all' && p.aud !== state.aud && p.aud !== 'both') return false;
+    if (state.query) {
+      // both languages are always searchable, whatever the toggle shows
+      var hiText = p.hi ? (' ' + (p.hi.title || '') + ' ' + (p.hi.whatYouGet || '') + ' ' + (p.hi.promptText || '')) : '';
+      var hayFull = (p.title + ' ' + p.whatYouGet + ' ' + p._catTitle + ' ' + p._group + ' ' + (p.howToUse || '') + ' ' + p.promptText + hiText).toLowerCase();
+      var hayCard = (p.title + ' ' + p.whatYouGet + ' ' + p._catTitle + (p.hi ? ' ' + (p.hi.title || '') + ' ' + (p.hi.whatYouGet || '') : '')).toLowerCase();
+      var terms = state.query.toLowerCase().split(/\s+/);
+      for (var qi = 0; qi < terms.length; qi++) { if (terms[qi] && !termHits(hayFull, hayCard, terms[qi], useSyn)) return false; }
+    }
     return true;
   }
   function updateCount(n, viaSynonyms) {
@@ -150,6 +224,25 @@
     else c.innerHTML = 'Browse all <b>' + n + '</b> prompts';
   }
   var SUGGEST_TERMS = ['graph', 'worksheet', 'quiz', 'lesson plan', 'formula sheet', 'photo', 'JEE', 'parents'];
+  /* discovery strip: new + featured + random — only on the unfiltered view */
+  function discoveryHTML() {
+    var hi = state.lang === 'hi';
+    var frag = document.createDocumentFragment();
+    var featured = ALL.filter(function (p) { return p.featured; });
+    var fresh = ALL.filter(function (p) { return p.added; });
+    function row(title, items, max) {
+      if (!items.length) return;
+      var block = el('<section class="cat-block"></section>');
+      block.appendChild(el('<div class="cat-block-head"><h3>' + title + '</h3><span class="cat-count">' + items.length + ' prompts</span></div>'));
+      var grid = el('<div class="cards"></div>');
+      items.slice(0, max).forEach(function (p) { grid.appendChild(el(cardHTML(p))); });
+      block.appendChild(grid); frag.appendChild(block);
+    }
+    row('&#128293; ' + (hi ? 'सबसे ज़रूरी' : 'Most important'), featured, 6);
+    row('&#10024; ' + (hi ? 'हाल ही में जोड़े गए' : 'Recently added'), fresh, 6);
+    return frag;
+  }
+  function openRandom() { if (ALL.length) openModal(ALL[Math.floor(Math.random() * ALL.length)]); }
   function render() {
     var stream = document.getElementById('catStream'); if (!stream) return; stream.innerHTML = ''; var count = 0;
     var useSyn = false;
@@ -169,6 +262,13 @@
       if (has) { stream.appendChild(el('<div class="group-head"><h3>' + esc(g) + '</h3></div>')); stream.appendChild(frag); }
     });
     if (useSyn && count) stream.insertBefore(el('<div class="no-results" style="margin-bottom:18px">No prompt mentions &ldquo;' + esc(state.query) + '&rdquo; by name yet, so here are the prompts that do that job. Every prompt works in any AI chat - paste it there first.</div>'), stream.firstChild);
+    if (!state.query && state.group === 'all' && count) {
+      var disco = discoveryHTML();
+      var randWrap = el('<div style="text-align:center;margin:0 0 20px"><button class="fchip" id="randBtn" type="button" style="font-size:15px;padding:.5em 1.4em">&#127922; ' + (state.lang === 'hi' ? 'कोई भी एक प्रॉम्प्ट दिखाओ' : 'Surprise me — random prompt') + '</button></div>');
+      randWrap.querySelector('#randBtn').addEventListener('click', openRandom);
+      stream.insertBefore(disco, stream.firstChild);
+      stream.insertBefore(randWrap, stream.firstChild);
+    }
     if (!count) {
       var nr = el('<div class="no-results">No prompts match &ldquo;' + esc(state.query) + '&rdquo;. Try one of these:<div class="fchips" style="margin-top:12px"></div></div>');
       var chipWrap = nr.querySelector('.fchips');
@@ -189,34 +289,47 @@
     var stream = document.getElementById('catStream'); if (!stream) return;
     stream.addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b) return;
-      if (b.hasAttribute('data-copy')) { var p = findPrompt(b.getAttribute('data-copy')); if (p) copyText(p.promptText, b, 'Copied! Paste it into your AI chat.'); }
+      if (b.hasAttribute('data-copy')) { var p = findPrompt(b.getAttribute('data-copy')); if (p) copyText(T(p, 'promptText'), b, state.lang === 'hi' ? 'कॉपी हो गया! अपने AI चैट में पेस्ट करें।' : 'Copied! Paste it into your AI chat.'); }
       else if (b.hasAttribute('data-view')) { openModal(findPrompt(b.getAttribute('data-view'))); }
-      else if (b.hasAttribute('data-open')) { var p2 = findPrompt(b.getAttribute('data-open')); if (p2) openTool(p2.promptText, b.getAttribute('data-tool'), b); }
-      else if (b.hasAttribute('data-fmt')) { var p3 = findPrompt(b.getAttribute('data-fmt')); if (p3) copyFormatted(p3.promptText, b.getAttribute('data-kind'), b); }
+      else if (b.hasAttribute('data-open')) { var p2 = findPrompt(b.getAttribute('data-open')); if (p2) openTool(T(p2, 'promptText'), b.getAttribute('data-tool'), b); }
+      else if (b.hasAttribute('data-fmt')) { var p3 = findPrompt(b.getAttribute('data-fmt')); if (p3) copyFormatted(T(p3, 'promptText'), b.getAttribute('data-kind'), b); }
     });
   }
 
   /* ---------- modal ---------- */
   function openModal(p) {
     if (!p) return;
-    var steps = (p.effectiveUsage && p.effectiveUsage.length) ? '<div class="modal-eff"><h4>&#9989; How to use this effectively</h4><ol>' + p.effectiveUsage.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol></div>' : '';
-    var fix = p.commonFix ? '<div class="modal-fix"><b>&#128295; If it is not right, reply with this:</b> ' + esc(p.commonFix) + '</div>' : '';
+    var hi = state.lang === 'hi';
+    var effList = T(p, 'effectiveUsage');
+    var steps = (effList && effList.length) ? '<div class="modal-eff"><h4>&#9989; ' + (hi ? '&#2311;&#2360;&#2325;&#2366; &#2360;&#2361;&#2368; &#2311;&#2360;&#2381;&#2340;&#2375;&#2350;&#2366;&#2354;' : 'How to use this effectively') + '</h4><ol>' + effList.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol></div>' : '';
+    var fixText = T(p, 'commonFix');
+    var fix = fixText ? '<div class="modal-fix"><b>&#128295; ' + (hi ? '&#2309;&#2327;&#2352; &#2332;&#2357;&#2366;&#2348; &#2336;&#2368;&#2325; &#2344; &#2354;&#2327;&#2375;, &#2340;&#2379; &#2351;&#2361; &#2349;&#2375;&#2332;&#2375;&#2306;:' : 'If it is not right, reply with this:') + '</b> ' + esc(fixText) + '</div>' : '';
     var body = document.getElementById('modalBody');
+    var activeText = T(p, 'promptText');
     var _toks = [];
-    (p.promptText.match(/\[[^\]\n]{1,80}\]/g) || []).forEach(function (t) { if (_toks.indexOf(t) === -1) _toks.push(t); });
+    (activeText.match(/\[[^\]\n]{1,80}\]/g) || []).forEach(function (t) { if (_toks.indexOf(t) === -1) _toks.push(t); });
     _toks = _toks.slice(0, 12);
-    function filled() { var t = p.promptText; _toks.forEach(function (tok, i) { var elx = body.querySelector('[data-tok="' + i + '"]'); var v = elx ? elx.value.trim() : ''; if (v) t = t.split(tok).join(v); }); return t; }
+    function filled() { var t = activeText; _toks.forEach(function (tok, i) { var elx = body.querySelector('[data-tok="' + i + '"]'); var v = elx ? elx.value.trim() : ''; if (v) t = t.split(tok).join(v); }); return t; }
     var fillHTML = '';
     if (_toks.length) {
-      fillHTML = '<details class="modal-fill"><summary>&#9999;&#65039; Fill in the blanks here (optional)</summary><p class="mf-note">Type your details - the prompt below and the Copy / Open buttons update automatically.</p><div class="mf-grid">' +
-        _toks.map(function (t, i) { var label = esc(t.replace(/^\[|\]$/g, '').slice(0, 52)); var long = /PASTE|ATTACH|QUESTION|DATA|LIST|DESCRIBE|CHAPTER|TOPIC|SYLLABUS|WRITE YOURS|FIGURE/i.test(t); return '<label class="mf-f"><span>' + label + '</span>' + (long ? '<textarea data-tok="' + i + '" rows="2"></textarea>' : '<input data-tok="' + i + '" type="text" />') + '</label>'; }).join('') +
+      var hasStyles = p.styles && p.styles.length;
+      fillHTML = '<details class="modal-fill"' + (hasStyles ? ' open' : '') + '><summary>&#9999;&#65039; ' + (hasStyles ? 'Pick a style + fill in the blanks' : 'Fill in the blanks here (optional)') + '</summary><p class="mf-note">' + (hi ? 'अपनी जानकारी भरें - नीचे का प्रॉम्प्ट अपने आप बदल जाएगा।' : 'Type your details - the prompt below and the Copy / Open buttons update automatically.') + '</p><div class="mf-grid">' +
+        _toks.map(function (t, i) {
+          var label = esc(t.replace(/^\[|\]$/g, '').slice(0, 52));
+          if (hasStyles && /STYLE/i.test(t)) {
+            return '<label class="mf-f"><span>' + label + '</span><select data-tok="' + i + '"><option value="">-- choose one of ' + p.styles.length + ' styles --</option>' +
+              p.styles.map(function (s) { return '<option value="' + esc(s.name + ': ' + s.direction) + '">' + esc(s.name) + '</option>'; }).join('') + '</select></label>';
+          }
+          var long = /PASTE|ATTACH|QUESTION|DATA|LIST|DESCRIBE|CHAPTER|TOPIC|SYLLABUS|WRITE YOURS|FIGURE/i.test(t);
+          return '<label class="mf-f"><span>' + label + '</span>' + (long ? '<textarea data-tok="' + i + '" rows="2"></textarea>' : '<input data-tok="' + i + '" type="text" />') + '</label>';
+        }).join('') +
         '</div></details>';
     }
-    body.innerHTML = '<h3 id="modalTitle">' + esc(p.title) + '</h3><div class="modal-tags"><span class="tag tag-cat">' + esc(p._catTitle) + '</span>' + tagChip(p) + '</div>' +
+    body.innerHTML = '<h3 id="modalTitle">' + esc(T(p, 'title')) + '</h3><div class="modal-tags"><span class="tag tag-cat">' + esc(p._catTitle) + '</span>' + tagChip(p) + '</div>' +
       '<div class="card-rel" style="margin:0 0 14px">' + relBadge(p) + ' &nbsp;&middot;&nbsp; <span class="rel">Best tool: <b>&nbsp;' + esc(p.bestTool || 'Any AI chat') + '</b></span></div>' +
-      '<div class="modal-open"><span class="mo-lbl">Open it in one click (the prompt is copied for you):</span><div class="mo-btns"><button class="btn-tool t-gpt" id="mGpt">&#129302; Open in ChatGPT</button><button class="btn-tool t-claude" id="mClaude">&#128172; Open in Claude</button></div></div>' +
+      '<div class="modal-open"><span class="mo-lbl">' + (hi ? '&#2319;&#2325; &#2325;&#2381;&#2354;&#2367;&#2325; &#2350;&#2375;&#2306; &#2326;&#2379;&#2354;&#2375;&#2306; (&#2346;&#2381;&#2352;&#2377;&#2350;&#2381;&#2346;&#2381;&#2335; &#2325;&#2377;&#2346;&#2368; &#2361;&#2379; &#2332;&#2366;&#2319;&#2327;&#2366;):' : 'Open it in one click (the prompt is copied for you):') + '</span><div class="mo-btns"><button class="btn-tool t-gpt" id="mGpt">&#129302; Open in ChatGPT</button><button class="btn-tool t-claude" id="mClaude">&#128172; Open in Claude</button></div></div>' +
       steps + fix + fillHTML +
-      '<div class="modal-lbl">COPY THE PROMPT</div><div class="prompt-box"><pre id="mPre">' + esc(p.promptText) + '</pre></div>' +
+      '<div class="modal-lbl">' + (hi ? '&#2346;&#2381;&#2352;&#2377;&#2350;&#2381;&#2346;&#2381;&#2335; &#2325;&#2377;&#2346;&#2368; &#2325;&#2352;&#2375;&#2306;' : 'COPY THE PROMPT') + '</div><div class="prompt-box"><pre id="mPre">' + esc(activeText) + '</pre></div>' +
       '<div class="modal-actions"><button class="btn-copy" id="mCopy">&#128203; Copy prompt</button>' +
       '<button class="btn-soft" id="mShare">&#128241; Share this prompt</button>' +
       '<button class="btn-soft" id="mLink">&#128279; Copy link</button>' +
@@ -287,7 +400,7 @@
     var ig = document.getElementById('fbInstaLink'); if (ig && CFG.instagram) { ig.href = 'https://instagram.com/' + String(CFG.instagram).replace(/^@/, ''); ig.hidden = false; }
   }
   function initShare() {
-    var msg = 'Free AI tool for maths teachers and students - 500+ ready prompts + a step-by-step beginner guide, by Indrajeet Yadav:';
+    var msg = 'Free AI tool for maths teachers and students - 520 ready prompts + a step-by-step beginner guide:';
     var wa = document.getElementById('shareWa'); if (wa) wa.addEventListener('click', function () { window.open('https://wa.me/?text=' + encodeURIComponent(msg + ' ' + SITE), '_blank'); });
     var cp = document.getElementById('shareCopy'); if (cp) cp.addEventListener('click', function () { copyText(SITE, this, 'Link copied - send it to a teacher or student!'); });
     var more = document.getElementById('shareMore'); if (more && navigator.share) { more.hidden = false; more.addEventListener('click', function () { navigator.share({ title: 'Maths Prompt Studio', text: msg, url: SITE }).catch(function () {}); }); }
@@ -295,7 +408,7 @@
   }
   function initAbout() { var a = document.getElementById('aboutAvatar'); if (a && CFG.photoUrl) { a.style.backgroundImage = 'url(' + CFG.photoUrl + ')'; a.style.backgroundSize = 'cover'; a.style.backgroundPosition = 'center'; a.textContent = ''; } }
   function buildPaperPrompt(o) {
-    var foot = '\n\nSIGNATURE: End your ENTIRE response with exactly this footer block:\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\u270D\uFE0F Crafted with prompts by Indrajeet Yadav \u00B7 Maths Faculty\n\uD83D\uDD17 Free tools & to reach me: ' + SITE + '\nQuestions, feedback or appreciation are always welcome.\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501';
+    var foot = '\n\nSIGNATURE: If I filled in a name, end the paper with a "Prepared by [YOUR NAME]" footer line; otherwise add no signature.';
     var sectioned = /paper|test/i.test(o.type);
     return 'ROLE: Act as a senior ' + o.board + ' mathematics paper-setter and answer-key writer with 25 years of experience.\n\n' +
       'CONTEXT: Make a ' + o.type + ' for ' + o.cls + ' students (' + o.board + '). Total marks: ' + o.marks + '. Time: ' + o.time + '. Difficulty: ' + o.diff + '.\n\n' +
@@ -354,9 +467,9 @@
 
   function init() {
     document.getElementById('year').textContent = new Date().getFullYear();
-    initTheme(); initTabs(); renderLearn(); initFeedback(); initShare(); initAbout(); initReveal(); initAnalytics();
+    initTheme(); initLangSwitch(); initTabs(); renderLearn(); initFeedback(); initShare(); initAbout(); initReveal(); initAnalytics();
     if (!DATA.length) { document.getElementById('catStream').innerHTML = '<div class="no-results">The library is still being prepared. Please refresh in a moment.</div>'; return; }
-    setStats(); buildChips(); wireStream(); render(); initSearch(); initTrust(); initBuilder();
+    setStats(); buildChips(); buildFacets(); wireStream(); render(); initSearch(); initTrust(); initBuilder();
     document.querySelectorAll('#modal [data-close]').forEach(function (x) { x.addEventListener('click', closeModal); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
     openFromHash(); window.addEventListener('hashchange', openFromHash);

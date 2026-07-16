@@ -29,6 +29,8 @@ for (const c of DATA.categories) {
 function relText(p) { return p.makesImage ? 'Makes images - needs an image AI' : (p.needsImage ? 'Attach a photo of the question first' : 'Works on any free AI'); }
 function relDot(p) { return p.makesImage ? 'dot-amber' : (p.needsImage ? 'dot-blue' : 'dot-green'); }
 
+const GRAND = DATA.categories.reduce((t, c) => t + c.prompts.length, 0);
+
 function pageHTML(p, cat) {
   const url = SITE + 'p/' + p.slug + '/';
   const title = p.title + ' - free AI prompt for maths teachers';
@@ -64,15 +66,16 @@ function pageHTML(p, cat) {
 </head><body>
 <div class="grain" aria-hidden="true"></div>
 <header class="site-head">
-  <a class="brand" href="../../"><span class="brand-mark" aria-hidden="true">&#8721;</span><span class="brand-text"><span class="brand-name">Maths Prompt Studio</span><span class="brand-by">by ${SIG}</span></span></a>
-  <nav class="head-nav"><a href="../../#library">All 535 prompts</a><a href="../../#guide">Beginner's Guide</a></nav>
+  <a class="brand" href="../../"><span class="brand-mark" aria-hidden="true">&#8721;</span><span class="brand-text"><span class="brand-name">Maths Prompt Studio</span><span class="brand-by">free maths platform</span></span></a>
+  <nav class="head-nav"><a href="../../#library">All ${GRAND} prompts</a><a href="../../#guide">Beginner's Guide</a></nav>
 </header>
 <main class="ppage">
   <p class="pp-crumb"><a href="../../">Home</a> / <a href="../../#cat-${esc(cat.category)}">${esc(cat.categoryTitle)}</a> / ${esc(p.title)}</p>
   <article class="pp-card">
     <div class="card-tags"><span class="tag tag-cat">${esc(cat.categoryTitle)}</span><span class="tag ${p.makesImage || p.needsImage ? 'tag-img' : 'tag-txt'}">${esc(p.tag || (p.makesImage ? 'Makes images' : p.needsImage ? 'Photo needed' : 'Text only'))}</span></div>
-    <h1>${esc(p.title)}</h1>
-    <p class="card-what" style="font-size:16px">${esc(p.whatYouGet)}</p>
+    ${p.hi ? '<div class="card-open" style="margin-bottom:10px"><button class="btn-soft card-copy" id="lang">&#2361;&#2367;&#2306;&#2342;&#2368; &#2350;&#2375;&#2306; &#2342;&#2375;&#2326;&#2375;&#2306;</button></div>' : ''}
+    <h1 id="ttl">${esc(p.title)}</h1>
+    <p class="card-what" id="wht" style="font-size:16px">${esc(p.whatYouGet)}</p>
     <div class="card-rel"><span class="rel"><span class="dot ${relDot(p)}"></span>${esc(relText(p))}</span> &nbsp;&middot;&nbsp; <span class="rel">Best tool: <b>&nbsp;${esc(p.bestTool || 'Any AI chat')}</b></span></div>
     ${eff ? '<div class="modal-eff"><h4>&#9989; How to use this effectively</h4><ol>' + eff + '</ol></div>' : ''}
     ${p.commonFix ? '<div class="modal-fix"><b>&#128295; If it is not right, reply with this:</b> ' + esc(p.commonFix) + '</div>' : ''}
@@ -82,17 +85,28 @@ function pageHTML(p, cat) {
     <div class="modal-lbl" style="margin-top:16px">THE PROMPT</div>
     <div class="prompt-box"><pre id="pt">${esc(p.promptText)}</pre></div>
   </article>
-  <p style="text-align:center;margin-top:26px"><a class="btn btn-primary" href="../../#library">&#9664; Browse all 535 free prompts</a></p>
+  <p style="text-align:center;margin-top:26px"><a class="btn btn-primary" href="../../#library">&#9664; Browse all ${GRAND} free prompts</a></p>
 </main>
-<footer class="site-foot"><div class="foot-sign"><span class="foot-sign-name">${SIG}</span><span class="foot-sign-sub">Created &amp; authored by</span></div><p class="foot-meta">Maths Prompt Studio &middot; free, forever</p></footer>
+<footer class="site-foot"><div class="foot-sign"><span class="foot-sign-name">Maths Prompt Studio</span><span class="foot-sign-sub">free, forever &middot; &#2350;&#2369;&#2347;&#2364;&#2381;&#2340;, &#2361;&#2350;&#2375;&#2358;&#2366;</span></div><p class="foot-meta"><a href="../../#about">About the author</a> &middot; free, forever</p></footer>
 <div class="toast" id="t" role="status" aria-live="polite">Copied!</div>
 <script>
-var P=${pjson};var URL=${JSON.stringify(url)};
+var P=${pjson};var HI=${JSON.stringify(p.hi || null).replace(/<\//g, '<\\/')};var LNG='en';var URL=${JSON.stringify(url)};
 (function(){try{var th=localStorage.getItem('mps-theme');if(th)document.documentElement.setAttribute('data-theme',th);}catch(e){}})();
+function activeP(){return (LNG==='hi'&&HI&&HI.promptText)?HI.promptText:P;}
+(function(){var lb=document.getElementById('lang');if(!lb)return;
+  try{if(localStorage.getItem('mps-lang')==='hi')swapLang();}catch(e){}
+  lb.onclick=swapLang;
+  function swapLang(){LNG=LNG==='en'?'hi':'en';var hiOn=LNG==='hi';
+    lb.textContent=hiOn?'View in English':'\\u0939\\u093f\\u0902\\u0926\\u0940 \\u092e\\u0947\\u0902 \\u0926\\u0947\\u0916\\u0947\\u0902';
+    if(HI.title)document.getElementById('ttl').textContent=hiOn?HI.title:${JSON.stringify(p.title)};
+    if(HI.whatYouGet)document.getElementById('wht').textContent=hiOn?HI.whatYouGet:${JSON.stringify(p.whatYouGet || '')};
+    document.getElementById('pt').textContent=activeP();
+    try{localStorage.setItem('mps-lang',LNG);}catch(e){}}
+})();
 function toast(m){var t=document.getElementById('t');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2600);}
 function clip(x){return (navigator.clipboard&&navigator.clipboard.writeText)?navigator.clipboard.writeText(x):new Promise(function(r){var a=document.createElement('textarea');a.value=x;a.style.position='fixed';a.style.opacity=0;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(a);r();});}
-document.getElementById('cp').onclick=function(){clip(P).then(function(){toast('Copied! Paste it into your AI chat.')})};
-function openT(base,name){var full=base+'?q='+encodeURIComponent(P);var u=full.length<=7000?full:base;clip(P).then(function(){window.open(u,'_blank','noopener');toast(name+' opening with your prompt loaded. Also copied - if empty, just paste it.')})}
+document.getElementById('cp').onclick=function(){clip(activeP()).then(function(){toast('Copied! Paste it into your AI chat.')})};
+function openT(base,name){var full=base+'?q='+encodeURIComponent(activeP());var u=full.length<=7000?full:base;clip(activeP()).then(function(){window.open(u,'_blank','noopener');toast(name+' opening with your prompt loaded. Also copied - if empty, just paste it.')})}
 document.getElementById('gpt').onclick=function(){openT('https://chatgpt.com/','ChatGPT')};
 document.getElementById('cla').onclick=function(){openT('https://claude.ai/new','Claude')};
 document.getElementById('lnk').onclick=function(){clip(URL).then(function(){toast('Link copied - share it with a teacher!')})};
@@ -114,9 +128,27 @@ for (const c of DATA.categories) {
   }
 }
 
+// redirect stubs: data/redirects.json maps removed slugs -> surviving slugs, so old
+// bookmarks and indexed pages keep working after a dedup pass
+let nRedirects = 0;
+if (existsSync(ROOT + '/data/redirects.json')) {
+  const redirects = JSON.parse(readFileSync(ROOT + '/data/redirects.json', 'utf8'));
+  for (const [oldSlug, newSlug] of Object.entries(redirects)) {
+    if (seen.has(oldSlug)) continue; // a live prompt owns this slug now
+    const to = SITE + 'p/' + newSlug + '/';
+    mkdirSync(ROOT + '/p/' + oldSlug, { recursive: true });
+    writeFileSync(ROOT + '/p/' + oldSlug + '/index.html',
+      `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Moved - Maths Prompt Studio</title>` +
+      `<link rel="canonical" href="${to}"><meta http-equiv="refresh" content="0; url=${to}">` +
+      `<meta name="robots" content="noindex"></head><body><p>This prompt merged into a better version - ` +
+      `<a href="${to}">continue here</a>.</p><script>location.replace(${JSON.stringify(to)});</script></body></html>`);
+    nRedirects++;
+  }
+}
+
 // write slugs back into data/prompts.js
 const grand = DATA.categories.reduce((t, c) => t + c.prompts.length, 0);
-const banner = '/* Maths Prompt Studio data - ' + grand + ' prompts across ' + DATA.categories.length + ' categories. v' + (DATA.version || '') + '. Authored by ' + SIG + '. Auto-generated; do not edit by hand. */\n';
+const banner = '/* Maths Prompt Studio data - ' + grand + ' prompts across ' + DATA.categories.length + ' categories. v' + (DATA.version || '') + '. Auto-generated; do not edit by hand. */\n';
 writeFileSync(ROOT + '/data/prompts.js', banner + 'window.PROMPT_DATA = ' + JSON.stringify(DATA) + ';\n');
 
 // sitemap with homepage + every prompt page
@@ -127,4 +159,4 @@ const sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www
   .concat(['</urlset>']).join('\n');
 writeFileSync(ROOT + '/sitemap.xml', sm + '\n');
 
-console.log('Built', n, 'per-prompt pages under /p/, wrote slugs into data, sitemap has', urls.length + 1, 'URLs.');
+console.log('Built', n, 'per-prompt pages under /p/ (+', nRedirects, 'redirect stubs), wrote slugs into data, sitemap has', urls.length + 1, 'URLs.');
