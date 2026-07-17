@@ -1,0 +1,1450 @@
+[
+  {
+    "brief": 15,
+    "slot": 1,
+    "category": "phone-quizzes",
+    "title": "Five-Minute Exit Ticket Form Builder",
+    "tag": "Auto-Marked Exit",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A complete Google Apps Script that creates a short auto-marked exit ticket and logs the links you need before students leave.",
+    "howToUse": "Fill the class, topic and question count, paste the prompt into an AI chat, review the key, then run the returned script once.",
+    "effectiveUsage": [
+      "1. Choose one lesson objective and keep the ticket to three to five questions.",
+      "2. Paste the prompt into your AI chat and check every answer in the review copy.",
+      "3. Open script.google.com, create a new project, paste the complete code and run it.",
+      "4. Open View, then Logs, test the respondent link yourself and only then share it."
+    ],
+    "commonFix": "If wrong, reply with: \"Rebuild the script with every question, choice, correct answer, point value and Logger.log call included; leave no TODOs.\"",
+    "exams": ["any"],
+    "aud": "teacher",
+    "role": "Act as a mathematics exit-ticket designer and careful Google Apps Script developer.",
+    "context": "A teacher needs a fast, low-stakes check for [CLASS] on [TOPIC] at the end of [LESSON OR PERIOD].",
+    "inputs": [
+      "[CLASS]",
+      "[BOARD OR EXAM]",
+      "[TOPIC]",
+      "[LESSON OBJECTIVE]",
+      "[QUESTION COUNT, DEFAULT 5]",
+      "[MARKS PER QUESTION]"
+    ],
+    "doThis": [
+      "Write a review copy with concise multiple-choice questions, four plausible options, the answer and a one-line teaching explanation.",
+      "Cover only the stated lesson objective and mix recall, interpretation and one application item.",
+      "Attach a check-this-yourself verification link to every computational answer before writing the script.",
+      "Generate one complete executable FormApp script that creates the form, switches quiz mode on, marks correct choices and assigns points.",
+      "Make every question required, add a useful confirmation message and log both edit and respondent URLs.",
+      "Print the exact run path after the code and add a two-line teacher check before sharing."
+    ],
+    "outputFormat": [
+      "EXIT TICKET REVIEW COPY",
+      "ANSWER AND LINK CHECK TABLE",
+      "COMPLETE GOOGLE APPS SCRIPT",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "TEST BEFORE SHARING"
+    ],
+    "guardrails": [
+      "Output one COMPLETE executable Google Apps Script code block using FormApp; do not use TODOs, ellipses, pseudocode or manual question-entry steps.",
+      "After the code, print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Never claim that a URL can create a Google Form; the script is the creation route.",
+      "Use plain ASCII maths in form text and label verification links check this yourself."
+    ],
+    "exampleTask": "Create a four-question Class 10 exit ticket on quadratic factorisation.",
+    "exampleResult": "The worked check factors x^2-5x+6 as (x-2)(x-3), so its roots are 2 and 3.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=solve%20x%5E2-5x%2B6%3D0",
+    "exampleFallback": "solve x^2-5x+6=0",
+    "exampleEncodingNote": "The space is %20, ^ is %5E, + is %2B and = is %3D."
+  },
+  {
+    "brief": 15,
+    "slot": 2,
+    "category": "phone-quizzes",
+    "title": "Chapter Test to Wayground Paste Pack",
+    "tag": "Wayground Chapter Test",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A checked chapter-test review copy and a sub-10,000-character Wayground paste-import block ready for a live phone quiz.",
+    "howToUse": "Paste the chapter scope and test requirements, verify the review-copy answers, then paste the final block through Wayground’s import menu.",
+    "effectiveUsage": [
+      "1. Give the exact chapter, class and difficulty mix instead of only a broad subject name.",
+      "2. Review the answer key and open the check links in a browser.",
+      "3. Copy only the labelled Wayground import block.",
+      "4. In Wayground choose Create, Import and Paste questions, then preview every parsed item."
+    ],
+    "commonFix": "If wrong, reply with: \"Shorten and rebuild the Wayground block below 10,000 characters in plain ASCII maths, with one clearly marked correct option per item.\"",
+    "exams": ["boards", "jee-main", "foundation"],
+    "aud": "teacher",
+    "role": "Act as a chapter-test writer, answer-key auditor and Wayground paste-import formatter.",
+    "context": "A teacher wants a phone-based chapter test for [CLASS] and [CHAPTER] without retyping the questions in Wayground.",
+    "inputs": [
+      "[CLASS]",
+      "[BOARD OR EXAM]",
+      "[CHAPTER]",
+      "[QUESTION COUNT]",
+      "[DIFFICULTY MIX]",
+      "[TIME LIMIT]",
+      "[LEARNING OUTCOMES]"
+    ],
+    "doThis": [
+      "Build a balanced multiple-choice chapter test aligned only to the supplied outcomes.",
+      "Write a teacher review copy with options, correct answer, one-line solution and marks.",
+      "Create an independent check-this-yourself link for each computational answer.",
+      "Repeat the same questions in a clean Wayground paste block using plain ASCII maths such as x^2 and sqrt(x).",
+      "Keep the entire paste block under 10,000 characters and report its character count.",
+      "Give only the manual import path and a preview checklist for answer parsing."
+    ],
+    "outputFormat": [
+      "TEST BLUEPRINT",
+      "LINK-VERIFIED REVIEW COPY",
+      "WAYGROUND PASTE BLOCK",
+      "CHARACTER COUNT",
+      "IMPORT — Create → Import → Paste questions",
+      "PREVIEW CHECKLIST"
+    ],
+    "guardrails": [
+      "Wayground receives questions only through Create → Import → Paste questions; never claim URL import or embed the quiz in a Wayground URL.",
+      "The paste block must be under 10,000 characters and use plain ASCII maths because importer handling of LaTeX is unreliable.",
+      "Mark exactly one correct option in every standard MCQ and keep the review-copy key identical to the import block.",
+      "Verification links must use an allowed solver and be labelled check this yourself."
+    ],
+    "exampleTask": "Build a six-question Class 10 chapter test on quadratic equations.",
+    "exampleResult": "The review copy shows x^2-5x+6=(x-2)(x-3) and marks the roots 2 and 3 before the same item appears in the paste block.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=factor%20x%5E2-5x%2B6",
+    "exampleFallback": "factor x^2-5x+6",
+    "exampleEncodingNote": "The space is %20, ^ is %5E and + is %2B."
+  },
+  {
+    "brief": 15,
+    "slot": 3,
+    "category": "phone-quizzes",
+    "title": "One Quiz, Three Ready-to-Run Formats",
+    "tag": "Three-Format Quiz",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "One checked quiz delivered as a teacher review copy, a complete Google Forms script and a Wayground paste block with no retyping.",
+    "howToUse": "Describe one quiz once, audit the shared key, then choose the review sheet, Google Form or Wayground version for your class.",
+    "effectiveUsage": [
+      "1. State the topic, class, question count and marks scheme.",
+      "2. Check the common review copy because it controls all three formats.",
+      "3. Run the Apps Script and test the logged respondent link for the Form version.",
+      "4. Paste the separate block through Wayground’s Create, Import and Paste questions path."
+    ],
+    "commonFix": "If wrong, reply with: \"Regenerate all three formats from one corrected master key and show a parity table proving every question and answer matches across them.\"",
+    "exams": ["any"],
+    "aud": "teacher",
+    "role": "Act as a cross-platform maths quiz producer and answer-key consistency checker.",
+    "context": "A teacher needs one [TOPIC] quiz in three usable formats for review, an auto-marked Google Form and a Wayground game.",
+    "inputs": [
+      "[CLASS]",
+      "[BOARD OR EXAM]",
+      "[TOPIC]",
+      "[QUESTION COUNT, DEFAULT 10]",
+      "[MARKS SCHEME]",
+      "[DIFFICULTY MIX]",
+      "[OPTIONAL PREFILLED FORM LINK WITH ENTRY IDS]"
+    ],
+    "doThis": [
+      "Create one master set of multiple-choice questions in plain ASCII maths.",
+      "Give a review copy with correct answers, short solutions and check-this-yourself links for calculations.",
+      "Generate one complete executable FormApp script from that exact master set with quiz mode, correct choices, points and logged URLs.",
+      "Generate a Wayground paste block from the same master set and keep it under 10,000 characters.",
+      "If an existing prefilled Form link with entry IDs is supplied, encode only those supplied IDs and values; otherwise omit prefilled links.",
+      "Finish with a parity table comparing item count and answer letter across all three formats."
+    ],
+    "outputFormat": [
+      "FORMAT 1 — LINK-VERIFIED REVIEW COPY",
+      "FORMAT 2 — COMPLETE GOOGLE APPS SCRIPT",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "FORMAT 3 — WAYGROUND PASTE BLOCK",
+      "IMPORT — Create → Import → Paste questions",
+      "THREE-FORMAT PARITY CHECK"
+    ],
+    "guardrails": [
+      "The Form must be created only by a COMPLETE executable FormApp code block; no URL can create it.",
+      "After the code, print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Wayground is paste-import only through Create → Import → Paste questions, and its block must stay below 10,000 characters.",
+      "Use an existing Google Forms prefill URL only when the teacher supplies its real entry IDs; never invent an entry ID.",
+      "Keep question text, options and answer keys identical across the three formats."
+    ],
+    "exampleTask": "Make an eight-question Class 8 quiz on linear equations in three formats.",
+    "exampleResult": "All formats mark x=3 for x^2-9=0 only when the intended item asks for the positive root and state that restriction explicitly.",
+    "exampleUrl": "https://www.symbolab.com/solver?query=solve%20x%5E2-9%3D0",
+    "exampleFallback": "solve x^2-9=0",
+    "exampleEncodingNote": "The space is %20, ^ is %5E and = is %3D."
+  },
+  {
+    "brief": 15,
+    "slot": 4,
+    "category": "phone-quizzes",
+    "title": "Kahoot Spreadsheet Quiz Without Truncation",
+    "tag": "Kahoot XLSX Import",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A checked Kahoot XLSX-ready table whose questions and answers stay inside the platform’s strict character limits.",
+    "howToUse": "Provide the quiz scope, paste the returned rows into Kahoot’s official XLSX template, and upload the spreadsheet through the creator.",
+    "effectiveUsage": [
+      "1. Ask for short, screen-readable questions with one unambiguous answer.",
+      "2. Open each verification link and approve the key.",
+      "3. Paste the rows into the official Kahoot XLSX template without changing the headers.",
+      "4. Import the XLSX, preview truncation and test one player view before class."
+    ],
+    "commonFix": "If wrong, reply with: \"Rewrite every row so each question is at most 95 characters and each answer is at most 60, then recount and reprint the XLSX table.\"",
+    "exams": ["any"],
+    "aud": "teacher",
+    "role": "Act as a concise maths quiz writer and exact Kahoot spreadsheet-import formatter.",
+    "context": "A teacher wants a lively Kahoot round on [TOPIC] but must avoid silent truncation in the spreadsheet importer.",
+    "inputs": [
+      "[CLASS]",
+      "[TOPIC]",
+      "[QUESTION COUNT]",
+      "[DIFFICULTY MIX]",
+      "[TIME PER QUESTION]",
+      "[LANGUAGE]"
+    ],
+    "doThis": [
+      "Draft four-option quiz questions that fit a phone and use plain ASCII maths.",
+      "Verify every computational correct answer with a check-this-yourself link in a separate review table.",
+      "Output rows matching the Kahoot XLSX columns: Question, Answer 1, Answer 2, Answer 3, Answer 4, Time limit and Correct answer number.",
+      "Keep every question at 95 characters or fewer and every answer at 60 characters or fewer.",
+      "Print measured character counts for each question and its longest answer.",
+      "Explain the manual XLSX import route without claiming URL import."
+    ],
+    "outputFormat": [
+      "LINK-VERIFIED ANSWER REVIEW",
+      "KAHOOT XLSX-READY ROWS",
+      "95/60 CHARACTER AUDIT",
+      "XLSX IMPORT STEPS",
+      "PHONE PREVIEW CHECK"
+    ],
+    "guardrails": [
+      "Kahoot accepts spreadsheet import through XLSX rows, not a URL or a quiz-bearing link.",
+      "Every question must be no longer than 95 characters and every answer no longer than 60 characters.",
+      "Use the correct-answer number required by the Kahoot template and preserve the same key as the review table.",
+      "Use plain ASCII maths and do not claim that generating a table automatically uploads it."
+    ],
+    "exampleTask": "Make a five-question mental-arithmetic Kahoot for Class 6.",
+    "exampleResult": "For 17*6-25, the checked correct answer is 77 and the row fits both character limits.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=17%2A6-25",
+    "exampleFallback": "17*6-25",
+    "exampleEncodingNote": "The multiplication asterisk is URL-safe here; the whole query contains no spaces or reserved plus sign."
+  },
+  {
+    "brief": 15,
+    "slot": 5,
+    "category": "phone-quizzes",
+    "title": "Blooket CSV Drill Set Builder",
+    "tag": "Blooket CSV Import",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A clean Blooket-compatible CSV drill set with every correct answer recorded as an option number from 1 to 4.",
+    "howToUse": "Describe the drill topic, save the returned code block as a CSV file, then import it in Blooket’s set creator.",
+    "effectiveUsage": [
+      "1. Choose a narrow skill that benefits from repeated multiple-choice practice.",
+      "2. Review the key and check the worked verification links.",
+      "3. Save only the labelled CSV block with UTF-8 encoding and a .csv extension.",
+      "4. Use Blooket’s CSV Import, preview all options and confirm the numbered key before hosting."
+    ],
+    "commonFix": "If wrong, reply with: \"Rebuild valid Blooket CSV with one header row, no blanks, safely quoted fields and Correct Answer(s) as a number from 1 to 4 only.\"",
+    "exams": ["any"],
+    "aud": "teacher",
+    "role": "Act as a maths retrieval-practice designer and strict Blooket CSV formatter.",
+    "context": "A teacher wants a replayable phone drill for [CLASS] on [SKILL] using Blooket’s file importer.",
+    "inputs": [
+      "[CLASS]",
+      "[SKILL OR TOPIC]",
+      "[QUESTION COUNT]",
+      "[DIFFICULTY MIX]",
+      "[TIME LIMIT PER QUESTION]",
+      "[COMMON ERRORS TO TARGET]"
+    ],
+    "doThis": [
+      "Create multiple-choice drill items with four plausible options and one correct answer.",
+      "Use plain ASCII maths and avoid commas inside fields unless the CSV field is correctly quoted.",
+      "Give a review table with answer text, answer position and check-this-yourself links.",
+      "Output one CSV code block with the Blooket columns Question, Answer 1 through Answer 4, Time Limit and Correct Answer(s).",
+      "Put only the correct option number 1, 2, 3 or 4 in Correct Answer(s), never the answer text.",
+      "Audit header count, row width, blank rows and numbered keys before the import steps."
+    ],
+    "outputFormat": [
+      "DRILL BLUEPRINT",
+      "LINK-VERIFIED KEY REVIEW",
+      "BLOOKET CSV CODE BLOCK",
+      "CSV STRUCTURE AUDIT",
+      "FILE-IMPORT STEPS"
+    ],
+    "guardrails": [
+      "Blooket receives this set only through CSV file import; never claim URL import.",
+      "Correct Answer(s) must contain the option NUMBER 1–4, never answer text.",
+      "Use one header row, no merged cells, no blank rows and no extra columns; quote CSV fields correctly.",
+      "Blooket supports multiple choice here, so do not create typed-answer items or LaTeX content."
+    ],
+    "exampleTask": "Build a ten-item fractions drill for Class 6.",
+    "exampleResult": "For 3/4+5/6, the verified answer is 19/12 and its CSV key stores the position of 19/12 as a number from 1 to 4.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=3%2F4%2B5%2F6",
+    "exampleFallback": "3/4+5/6",
+    "exampleEncodingNote": "The plus sign is %2B; slashes remain readable URL characters in this query."
+  },
+  {
+    "brief": 16,
+    "slot": 1,
+    "category": "phone-quizzes",
+    "title": "JEE Negative-Marking Form and Score Sheet",
+    "tag": "Negative-Marking Mock",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A complete JEE-style Google Form script plus a submission trigger that calculates +4, -1 and blank-zero scores in a linked sheet.",
+    "howToUse": "Set the syllabus and question count, audit each option independently, run the script, then test correct, wrong and blank submissions before sharing.",
+    "effectiveUsage": [
+      "1. Paste an exact syllabus slice and realistic time limit for the mock.",
+      "2. Check every option and open every answer-verification link before accepting the key.",
+      "3. Run the complete script and use View, then Logs, to open the generated Form and score sheet.",
+      "4. Submit three test responses to confirm +4 for correct, -1 for wrong and 0 for blank."
+    ],
+    "commonFix": "If wrong, reply with: \"Rebuild the executable script and on-form-submit grader so correct, incorrect and blank responses score +4, -1 and 0 respectively in the linked sheet.\"",
+    "exams": ["jee-main", "jee-advanced"],
+    "aud": "teacher",
+    "role": "Act as a JEE mock-paper setter, option-level verifier and Google Apps Script assessment developer.",
+    "context": "A teacher needs a timed [JEE LEVEL] phone mock on [SYLLABUS] with real negative-marking totals rather than only Google Forms’ positive quiz score.",
+    "inputs": [
+      "[JEE LEVEL]",
+      "[SYLLABUS]",
+      "[QUESTION COUNT]",
+      "[TIME LIMIT]",
+      "[DIFFICULTY MIX]",
+      "[POSITIVE MARKS, DEFAULT 4]",
+      "[NEGATIVE MARKS, DEFAULT 1]"
+    ],
+    "doThis": [
+      "Draft single-correct JEE-style MCQs without calling them authentic PYQs unless the teacher supplies a source.",
+      "Check each option independently and give a concise solution plus a check-this-yourself link for each computational answer.",
+      "Generate one complete executable FormApp script that creates a non-required-choice mock so blanks remain possible, a linked score sheet and an installable submission trigger.",
+      "Have the trigger award the stated positive score for correct, subtract the stated penalty for wrong and award zero for blank, then append the official total to the score sheet.",
+      "State clearly that native Google Forms quiz points cannot display negative scores and that the linked-sheet total is the official mock score.",
+      "Log the edit URL, respondent URL and score-sheet URL and include a three-case test protocol."
+    ],
+    "outputFormat": [
+      "MOCK BLUEPRINT",
+      "OPTION-BY-OPTION VERIFIED KEY",
+      "COMPLETE FORMAPP SCRIPT WITH GRADING TRIGGER",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "NEGATIVE-MARKING TEST CASES",
+      "STUDENT SHARING NOTE"
+    ],
+    "guardrails": [
+      "Output one COMPLETE executable Google Apps Script code block using FormApp and an installed submission trigger; no TODOs or pseudocode.",
+      "After the code, print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Never claim native Forms quiz scoring supports negative points; calculate the official +4/-1/0 score in the linked sheet.",
+      "Never present invented questions as real PYQs and never claim a URL creates the form."
+    ],
+    "exampleTask": "Create a six-question JEE Main negative-marking mock on quadratic equations.",
+    "exampleResult": "The verified roots of 2x^2-7x+3=0 are 1/2 and 3, and the grader awards +4 only for the matching option.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=solve%202x%5E2-7x%2B3%3D0",
+    "exampleFallback": "solve 2x^2-7x+3=0",
+    "exampleEncodingNote": "The space is %20, ^ is %5E, + is %2B and = is %3D."
+  },
+  {
+    "brief": 16,
+    "slot": 2,
+    "category": "phone-quizzes",
+    "title": "Assertion–Reason Digital Quiz Pack",
+    "tag": "Assertion Reason",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A checked assertion–reason quiz, diagnostic teaching notes and a complete auto-marked Google Form script.",
+    "howToUse": "Give the topic and class, inspect the truth value and explanatory link for each pair, then run the script and preview the four standard choices.",
+    "effectiveUsage": [
+      "1. Limit the set to concepts already taught and state the exact assertion–reason convention.",
+      "2. Read the truth audit for both statements and whether the reason explains the assertion.",
+      "3. Run the code and inspect every standard combined option in the generated Form.",
+      "4. Use the misconception notes for a short re-teach after students submit."
+    ],
+    "commonFix": "If wrong, reply with: \"Re-evaluate the assertion and reason separately, then rebuild the key only after stating whether the reason logically explains the assertion.\"",
+    "exams": ["boards", "jee-main", "foundation"],
+    "aud": "teacher",
+    "role": "Act as an assertion–reason item writer, logic auditor and Google Forms quiz developer.",
+    "context": "A teacher wants a diagnostic digital pack on [TOPIC] that distinguishes truth from explanatory reasoning for [CLASS].",
+    "inputs": [
+      "[CLASS]",
+      "[BOARD OR EXAM]",
+      "[TOPIC]",
+      "[PAIR COUNT]",
+      "[DIFFICULTY MIX]",
+      "[MARKS PER PAIR]"
+    ],
+    "doThis": [
+      "Write original assertion–reason pairs at the requested level without fabricating an exam source.",
+      "For each pair, audit the assertion’s truth, the reason’s truth and the logical explanation relation separately.",
+      "Use the same four standard combined answer choices consistently across the pack.",
+      "Add a one-line misconception diagnosis and a teacher re-teach cue to every item.",
+      "Add a check-this-yourself link where symbolic or numerical checking is meaningful, and explicitly mark purely logical claims as needing human reasoning.",
+      "Generate one complete executable FormApp script with quiz mode, correct combined choices, points, feedback and logged URLs."
+    ],
+    "outputFormat": [
+      "ASSERTION–REASON REVIEW PACK",
+      "TRUTH AND EXPLANATION AUDIT",
+      "MISCONCEPTION TEACH NOTES",
+      "COMPLETE GOOGLE APPS SCRIPT",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "FORM PREVIEW CHECK"
+    ],
+    "guardrails": [
+      "Output a COMPLETE executable FormApp code block with all items, choices, keys and points included.",
+      "After the code, print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Never decide the combined option without first evaluating the assertion, reason and explanation relation separately.",
+      "Never claim a URL can create the Form; the complete Apps Script is the only creation route."
+    ],
+    "exampleTask": "Write an assertion–reason item about the derivative of x^3.",
+    "exampleResult": "The derivative check returns 3x^2, while the separate teaching note explains whether the proposed reason actually justifies the assertion.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=differentiate%20x%5E3",
+    "exampleFallback": "differentiate x^3",
+    "exampleEncodingNote": "The space is %20 and ^ is %5E."
+  },
+  {
+    "brief": 16,
+    "slot": 3,
+    "category": "phone-quizzes",
+    "title": "Exact-Match Integer Answer Phone Quiz",
+    "tag": "Integer Exact Match",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A complete integer-answer Form and custom exact-match grading trigger with an auditable accepted-answer key.",
+    "howToUse": "Specify the integer-answer scope, approve every accepted response string, run the script, and test boundary, negative and blank cases.",
+    "effectiveUsage": [
+      "1. State whether signs, leading zeros and equivalent decimal forms should be accepted.",
+      "2. Verify each numerical key and inspect the accepted-answer table.",
+      "3. Run the script and open the respondent and grading-sheet links from Logs.",
+      "4. Submit test values such as a correct integer, a wrong integer and a blank before class."
+    ],
+    "commonFix": "If wrong, reply with: \"Rebuild the exact-match key and trigger, listing every accepted string explicitly and rejecting all unlisted responses without changing the mathematics.\"",
+    "exams": ["jee-main", "jee-advanced", "olympiad"],
+    "aud": "teacher",
+    "role": "Act as an integer-answer assessment setter, exact-key auditor and Apps Script grader developer.",
+    "context": "A teacher needs a phone quiz of integer-answer questions for [EXAM] with transparent exact matching instead of ambiguous free-text marking.",
+    "inputs": [
+      "[EXAM]",
+      "[TOPICS]",
+      "[QUESTION COUNT]",
+      "[INTEGER RANGE]",
+      "[MARKS PER QUESTION]",
+      "[ACCEPTED FORMAT RULES]"
+    ],
+    "doThis": [
+      "Create original integer-answer questions whose final responses lie in the stated range.",
+      "Give full solutions and a check-this-yourself link for every numerical key.",
+      "Print an accepted-answer table that distinguishes exact strings, trimmed whitespace and explicitly allowed equivalent forms.",
+      "Generate one complete executable FormApp script with text-response items, a linked grading sheet and an installable submission trigger.",
+      "Have the trigger compare each trimmed response against only the listed accepted strings and record per-item and total scores.",
+      "Log the Form and Sheet URLs and provide positive, negative, zero and blank test cases."
+    ],
+    "outputFormat": [
+      "INTEGER QUIZ REVIEW COPY",
+      "VERIFIED EXACT-MATCH KEY",
+      "ACCEPTED RESPONSE STRINGS",
+      "COMPLETE FORMAPP SCRIPT WITH CUSTOM GRADER",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "GRADER TEST MATRIX"
+    ],
+    "guardrails": [
+      "Output one COMPLETE executable Google Apps Script code block using FormApp plus an installed submission trigger; do not rely on unsupported native exact-answer setup for TextItem questions.",
+      "After the code, print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Do not silently accept mathematically equivalent text unless it appears in the approved accepted-answer list.",
+      "Never claim a URL creates the form and never invent a real-exam source."
+    ],
+    "exampleTask": "Create an integer-answer quiz containing x^2-13x+40=0 and ask for the larger root.",
+    "exampleResult": "The verified roots are 5 and 8, so the exact key for the larger-root item is the string 8.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=solve%20x%5E2-13x%2B40%3D0",
+    "exampleFallback": "solve x^2-13x+40=0",
+    "exampleEncodingNote": "The space is %20, ^ is %5E, + is %2B and = is %3D."
+  },
+  {
+    "brief": 16,
+    "slot": 4,
+    "category": "phone-quizzes",
+    "title": "Daily Five-Question DPP Leaderboard",
+    "tag": "DPP Leaderboard",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A five-question daily phone DPP, complete Forms script and a linked-sheet leaderboard formula that ranks verified scores.",
+    "howToUse": "Set the day’s skill and student label, approve the key, run the script, and keep the leaderboard private or share only with class consent.",
+    "effectiveUsage": [
+      "1. Choose one daily skill and a five-question easy-to-hard progression.",
+      "2. Review solutions and open each computational check link.",
+      "3. Run the script and test that submissions reach the linked response sheet.",
+      "4. Paste the provided formula in the leaderboard sheet and confirm ties and blank rows behave correctly.",
+      "5. Share rankings only under your school’s privacy policy."
+    ],
+    "commonFix": "If wrong, reply with: \"Repair the response-sheet references and leaderboard formula, then show a five-row sample proving scores sort high-to-low and ties remain visible.\"",
+    "exams": ["jee-main", "jee-advanced"],
+    "aud": "teacher",
+    "role": "Act as a daily-practice designer, Google Forms developer and privacy-aware Sheets leaderboard builder.",
+    "context": "A teacher wants a five-question phone DPP on [DAILY SKILL] with immediate collection and a transparent class leaderboard.",
+    "inputs": [
+      "[CLASS OR BATCH]",
+      "[DAILY SKILL]",
+      "[DATE OR DAY NUMBER]",
+      "[DIFFICULTY PATH]",
+      "[MARKS PER QUESTION]",
+      "[STUDENT LABEL FIELD]",
+      "[TIEBREAK RULE]"
+    ],
+    "doThis": [
+      "Write exactly five original questions progressing from warm-up to exam-level application.",
+      "Give a compact review key with solutions and check-this-yourself links for all calculations.",
+      "Generate one complete executable FormApp quiz script with a student-label field, correct choices, points, linked response sheet and logged URLs.",
+      "Output a Google Sheets leaderboard formula that filters blanks, totals scores, sorts descending and applies the stated tiebreak rule.",
+      "Show a small fictional formula test table and the resulting rank order without exposing real student data.",
+      "Add a privacy note offering initials or roll codes instead of public names."
+    ],
+    "outputFormat": [
+      "FIVE-QUESTION DPP REVIEW",
+      "VERIFIED KEY",
+      "COMPLETE GOOGLE APPS SCRIPT",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "LEADERBOARD SHEET FORMULA",
+      "FORMULA TEST TABLE",
+      "PRIVACY-SAFE SHARING NOTE"
+    ],
+    "guardrails": [
+      "Output one COMPLETE executable Google Apps Script code block using FormApp with all five questions and linked-sheet setup included.",
+      "After the code, print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "The leaderboard formula must use actual columns created by the script and must not expose email addresses or other private data.",
+      "Never claim a URL creates the form; verification links are for checking maths only."
+    ],
+    "exampleTask": "Make a five-question DPP on factors and multiples ending with lcm(12,18).",
+    "exampleResult": "The verified LCM is 36, and a correct response receives the item’s points before the total enters the leaderboard.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=lcm%2812%2C18%29",
+    "exampleFallback": "lcm(12,18)",
+    "exampleEncodingNote": "The parentheses are %28 and %29, and the comma is %2C."
+  },
+  {
+    "brief": 16,
+    "slot": 5,
+    "category": "phone-quizzes",
+    "title": "Find the Wrong Line Error Hunt",
+    "tag": "Error Hunt",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "An auto-marked error-hunting quiz in which students identify the first wrong line and receive a precise correction.",
+    "howToUse": "Name the skill and typical mistakes, audit each worked chain, then run the Form script and use the response patterns for re-teaching.",
+    "effectiveUsage": [
+      "1. Supply two or three misconceptions your students actually make.",
+      "2. Check that each item has exactly one first incorrect line.",
+      "3. Run the script and preview line breaks and option labels on a phone.",
+      "4. After the quiz, group students by the wrong line they chose and re-teach that breakpoint."
+    ],
+    "commonFix": "If wrong, reply with: \"Rewrite the worked chain so there is exactly one first invalid line, verify every earlier line, and explain the minimal correction.\"",
+    "exams": ["boards", "jee-main"],
+    "aud": "teacher",
+    "role": "Act as a maths misconception diagnostician, worked-solution auditor and Google Forms developer.",
+    "context": "A teacher wants students in [CLASS] to spot the first wrong line in plausible worked solutions on [TOPIC].",
+    "inputs": [
+      "[CLASS]",
+      "[TOPIC]",
+      "[ITEM COUNT]",
+      "[COMMON STUDENT ERRORS]",
+      "[DIFFICULTY]",
+      "[MARKS PER ITEM]"
+    ],
+    "doThis": [
+      "Write short numbered solution chains with exactly one first mathematically invalid line per item.",
+      "Offer line-number choices plus an option stating that no line is wrong only when deliberately requested.",
+      "Audit every line before and after the breakpoint and explain the smallest valid correction.",
+      "Add a check-this-yourself link that demonstrates the correct simplification or answer for each computational chain.",
+      "Generate one complete executable FormApp script with quiz mode, correct line choices, points, feedback and logged URLs.",
+      "Summarise what each distractor choice suggests the student misunderstood."
+    ],
+    "outputFormat": [
+      "ERROR-HUNT REVIEW COPY",
+      "BREAKPOINT AND CORRECTION KEY",
+      "DISTRACTOR DIAGNOSIS",
+      "COMPLETE GOOGLE APPS SCRIPT",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "RE-TEACH GROUPS"
+    ],
+    "guardrails": [
+      "Each worked chain must have exactly one unambiguous first wrong line, with every earlier line valid.",
+      "Output one COMPLETE executable FormApp code block and print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Never claim a URL creates the form; use allowed solver links only to check the correct mathematics.",
+      "Do not use deliberately malformed notation that becomes unreadable on a phone."
+    ],
+    "exampleTask": "Create an error hunt for the false expansion (x+1)^2=x^2+1.",
+    "exampleResult": "The audit shows the missing 2x term is the first break, because the correct difference simplifies to 0 only after including it.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=simplify%20%28x%2B1%29%5E2-%28x%5E2%2B2x%2B1%29",
+    "exampleFallback": "simplify (x+1)^2-(x^2+2x+1)",
+    "exampleEncodingNote": "Spaces use %20, parentheses use %28 and %29, + uses %2B and ^ uses %5E."
+  },
+  {
+    "brief": 17,
+    "slot": 1,
+    "category": "phone-quizzes",
+    "title": "Misconception Poll With Teaching Notes",
+    "tag": "Misconception Poll",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A short concept-check poll whose distractors diagnose specific misconceptions and whose teacher notes prescribe the next explanation.",
+    "howToUse": "Name one concept and known misconceptions, audit the diagnostic mapping, run the Form script, and teach from the response split.",
+    "effectiveUsage": [
+      "1. Choose one concept that can be checked in three to five focused questions.",
+      "2. Replace generic distractors with mistakes you have actually seen in class.",
+      "3. Run the script and preview every option on a phone before sharing.",
+      "4. Use the teaching note linked to the most-selected wrong option for an immediate mini-lesson."
+    ],
+    "commonFix": "If wrong, reply with: \"Replace random distractors with options produced by named misconceptions, then explain the evidence each choice gives the teacher.\"",
+    "exams": ["any"],
+    "aud": "teacher",
+    "role": "Act as a formative-assessment specialist, misconception analyst and Google Forms poll developer.",
+    "context": "A teacher needs a rapid concept check for [CLASS] on [CONCEPT], with useful action attached to every response pattern.",
+    "inputs": [
+      "[CLASS]",
+      "[CONCEPT]",
+      "[QUESTION COUNT, DEFAULT 4]",
+      "[KNOWN MISCONCEPTIONS]",
+      "[LESSON OBJECTIVE]",
+      "[POLL TIME]"
+    ],
+    "doThis": [
+      "Write one-concept multiple-choice questions whose incorrect options each embody a named misconception.",
+      "Give a teacher-only mapping from every option to the likely reasoning behind it.",
+      "Add one quick re-teach move and one follow-up question for each misconception.",
+      "Verify every computational key with a check-this-yourself link and separate mathematical correctness from diagnostic interpretation.",
+      "Generate one complete executable FormApp script with quiz mode, correct choices, points, feedback and logged URLs.",
+      "Finish with a response-split decision table for what to teach next."
+    ],
+    "outputFormat": [
+      "CONCEPT POLL REVIEW",
+      "OPTION-TO-MISCONCEPTION MAP",
+      "TEACH-NEXT NOTES",
+      "COMPLETE GOOGLE APPS SCRIPT",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "RESPONSE-SPLIT DECISION TABLE"
+    ],
+    "guardrails": [
+      "Output one COMPLETE executable FormApp code block; no TODOs or manual question-entry gaps.",
+      "After the code, print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Every distractor must correspond to a stated misconception rather than being random filler.",
+      "Label solver links check this yourself and keep student-facing feedback respectful.",
+      "Never claim a URL can create the Form; the complete Apps Script is the only creation route."
+    ],
+    "exampleTask": "Poll Class 7 students on solving 3x+4=19.",
+    "exampleResult": "The verified solution is x=5; options 23/3, 15 and 5/3 are each tied to a different inverse-operation mistake.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=solve%203x%2B4%3D19",
+    "exampleFallback": "solve 3x+4=19",
+    "exampleEncodingNote": "The space is %20, + is %2B and = is %3D."
+  },
+  {
+    "brief": 17,
+    "slot": 2,
+    "category": "phone-quizzes",
+    "title": "Pre-Class Flipped Learning Check",
+    "tag": "Flipped Check",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A concise pre-class Form that checks whether students understood a supplied video, reading or worked example before the lesson begins.",
+    "howToUse": "Paste the exact pre-class source and lesson goal, review every source-grounded item, then run the script and share the respondent link in advance.",
+    "effectiveUsage": [
+      "1. Supply the exact video transcript, notes or reading excerpt instead of only a title.",
+      "2. Check that every question can be answered from that source.",
+      "3. Run the code, test the Form on a phone and share it with a clear deadline.",
+      "4. Sort the response summary into ready, review-first and misconception groups before class."
+    ],
+    "commonFix": "If wrong, reply with: \"Remove every question not answerable from my supplied source and rebuild the readiness groups from the corrected key.\"",
+    "exams": ["any"],
+    "aud": "teacher",
+    "role": "Act as a flipped-learning lesson designer, source-grounded quiz writer and FormApp developer.",
+    "context": "Students in [CLASS] will study [PRECLASS SOURCE] before a lesson on [TOPIC], and the teacher needs a readiness check.",
+    "inputs": [
+      "[CLASS]",
+      "[TOPIC]",
+      "[PRECLASS SOURCE]",
+      "[LEARNING GOAL]",
+      "[QUESTION COUNT]",
+      "[SUBMISSION DEADLINE]"
+    ],
+    "doThis": [
+      "Extract only claims, methods and examples present in the supplied source.",
+      "Write short questions that check recall, one explanation and one transfer step.",
+      "Quote no more source text than necessary and identify any item that needs teacher confirmation.",
+      "Verify mathematical computations with check-this-yourself links and give a brief answer rationale.",
+      "Generate one complete executable FormApp script with the source named in the description, required questions, quiz keys, points and logged URLs.",
+      "Add a post-response readiness grouping guide for the teacher."
+    ],
+    "outputFormat": [
+      "SOURCE-TO-GOAL MAP",
+      "PRE-CLASS QUIZ REVIEW",
+      "VERIFIED KEY",
+      "COMPLETE GOOGLE APPS SCRIPT",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "READINESS GROUPING GUIDE"
+    ],
+    "guardrails": [
+      "Use only the source the teacher provides; do not invent details, timestamps or quotations.",
+      "Output one COMPLETE executable FormApp code block and print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Never claim a URL creates the Form; the respondent URL exists only after the teacher runs the script.",
+      "Keep the quiz short enough to complete before class on a phone."
+    ],
+    "exampleTask": "Build a flipped check from notes showing how to factor x^2-7x+12.",
+    "exampleResult": "The verified factorisation is (x-3)(x-4), and the transfer item asks students to identify the required sum and product.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=factor%20x%5E2-7x%2B12",
+    "exampleFallback": "factor x^2-7x+12",
+    "exampleEncodingNote": "The space is %20, ^ is %5E and + is %2B."
+  },
+  {
+    "brief": 17,
+    "slot": 3,
+    "category": "phone-quizzes",
+    "title": "Parent-Shareable Practice Checkpoint",
+    "tag": "Family Practice",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A low-pressure practice Form, child-friendly self-check links and a clear parent message that supports practice without revealing answers first.",
+    "howToUse": "Set the skill and age level, run and test the script, then send the respondent link with the generated parent protocol.",
+    "effectiveUsage": [
+      "1. Choose a narrow skill and a workload the child can finish independently.",
+      "2. Check the answer key and open every self-check link before sharing.",
+      "3. Run the script, test the student flow and copy the respondent URL from Logs.",
+      "4. Send the parent note and ask adults to use hints before showing solutions.",
+      "5. Review patterns privately rather than posting child scores in a group."
+    ],
+    "commonFix": "If wrong, reply with: \"Rewrite the family protocol in simple respectful language, keep answers hidden until submission and make every check link match its question exactly.\"",
+    "exams": ["foundation"],
+    "aud": "teacher",
+    "role": "Act as a family-friendly maths practice designer, safeguarding-aware communicator and Google Forms developer.",
+    "context": "A teacher wants parents of [CLASS] students to support practice on [SKILL] from a phone without turning it into a high-pressure test.",
+    "inputs": [
+      "[CLASS]",
+      "[SKILL]",
+      "[QUESTION COUNT]",
+      "[AGE LEVEL]",
+      "[EXPECTED TIME]",
+      "[HOME LANGUAGE]",
+      "[HELP POLICY]"
+    ],
+    "doThis": [
+      "Write age-appropriate practice questions with a gentle easy-to-medium progression.",
+      "Give the teacher a checked key and attach browser-based check-this-yourself links that parents use only after the child attempts the item.",
+      "Generate one complete executable FormApp script with quiz mode, required items, points, brief feedback and logged URLs.",
+      "Write a parent message explaining the purpose, time, hint-first protocol and how to avoid giving the answer.",
+      "Add a student self-check routine: estimate, attempt, submit, open the matching link and correct one line.",
+      "Avoid collecting unnecessary personal data and include a private teacher follow-up plan."
+    ],
+    "outputFormat": [
+      "PRACTICE REVIEW COPY",
+      "TEACHER-VERIFIED KEY",
+      "COMPLETE GOOGLE APPS SCRIPT",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "PARENT-SHARE MESSAGE",
+      "CHILD SELF-CHECK PROTOCOL",
+      "PRIVACY NOTE"
+    ],
+    "guardrails": [
+      "Output one COMPLETE executable FormApp code block and print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Never claim a URL can create the Form; the script creates it and the teacher shares the logged respondent URL.",
+      "Do not collect email, phone number or other unnecessary child data.",
+      "Label maths links check this yourself and tell families to open them in a browser after attempting."
+    ],
+    "exampleTask": "Create a parent-shareable order-of-operations practice set containing 24/6+3*2.",
+    "exampleResult": "The verified value is 10, and the protocol asks the child to calculate before opening the self-check link.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=24%2F6%2B3%2A2",
+    "exampleFallback": "24/6+3*2",
+    "exampleEncodingNote": "The plus sign is %2B; the slash and multiplication asterisk remain readable URL characters."
+  },
+  {
+    "brief": 17,
+    "slot": 4,
+    "category": "phone-quizzes",
+    "title": "Formula Sheet to Revision Quiz",
+    "tag": "Formula Revision",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A formula-coverage audit, checked revision quiz and Wayground paste block derived only from the formula sheet you provide.",
+    "howToUse": "Paste the formula sheet as text, verify the coverage and key, then import the sub-10,000-character block through Wayground.",
+    "effectiveUsage": [
+      "1. Paste the complete formula sheet and identify any formulas students may derive rather than memorise.",
+      "2. Check the formula-to-question coverage table for omissions and over-testing.",
+      "3. Open the solver links and approve the review-copy key.",
+      "4. Paste the final block using Wayground’s Create, Import and Paste questions path, then preview every item."
+    ],
+    "commonFix": "If wrong, reply with: \"Use only formulas present in my sheet, restore any omitted formula and rebuild the Wayground block below 10,000 characters.\"",
+    "exams": ["boards", "jee-main"],
+    "aud": "teacher",
+    "role": "Act as a formula-sheet auditor, retrieval-practice writer and Wayground paste formatter.",
+    "context": "A teacher has pasted [FORMULA SHEET] for [CHAPTER] and wants a phone revision quiz that tests meaning, selection and use.",
+    "inputs": [
+      "[CLASS]",
+      "[BOARD OR EXAM]",
+      "[CHAPTER]",
+      "[FORMULA SHEET]",
+      "[QUESTION COUNT]",
+      "[DIFFICULTY MIX]"
+    ],
+    "doThis": [
+      "Extract and list every formula exactly as supplied before writing questions.",
+      "Map each formula to recall, when-to-use and one application item as appropriate.",
+      "Do not introduce a formula absent from the sheet unless it is clearly labelled as a teacher-review suggestion.",
+      "Give a review copy with answers, brief solutions and check-this-yourself links for computational items.",
+      "Create a plain-ASCII Wayground paste block under 10,000 characters with clearly marked correct choices.",
+      "Print the block’s character count and the manual import path."
+    ],
+    "outputFormat": [
+      "FORMULA INVENTORY",
+      "FORMULA-TO-QUESTION COVERAGE",
+      "LINK-VERIFIED REVIEW COPY",
+      "WAYGROUND PASTE BLOCK",
+      "CHARACTER COUNT",
+      "IMPORT — Create → Import → Paste questions"
+    ],
+    "guardrails": [
+      "Wayground is paste-import only through Create → Import → Paste questions; never claim URL import.",
+      "Keep the complete paste block below 10,000 characters and use plain ASCII maths.",
+      "Do not invent content that is not in the pasted formula sheet or silently alter a supplied formula.",
+      "Verification links must use allowed domains and be labelled check this yourself."
+    ],
+    "exampleTask": "Turn a formula sheet containing sin(x)^2+cos(x)^2=1 into a revision item.",
+    "exampleResult": "The review key simplifies sin(x)^2+cos(x)^2 to 1 and tests when the identity is useful.",
+    "exampleUrl": "https://www.symbolab.com/solver?query=simplify%20sin%28x%29%5E2%2Bcos%28x%29%5E2",
+    "exampleFallback": "simplify sin(x)^2+cos(x)^2",
+    "exampleEncodingNote": "The space is %20, parentheses are %28 and %29, ^ is %5E and + is %2B."
+  },
+  {
+    "brief": 17,
+    "slot": 5,
+    "category": "phone-quizzes",
+    "title": "Mental Maths Phone Speed Round",
+    "tag": "Speed Round",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A rapid-fire mental-maths round in Kahoot XLSX-ready rows with verified answers and safe screen-length limits.",
+    "howToUse": "Choose the mental skill and pace, paste the rows into Kahoot’s XLSX template, import, and test the timer on a student phone.",
+    "effectiveUsage": [
+      "1. Pick one mental strategy and keep calculations possible without written work.",
+      "2. Check the answer review and reject any item with ambiguous mental shortcuts.",
+      "3. Paste the audited rows into the official Kahoot XLSX template.",
+      "4. Import the spreadsheet, preview every row and rehearse the pace before class."
+    ],
+    "commonFix": "If wrong, reply with: \"Shorten the speed-round wording, keep questions at most 95 characters and answers at most 60, then re-audit every mental answer.\"",
+    "exams": ["foundation"],
+    "aud": "teacher",
+    "role": "Act as a mental-maths coach, rapid-quiz writer and Kahoot XLSX formatter.",
+    "context": "A teacher wants a fast phone round for [CLASS] practising [MENTAL STRATEGY] at [SECONDS PER QUESTION] seconds per item.",
+    "inputs": [
+      "[CLASS]",
+      "[MENTAL STRATEGY]",
+      "[QUESTION COUNT]",
+      "[NUMBER RANGE]",
+      "[SECONDS PER QUESTION]",
+      "[DIFFICULTY CURVE]"
+    ],
+    "doThis": [
+      "Write questions solvable mentally within the stated time and number range.",
+      "Use distractors generated by common mental slips, not random nearby numbers.",
+      "Give a separate verified-answer review with a one-line fastest mental route and check-this-yourself link.",
+      "Output Kahoot XLSX-ready rows with the official question, four-answer, time-limit and correct-answer-number columns.",
+      "Keep every question to 95 characters or fewer and every answer to 60 or fewer, and print counts.",
+      "Give manual spreadsheet-import and phone-preview steps without claiming URL import."
+    ],
+    "outputFormat": [
+      "SPEED-ROUND PLAN",
+      "VERIFIED MENTAL ROUTES",
+      "KAHOOT XLSX-READY ROWS",
+      "95/60 CHARACTER AUDIT",
+      "XLSX IMPORT STEPS",
+      "PACING CHECK"
+    ],
+    "guardrails": [
+      "Kahoot quiz content must travel as XLSX rows, never as a URL import.",
+      "Questions must be at most 95 characters and answers at most 60 characters.",
+      "Use plain ASCII maths, one correct-answer number per row and no calculation too long for the stated mental pace.",
+      "Do not claim the table is already uploaded; the teacher must paste it into the XLSX template and import it."
+    ],
+    "exampleTask": "Create a speed item asking for 125*8-300.",
+    "exampleResult": "The verified answer is 700, using 125*8=1000 and then subtracting 300.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=125%2A8-300",
+    "exampleFallback": "125*8-300",
+    "exampleEncodingNote": "The multiplication asterisk and minus sign are URL-safe in this compact query."
+  },
+  {
+    "brief": 18,
+    "slot": 1,
+    "category": "phone-quizzes",
+    "title": "Textbook Photo to Phone Quiz",
+    "tag": "Photo Quiz",
+    "needsImage": true,
+    "makesImage": false,
+    "whatYouGet": "A faithful transcription audit, checked phone quiz, complete Google Forms script and Wayground paste block made from an attached textbook page.",
+    "howToUse": "Attach one clear page photo, state the class and quiz length, confirm the transcription, then run or import the format you need.",
+    "effectiveUsage": [
+      "1. Attach a sharp, straight photo with every symbol, option and diagram label visible.",
+      "2. Compare the transcription with the page and correct it before using any generated item.",
+      "3. Open the answer-check links and review adaptations that differ from the source exercises.",
+      "4. Run the Forms script or paste the separate block through Wayground’s import path, then preview on a phone."
+    ],
+    "commonFix": "If wrong, reply with: \"Stop, retranscribe the attached page symbol-for-symbol, mark every unreadable fragment as unclear and rebuild nothing until I confirm the transcription.\"",
+    "exams": ["any"],
+    "aud": "teacher",
+    "role": "Act as a meticulous textbook transcriber, maths quiz adapter and cross-platform phone-assessment developer.",
+    "context": "A teacher has attached a photo of one [TEXTBOOK PAGE] and wants a quiz for [CLASS] without changing the mathematical meaning.",
+    "inputs": [
+      "[TEXTBOOK PAGE]",
+      "[CLASS]",
+      "[BOARD OR COURSE]",
+      "[QUESTION COUNT]",
+      "[DIFFICULTY MIX]",
+      "[MARKS PER QUESTION]",
+      "[LANGUAGE]"
+    ],
+    "doThis": [
+      "First transcribe every relevant heading, question, option, symbol, unit and diagram label from the attached image.",
+      "Flag blurred or cropped content as unclear instead of guessing, and stop for confirmation if any unclear detail affects an answer.",
+      "After a reliable transcription, adapt the material into original quiz items while distinguishing copied source items from new variants.",
+      "Give a review key with short solutions and check-this-yourself links for each computational result.",
+      "Generate one complete executable FormApp script with quiz mode, correct choices, points and logged URLs.",
+      "Also provide a plain-ASCII Wayground paste block under 10,000 characters with the same key.",
+      "Finish with a source-to-quiz trace table so the teacher can spot transcription drift."
+    ],
+    "outputFormat": [
+      "PHOTO TRANSCRIPTION AND UNCLEAR AREAS",
+      "SOURCE-TO-QUIZ TRACE TABLE",
+      "LINK-VERIFIED REVIEW COPY",
+      "COMPLETE GOOGLE APPS SCRIPT",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "WAYGROUND PASTE BLOCK UNDER 10,000 CHARACTERS",
+      "IMPORT — Create → Import → Paste questions"
+    ],
+    "guardrails": [
+      "Never guess an obscured symbol, exponent, sign, unit, option or diagram label from the photo.",
+      "Output one COMPLETE executable FormApp code block and print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Wayground is paste-import only through Create → Import → Paste questions; keep its block below 10,000 characters and do not claim URL import.",
+      "Never claim a URL creates a Google Form; the script is the creation route."
+    ],
+    "exampleTask": "Turn a photographed Class 7 page containing 2x+7=19 into a four-question quiz.",
+    "exampleResult": "The transcription preserves 2x+7=19 exactly, and the verified solution used in the key is x=6.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=solve%202x%2B7%3D19",
+    "exampleFallback": "solve 2x+7=19",
+    "exampleEncodingNote": "The space is %20, + is %2B and = is %3D."
+  },
+  {
+    "brief": 18,
+    "slot": 2,
+    "category": "phone-quizzes",
+    "title": "Last Year’s Paper to Phone Mock",
+    "tag": "Paper Recycling",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A supplied old paper rebuilt as a sectioned phone mock with a verified key and complete FormApp script while preserving its source structure.",
+    "howToUse": "Paste last year’s paper and marking scheme, check the transcription and answer audit, then run the script and test the mock timing.",
+    "effectiveUsage": [
+      "1. Paste the complete paper, including sections, options, marks and any internal choices.",
+      "2. Compare the source map and correct any omitted restriction before approving the digital version.",
+      "3. Open all computational verification links and confirm the final key.",
+      "4. Run the script, submit a test attempt and check section order, scores and confirmation text."
+    ],
+    "commonFix": "If wrong, reply with: \"Rebuild the mock from my supplied paper only, restore every section, mark and restriction, and show a source-parity audit before the script.\"",
+    "exams": ["boards", "jee-main", "jee-advanced"],
+    "aud": "teacher",
+    "role": "Act as a paper-digitisation editor, answer-key auditor and sectioned Google Forms mock developer.",
+    "context": "A teacher wants to recycle [PAST PAPER] into a phone mock without presenting any unsourced new item as part of the original paper.",
+    "inputs": [
+      "[PAST PAPER]",
+      "[ORIGINAL MARKING SCHEME]",
+      "[CLASS OR EXAM]",
+      "[TIME LIMIT]",
+      "[SECTIONS TO INCLUDE]",
+      "[DIGITISATION NOTES]"
+    ],
+    "doThis": [
+      "Transcribe and map every included question to its source number, section, marks and internal-choice rule.",
+      "Do not call any newly written replacement an original question; label adaptations clearly.",
+      "Audit the supplied key independently and add check-this-yourself links for computational results.",
+      "Generate one complete executable FormApp script with page-break sections, required-state choices that preserve optionality, quiz points and logged URLs.",
+      "Represent diagrams as teacher-supplied image links or precise text only when the source is unambiguous; never invent a diagram.",
+      "Give a source-parity checklist and a full-score test response for the teacher."
+    ],
+    "outputFormat": [
+      "SOURCE PAPER MAP",
+      "KEY AUDIT AND CHECK LINKS",
+      "DIGITISATION DECISIONS",
+      "COMPLETE SECTIONED FORMAPP SCRIPT",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "SOURCE-PARITY CHECKLIST",
+      "FULL-SCORE TEST RESPONSE"
+    ],
+    "guardrails": [
+      "Use only the paper the teacher supplies and never label invented content as an authentic past-paper question.",
+      "Output one COMPLETE executable FormApp code block and print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Never claim a URL creates the Form and never guess missing diagrams, marks or restrictions.",
+      "Preserve optional questions and section rules instead of making every source item compulsory."
+    ],
+    "exampleTask": "Digitise a supplied paper item asking for the roots of x^2-4x-5=0.",
+    "exampleResult": "The independently checked roots are -1 and 5, and the digital key preserves the source marks.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=solve%20x%5E2-4x-5%3D0",
+    "exampleFallback": "solve x^2-4x-5=0",
+    "exampleEncodingNote": "The space is %20, ^ is %5E and = is %3D."
+  },
+  {
+    "brief": 18,
+    "slot": 3,
+    "category": "phone-quizzes",
+    "title": "Three-Level Set A B C Quiz Scripts",
+    "tag": "Three Difficulty Sets",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A coordinated Set A, Set B and Set C script pack that assesses the same outcomes at support, standard and stretch difficulty.",
+    "howToUse": "Define the shared outcomes and difficulty policy, review the cross-set equivalence table, then run the complete scripts and test all three Forms.",
+    "effectiveUsage": [
+      "1. List the exact learning outcomes all three sets must share.",
+      "2. Check that difficulty changes through reasoning demand rather than hidden syllabus expansion.",
+      "3. Run each complete script and collect all edit and respondent links from Logs.",
+      "4. Test one submission per set and use the cross-set table when explaining allocation to students."
+    ],
+    "commonFix": "If wrong, reply with: \"Rebalance Sets A, B and C to the same outcomes and marks, then rebuild all complete scripts and show exactly how difficulty rises.\"",
+    "exams": ["boards", "jee-main"],
+    "aud": "teacher",
+    "role": "Act as a differentiated-assessment designer, fairness auditor and multi-form Apps Script developer.",
+    "context": "A teacher needs three coordinated phone quizzes on [TOPIC]: Set A with support, Set B at standard level and Set C for stretch.",
+    "inputs": [
+      "[CLASS]",
+      "[TOPIC]",
+      "[SHARED LEARNING OUTCOMES]",
+      "[QUESTIONS PER SET]",
+      "[MARKS PER SET]",
+      "[SET A SUPPORT POLICY]",
+      "[SET B STANDARD POLICY]",
+      "[SET C STRETCH POLICY]"
+    ],
+    "doThis": [
+      "Build three original sets with the same outcomes, marks and approximate completion time.",
+      "Increase difficulty through step count, representation and transfer while keeping every set inside the stated syllabus.",
+      "Give separate verified keys and check-this-yourself links for every computational answer.",
+      "Print a cross-set equivalence table mapping each item to outcome, cognitive demand and marks.",
+      "Output a complete executable FormApp script pack with functions for Set A, Set B and Set C plus one run-all function, quiz keys, points and logged URLs.",
+      "Add an allocation note that avoids ability labels in student-facing text and a test checklist for all three forms."
+    ],
+    "outputFormat": [
+      "SHARED BLUEPRINT",
+      "SET A, SET B AND SET C REVIEW COPIES",
+      "THREE VERIFIED KEYS",
+      "CROSS-SET EQUIVALENCE TABLE",
+      "COMPLETE A/B/C FORMAPP SCRIPT PACK",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "THREE-FORM TEST CHECKLIST"
+    ],
+    "guardrails": [
+      "Output one COMPLETE executable FormApp code block containing all three form builders and a run-all function; no TODOs or pseudocode.",
+      "After the code, print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Keep outcomes and total marks comparable across A, B and C; do not move a harder set outside the supplied syllabus.",
+      "Never claim a URL creates any Form; the script must log all generated links."
+    ],
+    "exampleTask": "Create A, B and C derivative quizzes that all include differentiating sin(x).",
+    "exampleResult": "All three keys use cos(x); the sets vary the context and reasoning around that shared derivative rather than changing the syllabus.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=differentiate%20sin%28x%29",
+    "exampleFallback": "differentiate sin(x)",
+    "exampleEncodingNote": "The space is %20 and the parentheses are %28 and %29."
+  },
+  {
+    "brief": 18,
+    "slot": 4,
+    "category": "phone-quizzes",
+    "title": "Bilingual Maths Vocabulary Phone Quiz",
+    "tag": "Bilingual Vocabulary",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A bilingual maths-term quiz and complete Google Form script that tests meaning in both directions without mistranslating notation.",
+    "howToUse": "Paste an approved bilingual glossary, review every term pair and example, then run the script and preview both languages on a phone.",
+    "effectiveUsage": [
+      "1. Supply a trusted glossary or approve the extracted term pairs before quiz generation.",
+      "2. Check spelling, register and mathematical meaning with a fluent teacher.",
+      "3. Run the script and inspect line wrapping and script rendering on a phone.",
+      "4. Use the response summary to separate vocabulary gaps from mathematical misconceptions."
+    ],
+    "commonFix": "If wrong, reply with: \"Use only my approved glossary, restore every exact term pair and separate language knowledge from the mathematical answer key.\"",
+    "exams": ["any"],
+    "aud": "teacher",
+    "role": "Act as a bilingual maths-language educator, terminology checker and Google Forms developer.",
+    "context": "A teacher wants students in [CLASS] to connect equivalent maths terms in [LANGUAGE 1] and [LANGUAGE 2] using an approved glossary.",
+    "inputs": [
+      "[CLASS]",
+      "[LANGUAGE 1]",
+      "[LANGUAGE 2]",
+      "[APPROVED BILINGUAL GLOSSARY]",
+      "[TOPIC]",
+      "[QUESTION COUNT]",
+      "[SCRIPT OR SPELLING CONVENTION]"
+    ],
+    "doThis": [
+      "Extract only term pairs present in the approved glossary and flag conflicts or missing equivalents for teacher review.",
+      "Test recognition in both language directions plus meaning-in-context, not transliteration alone.",
+      "Keep mathematical notation unchanged across languages and use short examples to disambiguate polysemous words.",
+      "Give a teacher key with a note separating vocabulary errors from maths errors and add check-this-yourself links for numerical examples.",
+      "Generate one complete executable FormApp script with Unicode text, quiz mode, correct choices, points, feedback and logged URLs.",
+      "Add a phone typography and language-direction preview checklist."
+    ],
+    "outputFormat": [
+      "APPROVED TERM INVENTORY",
+      "BILINGUAL QUIZ REVIEW",
+      "VOCABULARY-VS-MATHS KEY",
+      "COMPLETE GOOGLE APPS SCRIPT",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "PHONE LANGUAGE PREVIEW"
+    ],
+    "guardrails": [
+      "Use only the teacher’s approved glossary; do not invent translations or silently switch language register.",
+      "Output one COMPLETE executable FormApp code block and print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Never translate or alter mathematical symbols, values or formulas.",
+      "Never claim a URL creates the Form; label verification links check this yourself."
+    ],
+    "exampleTask": "Build a bilingual vocabulary item around the expression 3*7-2*4.",
+    "exampleResult": "The maths example evaluates to 13 in both languages, while only the approved term labels change.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=3%2A7-2%2A4",
+    "exampleFallback": "3*7-2*4",
+    "exampleEncodingNote": "The multiplication asterisks and minus signs are URL-safe in this compact query."
+  },
+  {
+    "brief": 18,
+    "slot": 5,
+    "category": "phone-quizzes",
+    "title": "Three-Two-One Reflection Form",
+    "tag": "Student Reflection",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A complete 3-2-1 reflection Form script that collects three learnings, two questions and one next-step commitment after a maths lesson.",
+    "howToUse": "Name the lesson and reflection purpose, run the script, test the short phone flow, and use the response themes to plan the next class.",
+    "effectiveUsage": [
+      "1. Use the form after one clearly bounded lesson or activity.",
+      "2. Run the script and confirm the Form does not collect data you do not need.",
+      "3. Submit a phone test response to check that all three reflection prompts are clear.",
+      "4. Cluster responses into secure, unsure and next-step themes without publicly naming students."
+    ],
+    "commonFix": "If wrong, reply with: \"Rebuild the script as a true 3-2-1 reflection with three learnings, two questions and one next action, using short student-friendly prompts.\"",
+    "exams": ["any"],
+    "aud": "teacher",
+    "role": "Act as a reflective-practice designer, student-voice facilitator and Google Forms script developer.",
+    "context": "A teacher wants a short phone reflection after [LESSON OR ACTIVITY] for [CLASS], focused on evidence of learning rather than marks.",
+    "inputs": [
+      "[CLASS]",
+      "[LESSON OR ACTIVITY]",
+      "[LEARNING OBJECTIVE]",
+      "[RESPONSE IDENTITY POLICY]",
+      "[FOLLOW-UP DATE]"
+    ],
+    "doThis": [
+      "Write one student-friendly prompt for three things learned, one for two remaining questions and one for a single next action.",
+      "Add optional confidence and help-needed items only when they support the stated follow-up.",
+      "Generate one complete executable FormApp script with clear section descriptions, required reflection items, a useful confirmation message and logged URLs.",
+      "Keep quiz mode off because this is reflection, not auto-marked assessment.",
+      "Respect the stated identity policy and avoid collecting email or names when anonymous responses are requested.",
+      "Give a teacher coding frame for turning responses into three next-lesson actions."
+    ],
+    "outputFormat": [
+      "3-2-1 REFLECTION DESIGN",
+      "COMPLETE NON-QUIZ FORMAPP SCRIPT",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "PHONE TEST RESPONSE",
+      "RESPONSE CODING FRAME",
+      "NEXT-LESSON ACTIONS"
+    ],
+    "guardrails": [
+      "Output one COMPLETE executable FormApp code block, keep quiz mode off and include no TODOs.",
+      "After the code, print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Never claim a URL creates the Form; do not collect unnecessary personal data.",
+      "Treat reflection responses as student voice, not automatically scored evidence of mastery."
+    ],
+    "exampleTask": "Create a 3-2-1 reflection after a lesson evaluating the integral of 2x from 0 to 4.",
+    "exampleResult": "The worked example’s check value is 16, while students reflect on the method, questions and next action in separate fields.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=integrate%202x%20from%200%20to%204",
+    "exampleFallback": "integrate 2x from 0 to 4",
+    "exampleEncodingNote": "Each space is encoded as %20."
+  },
+  {
+    "brief": 19,
+    "slot": 1,
+    "category": "phone-quizzes",
+    "title": "Sectioned Unit Test Form With Verified Key",
+    "tag": "Sectioned Unit Test",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A complete sectioned unit-test Form script with a blueprint, independently checked key, points and full-score test response.",
+    "howToUse": "Provide the unit outcomes and marks, audit the blueprint and key, then run the script and complete one full-score trial before assigning it.",
+    "effectiveUsage": [
+      "1. Paste the exact unit scope, outcomes, section plan and total marks.",
+      "2. Check blueprint coverage and open every computational answer link.",
+      "3. Run the script and inspect section navigation, required items and point totals.",
+      "4. Submit the supplied full-score test response and reconcile its score with the key."
+    ],
+    "commonFix": "If wrong, reply with: \"Rebuild the complete unit-test script from the corrected blueprint, make section marks sum exactly and regenerate the full-score test response.\"",
+    "exams": ["boards", "jee-main", "foundation"],
+    "aud": "teacher",
+    "role": "Act as a unit-test blueprint designer, independent key verifier and sectioned FormApp developer.",
+    "context": "A teacher needs a complete phone-based unit test for [CLASS] on [UNIT] with [TOTAL MARKS] distributed across named sections.",
+    "inputs": [
+      "[CLASS]",
+      "[BOARD OR EXAM]",
+      "[UNIT]",
+      "[LEARNING OUTCOMES]",
+      "[SECTION PLAN]",
+      "[TOTAL MARKS]",
+      "[TIME LIMIT]",
+      "[DIFFICULTY MIX]"
+    ],
+    "doThis": [
+      "Build a blueprint mapping each item to outcome, section, difficulty and marks before writing questions.",
+      "Write original, source-honest questions and do not call them PYQs unless supplied and cited by the teacher.",
+      "Solve every item independently and attach a check-this-yourself link to every computational answer.",
+      "Generate one complete executable FormApp script using page-break sections, quiz mode, correct choices, point values and logged URLs.",
+      "Check that section subtotals equal the total marks and that navigation preserves any stated optionality.",
+      "Provide a full-score response sequence and a pre-release audit for content, scoring and phone display."
+    ],
+    "outputFormat": [
+      "UNIT-TEST BLUEPRINT",
+      "SECTIONED REVIEW COPY",
+      "INDEPENDENT VERIFIED KEY",
+      "COMPLETE SECTIONED FORMAPP SCRIPT",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "MARKS RECONCILIATION",
+      "FULL-SCORE TEST RESPONSE"
+    ],
+    "guardrails": [
+      "Output one COMPLETE executable FormApp code block with every section, item, key and point value included.",
+      "After the code, print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Never claim a URL creates the Form, never fabricate a PYQ source and never let item points differ from the blueprint.",
+      "Use plain ASCII maths in Form text and label all solver links check this yourself."
+    ],
+    "exampleTask": "Include a calculus section item asking for the integral of x^2 from 0 to 3.",
+    "exampleResult": "The independently verified value is 9, and the item’s points appear identically in the blueprint, key and script.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=integrate%20x%5E2%20from%200%20to%203",
+    "exampleFallback": "integrate x^2 from 0 to 3",
+    "exampleEncodingNote": "Spaces use %20 and ^ uses %5E."
+  },
+  {
+    "brief": 19,
+    "slot": 2,
+    "category": "phone-quizzes",
+    "title": "Weekly Olympiad Challenge Form",
+    "tag": "Olympiad Challenge",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A complete weekly challenge Form with a checked final answer, structured proof submission, optional hints and an honest manual-proof review note.",
+    "howToUse": "Set the olympiad level and theme, verify the final answer and proof outline, then run the script and share one challenge for the week.",
+    "effectiveUsage": [
+      "1. Name the competition level and the specific problem-solving theme.",
+      "2. Check the full solution and distinguish machine-checkable calculations from the proof.",
+      "3. Run the script and preview the challenge, hint and reasoning fields on a phone.",
+      "4. Auto-check only the objective final response and manually read submitted proofs using the rubric."
+    ],
+    "commonFix": "If wrong, reply with: \"Separate the numerical final-answer check from the human proof rubric, then rebuild the complete script without claiming the link verifies the proof.\"",
+    "exams": ["olympiad"],
+    "aud": "teacher",
+    "role": "Act as an olympiad problem curator, proof-aware verifier and weekly FormApp challenge developer.",
+    "context": "A teacher wants one substantial weekly [OLYMPIAD LEVEL] challenge on [THEME] that students can attempt and explain on a phone.",
+    "inputs": [
+      "[OLYMPIAD LEVEL]",
+      "[THEME]",
+      "[TARGET AGE]",
+      "[EXPECTED SOLVING TIME]",
+      "[HINT POLICY]",
+      "[PROOF RUBRIC]",
+      "[TEACHER-SUPPLIED SOURCE OR ORIGINAL REQUEST]"
+    ],
+    "doThis": [
+      "Use a teacher-supplied problem with its source or write an original challenge without implying it is from a real competition.",
+      "Give a complete teacher solution, a verified final answer and a check-this-yourself link only for machine-checkable computation.",
+      "State explicitly which proof steps are not machine-checkable and require human judgement.",
+      "Generate one complete executable FormApp script with the challenge, optional tiered hints, an objective final-response item, a paragraph proof field and logged URLs.",
+      "Keep proof grading manual and provide a concise rubric for completeness, validity and clarity.",
+      "Add a next-week reveal message that does not expose the solution before the deadline."
+    ],
+    "outputFormat": [
+      "WEEKLY CHALLENGE",
+      "TEACHER SOLUTION AND FINAL-ANSWER CHECK",
+      "NOT-MACHINE-CHECKABLE PROOF NOTES",
+      "COMPLETE GOOGLE APPS SCRIPT",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "HUMAN PROOF RUBRIC",
+      "DEADLINE AND REVEAL PLAN"
+    ],
+    "guardrails": [
+      "Output one COMPLETE executable FormApp code block and print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Never claim a solver link verifies an olympiad proof; label proof-dependent work not machine-checkable.",
+      "Never present an original or adapted challenge as an authentic competition problem.",
+      "Never claim a URL creates the Form; the teacher must run the script."
+    ],
+    "exampleTask": "Create a weekly challenge around the sum 1+3+5+7+9.",
+    "exampleResult": "The numerical answer 25 is machine-checkable, while a proof that the first n odd numbers sum to n^2 still needs human review.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=1%2B3%2B5%2B7%2B9",
+    "exampleFallback": "1+3+5+7+9",
+    "exampleEncodingNote": "Every plus sign is encoded as %2B."
+  },
+  {
+    "brief": 19,
+    "slot": 3,
+    "category": "phone-quizzes",
+    "title": "Homework Submission Form With Self-Check Links",
+    "tag": "Homework Self-Check",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A complete homework-submission Form script with attempt fields, question-specific browser check links and a reflection on corrections.",
+    "howToUse": "Paste the homework questions, approve each self-check link, run the script, and ask students to attempt before checking and submitting corrections.",
+    "effectiveUsage": [
+      "1. Paste the exact homework questions and specify what evidence students should submit.",
+      "2. Open every self-check link and confirm its fallback query matches the item exactly.",
+      "3. Run the script and test the attempt, check and correction sequence on a phone.",
+      "4. Share the respondent link with a clear deadline and review correction reflections rather than only final answers."
+    ],
+    "commonFix": "If wrong, reply with: \"Match each self-check link to its exact homework item, keep the link hidden in the instructions until after an attempt, and rebuild the complete submission script.\"",
+    "exams": ["any"],
+    "aud": "teacher",
+    "role": "Act as a homework workflow designer, link verifier and Google Forms submission developer.",
+    "context": "A teacher wants students in [CLASS] to submit work for [HOMEWORK SET], check computable answers themselves and explain one correction.",
+    "inputs": [
+      "[CLASS]",
+      "[HOMEWORK SET]",
+      "[SUBMISSION DEADLINE]",
+      "[STUDENT IDENTIFIER POLICY]",
+      "[EVIDENCE FORMAT]",
+      "[MARKS OR COMPLETION POLICY]"
+    ],
+    "doThis": [
+      "Transcribe the homework exactly and identify which answers are suitable for a solver self-check.",
+      "Create one correctly encoded check-this-yourself link and paste fallback for each computable item, while flagging proofs and explanations for human review.",
+      "Design an attempt-first sequence with response fields, self-check instructions and one required correction reflection.",
+      "Generate one complete executable FormApp script with student identifier according to policy, response fields, help text, confirmation message and logged URLs.",
+      "Do not require a file-upload item; if evidence is external, collect only a teacher-approved share link or typed work description.",
+      "Add a teacher review table separating completed, corrected and needs-feedback submissions."
+    ],
+    "outputFormat": [
+      "HOMEWORK-TO-CHECK MAP",
+      "SELF-CHECK LINK TABLE",
+      "ATTEMPT–CHECK–CORRECT PROTOCOL",
+      "COMPLETE GOOGLE APPS SCRIPT",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "TEACHER REVIEW TABLE"
+    ],
+    "guardrails": [
+      "Output one COMPLETE executable FormApp code block and print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Never claim a URL creates the form, and do not ask FormApp to create an unsupported file-upload workflow.",
+      "Label every maths link check this yourself and state that proofs and written reasoning still need human review.",
+      "Collect only the student identifier and evidence the teacher explicitly requests."
+    ],
+    "exampleTask": "Create a submission form for homework containing x^2-9=0.",
+    "exampleResult": "The self-check returns x=-3 or x=3, and the student records any correction after making an independent attempt.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=solve%20x%5E2-9%3D0",
+    "exampleFallback": "solve x^2-9=0",
+    "exampleEncodingNote": "The space is %20, ^ is %5E and = is %3D."
+  },
+  {
+    "brief": 19,
+    "slot": 4,
+    "category": "phone-quizzes",
+    "title": "Forms Results to Re-Teach Priorities",
+    "tag": "Item Analysis",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A question-wise analysis of an exported Google Forms CSV with difficulty, distractor patterns and a ranked re-teach list.",
+    "howToUse": "Paste a de-identified Forms CSV and checked answer key, confirm the column map, then copy the analysis table and formulas into your working sheet.",
+    "effectiveUsage": [
+      "1. Export the response sheet as CSV and remove names, emails and unnecessary identifiers.",
+      "2. Paste the CSV with the exact answer key and marks scheme.",
+      "3. Check the proposed column mapping before trusting any metric.",
+      "4. Recalculate one item manually and use the ranked list to plan a focused re-teach."
+    ],
+    "commonFix": "If wrong, reply with: \"Re-map the actual CSV headers, recompute each item from raw responses and show one manual arithmetic check before ranking re-teach priorities.\"",
+    "exams": ["any"],
+    "aud": "teacher",
+    "role": "Act as a careful assessment-data analyst, answer-key auditor and re-teach planner.",
+    "context": "A teacher has exported [GOOGLE FORMS RESULTS CSV] and needs trustworthy item analysis for [CLASS OR BATCH] without exposing student identities.",
+    "inputs": [
+      "[GOOGLE FORMS RESULTS CSV]",
+      "[ANSWER KEY]",
+      "[MARKS SCHEME]",
+      "[QUESTION-TO-TOPIC MAP]",
+      "[CLASS OR BATCH]",
+      "[RE-TEACH TIME AVAILABLE]"
+    ],
+    "doThis": [
+      "Validate the header row, row count, missing responses and answer-key coverage before calculating anything.",
+      "Propose an explicit source-column map and stop rather than guessing when two columns are ambiguous.",
+      "Audit each numerical answer key with a check-this-yourself link before scoring responses.",
+      "Calculate attempts, correct count, correct percentage, blank percentage and distractor frequencies for every item.",
+      "Calculate discrimination only when the dataset and total-score field support it, and label small-sample metrics cautiously.",
+      "Output paste-ready item-analysis rows and Google Sheets formulas tied to the actual mapped columns.",
+      "Rank a re-teach list by error rate, misconception severity and topic dependency, then suggest one action per priority."
+    ],
+    "outputFormat": [
+      "DATA QUALITY CHECK",
+      "COLUMN MAP FOR CONFIRMATION",
+      "ANSWER-KEY VERIFICATION LINKS",
+      "ITEM ANALYSIS TABLE",
+      "PASTE-READY SHEETS FORMULAS",
+      "RANKED RE-TEACH LIST",
+      "ONE-ITEM MANUAL CHECK"
+    ],
+    "guardrails": [
+      "This prompt analyses an exported Forms CSV; do not output or imply a form-creation URL.",
+      "Never invent missing responses, answer keys, headers or student identifiers, and never expose personal data in the report.",
+      "Show formulas and denominators, distinguish blanks from wrong answers and warn when the sample is too small for stable discrimination.",
+      "Use allowed check links only for the mathematical key and label them check this yourself."
+    ],
+    "exampleTask": "Analyse responses to an item asking for the mean of 4, 6, 6, 8 and 11.",
+    "exampleResult": "The checked key is 7; response frequencies are compared with 7 before the item is placed in the re-teach ranking.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=mean%204%2C6%2C6%2C8%2C11",
+    "exampleFallback": "mean 4,6,6,8,11",
+    "exampleEncodingNote": "The space is %20 and each comma is %2C."
+  },
+  {
+    "brief": 19,
+    "slot": 5,
+    "category": "phone-quizzes",
+    "title": "Anonymous Chapter Feedback Pulse",
+    "tag": "Anonymous Feedback",
+    "needsImage": false,
+    "makesImage": false,
+    "whatYouGet": "A complete non-quiz Form script for an anonymous chapter pulse plus a practical coding frame for confidence, pace and support needs.",
+    "howToUse": "Set the chapter and feedback focus, run the script, manually confirm sign-in and email settings, then share the tested respondent link.",
+    "effectiveUsage": [
+      "1. Ask only questions you are prepared to act on in the next lesson.",
+      "2. Run the script and manually inspect Settings for email collection or required sign-in.",
+      "3. Test the Form in a private browser window to check that no identity is requested.",
+      "4. Share themes and planned changes with the class without quoting identifiable responses."
+    ],
+    "commonFix": "If wrong, reply with: \"Remove every identifying field, keep quiz mode and email collection off, and rebuild the complete pulse script with a manual anonymity check.\"",
+    "exams": ["any"],
+    "aud": "teacher",
+    "role": "Act as a student-voice facilitator, privacy-aware survey designer and Google Forms script developer.",
+    "context": "A teacher wants an anonymous phone pulse after [CHAPTER] for [CLASS] to learn what felt clear, rushed or unsupported.",
+    "inputs": [
+      "[CLASS]",
+      "[CHAPTER]",
+      "[FEEDBACK FOCUS]",
+      "[RESPONSE WINDOW]",
+      "[SCHOOL ACCOUNT CONSTRAINTS]",
+      "[NEXT LESSON DATE]"
+    ],
+    "doThis": [
+      "Write a short mix of confidence scale, pace choice, most-useful method, remaining doubt and one open suggestion.",
+      "Avoid names, roll numbers, email questions and free-text prompts that unnecessarily invite sensitive personal information.",
+      "Generate one complete executable FormApp script with quiz mode off, email collection off, neutral wording, a closing message and logged URLs.",
+      "State that Workspace or domain settings may still require sign-in and must be checked manually after creation.",
+      "Give exact private-window and phone tests for anonymity before sharing.",
+      "Provide a coding frame and three response thresholds that lead to specific re-teach actions."
+    ],
+    "outputFormat": [
+      "ANONYMOUS PULSE DESIGN",
+      "COMPLETE NON-QUIZ FORMAPP SCRIPT",
+      "RUN IT — script.google.com → New project → paste → Run → View → Logs",
+      "MANUAL ANONYMITY SETTINGS CHECK",
+      "PRIVATE-WINDOW PHONE TEST",
+      "RESPONSE CODING FRAME",
+      "YOU SAID, I WILL FOLLOW-UP"
+    ],
+    "guardrails": [
+      "Output one COMPLETE executable FormApp code block with quiz mode off and email collection off.",
+      "After the code, print exactly: script.google.com → New project → paste → Run → View → Logs.",
+      "Do not promise perfect anonymity from code alone; tell the teacher to check Workspace sign-in and email settings manually.",
+      "Never claim a URL creates the Form and never collect unnecessary personal or sensitive data."
+    ],
+    "exampleTask": "Build a chapter pulse after students solve equations such as 5x-8=17.",
+    "exampleResult": "The mathematical example has x=5, while the pulse asks anonymously whether inverse operations felt clear and what needs re-teaching.",
+    "exampleUrl": "https://www.wolframalpha.com/input?i=solve%205x-8%3D17",
+    "exampleFallback": "solve 5x-8=17",
+    "exampleEncodingNote": "The space is %20 and = is %3D."
+  }
+]
