@@ -4,24 +4,150 @@
 
   var CFG = window.MPS_CONFIG || { email: 'indrajeetsirallen@gmail.com', whatsapp: '', instagram: '', googleFormUrl: '', photoUrl: '' };
   var SITE = 'https://yosoyun.github.io/math-prompt-studio/';
-  var DATA = (window.PROMPT_DATA && window.PROMPT_DATA.categories) || [];
+  // AUD-A P1/A3: render cards from the compact catalog and fetch the complete
+  // prompt corpus only when an action genuinely needs promptText.
+  var CATALOG = window.PROMPT_CATALOG || window.PROMPT_DATA || { categories: [] };
+  var DATA = CATALOG.categories || [];
+  var FULL_DATA = window.PROMPT_DATA && window.PROMPT_DATA.categories ? window.PROMPT_DATA : null;
+  var fullDataPromise = null;
+  var fullBySlug = null;
+  var SEARCH_KEYWORDS = CATALOG.searchKeywords || [];
   var GROUP_ORDER = ['Solving & Checking', 'Practice & Assessment', 'Teaching Materials', 'Writing & Content', 'Engagement', 'Support', 'Teacher Productivity'];
+
+  function expandSearchBits(code) {
+    if (!code || !SEARCH_KEYWORDS.length) return '';
+    try {
+      var raw = atob(code + '='.repeat((4 - code.length % 4) % 4));
+      return SEARCH_KEYWORDS.filter(function (_, index) { return raw.charCodeAt(index >> 3) & (1 << (index & 7)); }).join(' ');
+    } catch (e) { return ''; }
+  }
 
   var ALL = [];
   DATA.forEach(function (cat) {
     if (!cat.group) cat.group = 'More';
-    (cat.prompts || []).forEach(function (p, i) { p._cat = cat.category; p._catTitle = cat.categoryTitle; p._group = cat.group; p._id = cat.category + '-' + i; ALL.push(p); });
+    (cat.prompts || []).forEach(function (p, i) { p._cat = cat.category; p._catTitle = cat.categoryTitle; p._catIcon = cat.categoryIcon || ''; p._group = cat.group; p._id = cat.category + '-' + i; p._searchExtras = expandSearchBits(p.sk); ALL.push(p); });
   });
+  var ALL_BY_SLUG = Object.create(null);
+  ALL.forEach(function (prompt) { ALL_BY_SLUG[prompt.slug] = prompt; });
+  var catalogLanguagePromises = Object.create(null);
   var GROUPS = GROUP_ORDER.filter(function (g) { return DATA.some(function (c) { return c.group === g; }); });
   DATA.forEach(function (c) { if (GROUPS.indexOf(c.group) === -1) GROUPS.push(c.group); });
 
-  var state = { group: 'all', query: '', prevEmpty: true, lang: 'en', exam: 'all', aud: 'all' };
+  var state = { group: 'all', query: '', prevEmpty: true, lang: 'en', exam: 'all', aud: 'all', fmt: 'all', renderLimit: 60, quickSegment: '', quickJob: '', quickPrompt: null, hasRendered: false };
+  var favorites = new Set();
+  var recentSlugs = [];
   try { if (localStorage.getItem('mps-lang') === 'hi') state.lang = 'hi'; } catch (e) {}
+  try { favorites = new Set(JSON.parse(localStorage.getItem('mps-favorites') || '[]')); } catch (e2) { favorites = new Set(); }
+  try { recentSlugs = JSON.parse(localStorage.getItem('mps-recent') || '[]'); if (!Array.isArray(recentSlugs)) recentSlugs = []; } catch (e3) { recentSlugs = []; }
+  try { state.quickSegment = localStorage.getItem('mps-segment') || ''; } catch (e4) {}
+
+  // AUD-A, AUD-C, AUD-E: small dictionary for the new activation, retention,
+  // progressive-render and sharing chrome. Existing prompt content still uses T().
+  var UI = {
+    en: {
+      all: 'All', saved: 'Saved', everyone: 'Everyone', teachers: 'For teachers', students: 'For students', allExams: 'All exams',
+      chooseSegment: 'Choose what you teach', chooseJob: 'Now choose what you need', ready: 'Your best starting prompt', openFill: 'Open and fill details',
+      quickKicker: '60-second start', quickTitle: 'What do you need for your next class?', quickSub: 'Choose who you teach, then choose the job. Your best matching prompt will open ready to fill.', segmentSmall: 'We will remember this on this device.', jobSmall: 'Paper, solve and verify, worksheet, PPT, or quiz.',
+      quickHint: 'Three taps: segment, job, then open.', loading: 'Loading the full prompt…', loadError: 'The full prompt could not load. Please check your connection and try again.',
+      paper: 'Paper', solveVerify: 'Solve + Verify', worksheet: 'Worksheet', ppt: 'PPT', quiz: 'Quiz',
+      student: 'Student', foundation: 'Foundation',
+      copyPrompt: 'Copy prompt', howTo: 'How to use this', share: 'Share', save: 'Save', unsave: 'Remove from saved',
+      promptDay: 'Prompt of the day', recent: 'Recently used', savedShelf: 'Your saved prompts', important: 'Most important', added: 'Recently added',
+      showMore: 'Show 60 more prompts', surprise: 'Surprise me — random prompt', browseAll: 'Browse all', noMatch: 'No prompts match', related: 'related prompts', found: 'prompts found',
+      shareLead: 'Free maths teaching prompt', copied: 'Copied! Paste it into your AI chat.', linkCopied: 'Link copied — send this prompt to a teacher!',
+      fillOptional: 'Fill in the blanks here', fillNote: 'Type your details — the prompt and action buttons update automatically.', close: 'Close', copyLink: 'Copy link',
+      formatAll: 'All formats'
+    },
+    hi: {
+      all: 'सभी', saved: 'सहेजे हुए', everyone: 'सबके लिए', teachers: 'शिक्षकों के लिए', students: 'छात्रों के लिए', allExams: 'सभी परीक्षाएँ',
+      chooseSegment: 'आप किसे पढ़ाते हैं?', chooseJob: 'अब अपना काम चुनें', ready: 'शुरू करने के लिए सही प्रॉम्प्ट', openFill: 'खोलें और जानकारी भरें',
+      quickKicker: '60-सेकंड शुरुआत', quickTitle: 'अगली कक्षा के लिए आपको क्या चाहिए?', quickSub: 'पहले अपनी कक्षा या परीक्षा चुनें, फिर काम। सही प्रॉम्प्ट जानकारी भरने के लिए तैयार खुलेगा।', segmentSmall: 'यह चुनाव इसी डिवाइस पर याद रहेगा।', jobSmall: 'पेपर, हल और जाँच, वर्कशीट, PPT या क्विज़।',
+      quickHint: 'तीन टैप: वर्ग, काम, फिर खोलें।', loading: 'पूरा प्रॉम्प्ट लोड हो रहा है…', loadError: 'पूरा प्रॉम्प्ट लोड नहीं हुआ। इंटरनेट जाँचकर फिर कोशिश करें।',
+      paper: 'पेपर', solveVerify: 'हल + जाँच', worksheet: 'वर्कशीट', ppt: 'PPT', quiz: 'क्विज़',
+      student: 'विद्यार्थी', foundation: 'फ़ाउंडेशन',
+      copyPrompt: 'प्रॉम्प्ट कॉपी करें', howTo: 'इस्तेमाल कैसे करें', share: 'शेयर करें', save: 'सहेजें', unsave: 'सहेजे से हटाएँ',
+      promptDay: 'आज का प्रॉम्प्ट', recent: 'हाल में इस्तेमाल किए', savedShelf: 'आपके सहेजे प्रॉम्प्ट', important: 'सबसे ज़रूरी', added: 'हाल में जोड़े गए',
+      showMore: '60 और प्रॉम्प्ट दिखाएँ', surprise: 'कोई भी एक प्रॉम्प्ट दिखाएँ', browseAll: 'सभी देखें', noMatch: 'कोई प्रॉम्प्ट मेल नहीं खाता', related: 'संबंधित प्रॉम्प्ट', found: 'प्रॉम्प्ट मिले',
+      shareLead: 'मुफ़्त गणित शिक्षण प्रॉम्प्ट', copied: 'कॉपी हो गया! अपने AI चैट में पेस्ट करें।', linkCopied: 'लिंक कॉपी हो गया — किसी शिक्षक को भेजें!',
+      fillOptional: 'यहाँ खाली जगह भरें', fillNote: 'अपनी जानकारी भरें — प्रॉम्प्ट और बटन अपने-आप बदलेंगे।', close: 'बंद करें', copyLink: 'लिंक कॉपी करें',
+      formatAll: 'सभी प्रारूप'
+    }
+  };
+  function tr(key) { return (UI[state.lang] && UI[state.lang][key]) || UI.en[key] || key; }
 
   /* Bilingual: every prompt may carry a p.hi = {title, whatYouGet, howToUse, effectiveUsage, commonFix, promptText}.
      T() returns the Hindi field when the teacher chose Hindi and a translation exists, else English. */
-  function T(p, field) { return (state.lang === 'hi' && p.hi && p.hi[field]) ? p.hi[field] : p[field]; }
-  function setLang(lang) { state.lang = lang; try { localStorage.setItem('mps-lang', lang); } catch (e) {} document.querySelectorAll('.lang-chip').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-lang') === lang); }); if (typeof buildFacets === 'function') buildFacets(); render(); }
+  function T(p, field) { return (state.lang !== 'en' && p[state.lang] && p[state.lang][field]) ? p[state.lang][field] : p[field]; }
+  function applyCatalogLanguage(lang) {
+    var packs = window.PROMPT_CATALOG_LANG || {};
+    var pack = packs[lang];
+    if (!pack) return false;
+    Object.keys(pack).forEach(function (slug) { if (ALL_BY_SLUG[slug]) ALL_BY_SLUG[slug][lang] = pack[slug]; });
+    return true;
+  }
+  function ensureCatalogLanguage(lang) {
+    if (lang === 'en' || applyCatalogLanguage(lang)) return Promise.resolve();
+    if (catalogLanguagePromises[lang]) return catalogLanguagePromises[lang];
+    catalogLanguagePromises[lang] = new Promise(function (resolve, reject) {
+      var script = document.createElement('script');
+      script.src = 'data/catalog-' + lang + '.js?v=22';
+      script.onload = function () { if (applyCatalogLanguage(lang)) resolve(); else reject(new Error('missing language pack')); };
+      script.onerror = function () { reject(new Error('language pack request failed')); };
+      document.head.appendChild(script);
+    }).catch(function () { catalogLanguagePromises[lang] = null; showToast('That language could not load. Please try again.'); });
+    return catalogLanguagePromises[lang];
+  }
+  function refreshLanguageView() {
+    buildChips(); buildFacets(); buildFormatFacets(); buildQuickStart(); render();
+  }
+  function setLang(lang) {
+    state.lang = lang;
+    try { localStorage.setItem('mps-lang', lang); } catch (e) {}
+    document.querySelectorAll('.lang-chip').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-lang') === lang); });
+    refreshLanguageView();
+    ensureCatalogLanguage(lang).then(refreshLanguageView);
+  }
+
+  function indexFullData(data) {
+    fullBySlug = Object.create(null);
+    (data.categories || []).forEach(function (cat) {
+      (cat.prompts || []).forEach(function (p, i) {
+        p._cat = cat.category; p._catTitle = cat.categoryTitle; p._catIcon = cat.categoryIcon || ''; p._group = cat.group || 'More'; p._id = cat.category + '-' + i;
+        fullBySlug[p.slug] = p;
+      });
+    });
+    return data;
+  }
+  if (FULL_DATA) indexFullData(FULL_DATA);
+
+  function loadFullData() {
+    if (FULL_DATA && fullBySlug) return Promise.resolve(FULL_DATA);
+    if (window.PROMPT_DATA && window.PROMPT_DATA.categories) { FULL_DATA = window.PROMPT_DATA; return Promise.resolve(indexFullData(FULL_DATA)); }
+    if (fullDataPromise) return fullDataPromise;
+    fullDataPromise = new Promise(function (resolve, reject) {
+      var script = document.createElement('script');
+      script.src = window.MPS_DATA_URL || 'data/prompts.js?v=22';
+      script.async = true;
+      script.onload = function () {
+        if (!window.PROMPT_DATA || !window.PROMPT_DATA.categories) { reject(new Error('prompt data did not initialise')); return; }
+        FULL_DATA = window.PROMPT_DATA; resolve(indexFullData(FULL_DATA));
+      };
+      script.onerror = function () { reject(new Error('prompt data request failed')); };
+      document.head.appendChild(script);
+    }).catch(function (error) { fullDataPromise = null; throw error; });
+    return fullDataPromise;
+  }
+
+  function withFullPrompt(card, action) {
+    if (!card) return Promise.resolve(null);
+    if (card.promptText) { action(card); return Promise.resolve(card); }
+    showToast(tr('loading'));
+    return loadFullData().then(function () {
+      var full = fullBySlug && fullBySlug[card.slug];
+      if (!full) throw new Error('prompt not found: ' + card.slug);
+      action(full); return full;
+    }).catch(function () { showToast(tr('loadError')); return null; });
+  }
 
   function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
   function el(html) { var t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstChild; }
@@ -61,7 +187,8 @@
   /* ---------- stats ---------- */
   function setStats() {
     var styleCat = DATA.find(function (c) { return c.category === 'handwritten-styles'; });
-    var styleCount = styleCat ? styleCat.prompts.reduce(function (max, p) { return Math.max(max, (p.styles || []).length); }, styleCat.prompts.length) : 18;
+    var styleCount = styleCat ? styleCat.prompts.reduce(function (max, p) { return Math.max(max, (p.styles || []).length, p.styleCount || 0); }, 0) : 0;
+    if (!styleCount) styleCount = 18;
     var map = { prompts: ALL.length + '+', cats: DATA.length, styles: styleCount };
     document.querySelectorAll('[data-stat]').forEach(function (n) { var k = n.getAttribute('data-stat'); if (map[k] != null) n.textContent = map[k]; });
   }
@@ -69,11 +196,13 @@
   /* ---------- group chips ---------- */
   function buildChips() {
     var wrap = document.getElementById('groupChips'); if (!wrap) return; wrap.innerHTML = '';
-    var chips = [{ id: 'all', title: 'All', ct: ALL.length }];
+    // AUD-C P1/C1: Saved is a first-class local shelf, never an account feature.
+    var savedCount = ALL.filter(function (p) { return favorites.has(p.slug); }).length;
+    var chips = [{ id: 'all', title: tr('all'), ct: ALL.length }, { id: 'saved', title: tr('saved'), ct: savedCount }];
     GROUPS.forEach(function (g) { chips.push({ id: g, title: g, ct: DATA.filter(function (c) { return c.group === g; }).reduce(function (t, c) { return t + (c.prompts || []).length; }, 0) }); });
     chips.forEach(function (c) {
-      var b = el('<button class="fchip' + (c.id === state.group ? ' active' : '') + '">' + esc(c.title) + ' <span class="fchip-ct">' + c.ct + '</span></button>');
-      b.addEventListener('click', function () { state.group = c.id; document.querySelectorAll('#groupChips .fchip').forEach(function (x) { x.classList.remove('active'); }); b.classList.add('active'); render(); document.getElementById('library').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+      var b = el('<button class="fchip' + (c.id === state.group ? ' active' : '') + '" type="button" aria-pressed="' + (c.id === state.group) + '">' + esc(c.title) + ' <span class="fchip-ct">' + c.ct + '</span></button>');
+      b.addEventListener('click', function () { state.group = c.id; state.renderLimit = 60; document.querySelectorAll('#groupChips .fchip').forEach(function (x) { x.classList.remove('active'); x.setAttribute('aria-pressed', 'false'); }); b.classList.add('active'); b.setAttribute('aria-pressed', 'true'); render(); var lib = document.getElementById('library'); if (lib) lib.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
       wrap.appendChild(b);
     });
   }
@@ -94,19 +223,51 @@
   ];
   function buildFacets() {
     var chips = document.getElementById('groupChips'); if (!chips) return;
-    var old = document.getElementById('facetChips'); if (old) old.remove();
+    var mount = document.getElementById('facetMount');
+    if (!mount) {
+      mount = document.getElementById('facetChips');
+      if (!mount) { mount = el('<div id="facetMount"></div>'); chips.parentNode.insertBefore(mount, chips.nextSibling); }
+    }
+    mount.innerHTML = '';
     var hi = state.lang === 'hi';
-    var wrap = el('<div class="fchips" id="facetChips" style="margin-top:10px"></div>');
+    var wrap = el('<div class="fchips" id="facetChips"></div>');
     function addChip(list, key, item) {
       var n = item.id === 'all' ? null : ALL.filter(function (p) { return key === 'exam' ? (p.exams || []).indexOf(item.id) !== -1 : (p.aud === item.id || p.aud === 'both'); }).length;
-      var b = el('<button class="fchip' + (state[key] === item.id ? ' active' : '') + '" type="button">' + esc(hi ? item.hi : item.en) + (n != null ? ' <span class="fchip-ct">' + n + '</span>' : '') + '</button>');
-      b.addEventListener('click', function () { state[key] = item.id; buildFacets(); render(); });
+      var label = item.id === 'all' ? (key === 'exam' ? tr('allExams') : tr('everyone')) : (hi ? item.hi : item.en);
+      var b = el('<button class="fchip' + (state[key] === item.id ? ' active' : '') + '" type="button" aria-pressed="' + (state[key] === item.id) + '">' + esc(label) + (n != null ? ' <span class="fchip-ct">' + n + '</span>' : '') + '</button>');
+      b.addEventListener('click', function () { state[key] = item.id; state.renderLimit = 60; buildFacets(); render(); });
       wrap.appendChild(b);
     }
     EXAMS.forEach(function (x) { addChip(EXAMS, 'exam', x); });
     var sep = el('<span style="display:inline-block;width:14px"></span>'); wrap.appendChild(sep);
     AUDS.forEach(function (x) { addChip(AUDS, 'aud', x); });
-    chips.parentNode.insertBefore(wrap, chips.nextSibling);
+    mount.appendChild(wrap);
+  }
+
+  var FORMATS = [
+    { id: 'all', ic: '', en: 'All formats', hi: 'सभी प्रारूप' },
+    { id: 'pdf-print', ic: '&#128424;&#65039;', en: 'Print/PDF', hi: 'प्रिंट/PDF' },
+    { id: 'doc', ic: '&#128196;', en: 'Doc', hi: 'Doc' },
+    { id: 'ppt', ic: '&#128202;', en: 'PPT', hi: 'PPT' },
+    { id: 'image', ic: '&#127912;', en: 'Image', hi: 'चित्र' },
+    { id: 'links', ic: '&#128279;', en: 'Tool links', hi: 'टूल लिंक' },
+    { id: 'interactive', ic: '&#128172;', en: 'Interactive', hi: 'इंटरैक्टिव' },
+    { id: 'text', ic: '&#9997;&#65039;', en: 'Text', hi: 'पाठ' }
+  ];
+  function buildFormatFacets() {
+    var mount = document.getElementById('formatMount'); if (!mount) return;
+    mount.innerHTML = '';
+    if (!ALL.some(function (p) { return p.fmt; })) { mount.hidden = true; return; }
+    mount.hidden = false;
+    var hi = state.lang === 'hi';
+    var wrap = el('<div class="fchips format-chips" role="group" aria-label="Output format"></div>');
+    FORMATS.forEach(function (item) {
+      var n = item.id === 'all' ? null : ALL.filter(function (p) { return p.fmt === item.id; }).length;
+      var b = el('<button class="fchip' + (state.fmt === item.id ? ' active' : '') + '" type="button" aria-pressed="' + (state.fmt === item.id) + '">' + item.ic + (item.ic ? ' ' : '') + esc(hi ? item.hi : item.en) + (n != null ? ' <span class="fchip-ct">' + n + '</span>' : '') + '</button>');
+      b.addEventListener('click', function () { state.fmt = item.id; state.renderLimit = 60; buildFormatFacets(); render(); });
+      wrap.appendChild(b);
+    });
+    mount.appendChild(wrap);
   }
 
   /* ---------- header language switch: one tap, always on top ---------- */
@@ -136,6 +297,113 @@
     head.insertBefore(wrap, themeBtn);
   }
 
+  /* ---------- 60-second start ---------- */
+  // AUD-A P1/A1-P1/A2, AUD-C P1/C3, AUD-D P1/D1: three explicit taps,
+  // remembered segment, and a full prompt modal with its fill fields open.
+  var QUICK_SEGMENTS = [
+    { id: 'jee-main', en: 'JEE Main', hi: 'JEE Main' },
+    { id: 'jee-advanced', en: 'JEE Advanced', hi: 'JEE Advanced' },
+    { id: 'olympiad', en: 'Olympiad', hi: 'ओलंपियाड' },
+    { id: 'boards', en: 'Boards', hi: 'बोर्ड' },
+    { id: 'foundation', en: 'Foundation', hi: 'फ़ाउंडेशन' },
+    { id: 'student', en: 'Student', hi: 'विद्यार्थी' }
+  ];
+  var QUICK_ICONS = {
+    paper: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h9l3 3V21H6zM9 10h6M9 14h6M9 18h4M15 3.5V7h3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    check: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m8.2 12.2 2.4 2.4 5.3-5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    grid: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 9.3h16M4 14.7h16M9.3 4v16M14.7 4v16" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>',
+    slides: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 20h8M12 17v3M7.5 13l2.7-3 2.3 2 2.8-3 1.2 1.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    phone: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.8" width="10" height="18.4" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 6.5h4M10 10h4M10 13.5h2.5M11 18h2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
+  };
+  var QUICK_JOBS = [
+    { id: 'paper', icon: QUICK_ICONS.paper, label: 'paper', cats: ['question-papers', 'mock-sample-papers', 'competitive-exams', 'latex-pdf-sets'] },
+    { id: 'solve-verify', icon: QUICK_ICONS.check, label: 'solveVerify', cats: ['verified-answers', 'single-solution', 'multi-method', 'photo-doubt-solving', 'error-analysis'] },
+    { id: 'worksheet', icon: QUICK_ICONS.grid, label: 'worksheet', cats: ['worksheets', 'dpp', 'print-beautifully', 'endless-practice'] },
+    { id: 'ppt', icon: QUICK_ICONS.slides, label: 'ppt', cats: ['presentations'] },
+    { id: 'quiz', icon: QUICK_ICONS.phone, label: 'quiz', cats: ['phone-quizzes', 'quiz-mcq', 'games-gamification'] }
+  ];
+  function segmentPattern(id) {
+    return {
+      'jee-main': /jee main/i,
+      'jee-advanced': /jee advanced|multi[- ]correct|partial[- ]mark/i,
+      olympiad: /olympiad|ioqm|rmo|inmo/i,
+      boards: /board|cbse|ncert/i,
+      foundation: /foundation|class [6-8]|basics/i,
+      student: /student|learner|self[- ]study/i
+    }[id];
+  }
+  function quickCandidates(segment, job, fallbackAny) {
+    return ALL.filter(function (p) {
+      if (job.cats.indexOf(p._cat) === -1) return false;
+      if (segment === 'student') return fallbackAny ? (p.exams || []).indexOf('any') !== -1 : (p.aud === 'student' || p.aud === 'both');
+      return fallbackAny ? (p.exams || []).indexOf('any') !== -1 : (p.exams || []).indexOf(segment) !== -1;
+    });
+  }
+  function chooseQuickPrompt(segment, jobId) {
+    var job = QUICK_JOBS.find(function (item) { return item.id === jobId; }); if (!job) return null;
+    var pool = quickCandidates(segment, job, false);
+    if (!pool.length) pool = quickCandidates(segment, job, true);
+    var rx = segmentPattern(segment);
+    return pool.slice().sort(function (a, b) {
+      function score(p) {
+        var visible = [p.title, p.tag, p.whatYouGet].join(' ');
+        var value = 100 - job.cats.indexOf(p._cat) * 8;
+        if (rx && rx.test(visible)) value += 24;
+        if (p.featured) value += 12;
+        if ((p.exams || []).length === 1 && (p.exams || [])[0] === segment) value += 10;
+        if (segment === 'student' && p.aud === 'student') value += 10;
+        if (segment === 'student' && (p.exams || []).indexOf('any') !== -1) value += 18;
+        if ((jobId === 'ppt' && p.fmt === 'ppt') || (jobId === 'quiz' && p.fmt === 'interactive') || (jobId === 'paper' && p.fmt === 'pdf-print')) value += 8;
+        return value;
+      }
+      return score(b) - score(a) || String(a.slug).localeCompare(String(b.slug));
+    })[0] || null;
+  }
+  function buildQuickStatus() {
+    var status = document.getElementById('quickStatus'); if (!status) return;
+    if (!state.quickSegment) { status.innerHTML = '<p>' + esc(tr('quickHint')) + '</p>'; return; }
+    if (!state.quickJob) { status.innerHTML = '<p>' + esc(tr('chooseJob')) + '</p>'; return; }
+    state.quickPrompt = chooseQuickPrompt(state.quickSegment, state.quickJob);
+    if (!state.quickPrompt) { status.innerHTML = '<p>' + esc(tr('noMatch')) + '.</p>'; return; }
+    status.innerHTML = '<div class="quick-result"><span class="quick-result-kicker">' + esc(tr('ready')) + '</span><strong>' + esc(T(state.quickPrompt, 'title')) + '</strong><span>' + esc(T(state.quickPrompt, 'whatYouGet')) + '</span><button class="btn btn-primary" type="button" id="quickOpen">' + esc(tr('openFill')) + ' &rarr;</button></div>';
+    status.querySelector('#quickOpen').addEventListener('click', function () { openPromptCard(state.quickPrompt, { fillOpen: true }); });
+  }
+  function buildQuickStart() {
+    var root = document.getElementById('quickStart');
+    var segments = document.getElementById('quickSegment');
+    var jobs = document.getElementById('quickJobs');
+    if (!root || !segments || !jobs) return;
+    root.setAttribute('data-audit', 'AUD-A-P1-A1 AUD-D-P1-D1');
+    var head = root.querySelector('.quick-start-head');
+    if (head) {
+      var kicker = head.querySelector('.kicker'); var heading = head.querySelector('h2'); var sub = head.querySelector('p');
+      if (kicker) kicker.textContent = tr('quickKicker'); if (heading) heading.textContent = tr('quickTitle'); if (sub) sub.textContent = tr('quickSub');
+    }
+    var stepLabels = root.querySelectorAll('.quick-step-label');
+    if (stepLabels[0]) { var sb = stepLabels[0].querySelector('b'); var ss = stepLabels[0].querySelector('small'); if (sb) sb.textContent = tr('chooseSegment'); if (ss) ss.textContent = tr('segmentSmall'); }
+    if (stepLabels[1]) { var jb = stepLabels[1].querySelector('b'); var js = stepLabels[1].querySelector('small'); if (jb) jb.textContent = tr('chooseJob'); if (js) js.textContent = tr('jobSmall'); }
+    segments.innerHTML = '';
+    QUICK_SEGMENTS.forEach(function (segment) {
+      var selected = state.quickSegment === segment.id;
+      var b = el('<button class="fchip quick-segment' + (selected ? ' active' : '') + '" type="button" aria-pressed="' + selected + '">' + esc(state.lang === 'hi' ? segment.hi : segment.en) + '</button>');
+      b.addEventListener('click', function () {
+        state.quickSegment = segment.id; state.quickJob = ''; state.quickPrompt = null;
+        try { localStorage.setItem('mps-segment', segment.id); } catch (e) {}
+        buildQuickStart();
+      });
+      segments.appendChild(b);
+    });
+    jobs.innerHTML = '';
+    QUICK_JOBS.forEach(function (job) {
+      var selected = state.quickJob === job.id;
+      var b = el('<button class="quick-job' + (selected ? ' active' : '') + '" type="button" aria-pressed="' + selected + '"><span class="quick-job-icon" aria-hidden="true">' + job.icon + '</span><b>' + esc(tr(job.label)) + '</b></button>');
+      b.disabled = !state.quickSegment;
+      b.addEventListener('click', function () { state.quickJob = job.id; buildQuickStart(); });
+      jobs.appendChild(b);
+    });
+    buildQuickStatus();
+  }
+
   /* ---------- cards ---------- */
   function relBadge(p) {
     if (p.makesImage) return '<span class="rel"><span class="dot dot-amber"></span>' + esc(p.worksOnFree || 'Needs an image-making AI') + '</span>';
@@ -147,17 +415,27 @@
     if (p.needsImage) return '<span class="tag tag-img">&#128247; ' + esc(p.tag || 'Photo needed') + '</span>';
     return '<span class="tag tag-txt">' + esc(p.tag || 'Text only') + '</span>';
   }
+  function formatBadge(p) {
+    if (!p.fmt) return '';
+    var item = FORMATS.find(function (format) { return format.id === p.fmt; });
+    if (!item) return '';
+    return '<span class="tag tag-format" data-output-format="' + esc(p.fmt) + '">' + item.ic + ' ' + esc(state.lang === 'hi' ? item.hi : item.en) + '</span>';
+  }
   function cardHTML(p) {
     var id = p._id;
     var hi = state.lang === 'hi';
-    return '<article class="card" data-id="' + id + '"><div class="card-tags"><span class="tag tag-cat">' + esc(p._catTitle) + '</span>' + tagChip(p) + '</div>' +
+    var saved = favorites.has(p.slug);
+    // AUD-B P1/B3 + P2/B4 hooks; AUD-C P1/C1; AUD-E P1/E1.
+    return '<article class="card' + (p.featured ? ' featured-card' : '') + '" data-id="' + id + '" data-slug="' + esc(p.slug) + '"><div class="card-tags"><span class="tag tag-cat"><span aria-hidden="true">' + esc(p._catIcon) + '</span> ' + esc(p._catTitle) + '</span>' + formatBadge(p) + tagChip(p) + '</div>' +
       '<h4>' + esc(T(p, 'title')) + '</h4><p class="card-what">' + esc(T(p, 'whatYouGet')) + '</p><div class="card-rel">' + relBadge(p) + '</div>' +
-      '<button class="card-copy-main" data-copy="' + id + '">&#128203; ' + (hi ? 'प्रॉम्प्ट कॉपी करें' : 'Copy prompt') + '</button>' +
+      '<button class="card-copy-main" data-copy="' + id + '">&#128203; ' + esc(tr('copyPrompt')) + '</button>' +
       '<div class="card-open">' +
       '<button class="btn-tool t-gpt" data-open="' + id + '" data-tool="gpt">&#129302; Open ChatGPT</button>' +
       '<button class="btn-tool t-claude" data-open="' + id + '" data-tool="claude">&#128172; Open Claude</button>' +
       '</div>' +
-      '<button class="card-more" data-view="' + id + '">' + (hi ? 'इस्तेमाल कैसे करें' : 'How to use this') + ' &rarr;</button>' +
+      '<div class="card-secondary"><button class="card-more" data-view="' + id + '">' + esc(tr('howTo')) + ' &rarr;</button>' +
+      '<button class="card-icon-action" data-favorite="' + id + '" aria-pressed="' + saved + '" aria-label="' + esc(saved ? tr('unsave') : tr('save')) + '">' + (saved ? '&#9829;' : '&#9825;') + '</button>' +
+      '<button class="card-icon-action" data-share="' + id + '" aria-label="' + esc(tr('share')) + '">&#128241;</button></div>' +
       '</article>';
   }
   /* Tool names and common words teachers search for that the prompt texts may not
@@ -202,13 +480,16 @@
     return false;
   }
   function matches(p, useSyn) {
-    if (state.group !== 'all' && p._group !== state.group) return false;
+    if (state.group === 'saved' && !favorites.has(p.slug)) return false;
+    if (state.group !== 'all' && state.group !== 'saved' && p._group !== state.group) return false;
     if (state.exam !== 'all' && (p.exams || []).indexOf(state.exam) === -1) return false;
     if (state.aud !== 'all' && p.aud !== state.aud && p.aud !== 'both') return false;
+    if (state.fmt !== 'all' && p.fmt !== state.fmt) return false;
     if (state.query) {
-      // both languages are always searchable, whatever the toggle shows
-      var hiText = p.hi ? (' ' + (p.hi.title || '') + ' ' + (p.hi.whatYouGet || '') + ' ' + (p.hi.promptText || '')) : '';
-      var hayFull = (p.title + ' ' + p.whatYouGet + ' ' + p._catTitle + ' ' + p._group + ' ' + (p.howToUse || '') + ' ' + p.promptText + hiText).toLowerCase();
+      // AUD-A P1/A3 + AUD-D P3/D4 hook: catalog search keeps compact card
+      // fields for every available language plus detected keywords from omitted bodies.
+      var languageText = ['hi', 'bn', 'mr', 'te'].map(function (code) { return p[code] ? (' ' + (p[code].title || '') + ' ' + (p[code].whatYouGet || '') + ' ' + (p[code].promptText || '')) : ''; }).join('');
+      var hayFull = (p.title + ' ' + p.whatYouGet + ' ' + p._catTitle + ' ' + p._group + ' ' + (p.tag || '') + ' ' + (p._searchExtras || p.searchExtras || '') + ' ' + (p.howToUse || '') + ' ' + (p.promptText || '') + languageText).toLowerCase();
       var hayCard = (p.title + ' ' + p.whatYouGet + ' ' + p._catTitle + (p.hi ? ' ' + (p.hi.title || '') + ' ' + (p.hi.whatYouGet || '') : '')).toLowerCase();
       var terms = state.query.toLowerCase().split(/\s+/);
       for (var qi = 0; qi < terms.length; qi++) { if (terms[qi] && !termHits(hayFull, hayCard, terms[qi], useSyn)) return false; }
@@ -217,87 +498,146 @@
   }
   function updateCount(n, viaSynonyms) {
     var c = document.getElementById('resultCount'); if (!c) return;
-    if (state.query && viaSynonyms) c.innerHTML = '<b>' + n + '</b> related prompt' + (n === 1 ? '' : 's') + ' for &ldquo;' + esc(state.query) + '&rdquo;';
-    else if (state.query) c.innerHTML = '<b>' + n + '</b> prompt' + (n === 1 ? '' : 's') + ' found for &ldquo;' + esc(state.query) + '&rdquo;' + (n ? '' : ' - try another word');
+    if (state.query && viaSynonyms) c.innerHTML = '<b>' + n + '</b> ' + esc(tr('related')) + ' &ldquo;' + esc(state.query) + '&rdquo;';
+    else if (state.query) c.innerHTML = '<b>' + n + '</b> ' + esc(tr('found')) + ' &ldquo;' + esc(state.query) + '&rdquo;';
+    else if (state.group === 'saved') c.innerHTML = '<b>' + n + '</b> ' + esc(tr('saved'));
     else if (state.group !== 'all') c.innerHTML = '<b>' + n + '</b> prompts in ' + esc(state.group);
-    else c.innerHTML = 'Browse all <b>' + n + '</b> prompts';
+    else c.innerHTML = esc(tr('browseAll')) + ' <b>' + n + '</b> prompts';
   }
   var SUGGEST_TERMS = ['graph', 'worksheet', 'quiz', 'lesson plan', 'formula sheet', 'photo', 'JEE', 'parents'];
-  /* discovery strip: new + featured + random — only on the unfiltered view */
+  function persistFavorites() { try { localStorage.setItem('mps-favorites', JSON.stringify(Array.from(favorites))); } catch (e) {} }
+  function toggleFavorite(p) {
+    if (!p || !p.slug) return;
+    if (favorites.has(p.slug)) favorites.delete(p.slug); else favorites.add(p.slug);
+    persistFavorites(); buildChips(); render();
+  }
+  function rememberRecent(p) {
+    if (!p || !p.slug) return;
+    recentSlugs = [p.slug].concat(recentSlugs.filter(function (slug) { return slug !== p.slug; })).slice(0, 8);
+    try { localStorage.setItem('mps-recent', JSON.stringify(recentSlugs)); } catch (e) {}
+  }
+  function promptOfDay() {
+    if (!ALL.length) return null;
+    var day = new Date().toISOString().slice(0, 10);
+    var hash = 2166136261;
+    for (var i = 0; i < day.length; i++) { hash ^= day.charCodeAt(i); hash = Math.imul(hash, 16777619); }
+    var sorted = ALL.slice().sort(function (a, b) { return String(a.slug).localeCompare(String(b.slug)); });
+    return sorted[(hash >>> 0) % sorted.length];
+  }
+
+  /* AUD-C P1/C1-P1/C2: local saved/recent/daily discovery, only unfiltered. */
   function discoveryHTML() {
-    var hi = state.lang === 'hi';
     var frag = document.createDocumentFragment();
     var featured = ALL.filter(function (p) { return p.featured; });
     var fresh = ALL.filter(function (p) { return p.added; });
+    var saved = ALL.filter(function (p) { return favorites.has(p.slug); });
+    var recent = recentSlugs.map(findSlug).filter(Boolean);
+    var used = new Set();
+    var cardCount = 0;
     function row(title, items, max) {
-      if (!items.length) return;
+      var unique = items.filter(function (p) { if (!p || used.has(p.slug)) return false; used.add(p.slug); return true; }).slice(0, max);
+      if (!unique.length) return;
       var block = el('<section class="cat-block"></section>');
-      block.appendChild(el('<div class="cat-block-head"><h3>' + title + '</h3><span class="cat-count">' + items.length + ' prompts</span></div>'));
+      block.appendChild(el('<div class="cat-block-head"><h3>' + title + '</h3><span class="cat-count">' + unique.length + '</span></div>'));
       var grid = el('<div class="cards"></div>');
-      items.slice(0, max).forEach(function (p) { grid.appendChild(el(cardHTML(p))); });
+      unique.forEach(function (p) { grid.appendChild(el(cardHTML(p))); cardCount++; });
       block.appendChild(grid); frag.appendChild(block);
     }
-    row('&#128293; ' + (hi ? 'सबसे ज़रूरी' : 'Most important'), featured, 6);
-    row('&#10024; ' + (hi ? 'हाल ही में जोड़े गए' : 'Recently added'), fresh, 6);
-    return frag;
+    row('&#9728;&#65039; ' + esc(tr('promptDay')), [promptOfDay()], 1);
+    row('&#9829; ' + esc(tr('savedShelf')), saved, 4);
+    row('&#128337; ' + esc(tr('recent')), recent, 4);
+    row('&#128293; ' + esc(tr('important')), featured, 6);
+    row('&#10024; ' + esc(tr('added')), fresh, 6);
+    return { fragment: frag, count: cardCount, slugs: used };
   }
-  function openRandom() { if (ALL.length) openModal(ALL[Math.floor(Math.random() * ALL.length)]); }
+  function openPromptCard(card, options) { return withFullPrompt(card, function (full) { openModal(full, options || {}); }); }
+  function openRandom() { if (ALL.length) openPromptCard(ALL[Math.floor(Math.random() * ALL.length)]); }
   function render() {
-    var stream = document.getElementById('catStream'); if (!stream) return; stream.innerHTML = ''; var count = 0;
+    var stream = document.getElementById('catStream'); if (!stream) return; stream.innerHTML = '';
     var useSyn = false;
     // exact pass first; if a search finds nothing, retry once letting tool-name synonyms match
     if (state.query && !ALL.some(function (p) { return matches(p, false); }) && ALL.some(function (p) { return matches(p, true); })) useSyn = true;
+    var matched = ALL.filter(function (p) { return matches(p, useSyn); });
+    var count = matched.length;
+    var defaultView = !state.query && state.group === 'all' && state.exam === 'all' && state.aud === 'all' && state.fmt === 'all';
+    var discovery = defaultView ? discoveryHTML() : { fragment: document.createDocumentFragment(), count: 0, slugs: new Set() };
+    var budget = Math.max(0, state.renderLimit - discovery.count);
+    var uniqueMatched = matched.filter(function (p) { return !discovery.slugs.has(p.slug); });
+    var visible = uniqueMatched.slice(0, budget);
     GROUPS.forEach(function (g) {
-      if (state.group !== 'all' && state.group !== g) return;
       var catsIn = DATA.filter(function (c) { return c.group === g; });
       var has = false; var frag = document.createDocumentFragment();
       catsIn.forEach(function (cat) {
-        var prompts = (cat.prompts || []).filter(function (p) { return matches(p, useSyn); }); if (!prompts.length) return; has = true; count += prompts.length;
+        var prompts = visible.filter(function (p) { return p._cat === cat.category; }); if (!prompts.length) return; has = true;
+        var fullCategoryCount = matched.filter(function (p) { return p._cat === cat.category; }).length;
         var block = el('<section class="cat-block" id="cat-' + cat.category + '"></section>');
-        block.appendChild(el('<div class="cat-block-head"><span class="cat-ic">' + (cat.categoryIcon || '') + '</span><h3>' + esc(cat.categoryTitle) + '</h3><span class="cat-count">' + prompts.length + ' prompts</span></div>'));
+        block.appendChild(el('<div class="cat-block-head"><span class="cat-ic">' + (cat.categoryIcon || '') + '</span><h3>' + esc(cat.categoryTitle) + '</h3><span class="cat-count">' + fullCategoryCount + ' prompts</span></div>'));
         if (cat.categoryBlurb) block.appendChild(el('<p class="cat-blurb">' + esc(cat.categoryBlurb) + '</p>'));
         var grid = el('<div class="cards"></div>'); prompts.forEach(function (p) { grid.appendChild(el(cardHTML(p))); }); block.appendChild(grid); frag.appendChild(block);
       });
       if (has) { stream.appendChild(el('<div class="group-head"><h3>' + esc(g) + '</h3></div>')); stream.appendChild(frag); }
     });
     if (useSyn && count) stream.insertBefore(el('<div class="no-results" style="margin-bottom:18px">No prompt mentions &ldquo;' + esc(state.query) + '&rdquo; by name yet, so here are the prompts that do that job. Every prompt works in any AI chat - paste it there first.</div>'), stream.firstChild);
-    if (!state.query && state.group === 'all' && state.exam === 'all' && state.aud === 'all' && count) {
-      var disco = discoveryHTML();
-      var randWrap = el('<div style="text-align:center;margin:0 0 20px"><button class="fchip" id="randBtn" type="button" style="font-size:15px;padding:.5em 1.4em">&#127922; ' + (state.lang === 'hi' ? 'कोई भी एक प्रॉम्प्ट दिखाओ' : 'Surprise me — random prompt') + '</button></div>');
+    if (defaultView && count) {
+      var randWrap = el('<div class="random-prompt-wrap"><button class="fchip" id="randBtn" type="button">&#127922; ' + esc(tr('surprise')) + '</button></div>');
       randWrap.querySelector('#randBtn').addEventListener('click', openRandom);
-      stream.insertBefore(disco, stream.firstChild);
+      stream.insertBefore(discovery.fragment, stream.firstChild);
       stream.insertBefore(randWrap, stream.firstChild);
     }
     if (!count) {
-      var nr = el('<div class="no-results">No prompts match &ldquo;' + esc(state.query) + '&rdquo;. Try one of these:<div class="fchips" style="margin-top:12px"></div></div>');
+      var nr = el('<div class="no-results">' + esc(tr('noMatch')) + ' &ldquo;' + esc(state.query) + '&rdquo;.<div class="fchips"></div></div>');
       var chipWrap = nr.querySelector('.fchips');
       SUGGEST_TERMS.forEach(function (t) {
         var b = el('<button class="fchip" type="button">' + esc(t) + '</button>');
-        b.addEventListener('click', function () { var s = document.getElementById('search'); if (s) s.value = t; state.query = t; var cl = document.getElementById('searchClear'); if (cl) cl.hidden = false; render(); });
+        b.addEventListener('click', function () { var s = document.getElementById('search'); if (s) s.value = t; state.query = t; state.renderLimit = 60; var cl = document.getElementById('searchClear'); if (cl) cl.hidden = false; render(); });
         chipWrap.appendChild(b);
       });
       stream.appendChild(nr);
+    }
+    var remaining = uniqueMatched.length - visible.length;
+    if (remaining > 0) {
+      var more = el('<div class="show-more-wrap"><button class="btn btn-soft" type="button" id="showMore" aria-controls="catStream">' + esc(tr('showMore')) + ' <span>(' + remaining + ')</span></button></div>');
+      more.querySelector('#showMore').addEventListener('click', function () { state.renderLimit += 60; render(); });
+      stream.appendChild(more);
+    }
+    if (!state.hasRendered) {
+      stream.querySelectorAll('.cards').forEach(function (grid) { grid.classList.add('is-initial-load'); });
+      state.hasRendered = true;
     }
     updateCount(count, useSyn);
   }
 
   function findPrompt(id) { for (var i = 0; i < ALL.length; i++) if (ALL[i]._id === id) return ALL[i]; return null; }
 
+  // AUD-E P1/E1-P1/E3: share the outcome and canonical URL, never the full prompt.
+  function sharePrompt(p) {
+    if (!p) return;
+    var page = SITE + 'p/' + (p.slug || '') + '/';
+    var message = tr('shareLead') + ': ' + T(p, 'title') + '\n' + T(p, 'whatYouGet');
+    function whatsapp() { window.open('https://wa.me/?text=' + encodeURIComponent(message + '\n' + page), '_blank', 'noopener'); }
+    if (navigator.share) {
+      navigator.share({ title: T(p, 'title') + ' — Maths Prompt Studio', text: message, url: page }).catch(function (error) { if (!error || error.name !== 'AbortError') whatsapp(); });
+    } else whatsapp();
+  }
+
   /* ---------- delegated clicks on the stream (fast for 500+ cards) ---------- */
   function wireStream() {
     var stream = document.getElementById('catStream'); if (!stream) return;
     stream.addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b) return;
-      if (b.hasAttribute('data-copy')) { var p = findPrompt(b.getAttribute('data-copy')); if (p) copyText(T(p, 'promptText'), b, state.lang === 'hi' ? 'कॉपी हो गया! अपने AI चैट में पेस्ट करें।' : 'Copied! Paste it into your AI chat.'); }
-      else if (b.hasAttribute('data-view')) { openModal(findPrompt(b.getAttribute('data-view'))); }
-      else if (b.hasAttribute('data-open')) { var p2 = findPrompt(b.getAttribute('data-open')); if (p2) openTool(T(p2, 'promptText'), b.getAttribute('data-tool'), b); }
-      else if (b.hasAttribute('data-fmt')) { var p3 = findPrompt(b.getAttribute('data-fmt')); if (p3) copyFormatted(T(p3, 'promptText'), b.getAttribute('data-kind'), b); }
+      if (b.hasAttribute('data-copy')) { var p = findPrompt(b.getAttribute('data-copy')); if (p) withFullPrompt(p, function (full) { copyText(T(full, 'promptText'), b, tr('copied')); }); }
+      else if (b.hasAttribute('data-view')) { openPromptCard(findPrompt(b.getAttribute('data-view'))); }
+      else if (b.hasAttribute('data-open')) { var p2 = findPrompt(b.getAttribute('data-open')); if (p2) withFullPrompt(p2, function (full) { openTool(T(full, 'promptText'), b.getAttribute('data-tool'), b); }); }
+      else if (b.hasAttribute('data-fmt')) { var p3 = findPrompt(b.getAttribute('data-fmt')); if (p3) withFullPrompt(p3, function (full) { copyFormatted(T(full, 'promptText'), b.getAttribute('data-kind'), b); }); }
+      else if (b.hasAttribute('data-favorite')) { toggleFavorite(findPrompt(b.getAttribute('data-favorite'))); }
+      else if (b.hasAttribute('data-share')) { sharePrompt(findPrompt(b.getAttribute('data-share'))); }
     });
   }
 
   /* ---------- modal ---------- */
-  function openModal(p) {
+  function openModal(p, options) {
     if (!p) return;
+    options = options || {};
     var hi = state.lang === 'hi';
     var effList = T(p, 'effectiveUsage');
     var steps = (effList && effList.length) ? '<div class="modal-eff"><h4>&#9989; ' + (hi ? '&#2311;&#2360;&#2325;&#2366; &#2360;&#2361;&#2368; &#2311;&#2360;&#2381;&#2340;&#2375;&#2350;&#2366;&#2354;' : 'How to use this effectively') + '</h4><ol>' + effList.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol></div>' : '';
@@ -312,7 +652,7 @@
     var fillHTML = '';
     if (_toks.length) {
       var hasStyles = p.styles && p.styles.length;
-      fillHTML = '<details class="modal-fill"' + (hasStyles ? ' open' : '') + '><summary>&#9999;&#65039; ' + (hasStyles ? 'Pick a style + fill in the blanks' : 'Fill in the blanks here (optional)') + '</summary><p class="mf-note">' + (hi ? 'अपनी जानकारी भरें - नीचे का प्रॉम्प्ट अपने आप बदल जाएगा।' : 'Type your details - the prompt below and the Copy / Open buttons update automatically.') + '</p><div class="mf-grid">' +
+      fillHTML = '<details class="modal-fill"' + (hasStyles || options.fillOpen ? ' open' : '') + '><summary>&#9999;&#65039; ' + (hasStyles ? 'Pick a style + ' : '') + esc(tr('fillOptional')) + '</summary><p class="mf-note">' + esc(tr('fillNote')) + '</p><div class="mf-grid">' +
         _toks.map(function (t, i) {
           var label = esc(t.replace(/^\[|\]$/g, '').slice(0, 52));
           if (hasStyles && /STYLE/i.test(t)) {
@@ -324,27 +664,27 @@
         }).join('') +
         '</div></details>';
     }
-    body.innerHTML = '<h3 id="modalTitle">' + esc(T(p, 'title')) + '</h3><div class="modal-tags"><span class="tag tag-cat">' + esc(p._catTitle) + '</span>' + tagChip(p) + '</div>' +
+    body.innerHTML = '<h3 id="modalTitle">' + esc(T(p, 'title')) + '</h3><div class="modal-tags"><span class="tag tag-cat"><span aria-hidden="true">' + esc(p._catIcon || '') + '</span> ' + esc(p._catTitle) + '</span>' + formatBadge(p) + tagChip(p) + '</div>' +
       '<div class="card-rel" style="margin:0 0 14px">' + relBadge(p) + ' &nbsp;&middot;&nbsp; <span class="rel">Best tool: <b>&nbsp;' + esc(p.bestTool || 'Any AI chat') + '</b></span></div>' +
       '<div class="modal-open"><span class="mo-lbl">' + (hi ? '&#2319;&#2325; &#2325;&#2381;&#2354;&#2367;&#2325; &#2350;&#2375;&#2306; &#2326;&#2379;&#2354;&#2375;&#2306; (&#2346;&#2381;&#2352;&#2377;&#2350;&#2381;&#2346;&#2381;&#2335; &#2325;&#2377;&#2346;&#2368; &#2361;&#2379; &#2332;&#2366;&#2319;&#2327;&#2366;):' : 'Open it in one click (the prompt is copied for you):') + '</span><div class="mo-btns"><button class="btn-tool t-gpt" id="mGpt">&#129302; Open in ChatGPT</button><button class="btn-tool t-claude" id="mClaude">&#128172; Open in Claude</button></div></div>' +
       steps + fix + fillHTML +
+      '<div class="modal-export"><span class="mo-lbl">' + (hi ? 'इसे पाएँ:' : 'Get this as:') + '</span><div class="mo-btns"><button class="btn-soft" id="mPdf">PDF</button><button class="btn-soft" id="mWord">Word</button><button class="btn-soft" id="mPpt">PPT</button></div></div>' +
       '<div class="modal-lbl">' + (hi ? '&#2346;&#2381;&#2352;&#2377;&#2350;&#2381;&#2346;&#2381;&#2335; &#2325;&#2377;&#2346;&#2368; &#2325;&#2352;&#2375;&#2306;' : 'COPY THE PROMPT') + '</div><div class="prompt-box"><pre id="mPre">' + esc(activeText) + '</pre></div>' +
-      '<div class="modal-actions"><button class="btn-copy" id="mCopy">&#128203; Copy prompt</button>' +
-      '<button class="btn-soft" id="mShare">&#128241; Share this prompt</button>' +
-      '<button class="btn-soft" id="mLink">&#128279; Copy link</button>' +
-      '<button class="btn-view" data-close>Close</button></div>' +
+      '<div class="modal-actions"><button class="btn-copy" id="mCopy">&#128203; ' + esc(tr('copyPrompt')) + '</button>' +
+      '<button class="btn-soft" id="mShare">&#128241; ' + esc(tr('share')) + '</button>' +
+      '<button class="btn-soft" id="mLink">&#128279; ' + esc(tr('copyLink')) + '</button>' +
+      '<button class="btn-view" data-close>' + esc(tr('close')) + '</button></div>' +
       '<p class="modal-report"><a href="#" id="mReport">&#9888;&#65039; Report a problem with this prompt</a></p>';
     var PAGE = SITE + 'p/' + (p.slug || '') + '/';
     document.getElementById('mGpt').addEventListener('click', function () { openTool(filled(), 'gpt', this); });
     document.getElementById('mClaude').addEventListener('click', function () { openTool(filled(), 'claude', this); });
-    document.getElementById('mCopy').addEventListener('click', function () { copyText(filled(), this, 'Copied! Paste it into your AI chat.'); });
+    document.getElementById('mCopy').addEventListener('click', function () { copyText(filled(), this, tr('copied')); });
+    document.getElementById('mPdf').addEventListener('click', function () { copyFormatted(filled(), 'pdf', this); });
+    document.getElementById('mWord').addEventListener('click', function () { copyFormatted(filled(), 'word', this); });
+    document.getElementById('mPpt').addEventListener('click', function () { copyFormatted(filled(), 'ppt', this); });
     body.querySelectorAll('[data-tok]').forEach(function (elx) { elx.addEventListener('input', function () { var pre = document.getElementById('mPre'); if (pre) pre.textContent = filled(); }); });
-    document.getElementById('mShare').addEventListener('click', function () {
-      var msg = 'Free AI prompt for maths teachers - ' + p.title + ':';
-      if (p.slug && navigator.share) { navigator.share({ title: 'Maths Prompt Studio', text: msg, url: PAGE }).catch(function () {}); }
-      else { window.open('https://wa.me/?text=' + encodeURIComponent(msg + ' ' + PAGE), '_blank'); }
-    });
-    document.getElementById('mLink').addEventListener('click', function () { copyText(PAGE, this, 'Link copied - send this prompt to a teacher!'); });
+    document.getElementById('mShare').addEventListener('click', function () { sharePrompt(p); });
+    document.getElementById('mLink').addEventListener('click', function () { copyText(PAGE, this, tr('linkCopied')); });
     document.getElementById('mReport').addEventListener('click', function (e) {
       e.preventDefault();
       var b = 'Prompt: ' + p.title + ' (' + (p.slug || p._id) + ')\nPage: ' + PAGE + '\n\nWhat went wrong (e.g. wrong answer, unclear step, bad formatting):\n';
@@ -353,10 +693,11 @@
     body.querySelectorAll('[data-close]').forEach(function (x) { x.addEventListener('click', closeModal); });
     if (p.slug) { try { history.replaceState(null, '', '#p/' + p.slug); } catch (e) {} }
     var m = document.getElementById('modal'); m.classList.add('open'); m.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden';
+    rememberRecent(p);
   }
   function closeModal() { var m = document.getElementById('modal'); m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; if ((location.hash || '').indexOf('#p/') === 0) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} } }
   function findSlug(slug) { for (var i = 0; i < ALL.length; i++) if (ALL[i].slug === slug) return ALL[i]; return null; }
-  function openFromHash() { var h = location.hash || ''; if (h.indexOf('#p/') === 0) { var p = findSlug(decodeURIComponent(h.slice(3))); if (p) openModal(p); } }
+  function openFromHash() { var h = location.hash || ''; if (h.indexOf('#p/') === 0) { var p = findSlug(decodeURIComponent(h.slice(3))); if (p) openPromptCard(p); } }
 
   /* ---------- LEARN 10x ---------- */
   var LEARN = [
@@ -395,7 +736,7 @@
     var cb = document.getElementById('fbCopy'); if (cb) cb.addEventListener('click', function () { var c = compose(); copyText(c.body, this, 'Feedback copied - paste it wherever you like.'); });
     var em = document.getElementById('fbEmailLink'); if (em) em.href = 'mailto:' + CFG.email + '?subject=' + encodeURIComponent('Maths Prompt Studio feedback');
     var fl = document.getElementById('fbFormLink'); if (fl && CFG.googleFormUrl) { fl.href = CFG.googleFormUrl; fl.hidden = false; }
-    var wa = document.getElementById('fbWaLink'); if (wa && CFG.whatsapp) { wa.href = 'https://wa.me/' + String(CFG.whatsapp).replace(/[^0-9]/g, '') + '?text=' + encodeURIComponent('Hi Indrajeet, feedback on Maths Prompt Studio: '); wa.hidden = false; }
+    var wa = document.getElementById('fbWaLink'); if (wa && CFG.whatsapp) { wa.href = 'https://wa.me/' + String(CFG.whatsapp).replace(/[^0-9]/g, '') + '?text=' + encodeURIComponent('Hello, feedback on Maths Prompt Studio: '); wa.hidden = false; }
     var ig = document.getElementById('fbInstaLink'); if (ig && CFG.instagram) { ig.href = 'https://instagram.com/' + String(CFG.instagram).replace(/^@/, ''); ig.hidden = false; }
   }
   function initShare() {
@@ -444,9 +785,9 @@
     var cl = document.getElementById('bCla'); if (cl) cl.addEventListener('click', function () { openTool(gen(), 'claude', this); });
   }
   function initAnalytics() { if (!CFG.analyticsSrc) return; var s = document.createElement('script'); s.defer = true; s.src = CFG.analyticsSrc; if (CFG.analyticsDomain) s.setAttribute('data-domain', CFG.analyticsDomain); document.head.appendChild(s); }
-  function initTrust() { var btn = document.getElementById('verifyBtn'); if (!btn) return; btn.addEventListener('click', function () { var p = findSlug('double-check-any-ai-maths-answer') || ALL.find(function (x) { return /double-check/i.test(x.title); }); if (p) openModal(p); else { document.getElementById('library').scrollIntoView({ behavior: 'smooth' }); } }); }
+  function initTrust() { var btn = document.getElementById('verifyBtn'); if (!btn) return; btn.addEventListener('click', function () { var p = findSlug('double-check-any-ai-maths-answer') || ALL.find(function (x) { return /double-check/i.test(x.title); }); if (p) openPromptCard(p); else { document.getElementById('library').scrollIntoView({ behavior: 'smooth' }); } }); }
   function initTabs() { document.querySelectorAll('.tabs').forEach(function (set) { set.querySelectorAll('.tab').forEach(function (tab) { tab.addEventListener('click', function () { var name = tab.getAttribute('data-tab'); set.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); }); tab.classList.add('active'); set.parentElement.querySelectorAll('.tabpane').forEach(function (pane) { pane.classList.toggle('active', pane.getAttribute('data-pane') === name); }); }); }); }); }
-  function initReveal() { var els = document.querySelectorAll('.reveal'); if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; } var io = new IntersectionObserver(function (ents) { ents.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }); }, { threshold: 0.12 }); els.forEach(function (e) { io.observe(e); }); }
+  function initReveal() { var els = Array.prototype.filter.call(document.querySelectorAll('.reveal'), function (e) { return !e.closest('.hero'); }); if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; } var io = new IntersectionObserver(function (ents) { ents.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }); }, { threshold: 0.12 }); els.forEach(function (e) { io.observe(e); }); }
   function initTheme() { var saved = null; try { saved = localStorage.getItem('mps-theme'); } catch (e) {} if (saved) document.documentElement.setAttribute('data-theme', saved); var btn = document.getElementById('themeBtn'); function sync() { btn.innerHTML = document.documentElement.getAttribute('data-theme') === 'dark' ? '&#9728;' : '&#9790;'; } sync(); btn.addEventListener('click', function () { var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', next); try { localStorage.setItem('mps-theme', next); } catch (e) {} sync(); }); }
 
   /* ---------- search ---------- */
@@ -454,6 +795,7 @@
     var s = document.getElementById('search'); var clearBtn = document.getElementById('searchClear'); if (!s) return; var deb;
     function apply() {
       state.query = s.value.trim();
+      state.renderLimit = 60;
       if (clearBtn) clearBtn.hidden = !state.query;
       render();
       // mobile-friendly: when a search begins, bring the results into view so the change is visible
@@ -461,14 +803,15 @@
       state.prevEmpty = !state.query;
     }
     s.addEventListener('input', function () { clearTimeout(deb); deb = setTimeout(apply, 140); });
-    if (clearBtn) clearBtn.addEventListener('click', function () { s.value = ''; state.query = ''; clearBtn.hidden = true; state.prevEmpty = true; render(); s.focus(); });
+    if (clearBtn) clearBtn.addEventListener('click', function () { s.value = ''; state.query = ''; state.renderLimit = 60; clearBtn.hidden = true; state.prevEmpty = true; render(); s.focus(); });
   }
 
   function init() {
     document.getElementById('year').textContent = new Date().getFullYear();
     initTheme(); initLangSwitch(); initTabs(); renderLearn(); initFeedback(); initShare(); initAbout(); initReveal(); initAnalytics();
     if (!DATA.length) { document.getElementById('catStream').innerHTML = '<div class="no-results">The library is still being prepared. Please refresh in a moment.</div>'; return; }
-    setStats(); buildChips(); buildFacets(); wireStream(); render(); initSearch(); initTrust(); initBuilder();
+    setStats(); buildChips(); buildFacets(); buildFormatFacets(); buildQuickStart(); wireStream(); render(); initSearch(); initTrust(); initBuilder();
+    if (state.lang !== 'en') ensureCatalogLanguage(state.lang).then(refreshLanguageView);
     document.querySelectorAll('#modal [data-close]').forEach(function (x) { x.addEventListener('click', closeModal); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
     openFromHash(); window.addEventListener('hashchange', openFromHash);

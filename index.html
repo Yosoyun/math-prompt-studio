@@ -6,7 +6,7 @@
 <title>Free AI Prompts for Maths Teachers (848) - Maths Prompt Studio</title>
 <meta name="description" content="848 free, copy-paste AI prompts for maths teachers and students: question papers, worksheets, DPPs, step-by-step solutions, formula sheets and more. Works with ChatGPT, Claude and Gemini. Beginner-friendly, no coding." />
 <meta name="keywords" content="AI prompts for teachers, maths question paper generator, ChatGPT for teachers, worksheet maker, CBSE ICSE JEE NEET, DPP, formula sheet, free AI tools for teachers" />
-<meta name="author" content="Indrajeet Yadav" />
+<meta name="author" content="Maths Prompt Studio" />
 <link rel="canonical" href="https://yosoyun.github.io/math-prompt-studio/" />
 <meta property="og:title" content="Maths Prompt Studio - 848 free AI prompts for maths teachers" />
 <meta property="og:description" content="848 free copy-paste AI prompts for maths teachers and students - question papers, worksheets, solutions and more, with a step-by-step beginner's guide." />
@@ -21,11 +21,9 @@
 <meta name="twitter:title" content="Maths Prompt Studio - 848 free AI prompts for maths teachers" />
 <meta name="twitter:description" content="848 free copy-paste AI prompts for maths teachers and students." />
 <meta name="twitter:image" content="https://yosoyun.github.io/math-prompt-studio/og-cover.png" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%88%91%3C/text%3E%3C/svg%3E" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=14" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="preload" href="assets/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css?v=22" />
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -33,11 +31,20 @@
 <!-- ===== HEADER ===== -->
 <header class="site-head" id="top">
   <a class="brand" href="#top" aria-label="Maths Prompt Studio home">
-    <span class="brand-mark">&#8721;</span>
-    <span class="brand-text">
-      <span class="brand-name">Maths Prompt Studio</span>
-      <span class="brand-by">free maths platform</span>
+    <!-- Phase 1 · AUD-B/B2: one subject tile and one Fraunces wordmark. -->
+    <span class="brand-tile" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="display:block;width:100%;height:100%" shape-rendering="geometricPrecision">
+        <defs>
+          <linearGradient id="maths-tile-gradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#6C5CE7"/>
+            <stop offset="1" stop-color="#4834D4"/>
+          </linearGradient>
+        </defs>
+        <rect width="100" height="100" rx="16" fill="url(#maths-tile-gradient)"/>
+        <text x="50" y="70" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Georgia, serif" font-size="66" font-weight="700">Σ</text>
+      </svg>
     </span>
+    <span class="brand-name">Maths Prompt Studio</span>
   </a>
   <nav class="head-nav" aria-label="Primary">
     <a href="#guide">Beginner's Guide</a>
@@ -56,29 +63,73 @@
 <section class="hero">
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="hero-inner">
-    <p class="eyebrow reveal">For maths teachers &amp; students &middot; No coding &middot; Free forever</p>
-    <h1 class="reveal">Your maths mastery,<br>made <em>10&times; faster</em> with AI.</h1>
-    <p class="lede reveal">A library of <strong>848 ready-to-use prompts</strong> that turn any problem into handwritten solutions, full question papers, worksheets, DPPs, formula sheets and more &mdash; plus a <strong>Learn&nbsp;10&times;</strong> guide to study smarter. <strong>Never used AI?</strong> This site teaches you everything, including exactly how to attach a photo, in plain language.</p>
-    <div class="hero-cta reveal">
-      <a class="btn btn-primary" href="#guide">Start here &mdash; I'm new to this</a>
-      <a class="btn btn-ghost" href="#library">Browse the prompts &darr;</a>
+    <!-- Phase 1 · AUD-B/B1: lead with classroom outcomes, not inventory. -->
+    <div class="hero-copy">
+      <p class="eyebrow reveal">For maths teachers &amp; students &middot; English + हिंदी &middot; Free forever</p>
+      <h1 class="reveal">Make tomorrow&rsquo;s maths lesson in <em>60 seconds.</em></h1>
+      <p class="lede reveal">Create a complete <strong>question paper</strong>, an independently <strong>verified solution</strong>, a print-ready <strong>worksheet</strong>, a classroom <strong>PPT</strong>, or a phone <strong>quiz</strong>&mdash;with a fill-ready prompt in your language.</p>
+      <div class="hero-cta reveal">
+        <a class="btn btn-primary" href="#quickStart">Make something in 60 seconds</a>
+        <a class="btn btn-ghost" href="#library">Browse all 848 prompts</a>
+      </div>
+      <div class="hero-note reveal"><strong>No sign-up here.</strong> Choose a teaching goal, fill the blanks, and open the finished prompt in the AI you already use.</div>
+      <div class="hero-stats reveal" id="heroStats">
+        <div class="stat"><span class="stat-num" data-stat="prompts">848</span><span class="stat-lbl">prompts</span></div>
+        <div class="stat"><span class="stat-num" data-stat="cats">45</span><span class="stat-lbl">categories</span></div>
+        <div class="stat"><span class="stat-num" data-stat="styles">18</span><span class="stat-lbl">art styles</span></div>
+        <div class="stat"><span class="stat-num">100%</span><span class="stat-lbl">free</span></div>
+      </div>
     </div>
-    <div class="hero-note reveal">&#129321; It's free. No downloads, no sign-up here &mdash; just use it, and please <a href="#share">pass it to one more teacher or student</a>.</div>
-    <div class="hero-stats reveal" id="heroStats">
-      <div class="stat"><span class="stat-num" data-stat="prompts">848</span><span class="stat-lbl">prompts</span></div>
-      <div class="stat"><span class="stat-num" data-stat="cats">32</span><span class="stat-lbl">categories</span></div>
-      <div class="stat"><span class="stat-num" data-stat="styles">18</span><span class="stat-lbl">art styles</span></div>
-      <div class="stat"><span class="stat-num">100%</span><span class="stat-lbl">free</span></div>
+    <aside class="hero-outcomes reveal" aria-label="Five ready-to-make teaching outcomes">
+      <svg class="hero-math-art" viewBox="0 0 420 180" role="img" aria-label="A coordinate curve connecting five classroom outcomes">
+        <g fill="none" stroke="currentColor" stroke-width="1.5" opacity=".28">
+          <path d="M34 146H390M54 20V158" />
+          <path d="M54 142C108 137 117 55 174 91S254 154 310 76 370 34 390 40" stroke-width="3" opacity=".8" />
+        </g>
+        <g fill="currentColor">
+          <circle cx="83" cy="121" r="5" /><circle cx="157" cy="84" r="5" /><circle cx="230" cy="126" r="5" /><circle cx="305" cy="82" r="5" /><circle cx="373" cy="39" r="5" />
+        </g>
+      </svg>
+      <p class="hero-outcomes-kicker">One choice. One polished outcome.</p>
+      <ol class="outcome-list">
+        <li><span>01</span><b>Paper</b><small>questions + marking scheme</small></li>
+        <li><span>02</span><b>Verified solution</b><small>teacher-checkable working</small></li>
+        <li><span>03</span><b>Worksheet</b><small>print-ready practice</small></li>
+        <li><span>04</span><b>PPT</b><small>slide-by-slide lesson</small></li>
+        <li><span>05</span><b>Quiz</b><small>phone-ready review</small></li>
+      </ol>
+    </aside>
+  </div>
+</section>
+
+<!-- ===== 60-SECOND START ===== -->
+<!-- Phase 1 · AUD-A/A1/A2 + AUD-D/D1: segment → job → fill-ready modal. -->
+<section class="section quick-start-section" id="quickStart" aria-labelledby="quickStartTitle">
+  <div class="quick-start-shell">
+    <div class="quick-start-head">
+      <span class="kicker">60-second start</span>
+      <h2 id="quickStartTitle">What do you need for your next class?</h2>
+      <p>Choose who you teach, then choose the job. Your best matching prompt will open ready to fill.</p>
     </div>
+    <div class="quick-step" data-quick-step="segment">
+      <div class="quick-step-label"><span>1</span><div><b>Pick what you teach</b><small>We will remember this on this device.</small></div></div>
+      <div class="quick-segment" id="quickSegment" role="group" aria-label="Choose teaching segment" aria-live="polite"></div>
+    </div>
+    <div class="quick-step" data-quick-step="job">
+      <div class="quick-step-label"><span>2</span><div><b>Pick today&rsquo;s job</b><small>Paper, solve and verify, worksheet, PPT, or quiz.</small></div></div>
+      <div class="quick-jobs" id="quickJobs" role="group" aria-label="Choose teaching job" aria-live="polite"></div>
+    </div>
+    <div class="quick-status" id="quickStatus" role="status" aria-live="polite">Start by choosing your class or exam above.</div>
+    <noscript><p class="quick-noscript">JavaScript is needed for the guided start. The complete prompt library remains available below.</p></noscript>
   </div>
 </section>
 
 <!-- ===== BEGINNER GUIDE ===== -->
-<section class="section" id="guide">
+<section class="section full-guide" id="guide">
   <div class="section-head">
     <span class="kicker">Complete beginner's guide</span>
-    <h2>Never used AI? You'll be a pro in 5 minutes.</h2>
-    <p class="sub">No jargon. Think of AI as a brilliant, tireless teaching assistant you talk to like a text message. Let's do your very first one together.</p>
+    <h2>Want the full walkthrough? You&rsquo;ll be a pro in 5 minutes.</h2>
+    <p class="sub">No jargon. Learn how to open a free AI tool, attach a photo, fill a prompt, and check the result.</p>
   </div>
 
   <div class="guide-intro">
@@ -274,16 +325,26 @@
     <h2>The Prompt Library</h2>
     <p class="sub">848 prompts. Pick a group, search, open a card, copy. Every card tells you whether it works on free AI and exactly how to use it. No download needed &mdash; just copy what you need.</p>
   </div>
-  <div class="library-controls">
-    <div class="search-wrap"><span class="search-ic">&#128269;</span><input type="search" id="search" placeholder="Search e.g. 'question paper', 'integration', 'flashcards', 'book chapter'..." aria-label="Search prompts" /><button class="search-clear" id="searchClear" aria-label="Clear search" hidden>&times;</button></div>
-    <div class="result-count" id="resultCount" aria-live="polite"></div>
-    <div class="filter-chips" id="groupChips" role="tablist" aria-label="Filter by group"></div>
+  <!-- Phase 1 · AUD-D/D2 + AUD-F/F2: compact, named filter mounts. -->
+  <div class="library-controls filter-bar" id="filterBar">
+    <div class="filter-search-row">
+      <div class="search-wrap"><span class="search-ic" aria-hidden="true">&#128269;</span><input type="search" id="search" placeholder="Search papers, integration, Wolfram, flashcards..." aria-label="Search prompts" /><button class="search-clear" id="searchClear" aria-label="Clear search" hidden>&times;</button></div>
+      <div class="result-count" id="resultCount" aria-live="polite"></div>
+    </div>
+    <div class="filter-row filter-groups">
+      <span class="filter-row-label">Group</span>
+      <div class="filter-chips" id="groupChips" role="tablist" aria-label="Filter by group"></div>
+    </div>
+    <div class="filter-row facet-mount" id="facetMount" aria-label="Exam and audience filters"></div>
+    <div class="filter-row format-mount" id="formatMount" aria-label="Output format filters"></div>
+  </div>
+  <div class="library-helper">
     <div class="legend">
       <span class="lg"><span class="dot dot-green"></span> Works on any free AI</span>
       <span class="lg"><span class="dot dot-amber"></span> Makes images - needs an image AI</span>
       <span class="lg"><span class="dot dot-blue"></span> Attach a photo first</span>
     </div>
-    <p class="lib-tip">&#128203; <b>Tip:</b> every button <b>copies</b> the prompt. If your AI opens empty (common in phone apps), just <b>paste</b> it - long-press &rarr; Paste, or Ctrl/Cmd+V.</p>
+    <p class="lib-tip">&#128203; <b>Tip:</b> every button <b>copies</b> the prompt. If your AI opens empty, paste it into the chat, fill the brackets, and send.</p>
   </div>
   <div class="cat-stream" id="catStream"><div class="loading">Loading 848 prompts&hellip;</div></div>
 </section>
@@ -475,9 +536,9 @@
 {
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "WebSite", "@id": "https://yosoyun.github.io/math-prompt-studio/#website", "url": "https://yosoyun.github.io/math-prompt-studio/", "name": "Maths Prompt Studio", "description": "848 free copy-paste AI prompts for maths teachers and students.", "inLanguage": "en", "author": { "@id": "https://yosoyun.github.io/math-prompt-studio/#indrajeet" } },
-    { "@type": "Person", "@id": "https://yosoyun.github.io/math-prompt-studio/#indrajeet", "name": "Indrajeet Yadav", "jobTitle": "Mathematics teacher", "description": "Maths teacher who builds free tools to help teachers and students." },
-    { "@type": "SoftwareApplication", "name": "Maths Prompt Studio", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "url": "https://yosoyun.github.io/math-prompt-studio/", "author": { "@id": "https://yosoyun.github.io/math-prompt-studio/#indrajeet" }, "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" } },
+    { "@type": "Organization", "@id": "https://yosoyun.github.io/math-prompt-studio/#publisher", "name": "Maths Prompt Studio", "url": "https://yosoyun.github.io/math-prompt-studio/" },
+    { "@type": "WebSite", "@id": "https://yosoyun.github.io/math-prompt-studio/#website", "url": "https://yosoyun.github.io/math-prompt-studio/", "name": "Maths Prompt Studio", "description": "848 free copy-paste AI prompts for maths teachers and students.", "inLanguage": "en", "publisher": { "@id": "https://yosoyun.github.io/math-prompt-studio/#publisher" } },
+    { "@type": "SoftwareApplication", "name": "Maths Prompt Studio", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "url": "https://yosoyun.github.io/math-prompt-studio/", "author": { "@id": "https://yosoyun.github.io/math-prompt-studio/#publisher" }, "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" } },
     { "@type": "FAQPage", "mainEntity": [
       { "@type": "Question", "name": "Is it free? Do I need to know coding?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free, and no coding is needed. If you can copy and paste, you can use every prompt. You just need a free account on an AI tool like ChatGPT or Claude." } },
       { "@type": "Question", "name": "How do I attach a photo of a question?", "acceptedAnswer": { "@type": "Answer", "text": "In the AI chat's typing bar, tap the + or paperclip button, choose Camera or Photos, pick a clear photo of one question, then paste the prompt and send. The site shows step-by-step illustrations for phone and computer." } },
@@ -487,8 +548,25 @@
   ]
 }
 </script>
-<script src="config.js?v=14"></script>
-<script src="data/prompts.js?v=21"></script>
-<script src="app.js?v=21"></script>
+<!-- Phase 1 · AUD-A/A3: paint the product shell from the light catalog; fetch full prompt bodies on demand. -->
+<script>window.MPS_DATA_URL = 'data/prompts.js?v=22';</script>
+<script defer src="config.js?v=14"></script>
+<script>
+(function () {
+  function addScript(src, done) {
+    var script = document.createElement('script');
+    script.src = src;
+    script.onload = done;
+    script.onerror = function () {
+      var stream = document.getElementById('catStream');
+      if (stream) stream.innerHTML = '<div class="no-results">The prompt library could not load. Please refresh and try again.</div>';
+    };
+    document.body.appendChild(script);
+  }
+  function startCatalog() { addScript('data/catalog.js?v=22', function () { addScript('app.js?v=22'); }); }
+  if (document.readyState === 'complete') startCatalog();
+  else window.addEventListener('load', startCatalog, { once: true });
+})();
+</script>
 </body>
 </html>

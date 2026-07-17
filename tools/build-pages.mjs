@@ -6,6 +6,16 @@ import { dirname, resolve } from 'node:path';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = 'https://yosoyun.github.io/math-prompt-studio/';
+// AUD-B/P1-B2 + AUD-E/P1-E2: baked and redirect pages share the canonical tile,
+// favicon, current CSS cache key, and prompt-specific social metadata.
+const BRAND_MARK = readFileSync(ROOT + '/assets/brand-mark.svg', 'utf8').trim();
+const homeSource = readFileSync(ROOT + '/index.html', 'utf8');
+const styleVersion = (homeSource.match(/styles\.css\?v=([a-z0-9._-]+)/i) || [])[1];
+if (!styleVersion) throw new Error('Could not read the current styles.css cache version from index.html');
+const STYLESHEET = `../../styles.css?v=${styleVersion}`;
+const FAVICON = '../../favicon.svg';
+const FONT_LINKS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' +
+  '<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,900&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">';
 
 const src = readFileSync(ROOT + '/data/prompts.js', 'utf8');
 const DATA = JSON.parse(src.slice(src.indexOf('window.PROMPT_DATA =') + 'window.PROMPT_DATA ='.length, src.lastIndexOf(';')));
@@ -27,6 +37,9 @@ for (const c of DATA.categories) {
 
 function relText(p) { return p.makesImage ? 'Makes images - needs an image AI' : (p.needsImage ? 'Attach a photo of the question first' : 'Works on any free AI'); }
 function relDot(p) { return p.makesImage ? 'dot-amber' : (p.needsImage ? 'dot-blue' : 'dot-green'); }
+function brand(home = '../../') {
+  return `<a class="brand" href="${home}" aria-label="Maths Prompt Studio home"><span class="brand-mark" aria-hidden="true" style="background:none;border-radius:0;box-shadow:none">${BRAND_MARK}</span><span class="brand-text"><span class="brand-name">Maths Prompt Studio</span><span class="brand-by">free maths platform</span></span></a>`;
+}
 
 const GRAND = DATA.categories.reduce((t, c) => t + c.prompts.length, 0);
 
@@ -54,17 +67,21 @@ function pageHTML(p, cat) {
 <meta property="og:url" content="${url}">
 <meta property="og:site_name" content="Maths Prompt Studio">
 <meta property="og:image" content="${SITE}og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${attr(p.title)} - Maths Prompt Studio">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${attr(p.title)} - Maths Prompt Studio">
+<meta name="twitter:description" content="${attr(desc)}">
 <meta name="twitter:image" content="${SITE}og-cover.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%88%91%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,900&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../styles.css?v=8">
+<link rel="icon" type="image/svg+xml" href="${FAVICON}">
+${FONT_LINKS}
+<link rel="stylesheet" href="${STYLESHEET}">
 <script type="application/ld+json">${ld}</script>
 </head><body>
 <div class="grain" aria-hidden="true"></div>
 <header class="site-head">
-  <a class="brand" href="../../"><span class="brand-mark" aria-hidden="true">&#8721;</span><span class="brand-text"><span class="brand-name">Maths Prompt Studio</span><span class="brand-by">free maths platform</span></span></a>
+  ${brand()}
   <nav class="head-nav"><a href="../../#library">All ${GRAND} prompts</a><a href="../../#guide">Beginner's Guide</a></nav>
 </header>
 <main class="ppage">
@@ -137,10 +154,15 @@ if (existsSync(ROOT + '/data/redirects.json')) {
     const localTo = '../' + newSlug + '/';
     mkdirSync(ROOT + '/p/' + oldSlug, { recursive: true });
     writeFileSync(ROOT + '/p/' + oldSlug + '/index.html',
-      `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Moved - Maths Prompt Studio</title>` +
-      `<link rel="canonical" href="${to}"><meta http-equiv="refresh" content="0; url=${localTo}">` +
-      `<meta name="robots" content="noindex"></head><body><p>This prompt merged into a better version - ` +
-      `<a href="${localTo}">continue here</a>.</p><script>location.replace(${JSON.stringify(localTo)});</script></body></html>`);
+      `<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` +
+      `<title>Moved - Maths Prompt Studio</title><link rel="canonical" href="${to}"><meta http-equiv="refresh" content="0; url=${localTo}">` +
+      `<meta name="robots" content="noindex"><link rel="icon" type="image/svg+xml" href="${FAVICON}">` +
+      `${FONT_LINKS}<link rel="stylesheet" href="${STYLESHEET}"></head><body><div class="grain" aria-hidden="true"></div>` +
+      `<header class="site-head">${brand()}<nav class="head-nav"><a href="../../#library">All ${GRAND} prompts</a></nav></header>` +
+      `<main class="ppage"><article class="pp-card"><h1>This prompt has moved</h1>` +
+      `<p class="card-what" style="font-size:16px">It merged into a stronger version. यह प्रॉम्प्ट एक बेहतर संस्करण में मिल गया है।</p>` +
+      `<p><a class="btn btn-primary" href="${localTo}">Continue to the prompt &rarr;</a></p></article></main>` +
+      `<script>location.replace(${JSON.stringify(localTo)});</script></body></html>`);
     nRedirects++;
   }
 }
