@@ -126,8 +126,8 @@ for (const [categoryId, { expected, specs: categorySpecs }] of target) {
 const total = data.categories.reduce((sum, category) => sum + category.prompts.length, 0);
 if (promptCount !== 180) fail(`expected 180 Wave-2 prompts, found ${promptCount}`);
 if (contractCount !== 180) fail(`expected 180 contract occurrences, found ${contractCount}`);
-if (total !== 848) fail(`expected total prompt count 848, found ${total}`);
-if (data.version !== '2026-07-17-wave2-tool-links') fail(`unexpected data version ${data.version}`);
+if (total < 848) fail(`prompt corpus regressed below the Wave-2 baseline of 848 (found ${total})`);
+if (!/^2026-07-17/.test(data.version || '')) fail(`unexpected data version ${data.version}`);
 
 const forbiddenName = String.fromCharCode(73, 110, 100, 114, 97, 106, 101, 101, 116, 32, 89, 97, 100, 97, 118);
 if (JSON.stringify(specs).includes(forbiddenName)) fail('protected owner name found in Wave-2 specs');

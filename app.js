@@ -2,7 +2,15 @@
 (function () {
   'use strict';
 
-  var CFG = window.MPS_CONFIG || { email: 'indrajeetsirallen@gmail.com', whatsapp: '', instagram: '', googleFormUrl: '', photoUrl: '' };
+  var aboutSection = document.getElementById('about');
+  var rawConfig = window.MPS_CONFIG || {};
+  var CFG = {
+    email: rawConfig.email || (aboutSection ? (aboutSection.getAttribute('data-contact-email') || '') : ''),
+    whatsapp: rawConfig.whatsapp || (aboutSection ? (aboutSection.getAttribute('data-contact-whatsapp') || '') : ''),
+    instagram: rawConfig.instagram || (aboutSection ? (aboutSection.getAttribute('data-contact-instagram') || '') : ''),
+    googleFormUrl: rawConfig.googleFormUrl || '', photoUrl: rawConfig.photoUrl || '',
+    analyticsSrc: rawConfig.analyticsSrc || '', analyticsDomain: rawConfig.analyticsDomain || ''
+  };
   var SITE = 'https://yosoyun.github.io/math-prompt-studio/';
   // AUD-A P1/A3: render cards from the compact catalog and fetch the complete
   // prompt corpus only when an action genuinely needs promptText.
@@ -90,7 +98,7 @@
     if (catalogLanguagePromises[lang]) return catalogLanguagePromises[lang];
     catalogLanguagePromises[lang] = new Promise(function (resolve, reject) {
       var script = document.createElement('script');
-      script.src = 'data/catalog-' + lang + '.js?v=22';
+      script.src = 'data/catalog-' + lang + '.js?v=23';
       script.onload = function () { if (applyCatalogLanguage(lang)) resolve(); else reject(new Error('missing language pack')); };
       script.onerror = function () { reject(new Error('language pack request failed')); };
       document.head.appendChild(script);
@@ -126,7 +134,7 @@
     if (fullDataPromise) return fullDataPromise;
     fullDataPromise = new Promise(function (resolve, reject) {
       var script = document.createElement('script');
-      script.src = window.MPS_DATA_URL || 'data/prompts.js?v=22';
+      script.src = window.MPS_DATA_URL || 'data/prompts.js?v=23';
       script.async = true;
       script.onload = function () {
         if (!window.PROMPT_DATA || !window.PROMPT_DATA.categories) { reject(new Error('prompt data did not initialise')); return; }

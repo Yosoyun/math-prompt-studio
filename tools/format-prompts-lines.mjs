@@ -42,7 +42,10 @@ if (!isDeepStrictEqual(reparsed, data)) throw new Error('formatting changed prom
 
 const output = `${banner}${MARKER} ${formattedJson};\n`;
 const contractLines = output.split('\n').filter(line => line.includes(CONTRACT_MARKER)).length;
-if (contractLines !== 275) throw new Error(`expected 275 contract-bearing prompt lines, found ${contractLines}`);
+const expectedContractLines = categories
+  .flatMap(category => category.prompts)
+  .filter(prompt => String(prompt.promptText || '').includes(CONTRACT_MARKER)).length;
+if (contractLines !== expectedContractLines) throw new Error(`expected ${expectedContractLines} contract-bearing prompt lines, found ${contractLines}`);
 
 writeFileSync(DATA_FILE, output);
 console.log(`Formatted ${categories.reduce((sum, category) => sum + category.prompts.length, 0)} prompts; contract-bearing lines: ${contractLines}.`);

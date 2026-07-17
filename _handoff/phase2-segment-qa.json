@@ -1,0 +1,33 @@
+{
+  "pass": true,
+  "generatedAt": "2026-07-17",
+  "counts": {
+    "prompts": 93,
+    "hindi": 93,
+    "families": {
+      "board-foundation": 16,
+      "foundation-olympiad": 36,
+      "foundation-only": 4,
+      "jee-dual": 37
+    },
+    "segments": {
+      "boards": 16,
+      "foundation": 56,
+      "olympiad": 36,
+      "jee-main": 37,
+      "jee-advanced": 37
+    }
+  },
+  "checks": [
+    "93 unique titles and slugs; no collision with the live 848-prompt corpus",
+    "complete production schema including fmt, exams, aud and added",
+    "exact English/Hindi placeholder parity and matching paragraph breaks",
+    "full Hindi prompt text with natural teacher register and structural labels",
+    "every generated question requires the exact ORIGINAL PRACTICE label",
+    "teacher-supplied pattern rules; pasted-only shift and attempt data",
+    "rank band framed as a goal, never a prediction or guarantee",
+    "Advanced multi-correct scoring bound to a teacher-supplied partial-marking rule",
+    "no URLs or tool contracts; no authentic-PYQ, year, shift or source claims",
+    "manifest counts Boards 16, Foundation 56, JEE Main 37, JEE Advanced 37, Olympiad 36"
+  ]
+}
