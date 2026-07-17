@@ -16,7 +16,7 @@ const batch = JSON.parse(readFileSync(resolve(ROOT, batchArg), 'utf8'));
 const contract = readFileSync(resolve(ROOT, '_handoff/tool-link-contract.txt'), 'utf8');
 const errors = [];
 const placeholders = value => (String(value).match(/\[[^\]\n]{1,80}\]/g) || []).sort().join('|');
-const urls = value => (String(value).match(/https?:\/\/[^\s]+/g) || []).sort().join('|');
+const urls = value => (String(value).match(/https?:\/\/[^\s]+/g) || []).map(url => url.replace(/[.,;:!?।]+$/u, '')).sort().join('|');
 const numbers = value => (String(value).match(/\d+(?:\.\d+)?/g) || []).sort().join('|');
 const blankLines = value => String(value).split('\n').map((line, index) => line === '' ? index : null).filter(index => index !== null).join('|');
 const devanagari = value => (String(value).match(/[ऀ-ॿ]/g) || []).length;
@@ -25,6 +25,7 @@ const structuralLabels = [
   'ROLE',
   'CONTEXT',
   'INPUTS — FILL EVERY PLACEHOLDER',
+  'SOURCE-BOUND TOOL FACTS AND EXACT URL WHITELIST',
   'DO THIS',
   'WORKED LINK EXAMPLE — COPY THIS EXACT ENCODING PATTERN',
   'OUTPUT FORMAT',
