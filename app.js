@@ -1,6 +1,4 @@
-/* ============================================================
-   Maths Prompt Studio v4 - by Indrajeet Yadav
-   ============================================================ */
+/* Maths Prompt Studio application */
 (function () {
   'use strict';
 
@@ -63,7 +61,8 @@
   /* ---------- stats ---------- */
   function setStats() {
     var styleCat = DATA.find(function (c) { return c.category === 'handwritten-styles'; });
-    var map = { prompts: ALL.length + '+', cats: DATA.length, styles: styleCat ? styleCat.prompts.length : 18 };
+    var styleCount = styleCat ? styleCat.prompts.reduce(function (max, p) { return Math.max(max, (p.styles || []).length); }, styleCat.prompts.length) : 18;
+    var map = { prompts: ALL.length + '+', cats: DATA.length, styles: styleCount };
     document.querySelectorAll('[data-stat]').forEach(function (n) { var k = n.getAttribute('data-stat'); if (map[k] != null) n.textContent = map[k]; });
   }
 
@@ -262,7 +261,7 @@
       if (has) { stream.appendChild(el('<div class="group-head"><h3>' + esc(g) + '</h3></div>')); stream.appendChild(frag); }
     });
     if (useSyn && count) stream.insertBefore(el('<div class="no-results" style="margin-bottom:18px">No prompt mentions &ldquo;' + esc(state.query) + '&rdquo; by name yet, so here are the prompts that do that job. Every prompt works in any AI chat - paste it there first.</div>'), stream.firstChild);
-    if (!state.query && state.group === 'all' && count) {
+    if (!state.query && state.group === 'all' && state.exam === 'all' && state.aud === 'all' && count) {
       var disco = discoveryHTML();
       var randWrap = el('<div style="text-align:center;margin:0 0 20px"><button class="fchip" id="randBtn" type="button" style="font-size:15px;padding:.5em 1.4em">&#127922; ' + (state.lang === 'hi' ? 'कोई भी एक प्रॉम्प्ट दिखाओ' : 'Surprise me — random prompt') + '</button></div>');
       randWrap.querySelector('#randBtn').addEventListener('click', openRandom);
@@ -400,7 +399,7 @@
     var ig = document.getElementById('fbInstaLink'); if (ig && CFG.instagram) { ig.href = 'https://instagram.com/' + String(CFG.instagram).replace(/^@/, ''); ig.hidden = false; }
   }
   function initShare() {
-    var msg = 'Free AI tool for maths teachers and students - 520 ready prompts + a step-by-step beginner guide:';
+    var msg = 'Free AI tool for maths teachers and students - ' + ALL.length + ' ready prompts + a step-by-step beginner guide:';
     var wa = document.getElementById('shareWa'); if (wa) wa.addEventListener('click', function () { window.open('https://wa.me/?text=' + encodeURIComponent(msg + ' ' + SITE), '_blank'); });
     var cp = document.getElementById('shareCopy'); if (cp) cp.addEventListener('click', function () { copyText(SITE, this, 'Link copied - send it to a teacher or student!'); });
     var more = document.getElementById('shareMore'); if (more && navigator.share) { more.hidden = false; more.addEventListener('click', function () { navigator.share({ title: 'Maths Prompt Studio', text: msg, url: SITE }).catch(function () {}); }); }

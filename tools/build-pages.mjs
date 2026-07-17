@@ -6,7 +6,6 @@ import { dirname, resolve } from 'node:path';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = 'https://yosoyun.github.io/math-prompt-studio/';
-const SIG = 'Indrajeet Yadav';
 
 const src = readFileSync(ROOT + '/data/prompts.js', 'utf8');
 const DATA = JSON.parse(src.slice(src.indexOf('window.PROMPT_DATA =') + 'window.PROMPT_DATA ='.length, src.lastIndexOf(';')));
@@ -41,14 +40,13 @@ function pageHTML(p, cat) {
     '@context': 'https://schema.org', '@type': 'CreativeWork', name: p.title, headline: p.title,
     description: desc, url, isAccessibleForFree: true, inLanguage: 'en',
     about: { '@type': 'Thing', name: 'Mathematics teaching' }, genre: cat.categoryTitle,
-    author: { '@type': 'Person', name: SIG }, publisher: { '@type': 'Organization', name: 'Maths Prompt Studio' },
+    publisher: { '@type': 'Organization', name: 'Maths Prompt Studio' },
     isPartOf: { '@type': 'WebSite', name: 'Maths Prompt Studio', url: SITE }
   });
   return `<!DOCTYPE html><html lang="en" data-theme="light"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)} | Maths Prompt Studio</title>
 <meta name="description" content="${attr(desc)}">
-<meta name="author" content="${SIG}">
 <link rel="canonical" href="${url}">
 <meta property="og:title" content="${attr(p.title)} - free AI prompt for maths teachers">
 <meta property="og:description" content="${attr(desc)}">
@@ -136,12 +134,13 @@ if (existsSync(ROOT + '/data/redirects.json')) {
   for (const [oldSlug, newSlug] of Object.entries(redirects)) {
     if (seen.has(oldSlug)) continue; // a live prompt owns this slug now
     const to = SITE + 'p/' + newSlug + '/';
+    const localTo = '../' + newSlug + '/';
     mkdirSync(ROOT + '/p/' + oldSlug, { recursive: true });
     writeFileSync(ROOT + '/p/' + oldSlug + '/index.html',
       `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Moved - Maths Prompt Studio</title>` +
-      `<link rel="canonical" href="${to}"><meta http-equiv="refresh" content="0; url=${to}">` +
+      `<link rel="canonical" href="${to}"><meta http-equiv="refresh" content="0; url=${localTo}">` +
       `<meta name="robots" content="noindex"></head><body><p>This prompt merged into a better version - ` +
-      `<a href="${to}">continue here</a>.</p><script>location.replace(${JSON.stringify(to)});</script></body></html>`);
+      `<a href="${localTo}">continue here</a>.</p><script>location.replace(${JSON.stringify(localTo)});</script></body></html>`);
     nRedirects++;
   }
 }
