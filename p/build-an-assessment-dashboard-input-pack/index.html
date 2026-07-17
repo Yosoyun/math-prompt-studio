@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build an Assessment Dashboard Input Pack - free AI prompt for maths teachers | Maths Prompt Studio</title>
+<meta name="description" content="A validated set of fact and dimension CSV blocks, formulas, and refresh checks for a teacher-owned dashboard.">
+<link rel="canonical" href="https://yosoyun.github.io/math-prompt-studio/p/build-an-assessment-dashboard-input-pack/">
+<meta property="og:title" content="Build an Assessment Dashboard Input Pack - free AI prompt for maths teachers">
+<meta property="og:description" content="A validated set of fact and dimension CSV blocks, formulas, and refresh checks for a teacher-owned dashboard.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://yosoyun.github.io/math-prompt-studio/p/build-an-assessment-dashboard-input-pack/">
+<meta property="og:site_name" content="Maths Prompt Studio">
+<meta property="og:image" content="https://yosoyun.github.io/math-prompt-studio/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yosoyun.github.io/math-prompt-studio/og-cover.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%88%91%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,900&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css?v=8">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Build an Assessment Dashboard Input Pack","headline":"Build an Assessment Dashboard Input Pack","description":"A validated set of fact and dimension CSV blocks, formulas, and refresh checks for a teacher-owned dashboard.","url":"https://yosoyun.github.io/math-prompt-studio/p/build-an-assessment-dashboard-input-pack/","isAccessibleForFree":true,"inLanguage":"en","about":{"@type":"Thing","name":"Mathematics teaching"},"genre":"Marks → Insight","publisher":{"@type":"Organization","name":"Maths Prompt Studio"},"isPartOf":{"@type":"WebSite","name":"Maths Prompt Studio","url":"https://yosoyun.github.io/math-prompt-studio/"}}</script>
+</head><body>
+<div class="grain" aria-hidden="true"></div>
+<header class="site-head">
+  <a class="brand" href="../../"><span class="brand-mark" aria-hidden="true">&#8721;</span><span class="brand-text"><span class="brand-name">Maths Prompt Studio</span><span class="brand-by">free maths platform</span></span></a>
+  <nav class="head-nav"><a href="../../#library">All 848 prompts</a><a href="../../#guide">Beginner's Guide</a></nav>
+</header>
+<main class="ppage">
+  <p class="pp-crumb"><a href="../../">Home</a> / <a href="../../#cat-marks-insight">Marks → Insight</a> / Build an Assessment Dashboard Input Pack</p>
+  <article class="pp-card">
+    <div class="card-tags"><span class="tag tag-cat">Marks → Insight</span><span class="tag tag-txt">Dashboard Input Pack</span></div>
+    <div class="card-open" style="margin-bottom:10px"><button class="btn-soft card-copy" id="lang">&#2361;&#2367;&#2306;&#2342;&#2368; &#2350;&#2375;&#2306; &#2342;&#2375;&#2326;&#2375;&#2306;</button></div>
+    <h1 id="ttl">Build an Assessment Dashboard Input Pack</h1>
+    <p class="card-what" id="wht" style="font-size:16px">A validated set of fact and dimension CSV blocks, formulas, and refresh checks for a teacher-owned dashboard.</p>
+    <div class="card-rel"><span class="rel"><span class="dot dot-green"></span>Works on any free AI</span> &nbsp;&middot;&nbsp; <span class="rel">Best tool: <b>&nbsp;Any AI chat (ChatGPT, Claude, Gemini)</b></span></div>
+    <div class="modal-eff"><h4>&#9989; How to use this effectively</h4><ol><li>1. Keep raw, cleaned, and summary tabs separate.</li><li>2. Use stable anonymous keys.</li><li>3. Resolve every orphan lookup row.</li><li>4. Refresh formulas after each new export.</li></ol></div>
+    <div class="modal-fix"><b>&#128295; If it is not right, reply with this:</b> If dashboard totals disagree, request source-to-summary reconciliation by row count, maximum marks, and score sum.</div>
+    <button class="card-copy-main" id="cp">&#128203; Copy prompt</button>
+    <div class="card-open"><button class="btn-tool t-gpt" id="gpt">&#129302; Open ChatGPT</button><button class="btn-tool t-claude" id="cla">&#128172; Open Claude</button></div>
+    <div class="card-open" style="margin-top:8px"><button class="btn-soft card-copy" id="sh">&#128241; Share this prompt</button><button class="btn-soft card-copy" id="lnk">&#128279; Copy link</button></div>
+    <div class="modal-lbl" style="margin-top:16px">THE PROMPT</div>
+    <div class="prompt-box"><pre id="pt">ROLE: Act as a data-model designer preparing auditable assessment inputs for Google Sheets.
+
+CONTEXT: The teacher supplies [RAW EXPORTS], [STUDENT LOOKUP], [QUESTION LOOKUP], and [DASHBOARD METRICS].
+
+INPUTS — FILL EVERY PLACEHOLDER:
+- [RAW EXPORTS]
+- [STUDENT LOOKUP]
+- [QUESTION LOOKUP]
+- [DASHBOARD METRICS]
+
+SOURCE-BOUND TOOL FACTS AND EXACT URL WHITELIST:
+- [PACK_GOOGLE_SHEETS] Paste-only fact from the pack design: output rectangular CSV plus explicit Google Sheets formulas with column letters and first/last row references. Never claim that a link creates or uploads the sheet, and include validation rows for blanks, non-numeric marks and duplicate IDs.
+- [WOLFRAMALPHA] Whitelist: https://www.wolframalpha.com/input?i={ENCODED_PLAIN_CALCULATOR_QUERY}. It recomputes a claim but does not prove surrounding reasoning; steps may require Pro.
+
+DO THIS:
+1. Define fact-table and lookup-table keys before transforming any rows.
+2. Output paste-ready CSV blocks with schemas Responses(StudentID,AssessmentID,QuestionID,Mark,Status), Students(StudentID,Group), and Questions(QuestionID,Topic,MaxMark).
+3. Create a validation queue for duplicate keys, orphan IDs, invalid marks, blanks, and conflicting lookup values.
+4. Provide Sheets formulas with explicit columns and first/last rows for reconciliation counts, sums, and selected dashboard metrics.
+5. Add a refresh checklist comparing raw rows, accepted rows, rejected rows, and total marks.
+6. Keep interpretations descriptive and never claim dashboard correlations prove causation.
+
+WORKED LINK EXAMPLE — COPY THIS EXACT ENCODING PATTERN:
+Example task: Reconcile 120 raw rows as 115 accepted plus 5 rejected rows.
+Expected result or check target: The accepted and rejected rows sum to all 120 raw rows.
+check this yourself
+CHECK → https://www.wolframalpha.com/input?i=115%2B5
+(paste-fallback: 115+5)
+Encoding note: The plus sign is encoded as %2B and decodes to the exact reconciliation fallback.
+
+OUTPUT FORMAT:
+1. Data Model — fact and dimension keys
+2. CSV Pack — rectangular paste-ready tables
+3. Validation Queue — rejected and orphan records
+4. Formula Pack — dashboard and reconciliation formulas
+5. Refresh Checklist — repeatable quality controls
+
+QUALITY AND TOOL GUARDRAILS:
+- Never invent lookup values, group labels, or metrics.
+- Never merge raw and cleaned data destructively.
+- Minimise personal data and keep IDs anonymous.
+- Do not claim dashboard correlations prove causation.
+- Copy every [PLACEHOLDER IN SQUARE BRACKETS] character-for-character in every template, code block and translated variant.
+- Never output a desmos.com URL with parameters, a mathsolver.microsoft.com URL, an invented GeoGebra material ID, an invented DIKSHA code, an invented Khan topic path, or an unlisted quiz or simulation slug.
+- Never describe an AI answer as verified. Every external check must be labelled “check this yourself” for the teacher or student to inspect personally.
+- Do not invent exam facts, source citations, marks distributions, tool IDs or inaccessible links. Separate mathematical proof from computational checking.
+
+=== TOOL-LINK OUTPUT CONTRACT — follow every rule exactly ===
+1. You may output clickable links ONLY to: wolframalpha.com/input?i= · symbolab.com/solver?query= ·
+   geogebra.org/graphing|geometry|3d|cas?command= · math.stackexchange.com/search?q= · oeis.org/search?q= ·
+   artofproblemsolving.com/community/q1_ · khanacademy.org/search?page_search_query= ·
+   overleaf.com/docs?encoded_snip= · latex.codecogs.com/png.image? · docs.google.com/forms/...viewform?usp=pp_url
+   (Forms only with entry.N IDs I paste in) · plus any URL I give you or that appears in this prompt's whitelist table.
+2. NEVER output: desmos.com links with query strings (they load blank), invented geogebra.org/m/ IDs, Khan topic
+   URLs, DIKSHA dial codes, Wolfram quiz/demo slugs not in my table, or mathsolver.microsoft.com (dead site).
+3. Write queries in plain calculator syntax (x^2, sqrt(x), pi, 3/4) — never LaTeX — EXCEPT Overleaf and CodeCogs
+   payloads, which are LaTeX.
+4. Percent-encode the query part: space→%20, +→%2B, ^→%5E, =→%3D, [→%5B, ]→%5D; in LaTeX payloads also
+   \→%5C, {→%7B, }→%7D, %→%25, #→%23, &amp;→%26, newline→%0A. GeoGebra ?command= exception: encode ONLY + as %2B;
+   leave ( ) = ^ ; as typed.
+5. One link per line, formatted exactly:  CHECK → &lt;full raw URL&gt;   (no markdown brackets, nothing after the URL).
+6. Directly below every link, print:  (paste-fallback: &lt;the un-encoded query or commands&gt;)
+7. Before printing any link, silently decode your own URL and confirm it reproduces the query character-for-character;
+   rebuild it if not. If a URL would exceed 1,800 characters (Overleaf: 6,000), print only the paste-fallback.
+8. Label every link &quot;check this yourself&quot; — never claim the link proves your answer is correct.
+9. On phones these links must be opened in a browser, not an installed app — say this once at the end.</pre></div>
+  </article>
+  <p style="text-align:center;margin-top:26px"><a class="btn btn-primary" href="../../#library">&#9664; Browse all 848 free prompts</a></p>
+</main>
+<footer class="site-foot"><div class="foot-sign"><span class="foot-sign-name">Maths Prompt Studio</span><span class="foot-sign-sub">free, forever &middot; &#2350;&#2369;&#2347;&#2364;&#2381;&#2340;, &#2361;&#2350;&#2375;&#2358;&#2366;</span></div><p class="foot-meta"><a href="../../#about">About the author</a> &middot; free, forever</p></footer>
+<div class="toast" id="t" role="status" aria-live="polite">Copied!</div>
+<script>
+var P="ROLE: Act as a data-model designer preparing auditable assessment inputs for Google Sheets.\n\nCONTEXT: The teacher supplies [RAW EXPORTS], [STUDENT LOOKUP], [QUESTION LOOKUP], and [DASHBOARD METRICS].\n\nINPUTS — FILL EVERY PLACEHOLDER:\n- [RAW EXPORTS]\n- [STUDENT LOOKUP]\n- [QUESTION LOOKUP]\n- [DASHBOARD METRICS]\n\nSOURCE-BOUND TOOL FACTS AND EXACT URL WHITELIST:\n- [PACK_GOOGLE_SHEETS] Paste-only fact from the pack design: output rectangular CSV plus explicit Google Sheets formulas with column letters and first/last row references. Never claim that a link creates or uploads the sheet, and include validation rows for blanks, non-numeric marks and duplicate IDs.\n- [WOLFRAMALPHA] Whitelist: https://www.wolframalpha.com/input?i={ENCODED_PLAIN_CALCULATOR_QUERY}. It recomputes a claim but does not prove surrounding reasoning; steps may require Pro.\n\nDO THIS:\n1. Define fact-table and lookup-table keys before transforming any rows.\n2. Output paste-ready CSV blocks with schemas Responses(StudentID,AssessmentID,QuestionID,Mark,Status), Students(StudentID,Group), and Questions(QuestionID,Topic,MaxMark).\n3. Create a validation queue for duplicate keys, orphan IDs, invalid marks, blanks, and conflicting lookup values.\n4. Provide Sheets formulas with explicit columns and first/last rows for reconciliation counts, sums, and selected dashboard metrics.\n5. Add a refresh checklist comparing raw rows, accepted rows, rejected rows, and total marks.\n6. Keep interpretations descriptive and never claim dashboard correlations prove causation.\n\nWORKED LINK EXAMPLE — COPY THIS EXACT ENCODING PATTERN:\nExample task: Reconcile 120 raw rows as 115 accepted plus 5 rejected rows.\nExpected result or check target: The accepted and rejected rows sum to all 120 raw rows.\ncheck this yourself\nCHECK → https://www.wolframalpha.com/input?i=115%2B5\n(paste-fallback: 115+5)\nEncoding note: The plus sign is encoded as %2B and decodes to the exact reconciliation fallback.\n\nOUTPUT FORMAT:\n1. Data Model — fact and dimension keys\n2. CSV Pack — rectangular paste-ready tables\n3. Validation Queue — rejected and orphan records\n4. Formula Pack — dashboard and reconciliation formulas\n5. Refresh Checklist — repeatable quality controls\n\nQUALITY AND TOOL GUARDRAILS:\n- Never invent lookup values, group labels, or metrics.\n- Never merge raw and cleaned data destructively.\n- Minimise personal data and keep IDs anonymous.\n- Do not claim dashboard correlations prove causation.\n- Copy every [PLACEHOLDER IN SQUARE BRACKETS] character-for-character in every template, code block and translated variant.\n- Never output a desmos.com URL with parameters, a mathsolver.microsoft.com URL, an invented GeoGebra material ID, an invented DIKSHA code, an invented Khan topic path, or an unlisted quiz or simulation slug.\n- Never describe an AI answer as verified. Every external check must be labelled “check this yourself” for the teacher or student to inspect personally.\n- Do not invent exam facts, source citations, marks distributions, tool IDs or inaccessible links. Separate mathematical proof from computational checking.\n\n=== TOOL-LINK OUTPUT CONTRACT — follow every rule exactly ===\n1. You may output clickable links ONLY to: wolframalpha.com/input?i= · symbolab.com/solver?query= ·\n   geogebra.org/graphing|geometry|3d|cas?command= · math.stackexchange.com/search?q= · oeis.org/search?q= ·\n   artofproblemsolving.com/community/q1_ · khanacademy.org/search?page_search_query= ·\n   overleaf.com/docs?encoded_snip= · latex.codecogs.com/png.image? · docs.google.com/forms/...viewform?usp=pp_url\n   (Forms only with entry.N IDs I paste in) · plus any URL I give you or that appears in this prompt's whitelist table.\n2. NEVER output: desmos.com links with query strings (they load blank), invented geogebra.org/m/ IDs, Khan topic\n   URLs, DIKSHA dial codes, Wolfram quiz/demo slugs not in my table, or mathsolver.microsoft.com (dead site).\n3. Write queries in plain calculator syntax (x^2, sqrt(x), pi, 3/4) — never LaTeX — EXCEPT Overleaf and CodeCogs\n   payloads, which are LaTeX.\n4. Percent-encode the query part: space→%20, +→%2B, ^→%5E, =→%3D, [→%5B, ]→%5D; in LaTeX payloads also\n   \\→%5C, {→%7B, }→%7D, %→%25, #→%23, &→%26, newline→%0A. GeoGebra ?command= exception: encode ONLY + as %2B;\n   leave ( ) = ^ ; as typed.\n5. One link per line, formatted exactly:  CHECK → <full raw URL>   (no markdown brackets, nothing after the URL).\n6. Directly below every link, print:  (paste-fallback: <the un-encoded query or commands>)\n7. Before printing any link, silently decode your own URL and confirm it reproduces the query character-for-character;\n   rebuild it if not. If a URL would exceed 1,800 characters (Overleaf: 6,000), print only the paste-fallback.\n8. Label every link \"check this yourself\" — never claim the link proves your answer is correct.\n9. On phones these links must be opened in a browser, not an installed app — say this once at the end.";var HI={"title":"आकलन डैशबोर्ड के लिए इनपुट-संग्रह बनाएँ","whatYouGet":"शिक्षक के अपने डैशबोर्ड के लिए तथ्य-सारणी और आयाम-सारणी के सत्यापित CSV खंडों, सूत्रों तथा ताज़ा करने की जाँचों का संग्रह।","howToUse":"निर्यात और मिलान-सारणियाँ चिपकाएँ, कुंजियाँ और पैमाने जाँचें, फिर केवल सत्यापित खंड Google Sheets में डालें।","effectiveUsage":["1. मूल, साफ़ किए गए और सारांश वाले टैब अलग रखें।","2. स्थिर गुमनाम कुंजियाँ उपयोग करें।","3. बिना मेल वाली हर मिलान-पंक्ति सुलझाएँ।","4. हर नए निर्यात के बाद सूत्रों को ताज़ा करें।"],"commonFix":"यदि डैशबोर्ड के कुल बेमेल हों, तो पंक्ति-संख्या, अधिकतम अंक और अंकों के योग से स्रोत और सारांश का मिलान माँगें।","promptText":"भूमिका (ROLE): Google Sheets के लिए जाँच योग्य आकलन-इनपुट तैयार करने वाले आँकड़ा-प्रतिरूप रचनाकार की भूमिका निभाएँ।\n\nसंदर्भ (CONTEXT): शिक्षक [RAW EXPORTS], [STUDENT LOOKUP], [QUESTION LOOKUP] और [DASHBOARD METRICS] देते हैं।\n\nइनपुट—हर स्थानधारक भरें (INPUTS — FILL EVERY PLACEHOLDER):\n- [RAW EXPORTS] — मूल निर्यात\n- [STUDENT LOOKUP] — विद्यार्थी मिलान-सारणी\n- [QUESTION LOOKUP] — प्रश्न मिलान-सारणी\n- [DASHBOARD METRICS] — डैशबोर्ड माप\n\nस्रोत-आधारित टूल तथ्य और ठीक-ठीक URL अनुमत-सूची (SOURCE-BOUND TOOL FACTS AND EXACT URL WHITELIST):\n- [PACK_GOOGLE_SHEETS] पैक-डिज़ाइन का केवल-पेस्ट तथ्य: आयताकार CSV और स्तंभ-अक्षरों तथा पहली/अंतिम पंक्ति संदर्भों वाले स्पष्ट Google Sheets सूत्र दें। कभी दावा न करें कि कोई लिंक शीट बनाती या अपलोड करती है, और खाली खाने, गैर-सांख्यिक अंक तथा दोहराए हुए ID के लिए सत्यापन पंक्तियाँ शामिल करें।\n- [WOLFRAMALPHA] अनुमत प्रारूप: https://www.wolframalpha.com/input?i={ENCODED_PLAIN_CALCULATOR_QUERY}। यह किसी दावे की फिर से गणना करता है, उसके आसपास के तर्क को सिद्ध नहीं करता; चरणों के लिए Pro आवश्यक हो सकता है।\n\nयह करें (DO THIS):\n1. किसी पंक्ति को बदलने से पहले तथ्य-सारणी और मिलान-सारणी की कुंजियाँ निर्धारित करें।\n2. Responses(StudentID,AssessmentID,QuestionID,Mark,Status), Students(StudentID,Group) और Questions(QuestionID,Topic,MaxMark) रूपरेखाओं वाले पेस्ट-योग्य CSV खंड दें।\n3. दोहराई कुंजियों, बिना मेल के IDs, अमान्य अंकों, खाली मानों और टकराते मिलान-मानों के लिए सत्यापन-कतार बनाएँ।\n4. मिलान-संख्या, योग और चुने डैशबोर्ड मापों के लिए स्पष्ट स्तंभों तथा पहली और अंतिम पंक्ति वाले Google Sheets सूत्र दें।\n5. मूल पंक्तियों, स्वीकृत पंक्तियों, अस्वीकृत पंक्तियों और कुल अंकों की तुलना करने वाली ताज़ा-जाँच सूची जोड़ें।\n6. व्याख्याएँ वर्णनात्मक रखें और यह दावा कभी न करें कि डैशबोर्ड के सहसंबंध कारण-कार्य संबंध सिद्ध करते हैं।\n\nहल किया हुआ लिंक उदाहरण—इस कूटबद्धता ढाँचे को ठीक-ठीक कॉपी करें (WORKED LINK EXAMPLE — COPY THIS EXACT ENCODING PATTERN):\nउदाहरण कार्य (Example task): 120 मूल पंक्तियों का 115 स्वीकृत और 5 अस्वीकृत पंक्तियों के रूप में मिलान करें।\nअपेक्षित परिणाम या जाँच लक्ष्य (Expected result or check target): स्वीकृत और अस्वीकृत पंक्तियों का योग सभी 120 मूल पंक्तियों के बराबर है।\ncheck this yourself\nCHECK → https://www.wolframalpha.com/input?i=115%2B5\n(paste-fallback: 115+5)\nकूटबद्धता टिप्पणी (Encoding note): धन-चिह्न %2B से कूटबद्ध है और सटीक मिलान वाला वैकल्पिक पाठ अक्षरशः खुलता है।\n\nआउटपुट प्रारूप (OUTPUT FORMAT):\n1. आँकड़ा प्रतिरूप (Data Model) — तथ्य और आयाम की कुंजियाँ\n2. CSV संग्रह (CSV Pack) — आयताकार पेस्ट-योग्य सारणियाँ\n3. सत्यापन कतार (Validation Queue) — अस्वीकृत और बिना मेल के अभिलेख\n4. सूत्र संग्रह (Formula Pack) — डैशबोर्ड और मिलान-सूत्र\n5. ताज़ा-जाँच सूची (Refresh Checklist) — दोहराए जा सकने वाले गुणवत्ता-नियंत्रण\n\nगुणवत्ता और टूल सुरक्षा-नियम (QUALITY AND TOOL GUARDRAILS):\n- मिलान-मान, समूह-नाम या माप कभी न गढ़ें।\n- मूल और साफ़ किए गए आँकड़ों को उन्हें नष्ट करने वाले ढंग से कभी न मिलाएँ।\n- निजी आँकड़े न्यूनतम रखें और IDs गुमनाम रखें।\n- यह दावा न करें कि डैशबोर्ड के सहसंबंध कारण-कार्य संबंध सिद्ध करते हैं।\n- हर टेम्पलेट, कोड-खंड और अनूदित रूप में प्रत्येक [PLACEHOLDER IN SQUARE BRACKETS] को अक्षरशः कॉपी करें।\n- पैरामीटर वाला desmos.com URL, mathsolver.microsoft.com URL, गढ़ी हुई GeoGebra सामग्री ID, गढ़ा हुआ DIKSHA कोड, गढ़ा हुआ Khan विषय पथ या सूची से बाहर का प्रश्नोत्तरी अथवा सिमुलेशन स्लग कभी न दें।\n- AI के किसी उत्तर को सत्यापित न बताएँ। हर बाहरी जाँच पर “स्वयं जाँचें” का चिह्न हो, ताकि शिक्षक या विद्यार्थी उसे स्वयं परख सके।\n- परीक्षा-संबंधी तथ्य, स्रोत-उद्धरण, अंक-वितरण, उपकरण ID या ऐसी लिंक न गढ़ें जिसे खोला न जा सके। गणितीय प्रमाण और संगणकीय जाँच को अलग रखें।\n\n=== TOOL-LINK OUTPUT CONTRACT — follow every rule exactly ===\n1. You may output clickable links ONLY to: wolframalpha.com/input?i= · symbolab.com/solver?query= ·\n   geogebra.org/graphing|geometry|3d|cas?command= · math.stackexchange.com/search?q= · oeis.org/search?q= ·\n   artofproblemsolving.com/community/q1_ · khanacademy.org/search?page_search_query= ·\n   overleaf.com/docs?encoded_snip= · latex.codecogs.com/png.image? · docs.google.com/forms/...viewform?usp=pp_url\n   (Forms only with entry.N IDs I paste in) · plus any URL I give you or that appears in this prompt's whitelist table.\n2. NEVER output: desmos.com links with query strings (they load blank), invented geogebra.org/m/ IDs, Khan topic\n   URLs, DIKSHA dial codes, Wolfram quiz/demo slugs not in my table, or mathsolver.microsoft.com (dead site).\n3. Write queries in plain calculator syntax (x^2, sqrt(x), pi, 3/4) — never LaTeX — EXCEPT Overleaf and CodeCogs\n   payloads, which are LaTeX.\n4. Percent-encode the query part: space→%20, +→%2B, ^→%5E, =→%3D, [→%5B, ]→%5D; in LaTeX payloads also\n   \\→%5C, {→%7B, }→%7D, %→%25, #→%23, &→%26, newline→%0A. GeoGebra ?command= exception: encode ONLY + as %2B;\n   leave ( ) = ^ ; as typed.\n5. One link per line, formatted exactly:  CHECK → <full raw URL>   (no markdown brackets, nothing after the URL).\n6. Directly below every link, print:  (paste-fallback: <the un-encoded query or commands>)\n7. Before printing any link, silently decode your own URL and confirm it reproduces the query character-for-character;\n   rebuild it if not. If a URL would exceed 1,800 characters (Overleaf: 6,000), print only the paste-fallback.\n8. Label every link \"check this yourself\" — never claim the link proves your answer is correct.\n9. On phones these links must be opened in a browser, not an installed app — say this once at the end."};var LNG='en';var URL="https://yosoyun.github.io/math-prompt-studio/p/build-an-assessment-dashboard-input-pack/";
+(function(){try{var th=localStorage.getItem('mps-theme');if(th)document.documentElement.setAttribute('data-theme',th);}catch(e){}})();
+function activeP(){return (LNG==='hi'&&HI&&HI.promptText)?HI.promptText:P;}
+(function(){var lb=document.getElementById('lang');if(!lb)return;
+  try{if(localStorage.getItem('mps-lang')==='hi')swapLang();}catch(e){}
+  lb.onclick=swapLang;
+  function swapLang(){LNG=LNG==='en'?'hi':'en';var hiOn=LNG==='hi';
+    lb.textContent=hiOn?'View in English':'\u0939\u093f\u0902\u0926\u0940 \u092e\u0947\u0902 \u0926\u0947\u0916\u0947\u0902';
+    if(HI.title)document.getElementById('ttl').textContent=hiOn?HI.title:"Build an Assessment Dashboard Input Pack";
+    if(HI.whatYouGet)document.getElementById('wht').textContent=hiOn?HI.whatYouGet:"A validated set of fact and dimension CSV blocks, formulas, and refresh checks for a teacher-owned dashboard.";
+    document.getElementById('pt').textContent=activeP();
+    try{localStorage.setItem('mps-lang',LNG);}catch(e){}}
+})();
+function toast(m){var t=document.getElementById('t');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2600);}
+function clip(x){return (navigator.clipboard&&navigator.clipboard.writeText)?navigator.clipboard.writeText(x):new Promise(function(r){var a=document.createElement('textarea');a.value=x;a.style.position='fixed';a.style.opacity=0;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(a);r();});}
+document.getElementById('cp').onclick=function(){clip(activeP()).then(function(){toast('Copied! Paste it into your AI chat.')})};
+function openT(base,name){var full=base+'?q='+encodeURIComponent(activeP());var u=full.length<=7000?full:base;clip(activeP()).then(function(){window.open(u,'_blank','noopener');toast(name+' opening with your prompt loaded. Also copied - if empty, just paste it.')})}
+document.getElementById('gpt').onclick=function(){openT('https://chatgpt.com/','ChatGPT')};
+document.getElementById('cla').onclick=function(){openT('https://claude.ai/new','Claude')};
+document.getElementById('lnk').onclick=function(){clip(URL).then(function(){toast('Link copied - share it with a teacher!')})};
+document.getElementById('sh').onclick=function(){var msg='Free AI prompt for maths teachers - '+document.title.split(' - ')[0]+': ';if(navigator.share){navigator.share({title:'Maths Prompt Studio',text:msg,url:URL}).catch(function(){})}else{window.open('https://wa.me/?text='+encodeURIComponent(msg+' '+URL),'_blank')}};
+</script>
+</body></html>

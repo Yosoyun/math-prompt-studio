@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review Internal Choice Performance - free AI prompt for maths teachers | Maths Prompt Studio</title>
+<meta name="description" content="A choice-path analysis that compares selected alternatives without treating self-selection as a fair experiment.">
+<link rel="canonical" href="https://yosoyun.github.io/math-prompt-studio/p/review-internal-choice-performance/">
+<meta property="og:title" content="Review Internal Choice Performance - free AI prompt for maths teachers">
+<meta property="og:description" content="A choice-path analysis that compares selected alternatives without treating self-selection as a fair experiment.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://yosoyun.github.io/math-prompt-studio/p/review-internal-choice-performance/">
+<meta property="og:site_name" content="Maths Prompt Studio">
+<meta property="og:image" content="https://yosoyun.github.io/math-prompt-studio/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yosoyun.github.io/math-prompt-studio/og-cover.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%88%91%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,900&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css?v=8">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Review Internal Choice Performance","headline":"Review Internal Choice Performance","description":"A choice-path analysis that compares selected alternatives without treating self-selection as a fair experiment.","url":"https://yosoyun.github.io/math-prompt-studio/p/review-internal-choice-performance/","isAccessibleForFree":true,"inLanguage":"en","about":{"@type":"Thing","name":"Mathematics teaching"},"genre":"Marks → Insight","publisher":{"@type":"Organization","name":"Maths Prompt Studio"},"isPartOf":{"@type":"WebSite","name":"Maths Prompt Studio","url":"https://yosoyun.github.io/math-prompt-studio/"}}</script>
+</head><body>
+<div class="grain" aria-hidden="true"></div>
+<header class="site-head">
+  <a class="brand" href="../../"><span class="brand-mark" aria-hidden="true">&#8721;</span><span class="brand-text"><span class="brand-name">Maths Prompt Studio</span><span class="brand-by">free maths platform</span></span></a>
+  <nav class="head-nav"><a href="../../#library">All 848 prompts</a><a href="../../#guide">Beginner's Guide</a></nav>
+</header>
+<main class="ppage">
+  <p class="pp-crumb"><a href="../../">Home</a> / <a href="../../#cat-marks-insight">Marks → Insight</a> / Review Internal Choice Performance</p>
+  <article class="pp-card">
+    <div class="card-tags"><span class="tag tag-cat">Marks → Insight</span><span class="tag tag-txt">Internal Choice Review</span></div>
+    <div class="card-open" style="margin-bottom:10px"><button class="btn-soft card-copy" id="lang">&#2361;&#2367;&#2306;&#2342;&#2368; &#2350;&#2375;&#2306; &#2342;&#2375;&#2326;&#2375;&#2306;</button></div>
+    <h1 id="ttl">Review Internal Choice Performance</h1>
+    <p class="card-what" id="wht" style="font-size:16px">A choice-path analysis that compares selected alternatives without treating self-selection as a fair experiment.</p>
+    <div class="card-rel"><span class="rel"><span class="dot dot-green"></span>Works on any free AI</span> &nbsp;&middot;&nbsp; <span class="rel">Best tool: <b>&nbsp;Any AI chat (ChatGPT, Claude, Gemini)</b></span></div>
+    <div class="modal-eff"><h4>&#9989; How to use this effectively</h4><ol><li>1. Map each allowed choice pair.</li><li>2. Check equal maximum marks.</li><li>3. Report who chose each path.</li><li>4. Avoid causal claims from self-selected groups.</li></ol></div>
+    <div class="modal-fix"><b>&#128295; If it is not right, reply with this:</b> If alternatives are ranked directly, request maxima, sample sizes, and prior-total bands beside each option.</div>
+    <button class="card-copy-main" id="cp">&#128203; Copy prompt</button>
+    <div class="card-open"><button class="btn-tool t-gpt" id="gpt">&#129302; Open ChatGPT</button><button class="btn-tool t-claude" id="cla">&#128172; Open Claude</button></div>
+    <div class="card-open" style="margin-top:8px"><button class="btn-soft card-copy" id="sh">&#128241; Share this prompt</button><button class="btn-soft card-copy" id="lnk">&#128279; Copy link</button></div>
+    <div class="modal-lbl" style="margin-top:16px">THE PROMPT</div>
+    <div class="prompt-box"><pre id="pt">ROLE: Act as a paper-choice analyst who makes self-selection limits explicit.
+
+CONTEXT: The teacher supplies [CHOICE RESPONSE CSV], [CHOICE STRUCTURE], [QUESTION MAXIMA], and [SCORING POLICY].
+
+INPUTS — FILL EVERY PLACEHOLDER:
+- [CHOICE RESPONSE CSV]
+- [CHOICE STRUCTURE]
+- [QUESTION MAXIMA]
+- [SCORING POLICY]
+
+SOURCE-BOUND TOOL FACTS AND EXACT URL WHITELIST:
+- [PACK_GOOGLE_SHEETS] Paste-only fact from the pack design: output rectangular CSV plus explicit Google Sheets formulas with column letters and first/last row references. Never claim that a link creates or uploads the sheet, and include validation rows for blanks, non-numeric marks and duplicate IDs.
+- [WOLFRAMALPHA] Whitelist: https://www.wolframalpha.com/input?i={ENCODED_PLAIN_CALCULATOR_QUERY}. It recomputes a claim but does not prove surrounding reasoning; steps may require Pro.
+
+DO THIS:
+1. Validate that each learner used an allowed choice and that alternatives have supplied maxima.
+2. Output paste-ready CSV with schema StudentID,ChoiceGroup,ChosenItem,Mark,MaxMark,Status.
+3. Create an error queue for double attempts, no allowed choice, mismatched maxima, and duplicated rows.
+4. Provide Sheets formulas for choice count, mean percentage, median percentage, and valid denominator by alternative.
+5. Report score distributions and sample sizes without declaring one option easier.
+6. State clearly that self-selected choice associations do not prove item difficulty or causation.
+
+WORKED LINK EXAMPLE — COPY THIS EXACT ENCODING PATTERN:
+Example task: Compare 7.5 marks out of 10 with 6 marks out of 8 as percentages.
+Expected result or check target: Both scores equal 75 percent.
+check this yourself
+CHECK → https://www.wolframalpha.com/input?i=%287.5%2F10%29%2A100%2C%286%2F8%29%2A100
+(paste-fallback: (7.5/10)*100,(6/8)*100)
+Encoding note: The URL decodes both expressions exactly; equivalent percentages do not establish equal difficulty.
+
+OUTPUT FORMAT:
+1. Choice Rule Audit — allowed alternatives
+2. Choice CSV — validated selections and marks
+3. Exception Queue — illegal and ambiguous choices
+4. Comparison Formulas — counts and score summaries
+5. Choice Review — descriptive findings and limits
+
+QUALITY AND TOOL GUARDRAILS:
+- Never choose which response to mark when two are attempted without policy.
+- Never invent equivalent maxima.
+- Keep student choice paths private.
+- Do not claim choice-score association proves causation.
+- Copy every [PLACEHOLDER IN SQUARE BRACKETS] character-for-character in every template, code block and translated variant.
+- Never output a desmos.com URL with parameters, a mathsolver.microsoft.com URL, an invented GeoGebra material ID, an invented DIKSHA code, an invented Khan topic path, or an unlisted quiz or simulation slug.
+- Never describe an AI answer as verified. Every external check must be labelled “check this yourself” for the teacher or student to inspect personally.
+- Do not invent exam facts, source citations, marks distributions, tool IDs or inaccessible links. Separate mathematical proof from computational checking.
+
+=== TOOL-LINK OUTPUT CONTRACT — follow every rule exactly ===
+1. You may output clickable links ONLY to: wolframalpha.com/input?i= · symbolab.com/solver?query= ·
+   geogebra.org/graphing|geometry|3d|cas?command= · math.stackexchange.com/search?q= · oeis.org/search?q= ·
+   artofproblemsolving.com/community/q1_ · khanacademy.org/search?page_search_query= ·
+   overleaf.com/docs?encoded_snip= · latex.codecogs.com/png.image? · docs.google.com/forms/...viewform?usp=pp_url
+   (Forms only with entry.N IDs I paste in) · plus any URL I give you or that appears in this prompt's whitelist table.
+2. NEVER output: desmos.com links with query strings (they load blank), invented geogebra.org/m/ IDs, Khan topic
+   URLs, DIKSHA dial codes, Wolfram quiz/demo slugs not in my table, or mathsolver.microsoft.com (dead site).
+3. Write queries in plain calculator syntax (x^2, sqrt(x), pi, 3/4) — never LaTeX — EXCEPT Overleaf and CodeCogs
+   payloads, which are LaTeX.
+4. Percent-encode the query part: space→%20, +→%2B, ^→%5E, =→%3D, [→%5B, ]→%5D; in LaTeX payloads also
+   \→%5C, {→%7B, }→%7D, %→%25, #→%23, &amp;→%26, newline→%0A. GeoGebra ?command= exception: encode ONLY + as %2B;
+   leave ( ) = ^ ; as typed.
+5. One link per line, formatted exactly:  CHECK → &lt;full raw URL&gt;   (no markdown brackets, nothing after the URL).
+6. Directly below every link, print:  (paste-fallback: &lt;the un-encoded query or commands&gt;)
+7. Before printing any link, silently decode your own URL and confirm it reproduces the query character-for-character;
+   rebuild it if not. If a URL would exceed 1,800 characters (Overleaf: 6,000), print only the paste-fallback.
+8. Label every link &quot;check this yourself&quot; — never claim the link proves your answer is correct.
+9. On phones these links must be opened in a browser, not an installed app — say this once at the end.</pre></div>
+  </article>
+  <p style="text-align:center;margin-top:26px"><a class="btn btn-primary" href="../../#library">&#9664; Browse all 848 free prompts</a></p>
+</main>
+<footer class="site-foot"><div class="foot-sign"><span class="foot-sign-name">Maths Prompt Studio</span><span class="foot-sign-sub">free, forever &middot; &#2350;&#2369;&#2347;&#2364;&#2381;&#2340;, &#2361;&#2350;&#2375;&#2358;&#2366;</span></div><p class="foot-meta"><a href="../../#about">About the author</a> &middot; free, forever</p></footer>
+<div class="toast" id="t" role="status" aria-live="polite">Copied!</div>
+<script>
+var P="ROLE: Act as a paper-choice analyst who makes self-selection limits explicit.\n\nCONTEXT: The teacher supplies [CHOICE RESPONSE CSV], [CHOICE STRUCTURE], [QUESTION MAXIMA], and [SCORING POLICY].\n\nINPUTS — FILL EVERY PLACEHOLDER:\n- [CHOICE RESPONSE CSV]\n- [CHOICE STRUCTURE]\n- [QUESTION MAXIMA]\n- [SCORING POLICY]\n\nSOURCE-BOUND TOOL FACTS AND EXACT URL WHITELIST:\n- [PACK_GOOGLE_SHEETS] Paste-only fact from the pack design: output rectangular CSV plus explicit Google Sheets formulas with column letters and first/last row references. Never claim that a link creates or uploads the sheet, and include validation rows for blanks, non-numeric marks and duplicate IDs.\n- [WOLFRAMALPHA] Whitelist: https://www.wolframalpha.com/input?i={ENCODED_PLAIN_CALCULATOR_QUERY}. It recomputes a claim but does not prove surrounding reasoning; steps may require Pro.\n\nDO THIS:\n1. Validate that each learner used an allowed choice and that alternatives have supplied maxima.\n2. Output paste-ready CSV with schema StudentID,ChoiceGroup,ChosenItem,Mark,MaxMark,Status.\n3. Create an error queue for double attempts, no allowed choice, mismatched maxima, and duplicated rows.\n4. Provide Sheets formulas for choice count, mean percentage, median percentage, and valid denominator by alternative.\n5. Report score distributions and sample sizes without declaring one option easier.\n6. State clearly that self-selected choice associations do not prove item difficulty or causation.\n\nWORKED LINK EXAMPLE — COPY THIS EXACT ENCODING PATTERN:\nExample task: Compare 7.5 marks out of 10 with 6 marks out of 8 as percentages.\nExpected result or check target: Both scores equal 75 percent.\ncheck this yourself\nCHECK → https://www.wolframalpha.com/input?i=%287.5%2F10%29%2A100%2C%286%2F8%29%2A100\n(paste-fallback: (7.5/10)*100,(6/8)*100)\nEncoding note: The URL decodes both expressions exactly; equivalent percentages do not establish equal difficulty.\n\nOUTPUT FORMAT:\n1. Choice Rule Audit — allowed alternatives\n2. Choice CSV — validated selections and marks\n3. Exception Queue — illegal and ambiguous choices\n4. Comparison Formulas — counts and score summaries\n5. Choice Review — descriptive findings and limits\n\nQUALITY AND TOOL GUARDRAILS:\n- Never choose which response to mark when two are attempted without policy.\n- Never invent equivalent maxima.\n- Keep student choice paths private.\n- Do not claim choice-score association proves causation.\n- Copy every [PLACEHOLDER IN SQUARE BRACKETS] character-for-character in every template, code block and translated variant.\n- Never output a desmos.com URL with parameters, a mathsolver.microsoft.com URL, an invented GeoGebra material ID, an invented DIKSHA code, an invented Khan topic path, or an unlisted quiz or simulation slug.\n- Never describe an AI answer as verified. Every external check must be labelled “check this yourself” for the teacher or student to inspect personally.\n- Do not invent exam facts, source citations, marks distributions, tool IDs or inaccessible links. Separate mathematical proof from computational checking.\n\n=== TOOL-LINK OUTPUT CONTRACT — follow every rule exactly ===\n1. You may output clickable links ONLY to: wolframalpha.com/input?i= · symbolab.com/solver?query= ·\n   geogebra.org/graphing|geometry|3d|cas?command= · math.stackexchange.com/search?q= · oeis.org/search?q= ·\n   artofproblemsolving.com/community/q1_ · khanacademy.org/search?page_search_query= ·\n   overleaf.com/docs?encoded_snip= · latex.codecogs.com/png.image? · docs.google.com/forms/...viewform?usp=pp_url\n   (Forms only with entry.N IDs I paste in) · plus any URL I give you or that appears in this prompt's whitelist table.\n2. NEVER output: desmos.com links with query strings (they load blank), invented geogebra.org/m/ IDs, Khan topic\n   URLs, DIKSHA dial codes, Wolfram quiz/demo slugs not in my table, or mathsolver.microsoft.com (dead site).\n3. Write queries in plain calculator syntax (x^2, sqrt(x), pi, 3/4) — never LaTeX — EXCEPT Overleaf and CodeCogs\n   payloads, which are LaTeX.\n4. Percent-encode the query part: space→%20, +→%2B, ^→%5E, =→%3D, [→%5B, ]→%5D; in LaTeX payloads also\n   \\→%5C, {→%7B, }→%7D, %→%25, #→%23, &→%26, newline→%0A. GeoGebra ?command= exception: encode ONLY + as %2B;\n   leave ( ) = ^ ; as typed.\n5. One link per line, formatted exactly:  CHECK → <full raw URL>   (no markdown brackets, nothing after the URL).\n6. Directly below every link, print:  (paste-fallback: <the un-encoded query or commands>)\n7. Before printing any link, silently decode your own URL and confirm it reproduces the query character-for-character;\n   rebuild it if not. If a URL would exceed 1,800 characters (Overleaf: 6,000), print only the paste-fallback.\n8. Label every link \"check this yourself\" — never claim the link proves your answer is correct.\n9. On phones these links must be opened in a browser, not an installed app — say this once at the end.";var HI={"title":"आंतरिक विकल्पों में प्रदर्शन की समीक्षा करें","whatYouGet":"चुने गए विकल्पों की तुलना करने वाला विकल्प-पथ विश्लेषण, जो स्व-चयन को निष्पक्ष प्रयोग नहीं मानता।","howToUse":"उत्तर-विकल्प, अंक और प्रश्नपत्र की विकल्प-संरचना दें; तुलना से पहले समतुल्य अधिकतम अंक सत्यापित करें।","effectiveUsage":["1. अनुमत विकल्पों की हर जोड़ी का मानचित्र बनाएँ।","2. जाँचें कि अधिकतम अंक समान हैं।","3. हर रास्ता चुनने वाले विद्यार्थियों की संख्या बताएँ।","4. स्व-चयनित समूहों से कारणगत दावे न करें।"],"commonFix":"यदि विकल्पों को सीधे क्रम दिया जाए, तो हर विकल्प के साथ अधिकतम अंक, नमूना-संख्या और पिछले कुल अंकों की श्रेणियाँ माँगें।","promptText":"भूमिका (ROLE): स्व-चयन की सीमाएँ स्पष्ट करने वाले प्रश्नपत्र-विकल्प विश्लेषक की भूमिका निभाएँ।\n\nसंदर्भ (CONTEXT): शिक्षक [CHOICE RESPONSE CSV], [CHOICE STRUCTURE], [QUESTION MAXIMA] और [SCORING POLICY] देते हैं।\n\nइनपुट—हर स्थानधारक भरें (INPUTS — FILL EVERY PLACEHOLDER):\n- [CHOICE RESPONSE CSV] — विकल्प-उत्तर CSV\n- [CHOICE STRUCTURE] — विकल्प-संरचना\n- [QUESTION MAXIMA] — प्रश्नों के अधिकतम अंक\n- [SCORING POLICY] — अंक-गणना नीति\n\nस्रोत-आधारित टूल तथ्य और ठीक-ठीक URL अनुमत-सूची (SOURCE-BOUND TOOL FACTS AND EXACT URL WHITELIST):\n- [PACK_GOOGLE_SHEETS] पैक-डिज़ाइन का केवल-पेस्ट तथ्य: आयताकार CSV और स्तंभ-अक्षरों तथा पहली/अंतिम पंक्ति संदर्भों वाले स्पष्ट Google Sheets सूत्र दें। कभी दावा न करें कि कोई लिंक शीट बनाती या अपलोड करती है, और खाली खाने, गैर-सांख्यिक अंक तथा दोहराए हुए ID के लिए सत्यापन पंक्तियाँ शामिल करें।\n- [WOLFRAMALPHA] अनुमत प्रारूप: https://www.wolframalpha.com/input?i={ENCODED_PLAIN_CALCULATOR_QUERY}। यह किसी दावे की फिर से गणना करता है, उसके आसपास के तर्क को सिद्ध नहीं करता; चरणों के लिए Pro आवश्यक हो सकता है।\n\nयह करें (DO THIS):\n1. जाँचें कि हर विद्यार्थी ने अनुमत विकल्प चुना है और विकल्पों के अधिकतम अंक दिए गए हैं।\n2. StudentID,ChoiceGroup,ChosenItem,Mark,MaxMark,Status स्तंभ-रूपरेखा वाला पेस्ट-योग्य CSV दें।\n3. दोनों विकल्पों के प्रयास, कोई अनुमत विकल्प न चुनने, बेमेल अधिकतम अंकों और दोहराई पंक्तियों के लिए त्रुटि-कतार बनाएँ।\n4. हर विकल्प के लिए चयन-संख्या, औसत प्रतिशत, माध्यिका प्रतिशत और वैध हर के Google Sheets सूत्र दें।\n5. किसी विकल्प को आसान घोषित किए बिना अंक-वितरण और नमूना-संख्या बताएँ।\n6. साफ़ लिखें कि स्व-चयनित विकल्पों के संबंध प्रश्न की कठिनाई या कारण-कार्य संबंध सिद्ध नहीं करते।\n\nहल किया हुआ लिंक उदाहरण—इस कूटबद्धता ढाँचे को ठीक-ठीक कॉपी करें (WORKED LINK EXAMPLE — COPY THIS EXACT ENCODING PATTERN):\nउदाहरण कार्य (Example task): 10 में से 7.5 अंक और 8 में से 6 अंक की प्रतिशतों के रूप में तुलना करें।\nअपेक्षित परिणाम या जाँच लक्ष्य (Expected result or check target): दोनों प्राप्तांक 75 प्रतिशत हैं।\ncheck this yourself\nCHECK → https://www.wolframalpha.com/input?i=%287.5%2F10%29%2A100%2C%286%2F8%29%2A100\n(paste-fallback: (7.5/10)*100,(6/8)*100)\nकूटबद्धता टिप्पणी (Encoding note): URL में दोनों व्यंजक अक्षरशः खुलते हैं; समान प्रतिशत समान कठिनाई स्थापित नहीं करते।\n\nआउटपुट प्रारूप (OUTPUT FORMAT):\n1. विकल्प नियम जाँच (Choice Rule Audit) — अनुमत विकल्प\n2. विकल्प CSV (Choice CSV) — सत्यापित चयन और अंक\n3. अपवाद-कतार (Exception Queue) — अमान्य और अस्पष्ट चयन\n4. तुलना सूत्र (Comparison Formulas) — संख्याएँ और अंक-सारांश\n5. विकल्प समीक्षा (Choice Review) — वर्णनात्मक निष्कर्ष और सीमाएँ\n\nगुणवत्ता और टूल सुरक्षा-नियम (QUALITY AND TOOL GUARDRAILS):\n- नीति के बिना, दो उत्तर दिए जाने पर अंकित करने के लिए किसी एक को कभी न चुनें।\n- समतुल्य अधिकतम अंक कभी न गढ़ें।\n- विद्यार्थियों के विकल्प-पथ निजी रखें।\n- यह दावा न करें कि विकल्प और अंकों का संबंध कारण-कार्य संबंध सिद्ध करता है।\n- हर टेम्पलेट, कोड-खंड और अनूदित रूप में प्रत्येक [PLACEHOLDER IN SQUARE BRACKETS] को अक्षरशः कॉपी करें।\n- पैरामीटर वाला desmos.com URL, mathsolver.microsoft.com URL, गढ़ी हुई GeoGebra सामग्री ID, गढ़ा हुआ DIKSHA कोड, गढ़ा हुआ Khan विषय पथ या सूची से बाहर का प्रश्नोत्तरी अथवा सिमुलेशन स्लग कभी न दें।\n- AI के किसी उत्तर को सत्यापित न बताएँ। हर बाहरी जाँच पर “स्वयं जाँचें” का चिह्न हो, ताकि शिक्षक या विद्यार्थी उसे स्वयं परख सके।\n- परीक्षा-संबंधी तथ्य, स्रोत-उद्धरण, अंक-वितरण, उपकरण ID या ऐसी लिंक न गढ़ें जिसे खोला न जा सके। गणितीय प्रमाण और संगणकीय जाँच को अलग रखें।\n\n=== TOOL-LINK OUTPUT CONTRACT — follow every rule exactly ===\n1. You may output clickable links ONLY to: wolframalpha.com/input?i= · symbolab.com/solver?query= ·\n   geogebra.org/graphing|geometry|3d|cas?command= · math.stackexchange.com/search?q= · oeis.org/search?q= ·\n   artofproblemsolving.com/community/q1_ · khanacademy.org/search?page_search_query= ·\n   overleaf.com/docs?encoded_snip= · latex.codecogs.com/png.image? · docs.google.com/forms/...viewform?usp=pp_url\n   (Forms only with entry.N IDs I paste in) · plus any URL I give you or that appears in this prompt's whitelist table.\n2. NEVER output: desmos.com links with query strings (they load blank), invented geogebra.org/m/ IDs, Khan topic\n   URLs, DIKSHA dial codes, Wolfram quiz/demo slugs not in my table, or mathsolver.microsoft.com (dead site).\n3. Write queries in plain calculator syntax (x^2, sqrt(x), pi, 3/4) — never LaTeX — EXCEPT Overleaf and CodeCogs\n   payloads, which are LaTeX.\n4. Percent-encode the query part: space→%20, +→%2B, ^→%5E, =→%3D, [→%5B, ]→%5D; in LaTeX payloads also\n   \\→%5C, {→%7B, }→%7D, %→%25, #→%23, &→%26, newline→%0A. GeoGebra ?command= exception: encode ONLY + as %2B;\n   leave ( ) = ^ ; as typed.\n5. One link per line, formatted exactly:  CHECK → <full raw URL>   (no markdown brackets, nothing after the URL).\n6. Directly below every link, print:  (paste-fallback: <the un-encoded query or commands>)\n7. Before printing any link, silently decode your own URL and confirm it reproduces the query character-for-character;\n   rebuild it if not. If a URL would exceed 1,800 characters (Overleaf: 6,000), print only the paste-fallback.\n8. Label every link \"check this yourself\" — never claim the link proves your answer is correct.\n9. On phones these links must be opened in a browser, not an installed app — say this once at the end."};var LNG='en';var URL="https://yosoyun.github.io/math-prompt-studio/p/review-internal-choice-performance/";
+(function(){try{var th=localStorage.getItem('mps-theme');if(th)document.documentElement.setAttribute('data-theme',th);}catch(e){}})();
+function activeP(){return (LNG==='hi'&&HI&&HI.promptText)?HI.promptText:P;}
+(function(){var lb=document.getElementById('lang');if(!lb)return;
+  try{if(localStorage.getItem('mps-lang')==='hi')swapLang();}catch(e){}
+  lb.onclick=swapLang;
+  function swapLang(){LNG=LNG==='en'?'hi':'en';var hiOn=LNG==='hi';
+    lb.textContent=hiOn?'View in English':'\u0939\u093f\u0902\u0926\u0940 \u092e\u0947\u0902 \u0926\u0947\u0916\u0947\u0902';
+    if(HI.title)document.getElementById('ttl').textContent=hiOn?HI.title:"Review Internal Choice Performance";
+    if(HI.whatYouGet)document.getElementById('wht').textContent=hiOn?HI.whatYouGet:"A choice-path analysis that compares selected alternatives without treating self-selection as a fair experiment.";
+    document.getElementById('pt').textContent=activeP();
+    try{localStorage.setItem('mps-lang',LNG);}catch(e){}}
+})();
+function toast(m){var t=document.getElementById('t');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2600);}
+function clip(x){return (navigator.clipboard&&navigator.clipboard.writeText)?navigator.clipboard.writeText(x):new Promise(function(r){var a=document.createElement('textarea');a.value=x;a.style.position='fixed';a.style.opacity=0;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(a);r();});}
+document.getElementById('cp').onclick=function(){clip(activeP()).then(function(){toast('Copied! Paste it into your AI chat.')})};
+function openT(base,name){var full=base+'?q='+encodeURIComponent(activeP());var u=full.length<=7000?full:base;clip(activeP()).then(function(){window.open(u,'_blank','noopener');toast(name+' opening with your prompt loaded. Also copied - if empty, just paste it.')})}
+document.getElementById('gpt').onclick=function(){openT('https://chatgpt.com/','ChatGPT')};
+document.getElementById('cla').onclick=function(){openT('https://claude.ai/new','Claude')};
+document.getElementById('lnk').onclick=function(){clip(URL).then(function(){toast('Link copied - share it with a teacher!')})};
+document.getElementById('sh').onclick=function(){var msg='Free AI prompt for maths teachers - '+document.title.split(' - ')[0]+': ';if(navigator.share){navigator.share({title:'Maths Prompt Studio',text:msg,url:URL}).catch(function(){})}else{window.open('https://wa.me/?text='+encodeURIComponent(msg+' '+URL),'_blank')}};
+</script>
+</body></html>

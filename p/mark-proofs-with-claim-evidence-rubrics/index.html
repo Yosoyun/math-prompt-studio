@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mark Proofs With Claim-Evidence Rubrics - free AI prompt for maths teachers | Maths Prompt Studio</title>
+<meta name="description" content="A human-review proof ledger that distinguishes claims, justification, dependencies, and fatal gaps.">
+<link rel="canonical" href="https://yosoyun.github.io/math-prompt-studio/p/mark-proofs-with-claim-evidence-rubrics/">
+<meta property="og:title" content="Mark Proofs With Claim-Evidence Rubrics - free AI prompt for maths teachers">
+<meta property="og:description" content="A human-review proof ledger that distinguishes claims, justification, dependencies, and fatal gaps.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://yosoyun.github.io/math-prompt-studio/p/mark-proofs-with-claim-evidence-rubrics/">
+<meta property="og:site_name" content="Maths Prompt Studio">
+<meta property="og:image" content="https://yosoyun.github.io/math-prompt-studio/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yosoyun.github.io/math-prompt-studio/og-cover.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%88%91%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,900&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css?v=8">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Mark Proofs With Claim-Evidence Rubrics","headline":"Mark Proofs With Claim-Evidence Rubrics","description":"A human-review proof ledger that distinguishes claims, justification, dependencies, and fatal gaps.","url":"https://yosoyun.github.io/math-prompt-studio/p/mark-proofs-with-claim-evidence-rubrics/","isAccessibleForFree":true,"inLanguage":"en","about":{"@type":"Thing","name":"Mathematics teaching"},"genre":"Grade the Stack","publisher":{"@type":"Organization","name":"Maths Prompt Studio"},"isPartOf":{"@type":"WebSite","name":"Maths Prompt Studio","url":"https://yosoyun.github.io/math-prompt-studio/"}}</script>
+</head><body>
+<div class="grain" aria-hidden="true"></div>
+<header class="site-head">
+  <a class="brand" href="../../"><span class="brand-mark" aria-hidden="true">&#8721;</span><span class="brand-text"><span class="brand-name">Maths Prompt Studio</span><span class="brand-by">free maths platform</span></span></a>
+  <nav class="head-nav"><a href="../../#library">All 848 prompts</a><a href="../../#guide">Beginner's Guide</a></nav>
+</header>
+<main class="ppage">
+  <p class="pp-crumb"><a href="../../">Home</a> / <a href="../../#cat-grade-the-stack">Grade the Stack</a> / Mark Proofs With Claim-Evidence Rubrics</p>
+  <article class="pp-card">
+    <div class="card-tags"><span class="tag tag-cat">Grade the Stack</span><span class="tag tag-txt">Proof Evidence Rubric</span></div>
+    <div class="card-open" style="margin-bottom:10px"><button class="btn-soft card-copy" id="lang">&#2361;&#2367;&#2306;&#2342;&#2368; &#2350;&#2375;&#2306; &#2342;&#2375;&#2326;&#2375;&#2306;</button></div>
+    <h1 id="ttl">Mark Proofs With Claim-Evidence Rubrics</h1>
+    <p class="card-what" id="wht" style="font-size:16px">A human-review proof ledger that distinguishes claims, justification, dependencies, and fatal gaps.</p>
+    <div class="card-rel"><span class="rel"><span class="dot dot-green"></span>Works on any free AI</span> &nbsp;&middot;&nbsp; <span class="rel">Best tool: <b>&nbsp;Any AI chat (ChatGPT, Claude, Gemini)</b></span></div>
+    <div class="modal-eff"><h4>&#9989; How to use this effectively</h4><ol><li>1. Verify computable lemmas separately.</li><li>2. Keep proof judgement human-led.</li><li>3. Mark claims and reasons independently.</li><li>4. Route novel proofs to review.</li></ol></div>
+    <div class="modal-fix"><b>&#128295; If it is not right, reply with this:</b> If stylistic differences lose marks, require criterion evidence and mathematical dependency rather than resemblance to the model proof.</div>
+    <button class="card-copy-main" id="cp">&#128203; Copy prompt</button>
+    <div class="card-open"><button class="btn-tool t-gpt" id="gpt">&#129302; Open ChatGPT</button><button class="btn-tool t-claude" id="cla">&#128172; Open Claude</button></div>
+    <div class="card-open" style="margin-top:8px"><button class="btn-soft card-copy" id="sh">&#128241; Share this prompt</button><button class="btn-soft card-copy" id="lnk">&#128279; Copy link</button></div>
+    <div class="modal-lbl" style="margin-top:16px">THE PROMPT</div>
+    <div class="prompt-box"><pre id="pt">ROLE: Act as a proof-marking assistant organising human judgement around an approved evidence rubric.
+
+CONTEXT: The teacher supplies [PROOF QUESTION], [VERIFIED MODEL PROOF], [PROOF RUBRIC], and [ANONYMISED PROOF EVIDENCE].
+
+INPUTS — FILL EVERY PLACEHOLDER:
+- [PROOF QUESTION]
+- [VERIFIED MODEL PROOF]
+- [PROOF RUBRIC]
+- [ANONYMISED PROOF EVIDENCE]
+
+SOURCE-BOUND TOOL FACTS AND EXACT URL WHITELIST:
+- [WOLFRAMALPHA] Whitelist: https://www.wolframalpha.com/input?i={ENCODED_PLAIN_CALCULATOR_QUERY}. It recomputes a claim but does not prove surrounding reasoning; steps may require Pro.
+- [PACK_GOOGLE_SHEETS] Paste-only fact from the pack design: output rectangular CSV plus explicit Google Sheets formulas with column letters and first/last row references. Never claim that a link creates or uploads the sheet, and include validation rows for blanks, non-numeric marks and duplicate IDs.
+
+DO THIS:
+1. Check model proof computations separately while labelling logical proof verification as human review.
+2. Output paste-ready CSV with schema ScriptID,ClaimID,ClaimPresent,JustificationPresent,DependencyMet,Mark,ReviewStatus.
+3. Create an exception queue for novel valid routes, missing assumptions, circular steps, unreadable evidence, and model-key disputes.
+4. Provide Sheets formulas for criterion totals, cap checks, unresolved counts, and script reconciliation.
+5. Explain each withheld mark by the supplied criterion rather than style or wording.
+6. Preserve anonymity and avoid reproducing personally identifying handwriting notes.
+
+WORKED LINK EXAMPLE — COPY THIS EXACT ENCODING PATTERN:
+Example task: Check the computable identity 1+3+5+7=4^2 used inside a sample proof.
+Expected result or check target: Both sides equal 16, but this instance does not prove the general claim.
+check this yourself
+CHECK → https://www.wolframalpha.com/input?i=1%2B3%2B5%2B7%3D4%5E2
+(paste-fallback: 1+3+5+7=4^2)
+Encoding note: Plus, equals, and caret decode exactly; the link checks only the sample identity.
+
+OUTPUT FORMAT:
+1. Model Proof Audit — checked computations and human scope
+2. Proof Evidence CSV — claims and justifications
+3. Human Review Queue — novel and ambiguous reasoning
+4. Formula Block — criterion totals and caps
+5. Marker Feedback — criterion-linked concise notes
+
+QUALITY AND TOOL GUARDRAILS:
+- Never claim a calculator link proves a proof.
+- Never force a valid alternative proof to match the model route.
+- Never invent missing reasoning or assumptions.
+- Protect anonymous proof evidence and student privacy.
+- Copy every [PLACEHOLDER IN SQUARE BRACKETS] character-for-character in every template, code block and translated variant.
+- Never output a desmos.com URL with parameters, a mathsolver.microsoft.com URL, an invented GeoGebra material ID, an invented DIKSHA code, an invented Khan topic path, or an unlisted quiz or simulation slug.
+- Never describe an AI answer as verified. Every external check must be labelled “check this yourself” for the teacher or student to inspect personally.
+- Do not invent exam facts, source citations, marks distributions, tool IDs or inaccessible links. Separate mathematical proof from computational checking.
+
+=== TOOL-LINK OUTPUT CONTRACT — follow every rule exactly ===
+1. You may output clickable links ONLY to: wolframalpha.com/input?i= · symbolab.com/solver?query= ·
+   geogebra.org/graphing|geometry|3d|cas?command= · math.stackexchange.com/search?q= · oeis.org/search?q= ·
+   artofproblemsolving.com/community/q1_ · khanacademy.org/search?page_search_query= ·
+   overleaf.com/docs?encoded_snip= · latex.codecogs.com/png.image? · docs.google.com/forms/...viewform?usp=pp_url
+   (Forms only with entry.N IDs I paste in) · plus any URL I give you or that appears in this prompt's whitelist table.
+2. NEVER output: desmos.com links with query strings (they load blank), invented geogebra.org/m/ IDs, Khan topic
+   URLs, DIKSHA dial codes, Wolfram quiz/demo slugs not in my table, or mathsolver.microsoft.com (dead site).
+3. Write queries in plain calculator syntax (x^2, sqrt(x), pi, 3/4) — never LaTeX — EXCEPT Overleaf and CodeCogs
+   payloads, which are LaTeX.
+4. Percent-encode the query part: space→%20, +→%2B, ^→%5E, =→%3D, [→%5B, ]→%5D; in LaTeX payloads also
+   \→%5C, {→%7B, }→%7D, %→%25, #→%23, &amp;→%26, newline→%0A. GeoGebra ?command= exception: encode ONLY + as %2B;
+   leave ( ) = ^ ; as typed.
+5. One link per line, formatted exactly:  CHECK → &lt;full raw URL&gt;   (no markdown brackets, nothing after the URL).
+6. Directly below every link, print:  (paste-fallback: &lt;the un-encoded query or commands&gt;)
+7. Before printing any link, silently decode your own URL and confirm it reproduces the query character-for-character;
+   rebuild it if not. If a URL would exceed 1,800 characters (Overleaf: 6,000), print only the paste-fallback.
+8. Label every link &quot;check this yourself&quot; — never claim the link proves your answer is correct.
+9. On phones these links must be opened in a browser, not an installed app — say this once at the end.</pre></div>
+  </article>
+  <p style="text-align:center;margin-top:26px"><a class="btn btn-primary" href="../../#library">&#9664; Browse all 848 free prompts</a></p>
+</main>
+<footer class="site-foot"><div class="foot-sign"><span class="foot-sign-name">Maths Prompt Studio</span><span class="foot-sign-sub">free, forever &middot; &#2350;&#2369;&#2347;&#2364;&#2381;&#2340;, &#2361;&#2350;&#2375;&#2358;&#2366;</span></div><p class="foot-meta"><a href="../../#about">About the author</a> &middot; free, forever</p></footer>
+<div class="toast" id="t" role="status" aria-live="polite">Copied!</div>
+<script>
+var P="ROLE: Act as a proof-marking assistant organising human judgement around an approved evidence rubric.\n\nCONTEXT: The teacher supplies [PROOF QUESTION], [VERIFIED MODEL PROOF], [PROOF RUBRIC], and [ANONYMISED PROOF EVIDENCE].\n\nINPUTS — FILL EVERY PLACEHOLDER:\n- [PROOF QUESTION]\n- [VERIFIED MODEL PROOF]\n- [PROOF RUBRIC]\n- [ANONYMISED PROOF EVIDENCE]\n\nSOURCE-BOUND TOOL FACTS AND EXACT URL WHITELIST:\n- [WOLFRAMALPHA] Whitelist: https://www.wolframalpha.com/input?i={ENCODED_PLAIN_CALCULATOR_QUERY}. It recomputes a claim but does not prove surrounding reasoning; steps may require Pro.\n- [PACK_GOOGLE_SHEETS] Paste-only fact from the pack design: output rectangular CSV plus explicit Google Sheets formulas with column letters and first/last row references. Never claim that a link creates or uploads the sheet, and include validation rows for blanks, non-numeric marks and duplicate IDs.\n\nDO THIS:\n1. Check model proof computations separately while labelling logical proof verification as human review.\n2. Output paste-ready CSV with schema ScriptID,ClaimID,ClaimPresent,JustificationPresent,DependencyMet,Mark,ReviewStatus.\n3. Create an exception queue for novel valid routes, missing assumptions, circular steps, unreadable evidence, and model-key disputes.\n4. Provide Sheets formulas for criterion totals, cap checks, unresolved counts, and script reconciliation.\n5. Explain each withheld mark by the supplied criterion rather than style or wording.\n6. Preserve anonymity and avoid reproducing personally identifying handwriting notes.\n\nWORKED LINK EXAMPLE — COPY THIS EXACT ENCODING PATTERN:\nExample task: Check the computable identity 1+3+5+7=4^2 used inside a sample proof.\nExpected result or check target: Both sides equal 16, but this instance does not prove the general claim.\ncheck this yourself\nCHECK → https://www.wolframalpha.com/input?i=1%2B3%2B5%2B7%3D4%5E2\n(paste-fallback: 1+3+5+7=4^2)\nEncoding note: Plus, equals, and caret decode exactly; the link checks only the sample identity.\n\nOUTPUT FORMAT:\n1. Model Proof Audit — checked computations and human scope\n2. Proof Evidence CSV — claims and justifications\n3. Human Review Queue — novel and ambiguous reasoning\n4. Formula Block — criterion totals and caps\n5. Marker Feedback — criterion-linked concise notes\n\nQUALITY AND TOOL GUARDRAILS:\n- Never claim a calculator link proves a proof.\n- Never force a valid alternative proof to match the model route.\n- Never invent missing reasoning or assumptions.\n- Protect anonymous proof evidence and student privacy.\n- Copy every [PLACEHOLDER IN SQUARE BRACKETS] character-for-character in every template, code block and translated variant.\n- Never output a desmos.com URL with parameters, a mathsolver.microsoft.com URL, an invented GeoGebra material ID, an invented DIKSHA code, an invented Khan topic path, or an unlisted quiz or simulation slug.\n- Never describe an AI answer as verified. Every external check must be labelled “check this yourself” for the teacher or student to inspect personally.\n- Do not invent exam facts, source citations, marks distributions, tool IDs or inaccessible links. Separate mathematical proof from computational checking.\n\n=== TOOL-LINK OUTPUT CONTRACT — follow every rule exactly ===\n1. You may output clickable links ONLY to: wolframalpha.com/input?i= · symbolab.com/solver?query= ·\n   geogebra.org/graphing|geometry|3d|cas?command= · math.stackexchange.com/search?q= · oeis.org/search?q= ·\n   artofproblemsolving.com/community/q1_ · khanacademy.org/search?page_search_query= ·\n   overleaf.com/docs?encoded_snip= · latex.codecogs.com/png.image? · docs.google.com/forms/...viewform?usp=pp_url\n   (Forms only with entry.N IDs I paste in) · plus any URL I give you or that appears in this prompt's whitelist table.\n2. NEVER output: desmos.com links with query strings (they load blank), invented geogebra.org/m/ IDs, Khan topic\n   URLs, DIKSHA dial codes, Wolfram quiz/demo slugs not in my table, or mathsolver.microsoft.com (dead site).\n3. Write queries in plain calculator syntax (x^2, sqrt(x), pi, 3/4) — never LaTeX — EXCEPT Overleaf and CodeCogs\n   payloads, which are LaTeX.\n4. Percent-encode the query part: space→%20, +→%2B, ^→%5E, =→%3D, [→%5B, ]→%5D; in LaTeX payloads also\n   \\→%5C, {→%7B, }→%7D, %→%25, #→%23, &→%26, newline→%0A. GeoGebra ?command= exception: encode ONLY + as %2B;\n   leave ( ) = ^ ; as typed.\n5. One link per line, formatted exactly:  CHECK → <full raw URL>   (no markdown brackets, nothing after the URL).\n6. Directly below every link, print:  (paste-fallback: <the un-encoded query or commands>)\n7. Before printing any link, silently decode your own URL and confirm it reproduces the query character-for-character;\n   rebuild it if not. If a URL would exceed 1,800 characters (Overleaf: 6,000), print only the paste-fallback.\n8. Label every link \"check this yourself\" — never claim the link proves your answer is correct.\n9. On phones these links must be opened in a browser, not an installed app — say this once at the end.";var HI={"title":"दावा-साक्ष्य अंकन-मापदंड से उपपत्तियाँ अंकित करें","whatYouGet":"दावों, औचित्य, निर्भरताओं और निर्णायक कमियों को अलग रखने वाला मानवीय समीक्षा-आधारित उपपत्ति-लेखा।","howToUse":"प्रमेय, सत्यापित आदर्श उपपत्ति और स्वीकृत अंकन-मापदंड दें; हलकर्ता को तर्क-जाँचकर्ता बताए बिना गुमनाम साक्ष्य कूटबद्ध करें।","effectiveUsage":["1. गणना-योग्य सहायक प्रमेयों को अलग सत्यापित करें।","2. उपपत्ति पर निर्णय मानवीय समीक्षा से लें।","3. दावों और उनके कारणों का अलग अंकन करें।","4. नई उपपत्तियाँ समीक्षा के लिए भेजें।"],"commonFix":"यदि केवल शैलीगत अंतर पर अंक कटें, तो आदर्श उपपत्ति से समानता की जगह मापदंड से जुड़ा साक्ष्य और निर्भरता माँगें।","promptText":"भूमिका (ROLE): स्वीकृत साक्ष्य-मापदंड के आधार पर मानवीय विवेक को व्यवस्थित करने वाले उपपत्ति-अंकन सहायक की भूमिका निभाएँ।\n\nसंदर्भ (CONTEXT): शिक्षक [PROOF QUESTION], [VERIFIED MODEL PROOF], [PROOF RUBRIC] और [ANONYMISED PROOF EVIDENCE] देते हैं।\n\nइनपुट—हर स्थानधारक भरें (INPUTS — FILL EVERY PLACEHOLDER):\n- [PROOF QUESTION] — उपपत्ति-प्रश्न\n- [VERIFIED MODEL PROOF] — सत्यापित आदर्श उपपत्ति\n- [PROOF RUBRIC] — उपपत्ति अंकन-मापदंड\n- [ANONYMISED PROOF EVIDENCE] — गुमनाम किया गया उपपत्ति-साक्ष्य\n\nस्रोत-आधारित टूल तथ्य और ठीक-ठीक URL अनुमत-सूची (SOURCE-BOUND TOOL FACTS AND EXACT URL WHITELIST):\n- [WOLFRAMALPHA] अनुमत प्रारूप: https://www.wolframalpha.com/input?i={ENCODED_PLAIN_CALCULATOR_QUERY}। यह किसी दावे की फिर से गणना करता है, उसके आसपास के तर्क को सिद्ध नहीं करता; चरणों के लिए Pro आवश्यक हो सकता है।\n- [PACK_GOOGLE_SHEETS] पैक-डिज़ाइन का केवल-पेस्ट तथ्य: आयताकार CSV और स्तंभ-अक्षरों तथा पहली/अंतिम पंक्ति संदर्भों वाले स्पष्ट Google Sheets सूत्र दें। कभी दावा न करें कि कोई लिंक शीट बनाती या अपलोड करती है, और खाली खाने, गैर-सांख्यिक अंक तथा दोहराए हुए ID के लिए सत्यापन पंक्तियाँ शामिल करें।\n\nयह करें (DO THIS):\n1. आदर्श उपपत्ति की गणनाएँ अलग जाँचें और तार्किक उपपत्ति-सत्यापन को मानवीय समीक्षा का विषय बताएँ।\n2. ScriptID,ClaimID,ClaimPresent,JustificationPresent,DependencyMet,Mark,ReviewStatus स्तंभ-रूपरेखा वाला CSV दें।\n3. नई मान्य विधियों, छूटी मान्यताओं, चक्रीय चरणों, अपठनीय साक्ष्य और आदर्श उत्तर-कुंजी विवादों के लिए कतार बनाएँ।\n4. मापदंडवार कुल अंक, सीमा-जाँच, अनसुलझी प्रविष्टियों की संख्या और उत्तर-पुस्तिका मिलान के Google Sheets सूत्र दें।\n5. रोके गए हर अंक को दिए गए मापदंड से समझाएँ, शैली या शब्दावली से नहीं।\n6. गुमनामी बचाएँ और पहचान बताने वाली हस्तलेख टिप्पणियों की प्रतिलिपि न करें।\n\nहल किया हुआ लिंक उदाहरण—इस कूटबद्धता ढाँचे को ठीक-ठीक कॉपी करें (WORKED LINK EXAMPLE — COPY THIS EXACT ENCODING PATTERN):\nउदाहरण कार्य (Example task): नमूना उपपत्ति में उपयोग की गई 1+3+5+7=4^2 सर्वसमिका जाँचें।\nअपेक्षित परिणाम या जाँच लक्ष्य (Expected result or check target): दोनों पक्षों का मान 16 है, पर यह उदाहरण सामान्य दावे को सिद्ध नहीं करता।\ncheck this yourself\nCHECK → https://www.wolframalpha.com/input?i=1%2B3%2B5%2B7%3D4%5E2\n(paste-fallback: 1+3+5+7=4^2)\nकूटबद्धता टिप्पणी (Encoding note): धन, बराबर और घात-चिह्न सटीक मूल रूप में खुलते हैं; लिंक केवल नमूने की समानता जाँचता है।\n\nआउटपुट प्रारूप (OUTPUT FORMAT):\n1. आदर्श उपपत्ति जाँच (Model Proof Audit) — जाँची गई गणनाएँ और मानवीय समीक्षा का दायरा\n2. उपपत्ति-साक्ष्य CSV (Proof Evidence CSV) — दावे और औचित्य\n3. मानवीय समीक्षा-कतार (Human Review Queue) — नए और अस्पष्ट तर्क\n4. सूत्र खंड (Formula Block) — मापदंडवार कुल और सीमाएँ\n5. परीक्षक प्रतिक्रिया (Marker Feedback) — मापदंड से जुड़ी संक्षिप्त टिप्पणियाँ\n\nगुणवत्ता और टूल सुरक्षा-नियम (QUALITY AND TOOL GUARDRAILS):\n- गणक लिंक को उपपत्ति का प्रमाण न बताएँ।\n- मान्य वैकल्पिक उपपत्ति को आदर्श मार्ग में न बाँधें।\n- छूटे तर्क या मान्यताएँ न गढ़ें।\n- गुमनाम उपपत्ति-साक्ष्य और विद्यार्थी की निजता बचाएँ।\n- हर टेम्पलेट, कोड-खंड और अनूदित रूप में प्रत्येक [PLACEHOLDER IN SQUARE BRACKETS] को अक्षरशः कॉपी करें।\n- पैरामीटर वाला desmos.com URL, mathsolver.microsoft.com URL, गढ़ी हुई GeoGebra सामग्री ID, गढ़ा हुआ DIKSHA कोड, गढ़ा हुआ Khan विषय पथ या सूची से बाहर का प्रश्नोत्तरी अथवा सिमुलेशन स्लग कभी न दें।\n- AI के किसी उत्तर को सत्यापित न बताएँ। हर बाहरी जाँच पर “स्वयं जाँचें” का चिह्न हो, ताकि शिक्षक या विद्यार्थी उसे स्वयं परख सके।\n- परीक्षा-संबंधी तथ्य, स्रोत-उद्धरण, अंक-वितरण, उपकरण ID या ऐसी लिंक न गढ़ें जिसे खोला न जा सके। गणितीय प्रमाण और संगणकीय जाँच को अलग रखें।\n\n=== TOOL-LINK OUTPUT CONTRACT — follow every rule exactly ===\n1. You may output clickable links ONLY to: wolframalpha.com/input?i= · symbolab.com/solver?query= ·\n   geogebra.org/graphing|geometry|3d|cas?command= · math.stackexchange.com/search?q= · oeis.org/search?q= ·\n   artofproblemsolving.com/community/q1_ · khanacademy.org/search?page_search_query= ·\n   overleaf.com/docs?encoded_snip= · latex.codecogs.com/png.image? · docs.google.com/forms/...viewform?usp=pp_url\n   (Forms only with entry.N IDs I paste in) · plus any URL I give you or that appears in this prompt's whitelist table.\n2. NEVER output: desmos.com links with query strings (they load blank), invented geogebra.org/m/ IDs, Khan topic\n   URLs, DIKSHA dial codes, Wolfram quiz/demo slugs not in my table, or mathsolver.microsoft.com (dead site).\n3. Write queries in plain calculator syntax (x^2, sqrt(x), pi, 3/4) — never LaTeX — EXCEPT Overleaf and CodeCogs\n   payloads, which are LaTeX.\n4. Percent-encode the query part: space→%20, +→%2B, ^→%5E, =→%3D, [→%5B, ]→%5D; in LaTeX payloads also\n   \\→%5C, {→%7B, }→%7D, %→%25, #→%23, &→%26, newline→%0A. GeoGebra ?command= exception: encode ONLY + as %2B;\n   leave ( ) = ^ ; as typed.\n5. One link per line, formatted exactly:  CHECK → <full raw URL>   (no markdown brackets, nothing after the URL).\n6. Directly below every link, print:  (paste-fallback: <the un-encoded query or commands>)\n7. Before printing any link, silently decode your own URL and confirm it reproduces the query character-for-character;\n   rebuild it if not. If a URL would exceed 1,800 characters (Overleaf: 6,000), print only the paste-fallback.\n8. Label every link \"check this yourself\" — never claim the link proves your answer is correct.\n9. On phones these links must be opened in a browser, not an installed app — say this once at the end."};var LNG='en';var URL="https://yosoyun.github.io/math-prompt-studio/p/mark-proofs-with-claim-evidence-rubrics/";
+(function(){try{var th=localStorage.getItem('mps-theme');if(th)document.documentElement.setAttribute('data-theme',th);}catch(e){}})();
+function activeP(){return (LNG==='hi'&&HI&&HI.promptText)?HI.promptText:P;}
+(function(){var lb=document.getElementById('lang');if(!lb)return;
+  try{if(localStorage.getItem('mps-lang')==='hi')swapLang();}catch(e){}
+  lb.onclick=swapLang;
+  function swapLang(){LNG=LNG==='en'?'hi':'en';var hiOn=LNG==='hi';
+    lb.textContent=hiOn?'View in English':'\u0939\u093f\u0902\u0926\u0940 \u092e\u0947\u0902 \u0926\u0947\u0916\u0947\u0902';
+    if(HI.title)document.getElementById('ttl').textContent=hiOn?HI.title:"Mark Proofs With Claim-Evidence Rubrics";
+    if(HI.whatYouGet)document.getElementById('wht').textContent=hiOn?HI.whatYouGet:"A human-review proof ledger that distinguishes claims, justification, dependencies, and fatal gaps.";
+    document.getElementById('pt').textContent=activeP();
+    try{localStorage.setItem('mps-lang',LNG);}catch(e){}}
+})();
+function toast(m){var t=document.getElementById('t');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2600);}
+function clip(x){return (navigator.clipboard&&navigator.clipboard.writeText)?navigator.clipboard.writeText(x):new Promise(function(r){var a=document.createElement('textarea');a.value=x;a.style.position='fixed';a.style.opacity=0;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(a);r();});}
+document.getElementById('cp').onclick=function(){clip(activeP()).then(function(){toast('Copied! Paste it into your AI chat.')})};
+function openT(base,name){var full=base+'?q='+encodeURIComponent(activeP());var u=full.length<=7000?full:base;clip(activeP()).then(function(){window.open(u,'_blank','noopener');toast(name+' opening with your prompt loaded. Also copied - if empty, just paste it.')})}
+document.getElementById('gpt').onclick=function(){openT('https://chatgpt.com/','ChatGPT')};
+document.getElementById('cla').onclick=function(){openT('https://claude.ai/new','Claude')};
+document.getElementById('lnk').onclick=function(){clip(URL).then(function(){toast('Link copied - share it with a teacher!')})};
+document.getElementById('sh').onclick=function(){var msg='Free AI prompt for maths teachers - '+document.title.split(' - ')[0]+': ';if(navigator.share){navigator.share({title:'Maths Prompt Studio',text:msg,url:URL}).catch(function(){})}else{window.open('https://wa.me/?text='+encodeURIComponent(msg+' '+URL),'_blank')}};
+</script>
+</body></html>
