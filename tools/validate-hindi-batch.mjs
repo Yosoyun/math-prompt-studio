@@ -20,6 +20,7 @@ const urls = value => (String(value).match(/https?:\/\/[^\s]+/g) || []).map(url 
 const numbers = value => (String(value).match(/\d+(?:\.\d+)?/g) || []).sort().join('|');
 const blankLines = value => String(value).split('\n').map((line, index) => line === '' ? index : null).filter(index => index !== null).join('|');
 const devanagari = value => (String(value).match(/[ऀ-ॿ]/g) || []).length;
+const mixedScriptTokens = value => (String(value).match(/\S*(?:[A-Za-z][\u0900-\u0963\u0971-\u097F]|[\u0900-\u0963\u0971-\u097F][A-Za-z])\S*/gu) || []);
 const forbiddenName = String.fromCharCode(73, 110, 100, 114, 97, 106, 101, 101, 116, 32, 89, 97, 100, 97, 118);
 const structuralLabels = [
   'ROLE',
@@ -106,6 +107,14 @@ for (let index = 0; index < source.length; index++) {
   if (!String(hi.promptText).endsWith(contract)) errors.push(`${prefix}: contract is not verbatim at end`);
   if (String(hi.promptText).indexOf(contract) !== String(hi.promptText).lastIndexOf(contract)) errors.push(`${prefix}: contract appears more than once`);
   if (devanagari(hi.title) < 2 || devanagari(hi.promptText) < 50) errors.push(`${prefix}: insufficient Devanagari`);
+  const mixed = Object.entries(hi).flatMap(([field, value]) => {
+    const items = Array.isArray(value) ? value : [value];
+    return items.flatMap((item, itemIndex) => mixedScriptTokens(item).map(token => ({
+      field: Array.isArray(value) ? `${field}[${itemIndex}]` : field,
+      token,
+    })));
+  });
+  if (mixed.length) errors.push(`${prefix}: ${mixed[0].field} mixed Latin-Devanagari token ${mixed[0].token}`);
   if (JSON.stringify(hi).includes(forbiddenName)) errors.push(`${prefix}: forbidden owner name`);
 }
 

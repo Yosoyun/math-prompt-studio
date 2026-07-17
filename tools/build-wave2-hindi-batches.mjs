@@ -61,6 +61,7 @@ const placeholders = value => (String(value).match(/\[[^\]\n]{1,80}\]/g) || []).
 const urls = value => (String(value).match(/https?:\/\/[^\s]+/g) || []).map(url => url.replace(/[.,;:!?।]+$/u, '')).sort().join('|');
 const numbers = value => (String(value).match(/\d+(?:\.\d+)?/g) || []).sort().join('|');
 const devanagari = value => (String(value).match(/[ऀ-ॿ]/g) || []).length;
+const hasMixedScriptToken = value => /(?:[A-Za-z][\u0900-\u0963\u0971-\u097F]|[\u0900-\u0963\u0971-\u097F][A-Za-z])/u.test(String(value));
 
 function assertParity(english, hindi, label) {
   assert(placeholders(english) === placeholders(hindi), `${label}: placeholder mismatch`);
@@ -122,6 +123,7 @@ for (const [categoryId, englishFile, hindiFile, expected] of defs) {
     assert(hi && hi.category === categoryId && hi.englishTitle === spec.title, `${label}: Hindi identity mismatch`);
     for (const field of ['title', 'whatYouGet', 'howToUse', 'commonFix', 'role', 'context', 'exampleTask', 'exampleResult', 'exampleEncodingNote']) {
       assert(typeof hi[field] === 'string' && devanagari(hi[field]) >= (field === 'title' ? 2 : 1), `${label}: missing Hindi ${field}`);
+      assert(!hasMixedScriptToken(hi[field]), `${label}.${field}: mixed Latin-Devanagari token`);
       const english = ['title', 'whatYouGet', 'howToUse', 'commonFix'].includes(field) ? (field === 'title' ? spec.title : spec[field]) : spec[field];
       assertParity(english, hi[field], `${label}.${field}`);
     }
@@ -130,6 +132,7 @@ for (const [categoryId, englishFile, hindiFile, expected] of defs) {
       hi[field].forEach((item, index) => {
         const placeholderOnlyInput = field === 'inputs' && /^(?:\[[^\]\n]{1,80}\])(?:\s*[,;/]\s*\[[^\]\n]{1,80}\])*$/u.test(item);
         assert(devanagari(item) >= 1 || placeholderOnlyInput, `${label}.${field}[${index}]: too little Devanagari`);
+        assert(!hasMixedScriptToken(item), `${label}.${field}[${index}]: mixed Latin-Devanagari token`);
         assertParity(spec[field][index], item, `${label}.${field}[${index}]`);
       });
     }
