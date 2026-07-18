@@ -1,20 +1,19 @@
 #!/usr/bin/env node
 /**
- * Read-only QA adapter for a partial or complete local IndicTrans2 pack.
+ * Read-only QA for one frontier-LLM translation batch.
  *
  * Input uses the exact merge-lang.mjs shape:
  *   [{ title: "Exact English title", bn|mr|te: { ...translation fields } }]
  *
- * This script deliberately imports the shared Phase 3 validator. It never
- * writes data/prompts.js and is safe to call at every resumable checkpoint.
+ * The shared Phase 3 validator is authoritative. This command never writes
+ * data/prompts.js, so a batch can be corrected before the merge gate runs.
  */
 import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { languageConfig, validateTranslation } from '../lang-qa.mjs';
+import { languageConfig, validateTranslation } from './lang-qa.mjs';
 
-const HERE = dirname(fileURLToPath(import.meta.url));
-const ROOT = resolve(HERE, '../..');
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const MARKER = 'window.PROMPT_DATA =';
 const args = process.argv.slice(2);
 const valueAfter = flag => {
@@ -24,7 +23,7 @@ const valueAfter = flag => {
 const lang = valueAfter('--lang');
 const inputName = valueAfter('--input');
 if (!lang || !inputName) {
-  console.error('usage: node tools/phase3-translations/qa-local-pack.mjs --lang bn|mr|te --input <partial-pack.json>');
+  console.error('usage: node tools/qa-lang-batch.mjs --lang bn|mr|te --input <batch.json>');
   process.exit(2);
 }
 
@@ -39,9 +38,9 @@ const errors = [];
 const seen = new Set();
 
 if (!Array.isArray(input)) {
-  errors.push('pack root must be an array');
+  errors.push('batch root must be an array');
 } else if (input.length === 0) {
-  errors.push('pack must contain at least one translation record');
+  errors.push('batch must contain at least one translation record');
 } else {
   for (const [index, record] of input.entries()) {
     const title = record && record.title;

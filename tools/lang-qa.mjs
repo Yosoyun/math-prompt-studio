@@ -27,8 +27,7 @@ export const FROZEN_TERMS = [
 
 // Machine-facing strings are kept separate from ordinary product/tool names:
 // some of them overlap URLs or appear only in particular source-line contexts.
-// The offline worker imports these exports from this file so generation and QA
-// cannot silently drift apart.
+// These exports keep batch preparation and QA from silently drifting apart.
 export const MACHINE_ROUTES = [
   'script.google.com → New project → paste → Run → View → Logs',
   'Create → Import → Paste questions',
@@ -79,8 +78,8 @@ export const CONTEXTUAL_FROZEN_TERMS = [
 ];
 
 // These English words have both mathematical and ordinary meanings. The same
-// include rules are imported by the offline worker, so generation and QA only
-// force a first-use maths anchor in an audited mathematical context.
+// These include rules ensure first-use maths anchors are required only in an
+// audited mathematical context.
 export const TECHNICAL_CONTEXT_RULES = {
   function: [
     '\\b(?:quadratic|linear|trigonometric|exponential|logarithmic|inverse|composite|piecewise|even|odd|modulus|rational|polynomial|mathematical) functions?\\b',

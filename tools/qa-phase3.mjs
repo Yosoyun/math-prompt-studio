@@ -12,7 +12,6 @@ import { LANGUAGE_DEFINITIONS, validateLanguageCompleteness } from './build-cata
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const MARKER = 'window.PROMPT_DATA =';
 const EXPECTED_TOTAL = 961;
-const CACHE = '24';
 const errors = [];
 let assertions = 0;
 const check = (condition, message) => { assertions += 1; if (!condition) errors.push(message); };
@@ -158,6 +157,9 @@ const prompts = data.categories.flatMap(category => category.prompts);
 const contract = read('_handoff/tool-link-contract.txt').trim();
 const appSource = read('app.js');
 const indexSource = read('index.html');
+const indexCacheVersions = [...indexSource.matchAll(/\?v=(\d+)/g)].map(match => match[1]);
+const CACHE = indexCacheVersions[0] || '';
+check(Boolean(CACHE) && new Set(indexCacheVersions).size === 1, `index cache versions differ: ${[...new Set(indexCacheVersions)].join(', ')}`);
 check(prompts.length === EXPECTED_TOTAL, `expected ${EXPECTED_TOTAL} prompts, found ${prompts.length}`);
 const languageStatus = validateLanguageCompleteness(data, contract);
 const languageCodes = LANGUAGE_DEFINITIONS.map(item => item.code);
