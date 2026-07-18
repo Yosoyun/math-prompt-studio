@@ -23,14 +23,14 @@
 <meta name="twitter:image" content="https://yosoyun.github.io/math-prompt-studio/og-cover.png" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="preload" href="assets/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=23" />
+<link rel="stylesheet" href="styles.css?v=24" />
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
 
 <!-- ===== HEADER ===== -->
 <header class="site-head" id="top">
-  <a class="brand" href="#top" aria-label="Maths Prompt Studio home">
+  <a class="brand" href="#top" aria-label="Maths Prompt Studio home" data-i18n-aria="brandHome">
     <!-- Phase 1 · AUD-B/B2: one subject tile and one Fraunces wordmark. -->
     <span class="brand-tile" aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="display:block;width:100%;height:100%" shape-rendering="geometricPrecision">
@@ -46,17 +46,17 @@
     </span>
     <span class="brand-name">Maths Prompt Studio</span>
   </a>
-  <nav class="head-nav" aria-label="Primary">
-    <a href="#guide">Beginner's Guide</a>
-    <a href="#builder">Paper Builder</a>
-    <a href="#learn">Learn 10&times;</a>
-    <a href="#trust">Verify</a>
-    <a href="#library">Prompts</a>
-    <a href="#more">Platform</a>
-    <a href="#about">About</a>
-    <a href="#feedback">Feedback</a>
+  <nav class="head-nav" aria-label="Primary" data-i18n-aria="navPrimary">
+    <a href="#guide" data-i18n="navGuide">Beginner's Guide</a>
+    <a href="#builder" data-i18n="navBuilder">Paper Builder</a>
+    <a href="#learn" data-i18n="navLearn">Learn 10&times;</a>
+    <a href="#trust" data-i18n="navVerify">Verify</a>
+    <a href="#library" data-i18n="navPrompts">Prompts</a>
+    <a href="#more" data-i18n="navPlatform">Platform</a>
+    <a href="#about" data-i18n="navAbout">About</a>
+    <a href="#feedback" data-i18n="navFeedback">Feedback</a>
   </nav>
-  <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle dark mode">&#9790;</button>
+  <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle dark mode" data-i18n-aria="themeToggle" data-i18n-title="themeToggle">&#9790;</button>
 </header>
 
 <!-- ===== HERO ===== -->
@@ -69,8 +69,8 @@
       <h1 class="reveal">Make tomorrow&rsquo;s maths lesson in <em>60 seconds.</em></h1>
       <p class="lede reveal">Create a complete <strong>question paper</strong>, an independently <strong>verified solution</strong>, a print-ready <strong>worksheet</strong>, a classroom <strong>PPT</strong>, or a phone <strong>quiz</strong>&mdash;with a fill-ready prompt in your language.</p>
       <div class="hero-cta reveal">
-        <a class="btn btn-primary" href="#quickStart">Make something in 60 seconds</a>
-        <a class="btn btn-ghost" href="#library">Browse all 961 prompts</a>
+        <a class="btn btn-primary" href="#quickStart" data-i18n="heroStart">Make something in 60 seconds</a>
+        <a class="btn btn-ghost" href="#library" data-i18n="heroBrowse">Browse all 961 prompts</a>
       </div>
       <div class="hero-note reveal"><strong>No sign-up here.</strong> Choose a teaching goal, fill the blanks, and open the finished prompt in the AI you already use.</div>
       <div class="hero-stats reveal" id="heroStats">
@@ -113,14 +113,14 @@
     </div>
     <div class="quick-step" data-quick-step="segment">
       <div class="quick-step-label"><span>1</span><div><b>Pick what you teach</b><small>We will remember this on this device.</small></div></div>
-      <div class="quick-segment" id="quickSegment" role="group" aria-label="Choose teaching segment" aria-live="polite"></div>
+      <div class="quick-segment" id="quickSegment" role="group" aria-label="Choose teaching segment" aria-live="polite" data-i18n-aria="quickSegmentAria"></div>
     </div>
     <div class="quick-step" data-quick-step="job">
       <div class="quick-step-label"><span>2</span><div><b>Pick today&rsquo;s job</b><small>Paper, solve and verify, worksheet, PPT, or quiz.</small></div></div>
-      <div class="quick-jobs" id="quickJobs" role="group" aria-label="Choose teaching job" aria-live="polite"></div>
+      <div class="quick-jobs" id="quickJobs" role="group" aria-label="Choose teaching job" aria-live="polite" data-i18n-aria="quickJobAria"></div>
     </div>
-    <div class="quick-status" id="quickStatus" role="status" aria-live="polite">Start by choosing your class or exam above.</div>
-    <noscript><p class="quick-noscript">JavaScript is needed for the guided start. The complete prompt library remains available below.</p></noscript>
+    <div class="quick-status" id="quickStatus" role="status" aria-live="polite" data-i18n="quickInitial">Start by choosing your class or exam above.</div>
+    <noscript><p class="quick-noscript" data-i18n="quickNoscript">JavaScript is needed for the guided start. The complete prompt library remains available below.</p></noscript>
   </div>
 </section>
 
@@ -156,8 +156,8 @@
     <div class="gs-head"><span class="gs-n">2</span><h3>How to attach a photo of a question</h3></div>
     <p class="gs-sub">This is the one step everyone asks about. It is genuinely easy &mdash; here is exactly where to tap. Choose your device:</p>
     <div class="tabs" data-tabset="device">
-      <button class="tab active" data-tab="phone">&#128241; On a phone</button>
-      <button class="tab" data-tab="computer">&#128187; On a computer</button>
+      <button class="tab active" data-tab="phone" data-i18n="devicePhone">&#128241; On a phone</button>
+      <button class="tab" data-tab="computer" data-i18n="deviceComputer">&#128187; On a computer</button>
     </div>
     <div class="tabpane active" data-pane="phone">
       <div class="attach-grid">
@@ -249,12 +249,12 @@
 <!-- ===== LEARN 10x ===== -->
 <section class="section section-tint" id="learn">
   <div class="section-head">
-    <span class="kicker">Study smarter, not harder</span>
-    <h2>Learn 10&times; with ChatGPT &amp; Claude</h2>
-    <p class="sub">The same AI that makes your materials can be the world's most patient private tutor &mdash; for you and your students. These are the highest-leverage ways to use it. Tap any card to copy the technique.</p>
+    <span class="kicker" data-i18n="learnKicker">Study smarter, not harder</span>
+    <h2 data-i18n="learnTitle">Learn 10&times; with ChatGPT &amp; Claude</h2>
+    <p class="sub" data-i18n="learnSub">The same AI that makes your materials can be the world's most patient private tutor &mdash; for you and your students. These are the highest-leverage ways to use it. Tap any card to copy the technique.</p>
   </div>
   <div class="learn-grid" id="learnGrid"></div>
-  <div class="learn-foot">Share these with your students &mdash; an honest, AI-assisted study routine genuinely multiplies how fast anyone learns maths.</div>
+  <div class="learn-foot" data-i18n="learnFoot">Share these with your students &mdash; an honest, AI-assisted study routine genuinely multiplies how fast anyone learns maths.</div>
 </section>
 
 <!-- ===== TRUST ===== -->
@@ -269,7 +269,7 @@
       <div class="tg"><span aria-hidden="true">&#128208;</span><b>Exact diagrams</b><p>Geometry &amp; graphs come as GeoGebra / Desmos / TikZ code &mdash; accurate, never a fuzzy AI picture.</p></div>
       <div class="tg"><span aria-hidden="true">&#9888;&#65039;</span><b>Report anything</b><p>Spot a wrong output? One tap reports it (with the prompt name) so it gets fixed on priority.</p></div>
     </div>
-    <button class="btn btn-primary" id="verifyBtn">&#128260; Double-check any AI answer</button>
+    <button class="btn btn-primary" id="verifyBtn" data-i18n="verifyAnswer">&#128260; Double-check any AI answer</button>
     <p class="trust-note">Your expert eye is always the final word &mdash; the AI does the typing, you do the teaching.</p>
   </div>
 </section>
@@ -277,43 +277,43 @@
 <!-- ===== PAPER BUILDER ===== -->
 <section class="section section-tint" id="builder">
   <div class="section-head">
-    <span class="kicker">No typing, no [brackets]</span>
-    <h2>The 3-Tap Exam-Paper Builder</h2>
-    <p class="sub">Pick a few options and get a complete, ready-to-paste prompt - the AI then writes the whole paper (with answer key). Perfect if you don't want to fill anything in yourself.</p>
+    <span class="kicker" data-i18n="builderKicker">No typing, no [brackets]</span>
+    <h2 data-i18n="builderTitle">The 3-Tap Exam-Paper Builder</h2>
+    <p class="sub" data-i18n="builderSub">Pick a few options and get a complete, ready-to-paste prompt - the AI then writes the whole paper (with answer key). Perfect if you don't want to fill anything in yourself.</p>
   </div>
   <div class="builder">
     <div class="builder-form">
       <div class="bf-row">
-        <label>Class / Grade
-          <select id="bClass"><option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option selected>Class 10</option><option>Class 11</option><option>Class 12</option><option>College / University</option></select>
+        <label><span data-i18n="builderClass">Class / Grade</span>
+          <select id="bClass"><option value="Class 6" data-i18n="optionClass6">Class 6</option><option value="Class 7" data-i18n="optionClass7">Class 7</option><option value="Class 8" data-i18n="optionClass8">Class 8</option><option value="Class 9" data-i18n="optionClass9">Class 9</option><option value="Class 10" data-i18n="optionClass10" selected>Class 10</option><option value="Class 11" data-i18n="optionClass11">Class 11</option><option value="Class 12" data-i18n="optionClass12">Class 12</option><option value="College / University" data-i18n="optionCollege">College / University</option></select>
         </label>
-        <label>Board / Exam
-          <select id="bBoard"><option selected>CBSE</option><option>ICSE</option><option>State Board</option><option>JEE Main</option><option>JEE Advanced</option><option>NEET</option><option>General</option></select>
+        <label><span data-i18n="builderBoard">Board / Exam</span>
+          <select id="bBoard"><option value="CBSE" selected>CBSE</option><option value="ICSE">ICSE</option><option value="State Board" data-i18n="optionStateBoard">State Board</option><option value="JEE Main">JEE Main</option><option value="JEE Advanced">JEE Advanced</option><option value="NEET">NEET</option><option value="General" data-i18n="optionGeneral">General</option></select>
         </label>
       </div>
       <div class="bf-row">
-        <label>What to make
-          <select id="bType"><option selected>Full question paper</option><option>Unit test</option><option>Sample / model paper</option><option>Worksheet</option><option>Daily Practice (DPP)</option><option>MCQ test</option></select>
+        <label><span data-i18n="builderType">What to make</span>
+          <select id="bType"><option value="Full question paper" data-i18n="optionFullPaper" selected>Full question paper</option><option value="Unit test" data-i18n="optionUnitTest">Unit test</option><option value="Sample / model paper" data-i18n="optionSamplePaper">Sample / model paper</option><option value="Worksheet" data-i18n="worksheet">Worksheet</option><option value="Daily Practice (DPP)" data-i18n="optionDailyPractice">Daily Practice (DPP)</option><option value="MCQ test" data-i18n="optionMcqTest">MCQ test</option></select>
         </label>
-        <label>Difficulty
-          <select id="bDiff"><option selected>Balanced</option><option>Easy-leaning</option><option>Challenging</option></select>
+        <label><span data-i18n="builderDifficulty">Difficulty</span>
+          <select id="bDiff"><option value="Balanced" data-i18n="optionBalanced" selected>Balanced</option><option value="Easy-leaning" data-i18n="optionEasyLeaning">Easy-leaning</option><option value="Challenging" data-i18n="optionChallenging">Challenging</option></select>
         </label>
       </div>
-      <label>Chapters / topics to cover
-        <input id="bChapters" type="text" placeholder="e.g. Trigonometry, Quadratic Equations, Probability" />
+      <label><span data-i18n="builderChapters">Chapters / topics to cover</span>
+        <input id="bChapters" type="text" placeholder="e.g. Trigonometry, Quadratic Equations, Probability" data-i18n-placeholder="builderChaptersPlaceholder" />
       </label>
       <div class="bf-row">
-        <label>Total marks<input id="bMarks" type="text" value="40" /></label>
-        <label>Time<input id="bTime" type="text" value="1.5 hours" /></label>
+        <label><span data-i18n="builderMarks">Total marks</span><input id="bMarks" type="text" value="40" /></label>
+        <label><span data-i18n="builderTime">Time</span><input id="bTime" type="text" value="1.5 hours" /></label>
       </div>
-      <button class="btn btn-primary" id="bBuild">&#10024; Build my prompt</button>
+      <button class="btn btn-primary" id="bBuild" data-i18n="builderBuild">&#10024; Build my prompt</button>
     </div>
     <div class="builder-out" id="bOut" hidden>
-      <div class="modal-lbl">YOUR READY-TO-USE PROMPT</div>
+      <div class="modal-lbl" data-i18n="builderReady">YOUR READY-TO-USE PROMPT</div>
       <div class="prompt-box"><pre id="bPre"></pre></div>
-      <button class="card-copy-main" id="bCopy">&#128203; Copy prompt</button>
-      <div class="card-open"><button class="btn-tool t-gpt" id="bGpt">&#129302; Open ChatGPT</button><button class="btn-tool t-claude" id="bCla">&#128172; Open Claude</button></div>
-      <p class="builder-tip">&#128161; Tip: for an extra-safe answer key, paste the finished paper into a FRESH chat and ask it to re-solve it as an unseen exam.</p>
+      <button class="card-copy-main" id="bCopy">&#128203; <span data-i18n="copyPrompt">Copy prompt</span></button>
+      <div class="card-open"><button class="btn-tool t-gpt" id="bGpt">&#129302; <span data-i18n="openChatGPT">Open ChatGPT</span></button><button class="btn-tool t-claude" id="bCla">&#128172; <span data-i18n="openClaude">Open Claude</span></button></div>
+      <p class="builder-tip" data-i18n="builderTip">&#128161; Tip: for an extra-safe answer key, paste the finished paper into a FRESH chat and ask it to re-solve it as an unseen exam.</p>
     </div>
   </div>
 </section>
@@ -321,32 +321,32 @@
 <!-- ===== LIBRARY ===== -->
 <section class="section" id="library">
   <div class="section-head">
-    <span class="kicker">The collection</span>
-    <h2>The Prompt Library</h2>
-    <p class="sub">961 prompts. Pick a group, search, open a card, copy. Every card tells you whether it works on free AI and exactly how to use it. No download needed &mdash; just copy what you need.</p>
+    <span class="kicker" data-i18n="libraryKicker">The collection</span>
+    <h2 data-i18n="libraryTitle">The Prompt Library</h2>
+    <p class="sub" data-i18n="librarySub">961 prompts. Pick a group, search, open a card, copy. Every card tells you whether it works on free AI and exactly how to use it. No download needed &mdash; just copy what you need.</p>
   </div>
   <!-- Phase 1 · AUD-D/D2 + AUD-F/F2: compact, named filter mounts. -->
   <div class="library-controls filter-bar" id="filterBar">
     <div class="filter-search-row">
-      <div class="search-wrap"><span class="search-ic" aria-hidden="true">&#128269;</span><input type="search" id="search" placeholder="Search papers, integration, Wolfram, flashcards..." aria-label="Search prompts" /><button class="search-clear" id="searchClear" aria-label="Clear search" hidden>&times;</button></div>
+      <div class="search-wrap"><span class="search-ic" aria-hidden="true">&#128269;</span><input type="search" id="search" placeholder="Search papers, integration, Wolfram, flashcards..." aria-label="Search prompts" data-i18n-placeholder="searchPlaceholder" data-i18n-aria="searchAria" /><button class="search-clear" id="searchClear" aria-label="Clear search" data-i18n-aria="clearSearch" hidden>&times;</button></div>
       <div class="result-count" id="resultCount" aria-live="polite"></div>
     </div>
     <div class="filter-row filter-groups">
-      <span class="filter-row-label">Group</span>
-      <div class="filter-chips" id="groupChips" role="tablist" aria-label="Filter by group"></div>
+      <span class="filter-row-label" data-i18n="groupLabel">Group</span>
+      <div class="filter-chips" id="groupChips" role="tablist" aria-label="Filter by group" data-i18n-aria="groupAria"></div>
     </div>
-    <div class="filter-row facet-mount" id="facetMount" aria-label="Exam and audience filters"></div>
-    <div class="filter-row format-mount" id="formatMount" aria-label="Output format filters"></div>
+    <div class="filter-row facet-mount" id="facetMount" aria-label="Exam and audience filters" data-i18n-aria="facetAria"></div>
+    <div class="filter-row format-mount" id="formatMount" aria-label="Output format filters" data-i18n-aria="formatAria"></div>
   </div>
   <div class="library-helper">
     <div class="legend">
-      <span class="lg"><span class="dot dot-green"></span> Works on any free AI</span>
-      <span class="lg"><span class="dot dot-amber"></span> Makes images - needs an image AI</span>
-      <span class="lg"><span class="dot dot-blue"></span> Attach a photo first</span>
+      <span class="lg"><span class="dot dot-green"></span> <span data-i18n="legendFree">Works on any free AI</span></span>
+      <span class="lg"><span class="dot dot-amber"></span> <span data-i18n="legendImages">Makes images - needs an image AI</span></span>
+      <span class="lg"><span class="dot dot-blue"></span> <span data-i18n="legendPhoto">Attach a photo first</span></span>
     </div>
-    <p class="lib-tip">&#128203; <b>Tip:</b> every button <b>copies</b> the prompt. If your AI opens empty, paste it into the chat, fill the brackets, and send.</p>
+    <p class="lib-tip" data-i18n="libraryTip">&#128203; Tip: every button copies the prompt. If your AI opens empty, paste it into the chat, fill the brackets, and send.</p>
   </div>
-  <div class="cat-stream" id="catStream"><div class="loading">Loading 961 prompts&hellip;</div></div>
+  <div class="cat-stream" id="catStream"><div class="loading" data-i18n-count="loadingPrompts">Loading 961 prompts&hellip;</div></div>
 </section>
 
 <!-- ===== ABOUT ===== -->
@@ -372,44 +372,44 @@
 <!-- ===== FEEDBACK ===== -->
 <section class="section" id="feedback">
   <div class="section-head">
-    <span class="kicker">Your voice shapes this</span>
-    <h2>What should I fix or add next?</h2>
-    <p class="sub">This studio gets better only when teachers tell me what's missing. Rate it, drop a suggestion, or reach me directly &mdash; I prioritise the most-requested fixes first. Thank you for helping every other teacher who comes after you.</p>
+    <span class="kicker" data-i18n="feedbackKicker">Your voice shapes this</span>
+    <h2 data-i18n="feedbackTitle">What should I fix or add next?</h2>
+    <p class="sub" data-i18n="feedbackSub">This studio gets better only when teachers tell me what's missing. Rate it, drop a suggestion, or reach me directly &mdash; I prioritise the most-requested fixes first. Thank you for helping every other teacher who comes after you.</p>
   </div>
   <div class="fb-wrap">
     <form class="fb-form" id="fbForm">
-      <label class="fb-label">How is it working for you?</label>
-      <div class="fb-stars" id="fbStars" role="radiogroup" aria-label="Rating">
+      <label class="fb-label" data-i18n="feedbackWorking">How is it working for you?</label>
+      <div class="fb-stars" id="fbStars" role="radiogroup" aria-label="Rating" data-i18n-aria="rating">
         <button type="button" class="star" data-v="1" aria-label="1 star">&#9733;</button>
         <button type="button" class="star" data-v="2" aria-label="2 stars">&#9733;</button>
         <button type="button" class="star" data-v="3" aria-label="3 stars">&#9733;</button>
         <button type="button" class="star" data-v="4" aria-label="4 stars">&#9733;</button>
         <button type="button" class="star" data-v="5" aria-label="5 stars">&#9733;</button>
       </div>
-      <label class="fb-label" for="fbRole">I am a&hellip;</label>
+      <label class="fb-label" for="fbRole" data-i18n="roleLabel">I am a&hellip;</label>
       <select id="fbRole" class="fb-input">
-        <option>School teacher</option><option>Coaching / tuition teacher</option><option>College / university faculty</option><option>Student</option><option>Parent</option><option>Other</option>
+        <option value="School teacher" data-i18n="roleSchool">School teacher</option><option value="Coaching / tuition teacher" data-i18n="roleCoaching">Coaching / tuition teacher</option><option value="College / university faculty" data-i18n="roleCollege">College / university faculty</option><option value="Student" data-i18n="roleStudent">Student</option><option value="Parent" data-i18n="roleParent">Parent</option><option value="Other" data-i18n="roleOther">Other</option>
       </select>
-      <label class="fb-label" for="fbMsg">What's working, what's not, what should I add?</label>
-      <textarea id="fbMsg" class="fb-input" rows="4" placeholder="e.g. The question-paper prompts are great. Please add more for Class 9 geometry. The image pages sometimes come as text."></textarea>
-      <label class="fb-label" for="fbName">Your name (optional)</label>
-      <input id="fbName" class="fb-input" type="text" placeholder="So I can thank you" />
+      <label class="fb-label" for="fbMsg" data-i18n="feedbackMessage">What's working, what's not, what should I add?</label>
+      <textarea id="fbMsg" class="fb-input" rows="4" placeholder="e.g. The question-paper prompts are great. Please add more for Class 9 geometry. The image pages sometimes come as text." data-i18n-placeholder="feedbackPlaceholder"></textarea>
+      <label class="fb-label" for="fbName" data-i18n="feedbackName">Your name (optional)</label>
+      <input id="fbName" class="fb-input" type="text" placeholder="So I can thank you" data-i18n-placeholder="feedbackNamePlaceholder" />
       <div class="fb-actions">
-        <button type="submit" class="btn btn-primary" id="fbSend">&#9993;&#65039; Send feedback</button>
-        <button type="button" class="btn btn-ghost" id="fbCopy">Copy instead</button>
+        <button type="submit" class="btn btn-primary" id="fbSend" data-i18n="sendFeedback">&#9993;&#65039; Send feedback</button>
+        <button type="button" class="btn btn-ghost" id="fbCopy" data-i18n="copyInstead">Copy instead</button>
       </div>
-      <p class="fb-hint" id="fbHint">Tapping "Send" opens your email app with everything filled in &mdash; just press send.</p>
+      <p class="fb-hint" id="fbHint" data-i18n="feedbackHint">Tapping "Send" opens your email app with everything filled in &mdash; just press send.</p>
     </form>
     <div class="fb-side">
-      <h3>Reach me directly</h3>
-      <p>Prefer a quick message? Use any of these.</p>
+      <h3 data-i18n="reachTitle">Reach me directly</h3>
+      <p data-i18n="reachSub">Prefer a quick message? Use any of these.</p>
       <div class="fb-links" id="fbLinks">
-        <a class="fb-link" id="fbEmailLink" href="#"><span>&#9993;&#65039;</span> Email me</a>
-        <a class="fb-link" id="fbFormLink" href="#" target="_blank" rel="noopener" hidden><span>&#128221;</span> Open suggestions form</a>
-        <a class="fb-link" id="fbWaLink" href="#" target="_blank" rel="noopener" hidden><span>&#128241;</span> Message on WhatsApp</a>
-        <a class="fb-link" id="fbInstaLink" href="#" target="_blank" rel="noopener" hidden><span>&#128247;</span> Follow on Instagram</a>
+        <a class="fb-link" id="fbEmailLink" href="#" data-i18n="emailMe">&#9993;&#65039; Email me</a>
+        <a class="fb-link" id="fbFormLink" href="#" target="_blank" rel="noopener" hidden data-i18n="openForm">&#128221; Open suggestions form</a>
+        <a class="fb-link" id="fbWaLink" href="#" target="_blank" rel="noopener" hidden data-i18n="messageWa">&#128241; Message on WhatsApp</a>
+        <a class="fb-link" id="fbInstaLink" href="#" target="_blank" rel="noopener" hidden data-i18n="followInstagram">&#128247; Follow on Instagram</a>
       </div>
-      <div class="fb-promise"><b>My promise:</b> the most-requested fixes get done first. Your one message can improve this for thousands of teachers.</div>
+      <div class="fb-promise"><b data-i18n="promiseLabel">My promise:</b> <span data-i18n="promise">the most-requested fixes get done first. Your one message can improve this for thousands of teachers.</span></div>
     </div>
   </div>
 </section>
@@ -417,13 +417,13 @@
 <!-- ===== SHARE ===== -->
 <section class="section section-tint" id="share">
   <div class="share-card">
-    <span class="kicker">The only "payment" I ask</span>
-    <h2>Spread it to one more teacher or student</h2>
-    <p>There's nothing to buy and nothing to download. If this saved you time, the kindest thing you can do is pass it on &mdash; to a colleague, a coaching group, or a student who wants to study smarter. That's how it reaches the people who need it.</p>
+    <span class="kicker" data-i18n="shareKicker">The only "payment" I ask</span>
+    <h2 data-i18n="shareTitle">Spread it to one more teacher or student</h2>
+    <p data-i18n="shareSub">There's nothing to buy and nothing to download. If this saved you time, the kindest thing you can do is pass it on &mdash; to a colleague, a coaching group, or a student who wants to study smarter. That's how it reaches the people who need it.</p>
     <div class="share-btns">
-      <button class="btn btn-primary" id="shareWa">&#128241; Share on WhatsApp</button>
-      <button class="btn btn-ghost" id="shareCopy">&#128279; Copy link</button>
-      <button class="btn btn-ghost" id="shareMore" hidden>&#10150; More&hellip;</button>
+      <button class="btn btn-primary" id="shareWa" data-i18n="shareWhatsApp">&#128241; Share on WhatsApp</button>
+      <button class="btn btn-ghost" id="shareCopy">&#128279; <span data-i18n="copyLink">Copy link</span></button>
+      <button class="btn btn-ghost" id="shareMore" hidden data-i18n="shareMore">&#10150; More&hellip;</button>
     </div>
     <div class="share-link" id="shareLink">https://yosoyun.github.io/math-prompt-studio/</div>
   </div>
@@ -522,12 +522,12 @@
   <p class="foot-meta">&copy; <span id="year"></span> Maths Prompt Studio &middot; A free open project &middot; <a href="#about">about the author</a></p>
 </footer>
 
-<div class="toast" id="toast" role="status" aria-live="polite">Copied! Now go to your AI chat and paste it.</div>
+<div class="toast" id="toast" role="status" aria-live="polite" data-i18n="toastInitial">Copied! Now go to your AI chat and paste it.</div>
 
 <div class="modal" id="modal" aria-hidden="true">
   <div class="modal-backdrop" data-close></div>
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <button class="modal-x" data-close aria-label="Close">&times;</button>
+    <button class="modal-x" data-close aria-label="Close" data-i18n-aria="modalCloseAria">&times;</button>
     <div class="modal-body" id="modalBody"></div>
   </div>
 </div>
@@ -549,7 +549,7 @@
 }
 </script>
 <!-- Phase 1 · AUD-A/A3: paint the product shell from the light catalog; fetch full prompt bodies on demand. -->
-<script>window.MPS_DATA_URL = 'data/prompts.js?v=23';</script>
+<script>window.MPS_DATA_URL = 'data/prompts.js?v=24';</script>
 <script defer src="config.js?v=15"></script>
 <script>
 (function () {
@@ -563,7 +563,7 @@
     };
     document.body.appendChild(script);
   }
-  function startCatalog() { addScript('data/catalog.js?v=23', function () { addScript('app.js?v=23'); }); }
+  function startCatalog() { addScript('data/catalog.js?v=24', function () { addScript('app.js?v=24'); }); }
   if (document.readyState === 'complete') startCatalog();
   else window.addEventListener('load', startCatalog, { once: true });
 })();

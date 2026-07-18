@@ -1,0 +1,122 @@
+[
+ {
+  "cat": "diagrams-graphs",
+  "title": "Trig Graph with Period, Amplitude and Phase Labelled",
+  "whatYouGet": "A sine, cosine or tangent graph with amplitude, period, phase shift and key points marked.",
+  "howToUse": "Type the trig function, send, and download the graph with its features labelled.",
+  "effectiveUsage": [
+   "1. Open an image-capable AI chat.",
+   "2. Paste the prompt below.",
+   "3. Type your trig function in the INPUT line.",
+   "4. Send and check the period and amplitude.",
+   "5. Download the graph."
+  ],
+  "commonFix": "If the period looks wrong, reply: \"Recompute the period as 2 pi divided by the coefficient of x, re-mark the axis, and redraw.\"",
+  "promptText": "ROLE: Act as a trigonometry teacher who graphs trig functions and labels every key feature.\n\nCONTEXT: I teach [CLASS/GRADE] under [BOARD or EXAM e.g. CBSE / ICSE / JEE]. The graph must show amplitude, period, phase shift, vertical shift and key points so students see how the parameters change the curve.\n\nYOUR TASK:\n1. Plot the trig function over at least one full period (two is better) on labelled axes, with the x-axis marked in terms of pi (pi/2, pi, 3pi/2, 2pi) and a light grid.\n2. Label the amplitude with a vertical measure, the period with a horizontal measure, and any phase shift and vertical shift.\n3. Mark the maximum points, minimum points, and points where the curve crosses its midline.\n4. Draw the midline as a dashed horizontal line, and asymptotes as dashed verticals for tangent.\n5. Write the function's equation in a corner.\n\nINPUT: Here is the function: [PASTE IT HERE, e.g. y = 2 sin(x), y = cos(2x), y = sin(x - pi/4) + 1, y = tan(x)].\n\nHOW TO WORK IT OUT: First read off the parameters and compute on the side: amplitude = |A|, period = 2 pi / |B| (or pi / |B| for tangent), phase shift from the horizontal translation, and vertical shift. Show this working. VERIFY two ways: substitute one key x-value (such as a maximum point) back into the function and confirm the y-value, and confirm the distance between two consecutive maxima equals the computed period. Never mislabel period as amplitude; never invent a shift that is not in the equation.\n\nOUTPUT FORMAT:\n1. PARAMETERS: amplitude, period, phase shift, vertical shift with the working.\n2. THE GRAPH: one clean labelled image with axis in multiples of pi, marked max/min/midline crossings, midline dashed, asymptotes if tangent, and the equation shown.\n3. CHECK: one line giving the substitution check and the maxima-spacing check.\n\nRULES: x-axis in multiples of pi. Amplitude and period clearly distinguished and measured. Midline and asymptotes dashed. Plain white background.\n\nSIGNATURE: Sign the bottom-right of every page with an elegant handwritten signature \"[YOUR NAME]\" with a small underline flourish."
+ },
+ {
+  "cat": "diagrams-graphs",
+  "title": "Redraw and Correct a Figure from a Photo",
+  "whatYouGet": "A clean, correctly labelled redraw of a messy or faint textbook figure you photograph.",
+  "howToUse": "Attach a photo of the figure, send, and download a neat redrawn version.",
+  "effectiveUsage": [
+   "1. Open an image-capable AI chat.",
+   "2. Paste the prompt below.",
+   "3. Attach a clear photo of the figure.",
+   "4. Send and check every label.",
+   "5. Download the redrawn image."
+  ],
+  "commonFix": "If a value was misread from the photo, reply: \"The side reads 7.5 cm, not 75. Correct it and redraw the figure cleanly.\"",
+  "promptText": "ROLE: Act as a draughtsman who reads a photographed maths figure and redraws it cleanly and accurately.\n\nCONTEXT: I teach [CLASS/GRADE] under [BOARD or EXAM e.g. CBSE / ICSE / State Board]. My textbook or board figure is faint, crowded or skewed, and I want a clean version with the same information.\n\nYOUR TASK:\n1. Read the attached photo carefully and identify the figure: shape, points, lines, angles, and every label and measurement.\n2. List back to me everything you can read from the photo, so I can correct any misread value before you draw.\n3. Redraw the same figure neatly: straight lines, proper proportions, plain white background.\n4. Keep every label and given value from the original, placed clearly.\n5. Add standard marks the original implies: tick marks for equal sides, arcs for equal angles, a small square for right angles.\n\nINPUT: I have attached a photo of the figure. If any text in the photo is unclear, ask me rather than guessing.\n\nHOW TO WORK IT OUT: Transcribe the figure's data first and present it as a short list (points, sides with lengths, angles, special marks). Do not invent anything the photo does not show; where the photo is unreadable, write \"unclear - please confirm\" and wait. Once values are confirmed, VERIFY two ways before finalising: check the redrawn figure includes every item on your transcribed list, and check that the stated measurements are internally consistent (flag any contradiction). Keep all labels legible when projected.\n\nOUTPUT FORMAT:\n1. WHAT I READ: a short list of all points, sides, angles, values and marks from the photo, with any \"unclear\" items flagged.\n2. THE REDRAWN FIGURE: one clean labelled image matching the confirmed data.\n3. CHECK: one line confirming every transcribed item appears in the redraw.\n\nRULES: Never invent measurements not visible in the photo. Flag unclear items instead of guessing. Straight lines, correct marks, plain white background, legible labels.\n\nSIGNATURE: Sign the bottom-right of every page with an elegant handwritten signature \"[YOUR NAME]\" with a small underline flourish."
+ },
+ {
+  "cat": "diagrams-graphs",
+  "title": "Exact Geometry Figure - GeoGebra Commands",
+  "whatYouGet": "Exact, to-scale geometry figure as GeoGebra commands you paste into the free GeoGebra input bar.",
+  "howToUse": "Describe the figure (lengths/angles/labels); paste the commands into geogebra.org.",
+  "effectiveUsage": [
+   "Open geogebra.org/geometry (free).",
+   "Copy this prompt, describe your figure in the INPUT.",
+   "Send; copy the GeoGebra commands it gives.",
+   "Paste them one per line into the GeoGebra input bar.",
+   "Export the figure as an image for your paper."
+  ],
+  "commonFix": "If the figure looks off, reply: 'Re-check the coordinates/values against my description and regenerate the exact commands - do not approximate.'",
+  "promptText": "ROLE: Act as a geometry teacher and GeoGebra expert who produces EXACT, to-scale constructions (AI image generators cannot draw accurate maths figures, so we output precise commands instead).\n\nCONTEXT: For [CLASS/GRADE], [BOARD or EXAM]. I need an accurate, correctly-labelled figure I can put in a worksheet or paper.\n\nYOUR TASK: From my description, output a numbered list of GeoGebra input-bar commands that construct the figure EXACTLY (correct lengths, angles, right-angle marks, labels). Use real GeoGebra syntax (e.g. A=(0,0), B=(6,0), C=Point, Segment(A,B), Angle(A,B,C), Text(...)). After the commands, add a 2-line \"What you will see\" description.\n\nINPUT: Figure to construct: [DESCRIBE THE FIGURE - lengths, angles, labels, e.g. \"triangle ABC, right-angled at B, AB=6 cm, BC=8 cm; mark the right angle and label all sides\"].\n\nHOW TO WORK IT OUT: Compute exact coordinates so all stated lengths/angles are correct (show the quick calculation for any non-trivial point). Verify by re-checking each given length/angle from your coordinates. Never approximate a value that should be exact.\n\nOUTPUT FORMAT: 1) GeoGebra commands (one per line, in order). 2) The exact coordinates of each labelled point. 3) \"What you will see\" (2 lines). 4) One line: \"Paste these into the GeoGebra input bar (geogebra.org), one line at a time.\"\n\nRULES: Stay at the stated level. Real GeoGebra syntax only.\n\nCONTEXT CHECK: Before you begin, if any [SQUARE-BRACKET] above is still empty, or I have not given you the question / photo / data you need, ask me for exactly those and wait - never guess, and never answer with the placeholder text still in brackets.\n\nGROUND RULES (always follow): Do not invent statistics, percentages, marks distributions you were not given, exam cut-offs, solve-time figures, NCERT or textbook page/line numbers, citations, or historical exam data. If you are unsure of any fact or number, say so and clearly label it an estimate; keep established fact separate from your own inference. Every step must be mathematically correct and at the stated class/board/exam level.\n\nSIGNATURE: End your ENTIRE response with exactly this footer block (keep the lines and symbols):\n━━━━━━━━━━━━━━━━\n🔗 Free tools & to reach me: https://yosoyun.github.io/math-prompt-studio/\nQuestions, feedback or appreciation are always welcome.\n━━━━━━━━━━━━━━━━"
+ },
+ {
+  "cat": "diagrams-graphs",
+  "title": "Accurate Function Graph - Desmos",
+  "whatYouGet": "A precise function graph as Desmos expressions (exact intercepts, asymptotes, key points) you paste into desmos.com.",
+  "howToUse": "Give the function(s) and what to highlight; paste expressions into desmos.com/calculator.",
+  "effectiveUsage": [
+   "Open desmos.com/calculator (free).",
+   "Copy this prompt; type your function(s) in INPUT.",
+   "Send; copy each Desmos expression line.",
+   "Paste them into Desmos (one per row).",
+   "Screenshot the graph for your notes/paper."
+  ],
+  "commonFix": "If the figure looks off, reply: 'Re-check the coordinates/values against my description and regenerate the exact commands - do not approximate.'",
+  "promptText": "ROLE: Act as a maths teacher and Desmos expert who produces EXACT graphs (AI image generators draw inaccurate graphs, so we output precise Desmos expressions instead).\n\nCONTEXT: For [CLASS/GRADE], [BOARD or EXAM]. I need an accurate graph with the key features correct and labelled.\n\nYOUR TASK: From my function(s), output Desmos-ready expression lines that plot the graph and mark the key features (x- and y-intercepts, turning points, asymptotes, points of interest) using exact values. Include label points and a sensible window.\n\nINPUT: Function(s) and what to highlight: [e.g. \"y = x^2 - 4x + 3; mark the roots, vertex and y-intercept\"].\n\nHOW TO WORK IT OUT: Compute the exact intercepts/vertex/asymptotes and SHOW the short working. Verify each feature by substitution. Do not round values that should be exact (give surds/fractions where needed).\n\nOUTPUT FORMAT: 1) The exact key features with their working. 2) Desmos expression lines (one per row, ready to paste). 3) Suggested window (xmin..xmax, ymin..ymax). 4) One line: \"Paste each line into desmos.com/calculator.\"\n\nRULES: Real Desmos syntax. Stay at the stated level.\nMATHS FORMATTING: write all maths in readable plain text (a/b for fractions, x^2 for powers, sqrt(x) for roots, and <=, >=, !=, +-, pi, theta, integral, sum) - do NOT output raw LaTeX such as \\frac{}{} or $...$.\n\nCONTEXT CHECK: Before you begin, if any [SQUARE-BRACKET] above is still empty, or I have not given you the question / photo / data you need, ask me for exactly those and wait - never guess, and never answer with the placeholder text still in brackets.\n\nGROUND RULES (always follow): Do not invent statistics, percentages, marks distributions you were not given, exam cut-offs, solve-time figures, NCERT or textbook page/line numbers, citations, or historical exam data. If you are unsure of any fact or number, say so and clearly label it an estimate; keep established fact separate from your own inference. Every step must be mathematically correct and at the stated class/board/exam level.\n\nSIGNATURE: End your ENTIRE response with exactly this footer block (keep the lines and symbols):\n━━━━━━━━━━━━━━━━\n🔗 Free tools & to reach me: https://yosoyun.github.io/math-prompt-studio/\nQuestions, feedback or appreciation are always welcome.\n━━━━━━━━━━━━━━━━"
+ },
+ {
+  "cat": "diagrams-graphs",
+  "title": "Precise Diagram - TikZ for LaTeX",
+  "whatYouGet": "Clean, exact figure as TikZ/LaTeX code for documents and books (compiles to a perfect vector figure).",
+  "howToUse": "Describe the figure; paste the TikZ code into your LaTeX editor (e.g. Overleaf).",
+  "effectiveUsage": [
+   "Copy this prompt; describe the figure in INPUT.",
+   "Send; copy the TikZ code block.",
+   "Paste into a LaTeX doc (Overleaf is free).",
+   "Compile to get a perfect vector figure.",
+   "Use it in your book/worksheet."
+  ],
+  "commonFix": "If the figure looks off, reply: 'Re-check the coordinates/values against my description and regenerate the exact commands - do not approximate.'",
+  "promptText": "ROLE: Act as a maths typesetting expert who writes correct, compilable TikZ code for exact figures.\n\nCONTEXT: For [CLASS/GRADE] material / a book chapter. I need a clean vector figure.\n\nYOUR TASK: From my description output a complete, compilable TikZ picture (inside \\begin{tikzpicture} ... \\end{tikzpicture}) with exact coordinates, labels, ticks, and angle/right-angle marks. List any required packages.\n\nINPUT: Figure to draw: [DESCRIBE IT with exact lengths/angles/labels].\n\nHOW TO WORK IT OUT: Compute exact coordinates from the given measurements (show the quick working). Double-check each stated length/angle from your coordinates. The code must compile as-is.\n\nOUTPUT FORMAT: 1) Required packages. 2) The full tikzpicture code block. 3) Exact coordinates used. 4) One line on where to paste it (e.g. Overleaf).\n\nRULES: Valid TikZ only. Stay at the stated level.\n\nCONTEXT CHECK: Before you begin, if any [SQUARE-BRACKET] above is still empty, or I have not given you the question / photo / data you need, ask me for exactly those and wait - never guess, and never answer with the placeholder text still in brackets.\n\nGROUND RULES (always follow): Do not invent statistics, percentages, marks distributions you were not given, exam cut-offs, solve-time figures, NCERT or textbook page/line numbers, citations, or historical exam data. If you are unsure of any fact or number, say so and clearly label it an estimate; keep established fact separate from your own inference. Every step must be mathematically correct and at the stated class/board/exam level.\n\nSIGNATURE: End your ENTIRE response with exactly this footer block (keep the lines and symbols):\n━━━━━━━━━━━━━━━━\n🔗 Free tools & to reach me: https://yosoyun.github.io/math-prompt-studio/\nQuestions, feedback or appreciation are always welcome.\n━━━━━━━━━━━━━━━━"
+ },
+ {
+  "cat": "diagrams-graphs",
+  "title": "Data Chart - Clean Table + Build Steps",
+  "whatYouGet": "A tidy data table plus exact steps to turn it into an accurate chart in Excel or Google Sheets.",
+  "howToUse": "Give your data; get a clean table and click-by-click chart steps.",
+  "effectiveUsage": [
+   "Copy this prompt; paste or describe your data in INPUT.",
+   "Send; copy the clean data table.",
+   "Paste it into Excel or Google Sheets.",
+   "Follow the steps to insert the chart.",
+   "Done - an exact, editable chart."
+  ],
+  "commonFix": "If the figure looks off, reply: 'Re-check the coordinates/values against my description and regenerate the exact commands - do not approximate.'",
+  "promptText": "ROLE: Act as a maths/statistics teacher who turns data into accurate, classroom-ready charts (using a real spreadsheet, not a fuzzy AI image).\n\nCONTEXT: For [CLASS/GRADE], [BOARD or EXAM]. I need an accurate [CHART TYPE e.g. bar / pie / histogram / line] chart.\n\nYOUR TASK: 1) Clean and lay out my data as a neat table. 2) If needed, compute derived values (percentages, class intervals, frequencies, cumulative frequency) and SHOW the working. 3) Give exact click-by-click steps to make the chart in BOTH Excel and Google Sheets. 4) Suggest titles and axis labels.\n\nINPUT: My data: [PASTE OR DESCRIBE THE DATA]. Chart type: [CHART TYPE].\n\nHOW TO WORK IT OUT: Verify totals (e.g. percentages sum to 100, frequencies sum to N). Never invent data points.\n\nOUTPUT FORMAT: 1) Clean data table. 2) Any computed values with working. 3) Excel steps. 4) Google Sheets steps. 5) Suggested chart title + axis labels.\n\nRULES: Stay at the stated level.\n\nFORMAT THE OUTPUT — PRIMARY DELIVERABLE:\nReturn one complete, editable document ready to paste into Word or Google Docs. Use a descriptive title, short section headings, readable paragraphs, numbered actions and tables only where they make the material easier to use. Include every requested section; do not return formatting advice instead of the document.\n\nMATHS FORMATTING: write all maths in readable plain text (a/b for fractions, x^2 for powers, sqrt(x) for roots, and <=, >=, !=, +-, pi, theta, integral, sum) - do NOT output raw LaTeX such as \\frac{}{} or $...$.\n\nCONTEXT CHECK: Before you begin, if any [SQUARE-BRACKET] above is still empty, or I have not given you the question / photo / data you need, ask me for exactly those and wait - never guess, and never answer with the placeholder text still in brackets.\n\nGROUND RULES (always follow): Do not invent statistics, percentages, marks distributions you were not given, exam cut-offs, solve-time figures, NCERT or textbook page/line numbers, citations, or historical exam data. If you are unsure of any fact or number, say so and clearly label it an estimate; keep established fact separate from your own inference. Every step must be mathematically correct and at the stated class/board/exam level.\n\nSIGNATURE: End your ENTIRE response with exactly this footer block (keep the lines and symbols):\n━━━━━━━━━━━━━━━━\n🔗 Free tools & to reach me: https://yosoyun.github.io/math-prompt-studio/\nQuestions, feedback or appreciation are always welcome.\n━━━━━━━━━━━━━━━━"
+ },
+ {
+  "cat": "diagrams-graphs",
+  "title": "Coordinate Geometry Plot - Desmos",
+  "whatYouGet": "Exact points, lines and shapes plotted in Desmos (precise coordinates, intersections, distances).",
+  "howToUse": "Give the points/lines; paste the Desmos expressions and see the exact plot.",
+  "effectiveUsage": [
+   "Open desmos.com/calculator.",
+   "Copy this prompt; list points/lines in INPUT.",
+   "Send; copy the Desmos lines.",
+   "Paste them in; read the exact plot.",
+   "Screenshot for your worksheet."
+  ],
+  "commonFix": "If the figure looks off, reply: 'Re-check the coordinates/values against my description and regenerate the exact commands - do not approximate.'",
+  "promptText": "ROLE: Act as a coordinate-geometry teacher and Desmos expert producing EXACT plots.\n\nCONTEXT: For [CLASS/GRADE], [BOARD or EXAM].\n\nYOUR TASK: From my points/lines/shapes, output Desmos expression lines that plot them exactly, plus compute and mark any asked quantities (midpoints, distances, slopes, intersection points, area) with exact values and short working.\n\nINPUT: Plot this: [e.g. \"A(1,2), B(5,6); line AB; its midpoint; the perpendicular bisector\"].\n\nHOW TO WORK IT OUT: Compute each asked quantity exactly and SHOW the working; verify (e.g. midpoint lies on the segment, intersection satisfies both lines). No rounding of exact values.\n\nOUTPUT FORMAT: 1) Computed quantities with working. 2) Desmos expression lines (paste-ready). 3) One line: \"Paste each line into desmos.com/calculator.\"\n\nRULES: Real Desmos syntax. Stay at the stated level.\nMATHS FORMATTING: write all maths in readable plain text (a/b for fractions, x^2 for powers, sqrt(x) for roots, and <=, >=, !=, +-, pi, theta, integral, sum) - do NOT output raw LaTeX such as \\frac{}{} or $...$.\n\nCONTEXT CHECK: Before you begin, if any [SQUARE-BRACKET] above is still empty, or I have not given you the question / photo / data you need, ask me for exactly those and wait - never guess, and never answer with the placeholder text still in brackets.\n\nGROUND RULES (always follow): Do not invent statistics, percentages, marks distributions you were not given, exam cut-offs, solve-time figures, NCERT or textbook page/line numbers, citations, or historical exam data. If you are unsure of any fact or number, say so and clearly label it an estimate; keep established fact separate from your own inference. Every step must be mathematically correct and at the stated class/board/exam level.\n\nSIGNATURE: End your ENTIRE response with exactly this footer block (keep the lines and symbols):\n━━━━━━━━━━━━━━━━\n🔗 Free tools & to reach me: https://yosoyun.github.io/math-prompt-studio/\nQuestions, feedback or appreciation are always welcome.\n━━━━━━━━━━━━━━━━"
+ },
+ {
+  "cat": "diagrams-graphs",
+  "title": "Function Value Table + Quick Board Sketch",
+  "whatYouGet": "An exact table of values plus a labelled rough sketch description you can draw on the board in seconds.",
+  "howToUse": "Give the function and range; get an exact value table and a clear sketch guide.",
+  "effectiveUsage": [
+   "Copy this prompt; type the function and x-range in INPUT.",
+   "Send; read the exact value table.",
+   "Use the points to plot accurately.",
+   "Follow the sketch guide for the board.",
+   "Done - no fuzzy image needed."
+  ],
+  "commonFix": "If the figure looks off, reply: 'Re-check the coordinates/values against my description and regenerate the exact commands - do not approximate.'",
+  "promptText": "ROLE: Act as a maths teacher producing an EXACT table of values and a precise, labelled sketch description (no inaccurate AI image).\n\nCONTEXT: For [CLASS/GRADE], [BOARD or EXAM].\n\nYOUR TASK: 1) Build a table of (x, y) values for the function across the given range at sensible steps, with exact values shown (surds/fractions where needed). 2) State the key features: intercepts, turning points, asymptotes, symmetry, behaviour at the ends. 3) Give a clear step-by-step \"how to sketch it on the board\" guide. 4) Optionally a simple ASCII outline.\n\nINPUT: Function and range: [e.g. \"y = 1/x for x from -3 to 3\"].\n\nHOW TO WORK IT OUT: Compute each table value exactly and SHOW any non-trivial step; verify the key features by substitution. Note where the function is undefined.\n\nOUTPUT FORMAT: 1) Value table. 2) Key features with working. 3) Board-sketch steps. 4) (Optional) ASCII outline.\n\nRULES: Stay at the stated level.\n\nFORMAT THE OUTPUT — PRIMARY DELIVERABLE:\nReturn one complete, editable document ready to paste into Word or Google Docs. Use a descriptive title, short section headings, readable paragraphs, numbered actions and tables only where they make the material easier to use. Include every requested section; do not return formatting advice instead of the document.\n\nMATHS FORMATTING: write all maths in readable plain text (a/b for fractions, x^2 for powers, sqrt(x) for roots, and <=, >=, !=, +-, pi, theta, integral, sum) - do NOT output raw LaTeX such as \\frac{}{} or $...$.\n\nCONTEXT CHECK: Before you begin, if any [SQUARE-BRACKET] above is still empty, or I have not given you the question / photo / data you need, ask me for exactly those and wait - never guess, and never answer with the placeholder text still in brackets.\n\nGROUND RULES (always follow): Do not invent statistics, percentages, marks distributions you were not given, exam cut-offs, solve-time figures, NCERT or textbook page/line numbers, citations, or historical exam data. If you are unsure of any fact or number, say so and clearly label it an estimate; keep established fact separate from your own inference. Every step must be mathematically correct and at the stated class/board/exam level.\n\nSIGNATURE: End your ENTIRE response with exactly this footer block (keep the lines and symbols):\n━━━━━━━━━━━━━━━━\n🔗 Free tools & to reach me: https://yosoyun.github.io/math-prompt-studio/\nQuestions, feedback or appreciation are always welcome.\n━━━━━━━━━━━━━━━━"
+ }
+]

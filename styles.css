@@ -667,8 +667,27 @@ body{background-image:none}
 .head-nav{min-width:0;gap:2px}
 .head-nav a{font-size:13px;padding:8px 9px;transition:color var(--motion-fast) var(--ease-out),background var(--motion-fast) var(--ease-out)}
 .theme-btn{flex:0 0 44px;width:44px;height:44px;transition:transform var(--motion-fast) var(--ease-out),background var(--motion-fast) var(--ease-out)}
-.lang-switch{margin:0!important;gap:4px!important;min-width:0}
-.lang-switch .lang-chip{min-height:40px;padding:7px 11px}
+.lang-switch{
+  flex:0 1 auto;
+  max-width:min(44vw,430px);
+  margin:0!important;
+  padding-bottom:2px;
+  gap:4px!important;
+  min-width:0;
+  overflow-x:auto;
+  overscroll-behavior-inline:contain;
+  scrollbar-width:thin;
+}
+.lang-switch .lang-chip{flex:0 0 auto;min-height:40px;padding:7px 11px}
+.ppage-lang-switch{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fit,minmax(72px,1fr));
+  gap:6px;
+  overflow:visible;
+}
+.ppage-lang-switch .lang-chip{width:100%;min-width:0;justify-content:center}
+[lang="hi"] [data-i18n],[lang="bn"] [data-i18n],[lang="mr"] [data-i18n],[lang="te"] [data-i18n]{line-height:1.35}
+.builder-form label>span[data-i18n]{display:block;min-height:1.35em}
 
 /* Phase 1 · AUD-B/B1: left-led hero with one restrained mathematical visual. */
 .hero{
@@ -979,7 +998,6 @@ body{background-image:none}
 
 @media (max-width:1120px){
   .head-nav a:nth-child(2),.head-nav a:nth-child(3),.head-nav a:nth-child(6),.head-nav a:nth-child(8){display:none}
-  .lang-switch .lang-soon{display:none}
 }
 
 @media (max-width:900px){
@@ -992,14 +1010,30 @@ body{background-image:none}
 }
 
 @media (max-width:760px){
-  html{scroll-padding-top:64px}
-  .site-head{min-height:64px;gap:8px;padding:8px 12px}
+  html{scroll-padding-top:116px}
+  .site-head{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 44px;
+    min-height:0;
+    gap:6px 8px;
+    padding:8px 12px;
+  }
   .head-nav{display:none}
-  .brand{gap:8px}
+  .brand{grid-column:1;grid-row:1;gap:8px}
   .brand-tile{width:44px;height:44px;flex-basis:44px}
-  .brand-name{max-width:98px;white-space:normal;font-size:15px;line-height:1.05}
-  .lang-switch .lang-chip{min-height:44px;padding:8px 10px;font-size:12px}
-  .theme-btn{width:44px;height:44px;flex-basis:44px}
+  .brand-name{max-width:none;white-space:normal;font-size:15px;line-height:1.05}
+  .lang-switch{
+    grid-column:1 / -1;
+    grid-row:2;
+    display:grid!important;
+    grid-template-columns:repeat(auto-fit,minmax(62px,1fr));
+    width:100%;
+    max-width:none;
+    padding:0;
+    overflow:visible;
+  }
+  .lang-switch .lang-chip{width:100%;min-width:0;min-height:44px;padding:8px 4px;font-size:12px;justify-content:center}
+  .theme-btn{grid-column:2;grid-row:1;width:44px;height:44px;flex-basis:44px}
 
   .hero{padding:56px 16px}
   .hero-inner{gap:var(--space-4)}
@@ -1019,7 +1053,7 @@ body{background-image:none}
   .quick-result{grid-template-columns:1fr}
   .quick-result .btn{grid-column:1;grid-row:auto;margin-top:var(--space-1);justify-content:center}
 
-  .library-controls.filter-bar{top:64px;margin-inline:-8px;padding:8px;border-radius:12px}
+  .library-controls.filter-bar{top:116px;margin-inline:-8px;padding:8px;border-radius:12px}
   .filter-search-row{grid-template-columns:1fr;gap:4px}
   .filter-search-row .result-count{text-align:left;padding-inline:4px;white-space:normal}
   .filter-row{align-items:flex-start}
@@ -1031,8 +1065,9 @@ body{background-image:none}
 }
 
 @media (max-width:430px){
-  .brand-name{max-width:78px;font-size:13px}
-  .lang-switch .lang-chip{padding-inline:8px}
+  .brand-name{font-size:13px}
+  .lang-switch .lang-chip{padding-inline:3px;font-size:11px}
+  .ppage-lang-switch{grid-template-columns:repeat(2,minmax(0,1fr))}
   .outcome-list li{grid-template-columns:26px 1fr}
   .outcome-list small{grid-column:2}
 
@@ -1048,6 +1083,7 @@ body{background-image:none}
 /* The in-app mobile capture surface can expose a ~195 CSS-pixel layout at 2x.
    This guard keeps that extreme viewport usable without affecting real 390px phones. */
 @media (max-width:260px){
+  html{scroll-padding-top:210px}
   .site-head{
     grid-template-columns:minmax(0,1fr) 40px;
     display:grid;
@@ -1065,7 +1101,8 @@ body{background-image:none}
     grid-template-columns:1fr 1fr;
     width:100%;
   }
-  .lang-switch .lang-chip{width:100%;min-width:0;min-height:40px;padding:7px 4px;justify-content:center}
+  .lang-switch .lang-chip{width:100%;min-width:0;min-height:44px;padding:8px 4px;justify-content:center}
+  .library-controls.filter-bar{top:210px}
 
   .hero{padding:40px 12px}
   .hero h1{font-size:30px;overflow-wrap:anywhere}

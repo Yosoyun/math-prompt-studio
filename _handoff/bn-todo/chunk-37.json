@@ -1,0 +1,122 @@
+[
+ {
+  "cat": "diagrams-graphs",
+  "title": "Coordinate Plot of Points and Shapes",
+  "whatYouGet": "A gridded coordinate plane with your points plotted, labelled and joined into the right shape.",
+  "howToUse": "List your points, say how to join them, and download the plotted plane.",
+  "effectiveUsage": [
+   "1. Open an image-capable AI chat.",
+   "2. Paste the prompt below.",
+   "3. List your coordinates in the INPUT line.",
+   "4. Send and verify each point's position.",
+   "5. Download the image."
+  ],
+  "commonFix": "If a point is misplaced, reply: \"Point C is at (-3, 4), in the second quadrant. Re-plot it and rejoin the shape.\"",
+  "promptText": "ROLE: Act as a coordinate-geometry teacher who plots points and shapes precisely on a labelled grid.\n\nCONTEXT: I teach [CLASS/GRADE] under [BOARD or EXAM e.g. CBSE / ICSE / JEE]. Students must see exactly where each point lands and how the shape forms.\n\nYOUR TASK:\n1. Draw a coordinate plane with a light grid, an x-axis and y-axis with arrows, the origin marked O, and numbered gridlines.\n2. Plot each point I give, mark it with a dot, and label it with its name and coordinates, like A(2, 3).\n3. Join the points in the order I specify to form the shape, using straight line segments.\n4. If I ask, lightly shade the enclosed region.\n5. Choose a range that comfortably fits all points with a little margin.\n\nINPUT: Here are the points: [LIST THEM HERE, e.g. A(2, 3), B(6, 3), C(6, 7), D(2, 7)]. Join them in this order: [e.g. A-B-C-D-A]. Shade inside? [yes/no].\n\nHOW TO WORK IT OUT: First restate every point and state which quadrant (or axis) it lies in, so misreads are caught early. Then VERIFY two ways: confirm each plotted dot's grid position matches its coordinates, and, if the points are meant to form a named shape, check a defining property (for example, opposite sides equal for a rectangle, using the distance idea) and report it. Never swap x and y; never plot a point in the wrong quadrant. If the points cannot form the named shape, say so.\n\nOUTPUT FORMAT:\n1. POINTS AND QUADRANTS: each point with its quadrant.\n2. THE PLOT: one clean labelled image with grid, axes, plotted and named points, and joined shape.\n3. SHAPE CHECK: one line confirming the shape's key property (or noting if it does not hold).\n\nRULES: x before y, always. Origin labelled O, axes labelled and arrowed. Every point dotted and named with coordinates. Plain white background.\n\nSIGNATURE: Sign the bottom-right of every page with an elegant handwritten signature \"[YOUR NAME]\" with a small underline flourish."
+ },
+ {
+  "cat": "diagrams-graphs",
+  "title": "Vector and Force Diagram, Correctly Drawn",
+  "whatYouGet": "A labelled vector or free-body diagram with arrows to scale, directions and the resultant shown.",
+  "howToUse": "Describe the forces or vectors, send, and download the labelled arrow diagram.",
+  "effectiveUsage": [
+   "1. Open an image-capable AI chat.",
+   "2. Paste the prompt below.",
+   "3. Describe the vectors or forces.",
+   "4. Send and check arrow directions.",
+   "5. Download the diagram."
+  ],
+  "commonFix": "If the resultant looks wrong, reply: \"Re-add the vectors head-to-tail, recompute the resultant magnitude and angle, then redraw.\"",
+  "promptText": "ROLE: Act as a physics-and-maths teacher who draws clean, correctly directed vector and force diagrams.\n\nCONTEXT: I teach [CLASS/GRADE] under [BOARD or EXAM e.g. CBSE / ICSE / JEE / NEET]. Arrow direction, relative length and labelling must all be correct.\n\nYOUR TASK:\n1. Draw each vector or force as an arrow starting from the correct point, pointing in the stated direction.\n2. Make arrow lengths roughly proportional to their magnitudes so larger forces look larger.\n3. Label each arrow with its name and magnitude with units, like F1 = 10 N.\n4. If asked, show the resultant as a distinct arrow and label its magnitude and angle.\n5. For a free-body diagram, draw the object as a dot or box and show all forces acting on it (weight, normal, tension, friction) from the correct points.\n\nINPUT: Here is the situation: [DESCRIBE IT HERE, e.g. \"A block on a horizontal table: weight 50 N down, normal reaction up, applied force 20 N right, friction 5 N left\" or \"Two vectors from origin: 3 N east and 4 N north, find the resultant\"].\n\nHOW TO WORK IT OUT: First list each vector with its magnitude and direction in a small table. If a resultant is needed, compute it on the side (components, then magnitude by Pythagoras, then angle by inverse tangent) and SHOW the working. VERIFY two ways: check that the components of the resultant equal the sums of the individual components, and state whether the system is balanced or has a net force. Never reverse an arrow direction; never invent a force that was not described.\n\nOUTPUT FORMAT:\n1. VECTOR TABLE: each vector with magnitude and direction.\n2. RESULTANT WORKING: components, magnitude, and angle (if a resultant is asked).\n3. THE DIAGRAM: one clean labelled image with arrows to scale and the resultant shown if needed.\n4. CHECK: one line confirming the component sums match.\n\nRULES: Arrow directions must match the description exactly. Lengths roughly proportional to magnitudes. Every arrow labelled with name and unit. Plain white background.\n\nSIGNATURE: Sign the bottom-right of every page with an elegant handwritten signature \"[YOUR NAME]\" with a small underline flourish."
+ },
+ {
+  "cat": "diagrams-graphs",
+  "title": "Venn and Set Diagram with Shaded Regions",
+  "whatYouGet": "A correct two- or three-set Venn diagram with the right region shaded and elements placed.",
+  "howToUse": "State the sets and the operation, send, and download the shaded Venn diagram.",
+  "effectiveUsage": [
+   "1. Open an image-capable AI chat.",
+   "2. Paste the prompt below.",
+   "3. State your sets and the operation.",
+   "4. Send and check the shaded region.",
+   "5. Download the diagram."
+  ],
+  "commonFix": "If the wrong area is shaded, reply: \"For A intersection B only, shade just the overlap, not the rest of either circle. Redraw.\"",
+  "promptText": "ROLE: Act as a set-theory teacher who draws accurate Venn diagrams with the correct regions shaded.\n\nCONTEXT: I teach [CLASS/GRADE] under [BOARD or EXAM e.g. CBSE / ICSE / JEE]. The shaded region must exactly match the set expression, which students often get wrong.\n\nYOUR TASK:\n1. Draw a rectangle for the universal set U, labelled in a corner.\n2. Draw two or three overlapping circles for the sets, each clearly labelled (A, B, C).\n3. Shade exactly the region described by the set expression I give, and leave everything else unshaded.\n4. If I provide elements or counts, place each element or number in its correct region.\n5. Keep circles cleanly overlapping so every sub-region is visible.\n\nINPUT: Here is what I need: Sets and any elements: [e.g. A = {1,2,3,4}, B = {3,4,5,6}, U = {1..8}]. The expression to shade: [e.g. A union B, A intersection B, A minus B, (A union B)', A intersection B intersection C].\n\nHOW TO WORK IT OUT: First write, in words, exactly which sub-regions the expression includes (for example, \"A minus B means the part of A that is not in B: shade only the left crescent\"). If elements or counts are given, compute which region each belongs to and show the working. VERIFY two ways: confirm the shaded sub-regions match your words, and, if counts are given, confirm all region counts add up to the size of U. Never shade an extra region; never misplace an element.\n\nOUTPUT FORMAT:\n1. REGION DESCRIPTION: plain words naming each sub-region the expression covers.\n2. PLACEMENT (if elements given): which element or count goes in which region.\n3. THE DIAGRAM: one clean labelled Venn image with the correct region shaded.\n4. CHECK: one line confirming counts add to U (or \"No counts given\").\n\nRULES: Only the described region is shaded. U shown as a labelled rectangle. Every circle and element labelled. Plain white background.\n\nSIGNATURE: Sign the bottom-right of every page with an elegant handwritten signature \"[YOUR NAME]\" with a small underline flourish."
+ },
+ {
+  "cat": "diagrams-graphs",
+  "title": "Before-and-After Transformation Figure",
+  "whatYouGet": "One grid showing a shape and its image after a translation, reflection, rotation or enlargement.",
+  "howToUse": "Give the shape and the transformation, send, and download the before-and-after grid.",
+  "effectiveUsage": [
+   "1. Open an image-capable AI chat.",
+   "2. Paste the prompt below.",
+   "3. Give the shape and the transformation.",
+   "4. Send and check the image coordinates.",
+   "5. Download the figure."
+  ],
+  "commonFix": "If the image is misplaced, reply: \"Recompute each vertex under the transformation, list old and new coordinates, then redraw.\"",
+  "promptText": "ROLE: Act as a transformation-geometry teacher who shows a shape and its image clearly on one coordinate grid.\n\nCONTEXT: I teach [CLASS/GRADE] under [BOARD or EXAM e.g. CBSE / ICSE / State Board]. Students must see the original (object) and its transformed image side by side with correct coordinates.\n\nYOUR TASK:\n1. Draw a labelled coordinate grid with x and y axes, origin O, and numbered gridlines.\n2. Plot the original shape, label its vertices A, B, C (and so on), and outline it with solid lines.\n3. Apply the transformation I describe and plot the image, labelling its vertices A', B', C' with dashed or differently styled outline.\n4. If the transformation has a centre, line, or vector, draw and label it (mirror line, centre of rotation, translation arrow).\n5. Show old and new coordinates next to each vertex.\n\nINPUT: Original shape vertices: [LIST THEM, e.g. A(1,1), B(4,1), C(4,3)]. Transformation: [DESCRIBE IT, e.g. \"reflect in the y-axis\", \"rotate 90 degrees anticlockwise about the origin\", \"translate by (3, -2)\", \"enlarge by scale factor 2 about the origin\"].\n\nHOW TO WORK IT OUT: First compute each image vertex on the side and show the rule you used (for example, reflection in the y-axis sends (x, y) to (-x, y)). Make a small two-column table of original and image coordinates. VERIFY two ways: confirm the transformation rule is applied identically to every vertex, and confirm a length or distance is preserved (for rotations, reflections, translations) or scaled correctly (for enlargements). Never apply the rule to only some vertices; never confuse clockwise and anticlockwise.\n\nOUTPUT FORMAT:\n1. RULE USED: one line stating the coordinate rule.\n2. COORDINATE TABLE: original vs image vertices.\n3. THE FIGURE: one clean grid showing object, image, labelled vertices, and any mirror line, centre or vector.\n4. CHECK: one line on the preserved or scaled length.\n\nRULES: Object solid, image dashed or distinct. Every vertex labelled with coordinates. Mirror line/centre/vector shown when relevant. Plain white background.\n\nSIGNATURE: Sign the bottom-right of every page with an elegant handwritten signature \"[YOUR NAME]\" with a small underline flourish."
+ },
+ {
+  "cat": "diagrams-graphs",
+  "title": "Tangent and Normal Drawn on a Curve",
+  "whatYouGet": "A curve with the tangent and normal at a given point drawn and their equations shown.",
+  "howToUse": "Give the curve and the point, send, and download the graph with tangent and normal.",
+  "effectiveUsage": [
+   "1. Open an image-capable AI chat.",
+   "2. Paste the prompt below.",
+   "3. Give the curve and the point.",
+   "4. Send and check the lines touch correctly.",
+   "5. Download the graph."
+  ],
+  "commonFix": "If the tangent slope looks off, reply: \"Re-differentiate, recompute the slope at the point, and redraw the tangent and normal.\"",
+  "promptText": "ROLE: Act as a calculus teacher who graphs a curve and draws its tangent and normal at a stated point.\n\nCONTEXT: I teach [CLASS/GRADE] under [BOARD or EXAM e.g. CBSE / ICSE / JEE]. The figure must clearly show the curve, the point of contact, the tangent line, and the perpendicular normal.\n\nYOUR TASK:\n1. Plot the curve on labelled x and y axes with a light grid.\n2. Mark the given point P on the curve and label its coordinates.\n3. Draw the tangent line at P (touching the curve at P) and the normal line at P (perpendicular to the tangent).\n4. Write the equation of the tangent and of the normal on the graph.\n5. Use distinct line styles for the curve, the tangent, and the normal, with a small key.\n\nINPUT: Here is the curve: [PASTE IT, e.g. y = x^2]. The point: [GIVE IT, e.g. x = 1, or the point P(1, 1)].\n\nHOW TO WORK IT OUT: First find the y-value of the point if only x is given, confirming it lies on the curve. Differentiate to get the slope of the tangent at P, then the normal slope as the negative reciprocal. Write both line equations using point-slope form, showing the steps. VERIFY two ways: confirm the tangent passes through P and has the computed slope, and confirm the normal slope times the tangent slope equals -1. Never guess the slope; never let the tangent cross the curve at P as if it were a secant.\n\nOUTPUT FORMAT:\n1. WORKING: y-value at P, derivative, tangent slope, normal slope, both equations.\n2. THE GRAPH: one clean labelled image with curve, point P, tangent, normal, equations, and a small line-style key.\n3. CHECK: one line confirming slopes multiply to -1.\n\nRULES: Tangent must touch the curve at P, not cut across it. Normal must be visibly perpendicular to the tangent. Axes labelled. Plain white background.\n\nSIGNATURE: Sign the bottom-right of every page with an elegant handwritten signature \"[YOUR NAME]\" with a small underline flourish."
+ },
+ {
+  "cat": "diagrams-graphs",
+  "title": "Piecewise Function Graph with Open Ends",
+  "whatYouGet": "A correct piecewise graph with open and filled endpoints and each piece labelled.",
+  "howToUse": "Paste the piecewise definition, send, and download the graph with correct endpoints.",
+  "effectiveUsage": [
+   "1. Open an image-capable AI chat.",
+   "2. Paste the prompt below.",
+   "3. Paste your piecewise definition.",
+   "4. Send and check the endpoint dots.",
+   "5. Download the graph."
+  ],
+  "commonFix": "If an endpoint dot is wrong, reply: \"At x = 2 the left piece is excluded (open) and the right piece is included (filled). Fix and redraw.\"",
+  "promptText": "ROLE: Act as a maths teacher who graphs piecewise functions with perfectly correct endpoint dots.\n\nCONTEXT: I teach [CLASS/GRADE] under [BOARD or EXAM e.g. CBSE / ICSE / JEE]. Students must see exactly where each piece starts and stops and whether the endpoint is included.\n\nYOUR TASK:\n1. Plot each piece of the function only over its own interval, on labelled x and y axes with a light grid.\n2. At every breakpoint, use a FILLED dot where the value is included and an OPEN dot where it is excluded.\n3. Label each piece with its rule and its interval near that segment.\n4. Show the breakpoint x-values on the axis.\n5. Make it clear whether the function is continuous or has a jump at each breakpoint.\n\nINPUT: Here is the piecewise function: [PASTE IT HERE, e.g. f(x) = x + 1 for x < 2; f(x) = 5 for x >= 2].\n\nHOW TO WORK IT OUT: For each breakpoint, compute the value each adjoining piece approaches and decide, from the inequality signs (< vs <=, > vs >=), which side gets the filled dot and which gets the open dot. Show this reasoning. VERIFY two ways: confirm each piece is drawn only on its stated interval, and confirm at each breakpoint exactly one filled dot exists when the function is defined there (and note any jump). Never put two filled dots at the same x; never extend a piece past its interval.\n\nOUTPUT FORMAT:\n1. ENDPOINT ANALYSIS: for each breakpoint, the left value, right value, and which dot is open/filled.\n2. CONTINUITY NOTE: continuous or jump at each breakpoint.\n3. THE GRAPH: one clean labelled image with each piece, correct dots, rules and intervals shown.\n4. CHECK: one line confirming no piece overruns its interval.\n\nRULES: Filled versus open dots must match the inequalities exactly. Each piece confined to its interval. Axes labelled, breakpoints marked. Plain white background.\n\nSIGNATURE: Sign the bottom-right of every page with an elegant handwritten signature \"[YOUR NAME]\" with a small underline flourish."
+ },
+ {
+  "cat": "diagrams-graphs",
+  "title": "Angle and Triangle Figure with All Markings",
+  "whatYouGet": "A triangle or angle figure with angle arcs, side ticks, given values and the unknown marked.",
+  "howToUse": "Describe the triangle and what is given, send, and download the fully marked figure.",
+  "effectiveUsage": [
+   "1. Open an image-capable AI chat.",
+   "2. Paste the prompt below.",
+   "3. Describe the triangle and given values.",
+   "4. Send and check the angle marks.",
+   "5. Download the figure."
+  ],
+  "commonFix": "If an angle is mislabelled, reply: \"Angle A is 50 degrees, not at vertex B. Move the arc to A and re-mark the figure.\"",
+  "promptText": "ROLE: Act as a geometry teacher who draws triangle and angle figures with complete, correct markings.\n\nCONTEXT: I teach [CLASS/GRADE] under [BOARD or EXAM e.g. CBSE / ICSE / State Board]. The figure is for an angle-chasing or triangle-property question, so every mark matters.\n\nYOUR TASK:\n1. Draw the triangle (or angle figure) with vertices clearly labelled.\n2. Show each given angle with a labelled arc at the correct vertex, and each given side with its length and a tick mark.\n3. Mark equal sides with matching ticks and equal angles with matching arcs.\n4. Show a right angle with a small square.\n5. Mark the unknown angle or side with a question mark or a letter like x.\n\nINPUT: Here is the figure: [DESCRIBE IT HERE, e.g. \"Triangle ABC, angle A = 50 degrees, angle B = 60 degrees, find angle C\" or \"Isosceles triangle PQR with PQ = PR, angle P = 40 degrees, find the base angles\"].\n\nHOW TO WORK IT OUT: Restate the given information in one line. If an unknown is asked for, you may compute it on the side (for example, angles of a triangle sum to 180) and show the value, but only mark the figure with what I gave plus the unknown as a letter unless I ask you to fill in the answer. VERIFY two ways: confirm any stated angles do not already exceed 180 in total, and confirm equal-side and equal-angle marks are consistent with the description. Never place an arc at the wrong vertex; never invent a value I did not give.\n\nOUTPUT FORMAT:\n1. GIVEN: one line restating the data.\n2. THE FIGURE: one clean labelled image with angle arcs, side ticks, right-angle squares, given values, and the unknown marked.\n3. OPTIONAL ANSWER: the computed unknown with one line of working (include only if I asked).\n4. CHECK: one line confirming the angle sum is valid.\n\nRULES: Arcs at the correct vertices, ticks on equal sides, square for right angles. Every given value shown. Plain white background.\n\nSIGNATURE: Sign the bottom-right of every page with an elegant handwritten signature \"[YOUR NAME]\" with a small underline flourish."
+ },
+ {
+  "cat": "diagrams-graphs",
+  "title": "Circle Theorem Figure, Exactly Marked",
+  "whatYouGet": "A circle with centre, chords, tangents or inscribed angles drawn to illustrate one theorem.",
+  "howToUse": "Name the circle theorem, send, and download a figure that demonstrates it.",
+  "effectiveUsage": [
+   "1. Open an image-capable AI chat.",
+   "2. Paste the prompt below.",
+   "3. Name the theorem in the INPUT line.",
+   "4. Send and check the marked angles.",
+   "5. Download the figure."
+  ],
+  "commonFix": "If the angle relationship looks wrong, reply: \"The angle at the centre must be twice the angle at the circumference on the same arc. Re-mark and redraw.\"",
+  "promptText": "ROLE: Act as a geometry teacher who draws precise circle figures that demonstrate a stated circle theorem.\n\nCONTEXT: I teach [CLASS/GRADE] under [BOARD or EXAM e.g. CBSE / ICSE / State Board]. The figure must clearly illustrate one circle theorem with the right points, lines and angle marks.\n\nYOUR TASK:\n1. Draw a circle with its centre O marked.\n2. Add the points, chords, diameters, tangents or radii needed for the named theorem, all labelled.\n3. Mark the relevant angles with labelled arcs and show the relationship the theorem states (for example, two equal angles, or one angle double another).\n4. Show a right angle with a small square where the theorem requires it (for example, tangent meeting radius).\n5. Add a one-line caption naming the theorem.\n\nINPUT: Here is the theorem I want shown: [NAME IT HERE, e.g. \"Angle at the centre is twice the angle at the circumference\", \"Angles in the same segment are equal\", \"Angle in a semicircle is 90 degrees\", \"Tangent is perpendicular to the radius at the point of contact\", \"Cyclic quadrilateral: opposite angles sum to 180\"].\n\nHOW TO WORK IT OUT: First state, in words, exactly what the theorem claims and which points and lines are needed to show it. Place points on the circle so the relationship is visually believable (for example, the central angle really looks about double the inscribed angle). VERIFY two ways: confirm every element the theorem needs is present and labelled, and confirm the marked angle relationship matches the theorem's statement. Never draw a figure that contradicts the theorem; never leave a required point unlabelled.\n\nOUTPUT FORMAT:\n1. THEOREM IN WORDS: one or two lines.\n2. ELEMENTS NEEDED: a short list of points and lines drawn.\n3. THE FIGURE: one clean labelled circle image with centre, required lines, marked angles, right-angle squares where needed, and a caption.\n4. CHECK: one line confirming the marked relationship matches the theorem.\n\nRULES: Centre O marked. Every point and line labelled. Angle marks must reflect the theorem. Plain white background.\n\nSIGNATURE: Sign the bottom-right of every page with an elegant handwritten signature \"[YOUR NAME]\" with a small underline flourish."
+ }
+]
