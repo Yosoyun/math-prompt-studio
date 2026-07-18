@@ -272,7 +272,7 @@
     if (catalogLanguagePromises[lang]) return catalogLanguagePromises[lang];
     catalogLanguagePromises[lang] = new Promise(function (resolve, reject) {
       var script = document.createElement('script');
-      script.src = 'data/catalog-' + lang + '.js?v=41';
+      script.src = 'data/catalog-' + lang + '.js?v=42';
       script.onload = function () { if (applyCatalogLanguage(lang)) resolve(true); else reject(new Error('missing language pack')); };
       script.onerror = function () { reject(new Error('language pack request failed')); };
       document.head.appendChild(script);
@@ -324,7 +324,7 @@
     if (fullDataPromise) return fullDataPromise;
     fullDataPromise = new Promise(function (resolve, reject) {
       var script = document.createElement('script');
-      script.src = window.MPS_DATA_URL || 'data/prompts.js?v=41';
+      script.src = window.MPS_DATA_URL || 'data/prompts.js?v=42';
       script.async = true;
       script.onload = function () {
         if (!window.PROMPT_DATA || !window.PROMPT_DATA.categories) { reject(new Error('prompt data did not initialise')); return; }
