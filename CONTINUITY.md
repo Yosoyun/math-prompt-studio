@@ -31,7 +31,14 @@ The detailed M1–M5 acceptance criteria are not present in this checkout. They 
 
 ## Current checkpoint
 
-- Main Phases 0, 1, and 2 are locally committed.
-- Main Phase 3 infrastructure and Hindi invariant repair are in progress and uncommitted.
-- Bengali, Marathi, and Telugu production coverage remains zero until frontier-LLM batches pass the merge gate.
-- No local/offline MT output is permitted in production data.
+- Verified 2026-08-02 on local branch `main`; the last completed production milestone is `3f43a0df` (`Translate Marathi batch 008`). The branch contains local work that must not be pushed without explicit approval.
+- Main Phases 0, 1, and 2 are locally committed. Main Phase 3 infrastructure and the Hindi invariant repair are committed.
+- The corpus contains 961 prompts across 50 categories. English and Hindi are complete and live; Hindi is 961/961 with zero remaining.
+- Bengali is 80/961, Marathi is 72/961, and Telugu is 56/961. All three report zero invalid production records and remain non-live until complete.
+- Accepted frontier-LLM batches are Bengali 000–009, Marathi 000–008, and Telugu 000–006.
+- Two partial, untracked drafts must be preserved: Bengali batch 010 has four QA-clean records, and Telugu batch 007 has four QA-clean records. Marathi batch 009 has not been started.
+- The generated site is on cache version 50. `data/catalog.js` is the language-live authority consumed by `app.js`.
+- No unresolved translation reject exists at this checkpoint. No local/offline MT output is permitted in production data.
+- The full Phase 3 gate is intentionally not passing while language coverage is incomplete. It also exposes an unresolved cache-parity exit item (`50, 15`) involving the older `config.js` reference; this must be resolved, not waived, before Phase 3 activation.
+- Legacy baseline protected-identity references outside About remain in historical documentation and maintenance sources. No new reference is permitted, and the baseline requires a deliberate cleanup audit before the final sweep.
+- Detailed Problem Bank M1–M5 acceptance criteria are still absent from this checkout; their status must not be invented or claimed complete.
