@@ -23,7 +23,7 @@
 <meta name="twitter:image" content="https://yosoyun.github.io/math-prompt-studio/og-cover.png" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="preload" href="assets/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=50" />
+<link rel="stylesheet" href="styles.css?v=51" />
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -53,7 +53,6 @@
     <a href="#trust" data-i18n="navVerify">Verify</a>
     <a href="#library" data-i18n="navPrompts">Prompts</a>
     <a href="#more" data-i18n="navPlatform">Platform</a>
-    <a href="#about" data-i18n="navAbout">About</a>
     <a href="#feedback" data-i18n="navFeedback">Feedback</a>
   </nav>
   <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle dark mode" data-i18n-aria="themeToggle" data-i18n-title="themeToggle">&#9790;</button>
@@ -333,8 +332,9 @@
     </div>
     <div class="filter-row filter-groups">
       <span class="filter-row-label" data-i18n="groupLabel">Group</span>
-      <div class="filter-chips" id="groupChips" role="tablist" aria-label="Filter by group" data-i18n-aria="groupAria"></div>
+      <div class="filter-chips" id="groupChips" role="group" aria-label="Filter by group" data-i18n-aria="groupAria"></div>
     </div>
+    <div class="filter-row category-mount" id="categoryMount"></div>
     <div class="filter-row facet-mount" id="facetMount" aria-label="Exam and audience filters" data-i18n-aria="facetAria"></div>
     <div class="filter-row format-mount" id="formatMount" aria-label="Output format filters" data-i18n-aria="formatAria"></div>
   </div>
@@ -346,86 +346,31 @@
     </div>
     <p class="lib-tip" data-i18n="libraryTip">&#128203; Tip: every button copies the prompt. If your AI opens empty, paste it into the chat, fill the brackets, and send.</p>
   </div>
+  <div class="library-progress" id="libraryProgress" aria-live="polite"></div>
   <div class="cat-stream" id="catStream"><div class="loading" data-i18n-count="loadingPrompts">Loading 961 prompts&hellip;</div></div>
-</section>
-
-<!-- ===== ABOUT ===== -->
-<section class="section section-tint" id="about" data-contact-email="indrajeetsirallen@gmail.com" data-contact-whatsapp="918072965053" data-contact-instagram="indrajeetsirallen">
-  <div class="about-wrap">
-    <div class="about-portrait">
-      <div class="about-avatar" id="aboutAvatar">IY</div>
-      <span class="about-name">Indrajeet Yadav</span>
-      <span class="about-role">Maths teacher &middot; Creator of this studio</span>
-      <span class="about-sig">Indrajeet Yadav</span>
-    </div>
-    <div class="about-body">
-      <span class="kicker">About me</span>
-      <h2>I just want to make a teacher's life a little easier.</h2>
-      <p>I'm <strong>Indrajeet Yadav</strong>, and I love mathematics and the people who teach it. Over the years I've met so many brilliant teachers &mdash; some who could solve anything on a blackboard, yet would spend their nights by hand making solutions, papers and worksheets, and felt left behind by computers and "AI".</p>
-      <p>That never sat right with me. Your skill is the rare thing. The typing, the formatting, the late nights &mdash; that part a machine can do. So I built <strong>Maths Prompt Studio</strong>: a place where any teacher, however new to technology, can get world-class teaching materials in minutes, in plain steps, completely free.</p>
-      <p><strong>I don't want money for this.</strong> My only wish is that you teach a little more easily, that your students learn a little faster &mdash; and that you pass this on to one more teacher or student who could use it. If a single child somewhere studies smarter because of it, that is more than enough reward for me.</p>
-      <p class="about-cta-line">Tell me what would help you most &mdash; I read every message and fix things on priority. <a href="#feedback">Send me your feedback &rarr;</a></p>
-    </div>
-  </div>
 </section>
 
 <!-- ===== FEEDBACK ===== -->
 <section class="section" id="feedback">
   <div class="section-head">
-    <span class="kicker" data-i18n="feedbackKicker">Your voice shapes this</span>
-    <h2 data-i18n="feedbackTitle">What should I fix or add next?</h2>
-    <p class="sub" data-i18n="feedbackSub">This studio gets better only when teachers tell me what's missing. Rate it, drop a suggestion, or reach me directly &mdash; I prioritise the most-requested fixes first. Thank you for helping every other teacher who comes after you.</p>
+    <span class="kicker" data-i18n="feedbackKicker">Improve the studio</span>
+    <h2 data-i18n="feedbackTitle">Report an issue or suggest an improvement</h2>
+    <p class="sub" data-i18n="feedbackSub">Share the teaching job, missing prompt, or confusing part. The message opens in your email app; nothing is posted publicly.</p>
   </div>
   <div class="fb-wrap">
     <form class="fb-form" id="fbForm">
-      <label class="fb-label" data-i18n="feedbackWorking">How is it working for you?</label>
-      <div class="fb-stars" id="fbStars" role="radiogroup" aria-label="Rating" data-i18n-aria="rating">
-        <button type="button" class="star" data-v="1" aria-label="1 star">&#9733;</button>
-        <button type="button" class="star" data-v="2" aria-label="2 stars">&#9733;</button>
-        <button type="button" class="star" data-v="3" aria-label="3 stars">&#9733;</button>
-        <button type="button" class="star" data-v="4" aria-label="4 stars">&#9733;</button>
-        <button type="button" class="star" data-v="5" aria-label="5 stars">&#9733;</button>
-      </div>
       <label class="fb-label" for="fbRole" data-i18n="roleLabel">I am a&hellip;</label>
       <select id="fbRole" class="fb-input">
         <option value="School teacher" data-i18n="roleSchool">School teacher</option><option value="Coaching / tuition teacher" data-i18n="roleCoaching">Coaching / tuition teacher</option><option value="College / university faculty" data-i18n="roleCollege">College / university faculty</option><option value="Student" data-i18n="roleStudent">Student</option><option value="Parent" data-i18n="roleParent">Parent</option><option value="Other" data-i18n="roleOther">Other</option>
       </select>
       <label class="fb-label" for="fbMsg" data-i18n="feedbackMessage">What's working, what's not, what should I add?</label>
       <textarea id="fbMsg" class="fb-input" rows="4" placeholder="e.g. The question-paper prompts are great. Please add more for Class 9 geometry. The image pages sometimes come as text." data-i18n-placeholder="feedbackPlaceholder"></textarea>
-      <label class="fb-label" for="fbName" data-i18n="feedbackName">Your name (optional)</label>
-      <input id="fbName" class="fb-input" type="text" placeholder="So I can thank you" data-i18n-placeholder="feedbackNamePlaceholder" />
       <div class="fb-actions">
         <button type="submit" class="btn btn-primary" id="fbSend" data-i18n="sendFeedback">&#9993;&#65039; Send feedback</button>
         <button type="button" class="btn btn-ghost" id="fbCopy" data-i18n="copyInstead">Copy instead</button>
       </div>
       <p class="fb-hint" id="fbHint" data-i18n="feedbackHint">Tapping "Send" opens your email app with everything filled in &mdash; just press send.</p>
     </form>
-    <div class="fb-side">
-      <h3 data-i18n="reachTitle">Reach me directly</h3>
-      <p data-i18n="reachSub">Prefer a quick message? Use any of these.</p>
-      <div class="fb-links" id="fbLinks">
-        <a class="fb-link" id="fbEmailLink" href="#" data-i18n="emailMe">&#9993;&#65039; Email me</a>
-        <a class="fb-link" id="fbFormLink" href="#" target="_blank" rel="noopener" hidden data-i18n="openForm">&#128221; Open suggestions form</a>
-        <a class="fb-link" id="fbWaLink" href="#" target="_blank" rel="noopener" hidden data-i18n="messageWa">&#128241; Message on WhatsApp</a>
-        <a class="fb-link" id="fbInstaLink" href="#" target="_blank" rel="noopener" hidden data-i18n="followInstagram">&#128247; Follow on Instagram</a>
-      </div>
-      <div class="fb-promise"><b data-i18n="promiseLabel">My promise:</b> <span data-i18n="promise">the most-requested fixes get done first. Your one message can improve this for thousands of teachers.</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== SHARE ===== -->
-<section class="section section-tint" id="share">
-  <div class="share-card">
-    <span class="kicker" data-i18n="shareKicker">The only "payment" I ask</span>
-    <h2 data-i18n="shareTitle">Spread it to one more teacher or student</h2>
-    <p data-i18n="shareSub">There's nothing to buy and nothing to download. If this saved you time, the kindest thing you can do is pass it on &mdash; to a colleague, a coaching group, or a student who wants to study smarter. That's how it reaches the people who need it.</p>
-    <div class="share-btns">
-      <button class="btn btn-primary" id="shareWa" data-i18n="shareWhatsApp">&#128241; Share on WhatsApp</button>
-      <button class="btn btn-ghost" id="shareCopy">&#128279; <span data-i18n="copyLink">Copy link</span></button>
-      <button class="btn btn-ghost" id="shareMore" hidden data-i18n="shareMore">&#10150; More&hellip;</button>
-    </div>
-    <div class="share-link" id="shareLink">https://yosoyun.github.io/math-prompt-studio/</div>
   </div>
 </section>
 
@@ -485,21 +430,6 @@
   </div>
 </section>
 
-<!-- ===== CREDITS ===== -->
-<section class="section" id="credits">
-  <div class="section-head">
-    <span class="kicker">Built on the best</span>
-    <h2>Crafted with world-class prompt practice</h2>
-    <p class="sub">Every prompt follows the proven structure used by the top prompt-engineering resources on the planet: a clear role, full context, an explicit output format, and built-in self-checking.</p>
-  </div>
-  <div class="cred-grid">
-    <a class="cred-card" href="https://github.com/f/awesome-chatgpt-prompts" target="_blank" rel="noopener"><span class="cred-star">&#11088; 140k+</span><b>f/awesome-chatgpt-prompts</b><span>The most-starred prompt collection on GitHub.</span></a>
-    <a class="cred-card" href="https://github.com/promptslab/awesome-prompt-engineering" target="_blank" rel="noopener"><span class="cred-star">&#11088; popular</span><b>promptslab/awesome-prompt-engineering</b><span>A deep, curated prompt-engineering knowledge base.</span></a>
-    <a class="cred-card" href="https://github.com/ai-boost/awesome-prompts" target="_blank" rel="noopener"><span class="cred-star">&#11088; popular</span><b>ai-boost/awesome-prompts</b><span>Prompts behind top-rated GPTs people actually use.</span></a>
-    <a class="cred-card" href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices" target="_blank" rel="noopener"><span class="cred-star">&#128218; docs</span><b>Anthropic &amp; OpenAI guides</b><span>Official prompt best-practice documentation.</span></a>
-  </div>
-</section>
-
 <!-- ===== FAQ ===== -->
 <section class="section section-tint" id="faq">
   <div class="section-head"><span class="kicker">Help &amp; troubleshooting</span><h2>If something doesn't work, read this</h2></div>
@@ -508,7 +438,6 @@
     <details><summary>It gave me text, but I wanted the handwritten image pages.</summary><p>Making images is different from writing text. Use a prompt marked <b>"Makes images"</b> (amber dot) and an <b>image-capable AI</b> (ChatGPT or Gemini / AI Studio). If it still replies with text, say: <em>"Please generate this as an actual image, not text."</em> Free plans limit images per day.</p></details>
     <details><summary>It only made one page, not five.</summary><p>Normal &mdash; many tools make one image per turn. Reply <em>"now generate Page 2"</em>, then <em>"Page 3"</em>, and so on. The prompt keeps the same style across pages.</p></details>
     <details><summary>The AI misread my question or made a mistake.</summary><p>Two fixes: send a clearer, brighter photo of just that one question; or reply with the <b>"If it's wrong, say this"</b> line on each prompt card, e.g. <em>"Re-check step 3 and verify the answer a second way."</em> Your expert eye is the final check.</p></details>
-    <details><summary>Is there a fee? How can I support this?</summary><p>It's completely free &mdash; no fee, nothing to buy, nothing to download. The best way to support it is to <a href="#share">share it with one more teacher or student</a>, and to <a href="#feedback">send feedback</a> so it keeps improving.</p></details>
     <details><summary>Whose name appears on the results?</summary><p><strong>Yours.</strong> Every prompt signs the work with a [YOUR NAME] blank &mdash; fill it in (or leave it out) and the papers, worksheets and solution pages carry your own name for your classes.</p></details>
     <details><summary>Can students use this too?</summary><p>Yes &mdash; especially the <a href="#learn">Learn 10&times;</a> section. Any student who wants to study maths smarter can use these techniques with ChatGPT or Claude for free.</p></details>
     <details><summary>Can it work in Hindi or another language?</summary><p>Yes. Add <em>"Write everything in Hindi"</em> (or any language) to the end of any prompt.</p></details>
@@ -517,9 +446,8 @@
 
 <!-- ===== FOOTER ===== -->
 <footer class="site-foot">
-  <div class="foot-sign"><span class="foot-sign-name">Maths Prompt Studio</span><span class="foot-sign-sub">free, forever &middot; मुफ़्त, हमेशा</span></div>
-  <p class="foot-msg">Made with deep respect for every maths teacher whose skill outshines their screen-time.<br>Free, forever. If it helps you, <a href="#share">share it</a> &mdash; and please keep the signature.</p>
-  <p class="foot-meta">&copy; <span id="year"></span> Maths Prompt Studio &middot; A free open project &middot; <a href="#about">about the author</a></p>
+  <div class="foot-sign"><span class="foot-sign-name">Maths Prompt Studio</span><span class="foot-sign-sub">Teacher-first &middot; Multilingual &middot; Classroom-ready</span></div>
+  <p class="foot-meta">&copy; <span id="year"></span> Maths Prompt Studio &middot; <a href="#library">Prompt library</a> &middot; <a href="#feedback">Feedback</a> &middot; <a href="#top">Back to top</a></p>
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite" data-i18n="toastInitial">Copied! Now go to your AI chat and paste it.</div>
@@ -549,8 +477,8 @@
 }
 </script>
 <!-- Phase 1 · AUD-A/A3: paint the product shell from the light catalog; fetch full prompt bodies on demand. -->
-<script>window.MPS_DATA_URL = 'data/prompts.js?v=50';</script>
-<script defer src="config.js?v=15"></script>
+<script>window.MPS_DATA_URL = 'data/prompts.js?v=51';</script>
+<script defer src="config.js?v=51"></script>
 <script>
 (function () {
   function addScript(src, done) {
@@ -563,7 +491,7 @@
     };
     document.body.appendChild(script);
   }
-  function startCatalog() { addScript('data/catalog.js?v=50', function () { addScript('app.js?v=50'); }); }
+  function startCatalog() { addScript('data/catalog.js?v=51', function () { addScript('app.js?v=51'); }); }
   if (document.readyState === 'complete') startCatalog();
   else window.addEventListener('load', startCatalog, { once: true });
 })();

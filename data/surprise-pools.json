@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-08-10",
+  "reviewDigest": "sha256:e9cde8e4ba46ec2b39a8ff9faa851ac1251ad09d867401add8633ac254d4abd4",
+  "sections": [
+    {
+      "id": "solve-with-confidence",
+      "title": "Solve with Confidence",
+      "description": "Rigorous solving, independent checks and method choices worth trusting.",
+      "slugs": [
+        "solve-it-then-prove-it-universal",
+        "whole-worksheet-solve-and-prove-audit",
+        "double-check-any-ai-maths-answer",
+        "which-method-is-best-a-decision-table",
+        "jee-method-dispute-source-audit",
+        "solve-a-geometry-figure-from-a-photo"
+      ]
+    },
+    {
+      "id": "unlock-a-stuck-learner",
+      "title": "Unlock a Stuck Learner",
+      "description": "Find the real gap, repair misconceptions and turn errors into progress.",
+      "slugs": [
+        "prerequisite-gap-finder-and-filler",
+        "careless-slip-or-real-misconception-diagnose-the-cause",
+        "error-pattern-fix-plan-from-the-student-s-mistakes",
+        "gatekeeper-maths-tutor-prove-each-concept-to-unlock-the-next",
+        "turn-a-wrong-answer-into-a-teaching-moment",
+        "10-minute-daily-catch-up-plan"
+      ]
+    },
+    {
+      "id": "build-a-serious-assessment",
+      "title": "Build a Serious Assessment",
+      "description": "Create classroom-ready papers, differentiated practice and trustworthy answer support.",
+      "slugs": [
+        "full-board-paper-with-blueprint-sections-and-answer-key",
+        "scaffolded-i-do-we-do-you-do-mastery-worksheet",
+        "print-ready-3-level-differentiated-worksheet-with-answer-key",
+        "7-day-weekly-dpp-series-on-one-chapter",
+        "one-quiz-three-ready-to-run-formats",
+        "jee-main-jee-advanced-teacher-supplied-pattern-paper-architect"
+      ]
+    },
+    {
+      "id": "make-class-memorable",
+      "title": "Make Class Memorable",
+      "description": "Use simulations, predictions, games and real contexts that make ideas stick.",
+      "slugs": [
+        "phet-maths-simulation-lesson-wrapper",
+        "unit-circle-you-can-drag",
+        "predict-before-the-graph-reveals",
+        "maths-treasure-hunt-with-clues",
+        "cricket-powered-maths-strike-rate-run-rate-and-averages",
+        "foundation-olympiad-classes-6-8-symmetry-transformation-codebrea"
+      ]
+    },
+    {
+      "id": "train-for-the-exam",
+      "title": "Train for the Exam",
+      "description": "Build honest exam practice, strategic judgment and proof-ready habits.",
+      "slugs": [
+        "five-original-practice-variants-from-one-pasted-pyq",
+        "similar-pyq-style-drill-with-wolframalpha-self-checks",
+        "jee-main-jee-advanced-multi-correct-partial-marking-drill",
+        "foundation-olympiad-classes-6-8-four-level-hint-ladder",
+        "olympiad-countdown-plan-with-motif-bank-proof-rubric",
+        "guess-or-skip-negative-marking-expected-value-coach"
+      ]
+    },
+    {
+      "id": "save-teacher-hours",
+      "title": "Save Teacher Hours",
+      "description": "Turn marks, scripts and assessment evidence into clear next actions.",
+      "slugs": [
+        "turn-raw-marks-into-re-teach-priorities",
+        "mark-thirty-scripts-with-an-exception-queue",
+        "audit-a-question-paper-against-a-supplied-blueprint",
+        "build-an-anonymised-class-error-summary",
+        "build-a-topic-wise-mastery-heatmap",
+        "forms-results-to-re-teach-priorities"
+      ]
+    },
+    {
+      "id": "create-a-standout-resource",
+      "title": "Create a Standout Resource",
+      "description": "Produce polished visual, print, presentation and long-form teaching resources.",
+      "slugs": [
+        "handwritten-5-method-solution-art",
+        "single-image-solution-posters",
+        "board-paper-to-overleaf-print-master",
+        "full-chapter-deck-with-speaker-notes-on-every-slide",
+        "animated-lesson-storyboard-reveal-by-reveal-build",
+        "bilingual-paper-with-locked-notation",
+        "publication-ready-textbook-chapter-paste-into-word",
+        "common-mistakes-chapter-and-how-to-avoid-them"
+      ]
+    },
+    {
+      "id": "give-every-learner-agency",
+      "title": "Give Every Learner Agency",
+      "description": "Offer safe tutoring, bilingual support and accessible ways to learn independently.",
+      "slugs": [
+        "issue-a-safe-stepwise-tutor-link",
+        "create-a-socratic-proof-coach-link",
+        "share-a-bilingual-doubt-support-link",
+        "translate-a-complete-paper-with-a-notation-lock",
+        "produce-a-low-vision-large-print-paper",
+        "convert-a-maths-handout-for-screen-reader-navigation"
+      ]
+    }
+  ]
+}

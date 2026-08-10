@@ -11,6 +11,7 @@ const SOURCE_FILE = resolve(ROOT, 'data/prompts.js');
 const OUTPUT_FILE = resolve(ROOT, 'data/catalog.js');
 const INDEX_FILE = resolve(ROOT, 'index.html');
 const CONTRACT_FILE = resolve(ROOT, '_handoff/tool-link-contract.txt');
+const SURPRISE_FILE = resolve(ROOT, 'data/surprise-pools.json');
 const MARKER = 'window.PROMPT_DATA =';
 
 export const LANGUAGE_DEFINITIONS = [
@@ -208,7 +209,25 @@ function buildLanguagePack(data, code) {
   }]));
 }
 
-function buildCatalog(data, languageStatus) {
+function parseSurpriseSections(manifestText, data) {
+  const manifest = JSON.parse(manifestText);
+  if (manifest.schemaVersion !== 1 || !Array.isArray(manifest.sections) || manifest.sections.length !== 8) throw new Error('surprise manifest must contain exactly eight schema-v1 sections');
+  const sourceSlugs = new Set(data.categories.flatMap(category => category.prompts).map(prompt => prompt.slug));
+  const sectionIds = new Set(); const usedSlugs = new Set();
+  return manifest.sections.map(section => {
+    if (!section || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(section.id || '') || sectionIds.has(section.id)) throw new Error(`invalid or duplicate surprise section id: ${section && section.id}`);
+    if (!section.title || !section.description || !Array.isArray(section.slugs) || section.slugs.length < 6) throw new Error(`incomplete surprise section: ${section.id}`);
+    sectionIds.add(section.id);
+    section.slugs.forEach(slug => {
+      if (!sourceSlugs.has(slug)) throw new Error(`surprise slug is missing from source data: ${slug}`);
+      if (usedSlugs.has(slug)) throw new Error(`surprise slug appears more than once: ${slug}`);
+      usedSlugs.add(slug);
+    });
+    return { id: section.id, title: section.title, description: section.description, slugs: section.slugs.slice() };
+  });
+}
+
+function buildCatalog(data, languageStatus, surpriseSections) {
   const liveCodes = LANGUAGE_DEFINITIONS.map(item => item.code).filter(code => languageStatus[code].live);
   const groupI18n = Object.fromEntries(Object.entries(GROUP_I18N).map(([group, labels]) => [group, Object.fromEntries(liveCodes.map(code => [code, labels[code]]))]));
   return {
@@ -218,6 +237,7 @@ function buildCatalog(data, languageStatus) {
     languageStatus: Object.fromEntries(Object.entries(languageStatus).map(([code, value]) => [code, { total: value.total, valid: value.valid, missing: value.missing, invalid: value.invalid, live: value.live }])),
     categoryI18n: categoryLabels(data, liveCodes),
     groupI18n,
+    surpriseSections,
     categories: data.categories.map(category => ({
       category: category.category, categoryTitle: category.categoryTitle, categoryIcon: category.categoryIcon, group: category.group, categoryBlurb: category.categoryBlurb,
       prompts: category.prompts.map(cardPrompt),
@@ -231,6 +251,17 @@ function assertCatalog(sourceData, catalog, languagePacks) {
   const liveCodes = LANGUAGE_DEFINITIONS.map(item => item.code).filter(code => catalog.languageStatus[code].live).sort();
   if (cards.length !== sourcePrompts.length || catalog.total !== sourcePrompts.length) throw new Error('catalog prompt total mismatch');
   if (new Set(cards.map(prompt => prompt.slug)).size !== cards.length) throw new Error('catalog slugs are not unique');
+  if (!Array.isArray(catalog.surpriseSections) || catalog.surpriseSections.length !== 8) throw new Error('catalog surprise sections are missing');
+  const surpriseIds = new Set(); const surpriseSlugs = new Set(); const cardSlugs = new Set(cards.map(prompt => prompt.slug));
+  for (const section of catalog.surpriseSections) {
+    if (surpriseIds.has(section.id)) throw new Error(`duplicate catalog surprise section: ${section.id}`);
+    surpriseIds.add(section.id);
+    for (const slug of section.slugs) {
+      if (!cardSlugs.has(slug)) throw new Error(`catalog surprise slug does not resolve: ${slug}`);
+      if (surpriseSlugs.has(slug)) throw new Error(`duplicate catalog surprise slug: ${slug}`);
+      surpriseSlugs.add(slug);
+    }
+  }
   for (const card of cards) {
     if (!card.slug || !card.title || !card.whatYouGet) throw new Error(`incomplete catalog card: ${card.slug || card.title || 'unknown'}`);
     if (!Array.isArray(card.exams) || !card.exams.length || !card.aud) throw new Error(`facet metadata missing: ${card.slug}`);
@@ -255,11 +286,12 @@ function assertCatalog(sourceData, catalog, languagePacks) {
   }
 }
 
-export function buildArtifacts(sourceText, indexText, contract) {
+export function buildArtifacts(sourceText, indexText, contract, surpriseManifestText) {
   const sourceData = parsePromptData(sourceText);
   const languageStatus = validateLanguageCompleteness(sourceData, contract);
   const liveCodes = LANGUAGE_DEFINITIONS.map(item => item.code).filter(code => languageStatus[code].live);
-  const catalog = buildCatalog(sourceData, languageStatus);
+  const surpriseSections = parseSurpriseSections(surpriseManifestText, sourceData);
+  const catalog = buildCatalog(sourceData, languageStatus, surpriseSections);
   const languagePacks = Object.fromEntries(liveCodes.filter(code => code !== 'en').map(code => [code, buildLanguagePack(sourceData, code)]));
   assertCatalog(sourceData, catalog, languagePacks);
   const versionMatch = indexText.match(/data\/prompts\.js\?v=(\d+)/);
@@ -276,7 +308,8 @@ function main() {
   const sourceText = readFileSync(SOURCE_FILE, 'utf8');
   const indexText = readFileSync(INDEX_FILE, 'utf8');
   const contract = readFileSync(CONTRACT_FILE, 'utf8').trim();
-  const artifacts = buildArtifacts(sourceText, indexText, contract);
+  const surpriseManifestText = readFileSync(SURPRISE_FILE, 'utf8');
+  const artifacts = buildArtifacts(sourceText, indexText, contract, surpriseManifestText);
   const expectedPackCodes = new Set(Object.keys(artifacts.packOutputs));
 
   if (checkOnly) {

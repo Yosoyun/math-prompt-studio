@@ -51,31 +51,31 @@ const PAGE_UI = {
   en: {
     effective: 'How to use this effectively', fix: 'If it is not right, reply with this:', copyPrompt: 'Copy prompt', openChatGPT: 'Open ChatGPT', openClaude: 'Open Claude', sharePrompt: 'Share this prompt', copyLink: 'Copy link', promptLabel: 'THE PROMPT',
     copied: 'Copied! Paste it into your AI chat.', opening: '{tool} is opening with your prompt loaded. It is also copied — if the box is empty, just paste it.', linkCopied: 'Link copied — share it with a teacher!', shareLead: 'Free AI prompt for maths teachers', browseAll: 'Browse all {count} free prompts',
-    makesImages: 'Makes images — needs an image AI', attachPhoto: 'Attach a photo of the question first', freeAI: 'Works on any free AI', bestTool: 'Best tool', anyAIChat: 'Any AI chat', allPrompts: 'All {count} prompts', guide: 'Beginner’s Guide', home: 'Home', about: 'About the author', freeForever: 'free, forever',
+    makesImages: 'Makes images — needs an image AI', attachPhoto: 'Attach a photo of the question first', freeAI: 'Works on any free AI', bestTool: 'Best tool', anyAIChat: 'Any AI chat', allPrompts: 'All {count} prompts', guide: 'Beginner’s Guide', home: 'Home',
     promptLanguage: 'Prompt language', brandHome: 'Maths Prompt Studio home', freePlatform: 'free maths platform', makesImagesTag: 'Makes images', photoNeededTag: 'Photo needed', textOnlyTag: 'Text only',
   },
   hi: {
     effective: 'इसे प्रभावी ढंग से कैसे इस्तेमाल करें', fix: 'अगर जवाब ठीक न लगे, तो यह भेजें:', copyPrompt: 'प्रॉम्प्ट कॉपी करें', openChatGPT: 'ChatGPT में खोलें', openClaude: 'Claude में खोलें', sharePrompt: 'यह प्रॉम्प्ट शेयर करें', copyLink: 'लिंक कॉपी करें', promptLabel: 'प्रॉम्प्ट',
     copied: 'कॉपी हो गया! अपने AI chat में पेस्ट करें।', opening: '{tool} आपके प्रॉम्प्ट के साथ खुल रहा है। प्रॉम्प्ट कॉपी भी हो गया है—बॉक्स खाली हो तो पेस्ट करें।', linkCopied: 'लिंक कॉपी हो गया—किसी शिक्षक को भेजें!', shareLead: 'गणित शिक्षकों के लिए मुफ़्त AI प्रॉम्प्ट', browseAll: 'सभी {count} मुफ़्त प्रॉम्प्ट देखें',
-    makesImages: 'चित्र बनाता है—image AI चाहिए', attachPhoto: 'पहले प्रश्न की फोटो जोड़ें', freeAI: 'किसी भी मुफ़्त AI पर काम करता है', bestTool: 'सबसे अच्छा टूल', anyAIChat: 'कोई भी AI chat', allPrompts: 'सभी {count} प्रॉम्प्ट', guide: 'शुरुआती गाइड', home: 'होम', about: 'लेखक के बारे में', freeForever: 'हमेशा मुफ़्त',
+    makesImages: 'चित्र बनाता है—image AI चाहिए', attachPhoto: 'पहले प्रश्न की फोटो जोड़ें', freeAI: 'किसी भी मुफ़्त AI पर काम करता है', bestTool: 'सबसे अच्छा टूल', anyAIChat: 'कोई भी AI chat', allPrompts: 'सभी {count} प्रॉम्प्ट', guide: 'शुरुआती गाइड', home: 'होम',
     promptLanguage: 'प्रॉम्प्ट भाषा', brandHome: 'Maths Prompt Studio होम', freePlatform: 'मुफ़्त गणित मंच', makesImagesTag: 'चित्र बनाता है', photoNeededTag: 'फोटो चाहिए', textOnlyTag: 'केवल पाठ',
   },
   bn: {
     effective: 'এটি কার্যকরভাবে কীভাবে ব্যবহার করবেন', fix: 'উত্তর ঠিক না হলে এটি পাঠান:', copyPrompt: 'প্রম্পট কপি করুন', openChatGPT: 'ChatGPT-এ খুলুন', openClaude: 'Claude-এ খুলুন', sharePrompt: 'প্রম্পটটি শেয়ার করুন', copyLink: 'লিংক কপি করুন', promptLabel: 'প্রম্পট',
     copied: 'কপি হয়েছে! আপনার AI chat-এ paste করুন।', opening: '{tool} আপনার প্রম্পটসহ খুলছে। প্রম্পটটি কপিও হয়েছে—বক্স খালি থাকলে paste করুন।', linkCopied: 'লিংক কপি হয়েছে—একজন শিক্ষককে পাঠান!', shareLead: 'গণিত শিক্ষকদের জন্য বিনামূল্যের AI প্রম্পট', browseAll: 'সব {count}টি বিনামূল্যের প্রম্পট দেখুন',
-    makesImages: 'ছবি তৈরি করে—image AI দরকার', attachPhoto: 'আগে প্রশ্নের একটি ছবি যুক্ত করুন', freeAI: 'যেকোনো বিনামূল্যের AI-তে কাজ করে', bestTool: 'সেরা টুল', anyAIChat: 'যেকোনো AI chat', allPrompts: 'সব {count}টি প্রম্পট', guide: 'শুরুর গাইড', home: 'হোম', about: 'লেখক সম্পর্কে', freeForever: 'সবসময় বিনামূল্যে',
+    makesImages: 'ছবি তৈরি করে—image AI দরকার', attachPhoto: 'আগে প্রশ্নের একটি ছবি যুক্ত করুন', freeAI: 'যেকোনো বিনামূল্যের AI-তে কাজ করে', bestTool: 'সেরা টুল', anyAIChat: 'যেকোনো AI chat', allPrompts: 'সব {count}টি প্রম্পট', guide: 'শুরুর গাইড', home: 'হোম',
     promptLanguage: 'প্রম্পটের ভাষা', brandHome: 'Maths Prompt Studio হোম', freePlatform: 'বিনামূল্যের গণিত প্ল্যাটফর্ম', makesImagesTag: 'ছবি তৈরি করে', photoNeededTag: 'ছবি দরকার', textOnlyTag: 'শুধু টেক্সট',
   },
   mr: {
     effective: 'हे परिणामकारकपणे कसे वापरावे', fix: 'उत्तर योग्य नसेल तर हे पाठवा:', copyPrompt: 'प्रॉम्प्ट कॉपी करा', openChatGPT: 'ChatGPT मध्ये उघडा', openClaude: 'Claude मध्ये उघडा', sharePrompt: 'हा प्रॉम्प्ट शेअर करा', copyLink: 'लिंक कॉपी करा', promptLabel: 'प्रॉम्प्ट',
     copied: 'कॉपी झाले! आपल्या AI chat मध्ये paste करा.', opening: '{tool} आपला प्रॉम्प्ट घेऊन उघडत आहे. प्रॉम्प्ट कॉपीही झाला आहे—बॉक्स रिकामा असल्यास paste करा.', linkCopied: 'लिंक कॉपी झाली—एका शिक्षकाला पाठवा!', shareLead: 'गणित शिक्षकांसाठी मोफत AI प्रॉम्प्ट', browseAll: 'सर्व {count} मोफत प्रॉम्प्ट पाहा',
-    makesImages: 'चित्रे तयार करते—image AI हवा', attachPhoto: 'आधी प्रश्नाचा फोटो जोडा', freeAI: 'कोणत्याही मोफत AI वर चालते', bestTool: 'सर्वोत्तम टूल', anyAIChat: 'कोणताही AI chat', allPrompts: 'सर्व {count} प्रॉम्प्ट', guide: 'नवशिक्यांसाठी मार्गदर्शक', home: 'होम', about: 'लेखकाबद्दल', freeForever: 'कायम मोफत',
+    makesImages: 'चित्रे तयार करते—image AI हवा', attachPhoto: 'आधी प्रश्नाचा फोटो जोडा', freeAI: 'कोणत्याही मोफत AI वर चालते', bestTool: 'सर्वोत्तम टूल', anyAIChat: 'कोणताही AI chat', allPrompts: 'सर्व {count} प्रॉम्प्ट', guide: 'नवशिक्यांसाठी मार्गदर्शक', home: 'होम',
     promptLanguage: 'प्रॉम्प्टची भाषा', brandHome: 'Maths Prompt Studio होम', freePlatform: 'मोफत गणित मंच', makesImagesTag: 'चित्रे तयार करते', photoNeededTag: 'फोटो आवश्यक', textOnlyTag: 'फक्त मजकूर',
   },
   te: {
     effective: 'దీన్ని సమర్థంగా ఎలా ఉపయోగించాలి', fix: 'సమాధానం సరైనది కాకపోతే ఇది పంపండి:', copyPrompt: 'ప్రాంప్ట్ కాపీ చేయండి', openChatGPT: 'ChatGPT లో తెరవండి', openClaude: 'Claude లో తెరవండి', sharePrompt: 'ఈ ప్రాంప్ట్‌ను షేర్ చేయండి', copyLink: 'లింక్ కాపీ చేయండి', promptLabel: 'ప్రాంప్ట్',
     copied: 'కాపీ అయింది! మీ AI chat లో paste చేయండి.', opening: '{tool} మీ ప్రాంప్ట్‌తో తెరుచుకుంటోంది. ప్రాంప్ట్ కాపీ కూడా అయింది—బాక్స్ ఖాళీగా ఉంటే paste చేయండి.', linkCopied: 'లింక్ కాపీ అయింది—ఒక ఉపాధ్యాయుడికి పంపండి!', shareLead: 'గణిత ఉపాధ్యాయుల కోసం ఉచిత AI ప్రాంప్ట్', browseAll: 'అన్ని {count} ఉచిత ప్రాంప్ట్‌లను చూడండి',
-    makesImages: 'చిత్రాలు తయారు చేస్తుంది—image AI కావాలి', attachPhoto: 'ముందుగా ప్రశ్న ఫోటోను జోడించండి', freeAI: 'ఏ ఉచిత AI లోనైనా పనిచేస్తుంది', bestTool: 'ఉత్తమ టూల్', anyAIChat: 'ఏదైనా AI chat', allPrompts: 'అన్ని {count} ప్రాంప్ట్‌లు', guide: 'ప్రారంభ మార్గదర్శిని', home: 'హోమ్', about: 'రచయిత గురించి', freeForever: 'ఎప్పటికీ ఉచితం',
+    makesImages: 'చిత్రాలు తయారు చేస్తుంది—image AI కావాలి', attachPhoto: 'ముందుగా ప్రశ్న ఫోటోను జోడించండి', freeAI: 'ఏ ఉచిత AI లోనైనా పనిచేస్తుంది', bestTool: 'ఉత్తమ టూల్', anyAIChat: 'ఏదైనా AI chat', allPrompts: 'అన్ని {count} ప్రాంప్ట్‌లు', guide: 'ప్రారంభ మార్గదర్శిని', home: 'హోమ్',
     promptLanguage: 'ప్రాంప్ట్ భాష', brandHome: 'Maths Prompt Studio హోమ్', freePlatform: 'ఉచిత గణిత వేదిక', makesImagesTag: 'చిత్రాలు తయారు చేస్తుంది', photoNeededTag: 'ఫోటో అవసరం', textOnlyTag: 'వచనం మాత్రమే',
   },
 };
@@ -159,7 +159,7 @@ ${FONT_LINKS}
   </article>
   <p style="text-align:center;margin-top:26px"><a class="btn btn-primary" id="browseAll" href="../../#library">&#9664; Browse all ${GRAND} free prompts</a></p>
 </main>
-<footer class="site-foot"><div class="foot-sign"><span class="foot-sign-name">Maths Prompt Studio</span><span class="foot-sign-sub" id="footFree">free, forever</span></div><p class="foot-meta"><a id="footAbout" href="../../#about">About the author</a> &middot; <span id="footMetaFree">free, forever</span></p></footer>
+<footer class="site-foot"><div class="foot-sign"><span class="foot-sign-name">Maths Prompt Studio</span><span class="foot-sign-sub" id="footStatus">free maths platform</span></div><p class="foot-meta"><a id="footLibrary" href="../../#library">All ${GRAND} prompts</a> &middot; <a id="footHome" href="../../">Home</a></p></footer>
 <div class="toast" id="t" role="status" aria-live="polite">Copied!</div>
 <script>
 var L10N=${localeJson};var UI=${pageUiJson};var CATEGORY=${categoryJson};var LNG='en';var URL=${JSON.stringify(url)};var MODE=${JSON.stringify(deliveryMode)};var TYPE_TAG=${JSON.stringify(typeTag)};var BEST_TOOL=${JSON.stringify(bestTool)};var TOTAL=${GRAND};
@@ -174,7 +174,7 @@ function active(){return L10N[LNG]}function activeP(){var value=active();return 
     document.getElementById('relText').textContent=ui[MODE];document.getElementById('bestToolLabel').textContent=ui.bestTool;document.getElementById('bestToolValue').textContent=BEST_TOOL||ui.anyAIChat;
     document.getElementById('crumbCategory').textContent=CATEGORY[code];document.getElementById('categoryTag').textContent=CATEGORY[code];document.getElementById('typeTag').textContent=ui[TYPE_TAG];wrap.setAttribute('aria-label',ui.promptLanguage);document.getElementById('brandHome').setAttribute('aria-label',ui.brandHome);document.getElementById('brandBy').textContent=ui.freePlatform;
     document.getElementById('cp').textContent='📋 '+ui.copyPrompt;document.getElementById('gpt').textContent='🤖 '+ui.openChatGPT;document.getElementById('cla').textContent='💬 '+ui.openClaude;document.getElementById('sh').textContent='📱 '+ui.sharePrompt;document.getElementById('lnk').textContent='🔗 '+ui.copyLink;document.getElementById('promptLabel').textContent=ui.promptLabel;document.getElementById('browseAll').textContent='◀ '+format(ui.browseAll,{count:TOTAL});
-    document.getElementById('navAll').textContent=format(ui.allPrompts,{count:TOTAL});document.getElementById('navGuide').textContent=ui.guide;document.getElementById('crumbHome').textContent=ui.home;document.getElementById('footAbout').textContent=ui.about;document.getElementById('footFree').textContent=ui.freeForever;document.getElementById('footMetaFree').textContent=ui.freeForever;
+    document.getElementById('navAll').textContent=format(ui.allPrompts,{count:TOTAL});document.getElementById('navGuide').textContent=ui.guide;document.getElementById('crumbHome').textContent=ui.home;document.getElementById('footLibrary').textContent=format(ui.allPrompts,{count:TOTAL});document.getElementById('footHome').textContent=ui.home;document.getElementById('footStatus').textContent=ui.freePlatform;
     wrap.querySelectorAll('[data-page-lang]').forEach(function(button){var on=button.getAttribute('data-page-lang')===code;button.classList.toggle('active',on);button.setAttribute('aria-pressed',String(on))});try{localStorage.setItem('mps-lang',code)}catch(e){}}
   wrap.querySelectorAll('[data-page-lang]').forEach(function(button){button.onclick=function(){setLanguage(button.getAttribute('data-page-lang'))}});var saved='en';try{saved=localStorage.getItem('mps-lang')||'en'}catch(e){}setLanguage(L10N[saved]?saved:'en');
 })();

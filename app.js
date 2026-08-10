@@ -2,13 +2,9 @@
 (function () {
   'use strict';
 
-  var aboutSection = document.getElementById('about');
   var rawConfig = window.MPS_CONFIG || {};
   var CFG = {
-    email: rawConfig.email || (aboutSection ? (aboutSection.getAttribute('data-contact-email') || '') : ''),
-    whatsapp: rawConfig.whatsapp || (aboutSection ? (aboutSection.getAttribute('data-contact-whatsapp') || '') : ''),
-    instagram: rawConfig.instagram || (aboutSection ? (aboutSection.getAttribute('data-contact-instagram') || '') : ''),
-    googleFormUrl: rawConfig.googleFormUrl || '', photoUrl: rawConfig.photoUrl || '',
+    email: rawConfig.email || '',
     analyticsSrc: rawConfig.analyticsSrc || '', analyticsDomain: rawConfig.analyticsDomain || ''
   };
   var SITE = 'https://yosoyun.github.io/math-prompt-studio/';
@@ -43,7 +39,7 @@
   var GROUPS = GROUP_ORDER.filter(function (g) { return DATA.some(function (c) { return c.group === g; }); });
   DATA.forEach(function (c) { if (GROUPS.indexOf(c.group) === -1) GROUPS.push(c.group); });
 
-  var state = { group: 'all', query: '', prevEmpty: true, lang: 'en', exam: 'all', aud: 'all', fmt: 'all', renderLimit: 60, quickSegment: '', quickJob: '', quickPrompt: null, hasRendered: false };
+  var state = { group: 'all', category: 'all', query: '', prevEmpty: true, lang: 'en', exam: 'all', aud: 'all', fmt: 'all', renderLimit: 60, surpriseSection: '', surpriseCounter: 0, surprisePromptSlug: '', surpriseSignature: '', quickSegment: '', quickJob: '', quickPrompt: null, hasRendered: false };
   var favorites = new Set();
   var recentSlugs = [];
   var restoredLanguage = 'en';
@@ -62,9 +58,11 @@
       quickHint: 'Three taps: segment, job, then open.', loading: 'Loading the full prompt…', loadError: 'The full prompt could not load. Please check your connection and try again.',
       paper: 'Paper', solveVerify: 'Solve + Verify', worksheet: 'Worksheet', ppt: 'PPT', quiz: 'Quiz',
       student: 'Student', foundation: 'Foundation',
-      copyPrompt: 'Copy prompt', howTo: 'How to use this', share: 'Share', save: 'Save', unsave: 'Remove from saved',
+      copyPrompt: 'Copy prompt', howTo: 'View full prompt + instructions', share: 'Share', save: 'Save', unsave: 'Remove from saved',
       promptDay: 'Prompt of the day', recent: 'Recently used', savedShelf: 'Your saved prompts', important: 'Most important', added: 'Recently added',
-      showMore: 'Show 60 more prompts', surprise: 'Surprise me — random prompt', browseAll: 'Browse all', noMatch: 'No prompts match', related: 'related prompts', found: 'prompts found',
+      showMore: 'Show 60 more prompts', showAll: 'Show all {count}', showing: 'Showing {shown} of {count} prompts', allVisible: 'All {count} prompts are visible', browseAll: 'Browse all', noMatch: 'No prompts match', related: 'related prompts', found: 'prompts found',
+      categoryLabel: 'Category', allCategories: 'All categories', clearFilters: 'Clear all', examLabel: 'Exam', audienceLabel: 'Audience', formatLabel: 'Format',
+      surpriseKicker: 'Curated, never generic', surpriseTitle: 'Surprise Studio', surpriseSub: 'Choose an outcome. Every suggestion is a hand-picked, high-depth prompt and stays inside your current filters.', surpriseOpen: 'Open this rich prompt', surpriseAnother: 'Another in this section', surpriseNoMatch: 'No curated prompt fits this exact selection. Change a filter or choose another section.',
       shareLead: 'Free maths teaching prompt', copied: 'Copied! Paste it into your AI chat.', linkCopied: 'Link copied — send this prompt to a teacher!',
       fillOptional: 'Fill in the blanks here', fillNote: 'Type your details — the prompt and action buttons update automatically.', close: 'Close', copyLink: 'Copy link',
       formatAll: 'All formats', effectiveTitle: 'How to use this effectively', fixLabel: 'If it is not right, reply with this:', openOne: 'Open it in one click (the prompt is copied for you):', getAs: 'Get this as:', promptLabel: 'COPY THE PROMPT',
@@ -81,9 +79,11 @@
       quickHint: 'तीन टैप: वर्ग, काम, फिर खोलें।', loading: 'पूरा प्रॉम्प्ट लोड हो रहा है…', loadError: 'पूरा प्रॉम्प्ट लोड नहीं हुआ। इंटरनेट जाँचकर फिर कोशिश करें।',
       paper: 'पेपर', solveVerify: 'हल + जाँच', worksheet: 'वर्कशीट', ppt: 'PPT', quiz: 'क्विज़',
       student: 'विद्यार्थी', foundation: 'फ़ाउंडेशन',
-      copyPrompt: 'प्रॉम्प्ट कॉपी करें', howTo: 'इस्तेमाल कैसे करें', share: 'शेयर करें', save: 'सहेजें', unsave: 'सहेजे से हटाएँ',
+      copyPrompt: 'प्रॉम्प्ट कॉपी करें', howTo: 'पूरा प्रॉम्प्ट + निर्देश देखें', share: 'शेयर करें', save: 'सहेजें', unsave: 'सहेजे से हटाएँ',
       promptDay: 'आज का प्रॉम्प्ट', recent: 'हाल में इस्तेमाल किए', savedShelf: 'आपके सहेजे प्रॉम्प्ट', important: 'सबसे ज़रूरी', added: 'हाल में जोड़े गए',
-      showMore: '60 और प्रॉम्प्ट दिखाएँ', surprise: 'कोई भी एक प्रॉम्प्ट दिखाएँ', browseAll: 'सभी देखें', noMatch: 'कोई प्रॉम्प्ट मेल नहीं खाता', related: 'संबंधित प्रॉम्प्ट', found: 'प्रॉम्प्ट मिले',
+      showMore: '60 और प्रॉम्प्ट दिखाएँ', showAll: 'सभी {count} दिखाएँ', showing: '{count} में से {shown} प्रॉम्प्ट दिख रहे हैं', allVisible: 'सभी {count} प्रॉम्प्ट दिख रहे हैं', browseAll: 'सभी देखें', noMatch: 'कोई प्रॉम्प्ट मेल नहीं खाता', related: 'संबंधित प्रॉम्प्ट', found: 'प्रॉम्प्ट मिले',
+      categoryLabel: 'श्रेणी', allCategories: 'सभी श्रेणियाँ', clearFilters: 'सभी फ़िल्टर हटाएँ', examLabel: 'परीक्षा', audienceLabel: 'उपयोगकर्ता', formatLabel: 'प्रारूप',
+      surpriseKicker: 'चुने हुए, साधारण नहीं', surpriseTitle: 'सरप्राइज़ स्टूडियो', surpriseSub: 'अपना लक्ष्य चुनें। हर सुझाव हाथ से चुना गया, गहराई वाला प्रॉम्प्ट है और आपके मौजूदा फ़िल्टर के भीतर ही रहता है।', surpriseOpen: 'यह पूरा प्रॉम्प्ट खोलें', surpriseAnother: 'इसी भाग से दूसरा', surpriseNoMatch: 'इस चुनाव से मेल खाने वाला चुना हुआ प्रॉम्प्ट नहीं है। कोई फ़िल्टर या भाग बदलें।',
       shareLead: 'मुफ़्त गणित शिक्षण प्रॉम्प्ट', copied: 'कॉपी हो गया! अपने AI चैट में पेस्ट करें।', linkCopied: 'लिंक कॉपी हो गया — किसी शिक्षक को भेजें!',
       fillOptional: 'यहाँ खाली जगह भरें', fillNote: 'अपनी जानकारी भरें — प्रॉम्प्ट और बटन अपने-आप बदलेंगे।', close: 'बंद करें', copyLink: 'लिंक कॉपी करें',
       formatAll: 'सभी प्रारूप', effectiveTitle: 'इसे प्रभावी ढंग से कैसे इस्तेमाल करें', fixLabel: 'अगर जवाब ठीक न लगे, तो यह भेजें:', openOne: 'एक क्लिक में खोलें (प्रॉम्प्ट आपके लिए कॉपी हो जाएगा):', getAs: 'इसे पाएँ:', promptLabel: 'प्रॉम्प्ट कॉपी करें',
@@ -99,9 +99,11 @@
       quickKicker: '৬০-সেকেন্ডে শুরু', quickTitle: 'পরের ক্লাসের জন্য আপনার কী দরকার?', quickSub: 'প্রথমে শ্রেণি বা পরীক্ষা বেছে নিন, তারপর কাজ। সঠিক প্রম্পট তথ্য পূরণের জন্য প্রস্তুত হয়ে খুলবে।', segmentSmall: 'এই পছন্দটি এই ডিভাইসে মনে রাখা হবে।', jobSmall: 'পেপার, সমাধান ও যাচাই, Worksheet, PPT অথবা Quiz।',
       quickHint: 'তিন ট্যাপ: বিভাগ, কাজ, তারপর খুলুন।', loading: 'সম্পূর্ণ প্রম্পট লোড হচ্ছে…', loadError: 'সম্পূর্ণ প্রম্পট লোড হয়নি। সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।',
       paper: 'পেপার', solveVerify: 'সমাধান + যাচাই', worksheet: 'Worksheet', ppt: 'PPT', quiz: 'Quiz', student: 'শিক্ষার্থী', foundation: 'Foundation',
-      copyPrompt: 'প্রম্পট কপি করুন', howTo: 'কীভাবে ব্যবহার করবেন', share: 'শেয়ার করুন', save: 'সংরক্ষণ করুন', unsave: 'সংরক্ষিত তালিকা থেকে সরান',
+      copyPrompt: 'প্রম্পট কপি করুন', howTo: 'সম্পূর্ণ প্রম্পট + নির্দেশনা দেখুন', share: 'শেয়ার করুন', save: 'সংরক্ষণ করুন', unsave: 'সংরক্ষিত তালিকা থেকে সরান',
       promptDay: 'আজকের প্রম্পট', recent: 'সম্প্রতি ব্যবহার করা', savedShelf: 'আপনার সংরক্ষিত প্রম্পট', important: 'সবচেয়ে গুরুত্বপূর্ণ', added: 'সম্প্রতি যোগ করা',
-      showMore: 'আরও ৬০টি প্রম্পট দেখান', surprise: 'যেকোনো একটি প্রম্পট দেখান', browseAll: 'সব দেখুন', noMatch: 'কোনো প্রম্পট মেলেনি', related: 'সম্পর্কিত প্রম্পট', found: 'টি প্রম্পট পাওয়া গেছে',
+      showMore: 'আরও ৬০টি প্রম্পট দেখান', showAll: 'সব {count}টি দেখান', showing: '{count}টির মধ্যে {shown}টি প্রম্পট দেখানো হচ্ছে', allVisible: 'সব {count}টি প্রম্পট দেখা যাচ্ছে', browseAll: 'সব দেখুন', noMatch: 'কোনো প্রম্পট মেলেনি', related: 'সম্পর্কিত প্রম্পট', found: 'টি প্রম্পট পাওয়া গেছে',
+      categoryLabel: 'বিভাগ', allCategories: 'সব বিভাগ', clearFilters: 'সব ফিল্টার সরান', examLabel: 'পরীক্ষা', audienceLabel: 'ব্যবহারকারী', formatLabel: 'ফরম্যাট',
+      surpriseKicker: 'বাছাই করা, সাধারণ নয়', surpriseTitle: 'সারপ্রাইজ স্টুডিও', surpriseSub: 'একটি লক্ষ্য বেছে নিন। প্রতিটি পরামর্শ হাতে বাছাই করা গভীর প্রম্পট এবং আপনার বর্তমান ফিল্টারের মধ্যেই থাকবে।', surpriseOpen: 'এই পূর্ণ প্রম্পট খুলুন', surpriseAnother: 'এই বিভাগ থেকে আরেকটি', surpriseNoMatch: 'এই নির্দিষ্ট নির্বাচনের সঙ্গে কোনো বাছাই করা প্রম্পট মেলেনি। ফিল্টার বা বিভাগ বদলান।',
       shareLead: 'বিনামূল্যের গণিত-শিক্ষণ প্রম্পট', copied: 'কপি হয়েছে! আপনার AI chat-এ paste করুন।', linkCopied: 'লিংক কপি হয়েছে—একজন শিক্ষককে পাঠান!',
       fillOptional: 'এখানে খালি অংশ পূরণ করুন', fillNote: 'আপনার তথ্য লিখুন—প্রম্পট ও বোতাম নিজে থেকেই বদলাবে।', close: 'বন্ধ করুন', copyLink: 'লিংক কপি করুন',
       formatAll: 'সব ফরম্যাট', effectiveTitle: 'এটি কার্যকরভাবে কীভাবে ব্যবহার করবেন', fixLabel: 'উত্তর ঠিক না হলে এটি পাঠান:', openOne: 'এক ক্লিকে খুলুন (প্রম্পট আপনার জন্য কপি হবে):', getAs: 'এই ফরম্যাটে নিন:', promptLabel: 'প্রম্পট কপি করুন',
@@ -117,9 +119,11 @@
       quickKicker: '६०-सेकंदात सुरुवात', quickTitle: 'पुढील वर्गासाठी आपल्याला काय हवे आहे?', quickSub: 'प्रथम वर्ग किंवा परीक्षा निवडा, मग काम. योग्य प्रॉम्प्ट माहिती भरण्यासाठी तयार उघडेल.', segmentSmall: 'ही निवड या डिव्हाइसवर लक्षात ठेवली जाईल.', jobSmall: 'पेपर, सोडवणे व तपासणी, Worksheet, PPT किंवा Quiz.',
       quickHint: 'तीन टॅप: विभाग, काम, मग उघडा.', loading: 'संपूर्ण प्रॉम्प्ट लोड होत आहे…', loadError: 'संपूर्ण प्रॉम्प्ट लोड झाला नाही. कनेक्शन तपासून पुन्हा प्रयत्न करा.',
       paper: 'पेपर', solveVerify: 'सोडवा + तपासा', worksheet: 'Worksheet', ppt: 'PPT', quiz: 'Quiz', student: 'विद्यार्थी', foundation: 'Foundation',
-      copyPrompt: 'प्रॉम्प्ट कॉपी करा', howTo: 'हे कसे वापरावे', share: 'शेअर करा', save: 'जतन करा', unsave: 'जतन केलेल्यांतून काढा',
+      copyPrompt: 'प्रॉम्प्ट कॉपी करा', howTo: 'संपूर्ण प्रॉम्प्ट + सूचना पाहा', share: 'शेअर करा', save: 'जतन करा', unsave: 'जतन केलेल्यांतून काढा',
       promptDay: 'आजचा प्रॉम्प्ट', recent: 'अलीकडे वापरलेले', savedShelf: 'आपले जतन केलेले प्रॉम्प्ट', important: 'सर्वात महत्त्वाचे', added: 'अलीकडे जोडलेले',
-      showMore: 'आणखी ६० प्रॉम्प्ट दाखवा', surprise: 'कोणताही एक प्रॉम्प्ट दाखवा', browseAll: 'सर्व पाहा', noMatch: 'जुळणारा प्रॉम्प्ट नाही', related: 'संबंधित प्रॉम्प्ट', found: 'प्रॉम्प्ट सापडले',
+      showMore: 'आणखी ६० प्रॉम्प्ट दाखवा', showAll: 'सर्व {count} दाखवा', showing: '{count} पैकी {shown} प्रॉम्प्ट दिसत आहेत', allVisible: 'सर्व {count} प्रॉम्प्ट दिसत आहेत', browseAll: 'सर्व पाहा', noMatch: 'जुळणारा प्रॉम्प्ट नाही', related: 'संबंधित प्रॉम्प्ट', found: 'प्रॉम्प्ट सापडले',
+      categoryLabel: 'वर्ग', allCategories: 'सर्व वर्ग', clearFilters: 'सर्व फिल्टर काढा', examLabel: 'परीक्षा', audienceLabel: 'वापरकर्ता', formatLabel: 'फॉरमॅट',
+      surpriseKicker: 'निवडक, सर्वसाधारण नाही', surpriseTitle: 'सरप्राइझ स्टुडिओ', surpriseSub: 'आपले उद्दिष्ट निवडा. प्रत्येक सूचना हाताने निवडलेला, सखोल प्रॉम्प्ट आहे आणि आपल्या सध्याच्या फिल्टरमध्येच राहतो.', surpriseOpen: 'हा संपूर्ण प्रॉम्प्ट उघडा', surpriseAnother: 'याच विभागातील दुसरा', surpriseNoMatch: 'या नेमक्या निवडीशी जुळणारा निवडक प्रॉम्प्ट नाही. फिल्टर किंवा विभाग बदला.',
       shareLead: 'मोफत गणित-अध्यापन प्रॉम्प्ट', copied: 'कॉपी झाले! आपल्या AI chat मध्ये paste करा.', linkCopied: 'लिंक कॉपी झाली—एका शिक्षकाला पाठवा!',
       fillOptional: 'येथे रिकाम्या जागा भरा', fillNote: 'आपली माहिती लिहा—प्रॉम्प्ट आणि बटणे आपोआप बदलतील.', close: 'बंद करा', copyLink: 'लिंक कॉपी करा',
       formatAll: 'सर्व फॉरमॅट', effectiveTitle: 'हे परिणामकारकपणे कसे वापरावे', fixLabel: 'उत्तर योग्य नसेल तर हे पाठवा:', openOne: 'एका क्लिकमध्ये उघडा (प्रॉम्प्ट आपल्यासाठी कॉपी होईल):', getAs: 'या स्वरूपात मिळवा:', promptLabel: 'प्रॉम्प्ट कॉपी करा',
@@ -135,9 +139,11 @@
       quickKicker: '60-సెకన్లలో ప్రారంభం', quickTitle: 'తదుపరి తరగతికి మీకు ఏమి కావాలి?', quickSub: 'ముందుగా తరగతి లేదా పరీక్షను ఎంచుకోండి, తరువాత పనిని ఎంచుకోండి. సరైన ప్రాంప్ట్ వివరాలు పూరించడానికి సిద్ధంగా తెరుచుకుంటుంది.', segmentSmall: 'ఈ ఎంపిక ఈ పరికరంలో గుర్తుంచుకోబడుతుంది.', jobSmall: 'పేపర్, పరిష్కారం మరియు తనిఖీ, Worksheet, PPT లేదా Quiz.',
       quickHint: 'మూడు ట్యాప్‌లు: విభాగం, పని, తరువాత తెరవండి.', loading: 'పూర్తి ప్రాంప్ట్ లోడ్ అవుతోంది…', loadError: 'పూర్తి ప్రాంప్ట్ లోడ్ కాలేదు. కనెక్షన్ తనిఖీ చేసి మళ్లీ ప్రయత్నించండి.',
       paper: 'పేపర్', solveVerify: 'పరిష్కరించు + తనిఖీ', worksheet: 'Worksheet', ppt: 'PPT', quiz: 'Quiz', student: 'విద్యార్థి', foundation: 'Foundation',
-      copyPrompt: 'ప్రాంప్ట్ కాపీ చేయండి', howTo: 'దీన్ని ఎలా ఉపయోగించాలి', share: 'షేర్ చేయండి', save: 'సేవ్ చేయండి', unsave: 'సేవ్ చేసిన వాటి నుంచి తొలగించండి',
+      copyPrompt: 'ప్రాంప్ట్ కాపీ చేయండి', howTo: 'పూర్తి ప్రాంప్ట్ + సూచనలు చూడండి', share: 'షేర్ చేయండి', save: 'సేవ్ చేయండి', unsave: 'సేవ్ చేసిన వాటి నుంచి తొలగించండి',
       promptDay: 'ఈ రోజు ప్రాంప్ట్', recent: 'ఇటీవల ఉపయోగించినవి', savedShelf: 'మీ సేవ్ చేసిన ప్రాంప్ట్‌లు', important: 'అత్యంత ముఖ్యమైనవి', added: 'ఇటీవల జోడించినవి',
-      showMore: 'మరో 60 ప్రాంప్ట్‌లు చూపండి', surprise: 'ఏదైనా ఒక ప్రాంప్ట్ చూపండి', browseAll: 'అన్నీ చూడండి', noMatch: 'సరిపోలే ప్రాంప్ట్ లేదు', related: 'సంబంధిత ప్రాంప్ట్‌లు', found: 'ప్రాంప్ట్‌లు దొరికాయి',
+      showMore: 'మరో 60 ప్రాంప్ట్‌లు చూపండి', showAll: 'మొత్తం {count} చూపండి', showing: '{count}లో {shown} ప్రాంప్ట్‌లు కనిపిస్తున్నాయి', allVisible: 'మొత్తం {count} ప్రాంప్ట్‌లు కనిపిస్తున్నాయి', browseAll: 'అన్నీ చూడండి', noMatch: 'సరిపోలే ప్రాంప్ట్ లేదు', related: 'సంబంధిత ప్రాంప్ట్‌లు', found: 'ప్రాంప్ట్‌లు దొరికాయి',
+      categoryLabel: 'వర్గం', allCategories: 'అన్ని వర్గాలు', clearFilters: 'అన్ని ఫిల్టర్లు తొలగించండి', examLabel: 'పరీక్ష', audienceLabel: 'వినియోగదారు', formatLabel: 'ఫార్మాట్',
+      surpriseKicker: 'ఎంపిక చేసినవి, సాధారణమైనవి కాదు', surpriseTitle: 'సర్‌ప్రైజ్ స్టూడియో', surpriseSub: 'మీ లక్ష్యాన్ని ఎంచుకోండి. ప్రతి సూచన చేతితో ఎంపిక చేసిన లోతైన ప్రాంప్ట్; ఇది మీ ప్రస్తుత ఫిల్టర్లలోనే ఉంటుంది.', surpriseOpen: 'ఈ పూర్తి ప్రాంప్ట్ తెరవండి', surpriseAnother: 'ఈ విభాగం నుంచి మరొకటి', surpriseNoMatch: 'ఈ ఖచ్చితమైన ఎంపికకు సరిపోయే ఎంపిక చేసిన ప్రాంప్ట్ లేదు. ఫిల్టర్ లేదా విభాగం మార్చండి.',
       shareLead: 'ఉచిత గణిత బోధన ప్రాంప్ట్', copied: 'కాపీ అయింది! మీ AI chat లో paste చేయండి.', linkCopied: 'లింక్ కాపీ అయింది—ఒక ఉపాధ్యాయుడికి పంపండి!',
       fillOptional: 'ఇక్కడ ఖాళీలను పూరించండి', fillNote: 'మీ వివరాలు టైప్ చేయండి—ప్రాంప్ట్ మరియు బటన్‌లు స్వయంచాలకంగా మారతాయి.', close: 'మూసివేయండి', copyLink: 'లింక్ కాపీ చేయండి',
       formatAll: 'అన్ని ఫార్మాట్‌లు', effectiveTitle: 'దీన్ని సమర్థంగా ఎలా ఉపయోగించాలి', fixLabel: 'సమాధానం సరైనది కాకపోతే ఇది పంపండి:', openOne: 'ఒక క్లిక్‌తో తెరవండి (ప్రాంప్ట్ మీ కోసం కాపీ అవుతుంది):', getAs: 'ఈ రూపంలో పొందండి:', promptLabel: 'ప్రాంప్ట్ కాపీ చేయండి',
@@ -157,7 +163,7 @@
       optionClass6: "Class 6", optionClass7: "Class 7", optionClass8: "Class 8", optionClass9: "Class 9", optionClass10: "Class 10", optionClass11: "Class 11", optionClass12: "Class 12", optionCollege: "College / University", optionStateBoard: "State Board", optionGeneral: "General", optionFullPaper: "Full question paper", optionUnitTest: "Unit test", optionSamplePaper: "Sample / model paper", optionDailyPractice: "Daily Practice (DPP)", optionMcqTest: "MCQ test", optionBalanced: "Balanced", optionEasyLeaning: "Easy-leaning", optionChallenging: "Challenging",
       libraryKicker: "The collection", libraryTitle: "The Prompt Library", librarySub: "Pick a group, search, open a card, and copy. Every card says whether it works on free AI and exactly how to use it.", searchAria: "Search prompts", clearSearch: "Clear search", groupLabel: "Group", groupAria: "Filter by group", facetAria: "Exam and audience filters", formatAria: "Output format filters", legendFree: "Works on any free AI", legendImages: "Makes images—needs an image AI", legendPhoto: "Attach a photo first", libraryTip: "Tip: every action button copies the prompt. If your AI opens empty, paste it, fill the brackets, and send.", loadingPrompts: "Loading {count} prompts…", suggestTerms: "graph|worksheet|quiz|lesson plan|formula sheet|photo|JEE|parents",
       feedbackKicker: "Your voice shapes this", feedbackTitle: "What should I fix or add next?", feedbackSub: "Rate the studio, leave a suggestion, or reach me directly. I prioritise the most-requested fixes first.", feedbackWorking: "How is it working for you?", rating: "Rating", starAria: "{count} stars", roleLabel: "I am a…", roleSchool: "School teacher", roleCoaching: "Coaching / tuition teacher", roleCollege: "College / university faculty", roleStudent: "Student", roleParent: "Parent", roleOther: "Other", feedbackMessage: "What's working, what's not, what should I add?", feedbackPlaceholder: "e.g. Please add more Class 9 geometry prompts, and improve image output.", feedbackName: "Your name (optional)", feedbackNamePlaceholder: "So I can thank you", sendFeedback: "✉️ Send feedback", copyInstead: "Copy instead", feedbackHint: "Tapping Send opens your email app with everything filled in—just press send.", reachTitle: "Reach me directly", reachSub: "Prefer a quick message? Use any of these.", emailMe: "✉️ Email me", openForm: "📝 Open suggestions form", messageWa: "📱 Message on WhatsApp", followInstagram: "📷 Follow on Instagram", promiseLabel: "My promise:", promise: "the most-requested fixes get done first. Your message can improve this for thousands of teachers.", feedbackSubject: "Maths Prompt Studio feedback", feedbackRatingField: "Rating", feedbackRoleField: "Role", feedbackNameField: "Name", feedbackBodyField: "Feedback", feedbackSentFrom: "Sent from Maths Prompt Studio", none: "none", emailOpened: "Your email app should have opened with everything filled in—just press send. Thank you!", feedbackCopied: "Feedback copied—paste it wherever you like.", whatsappLead: "Hello, feedback on Maths Prompt Studio:",
-      shareKicker: "The only “payment” I ask", shareTitle: "Spread it to one more teacher or student", shareSub: "There is nothing to buy or download. If this saved you time, please pass it on to someone who can use it.", shareWhatsApp: "📱 Share on WhatsApp", shareMore: "➤ More…", shareMessage: "Free AI tool for maths teachers and students—{count} ready prompts plus a step-by-step beginner guide:", shareLinkCopied: "Link copied—send it to a teacher or student!", toastInitial: "Copied! Now go to your AI chat and paste it.", modalCloseAria: "Close"
+      shareMessage: "Free AI tool for maths teachers and students—{count} ready prompts plus a step-by-step beginner guide:", shareLinkCopied: "Link copied—send it to a teacher or student!", toastInitial: "Copied! Now go to your AI chat and paste it.", modalCloseAria: "Close"
     },
     hi: {
       brandHome: "Maths Prompt Studio होम", navPrimary: "मुख्य नेविगेशन", navGuide: "शुरुआती गाइड", navBuilder: "पेपर बिल्डर", navLearn: "10× सीखें", navVerify: "जाँचें", navPrompts: "प्रॉम्प्ट", navPlatform: "प्लेटफ़ॉर्म", navAbout: "परिचय", navFeedback: "फीडबैक", themeToggle: "डार्क मोड बदलें", languagePicker: "इंटरफ़ेस भाषा", heroStart: "60 सेकंड में कुछ बनाएँ", heroBrowse: "सभी 961 प्रॉम्प्ट देखें", devicePhone: "📱 फ़ोन पर", deviceComputer: "💻 कंप्यूटर पर", verifyAnswer: "🔄 किसी भी AI जवाब की दोबारा जाँच करें",
@@ -167,7 +173,7 @@
       optionClass6: "कक्षा 6", optionClass7: "कक्षा 7", optionClass8: "कक्षा 8", optionClass9: "कक्षा 9", optionClass10: "कक्षा 10", optionClass11: "कक्षा 11", optionClass12: "कक्षा 12", optionCollege: "कॉलेज / विश्वविद्यालय", optionStateBoard: "राज्य बोर्ड", optionGeneral: "सामान्य", optionFullPaper: "पूरा प्रश्नपत्र", optionUnitTest: "इकाई परीक्षा", optionSamplePaper: "नमूना / मॉडल पेपर", optionDailyPractice: "दैनिक अभ्यास (DPP)", optionMcqTest: "MCQ परीक्षा", optionBalanced: "संतुलित", optionEasyLeaning: "थोड़ा आसान", optionChallenging: "चुनौतीपूर्ण",
       libraryKicker: "संग्रह", libraryTitle: "प्रॉम्प्ट लाइब्रेरी", librarySub: "समूह चुनें, खोजें, कार्ड खोलें और कॉपी करें। हर कार्ड बताता है कि वह मुफ़्त AI पर चलेगा या नहीं और उसे कैसे इस्तेमाल करें।", searchAria: "प्रॉम्प्ट खोजें", clearSearch: "खोज साफ़ करें", groupLabel: "समूह", groupAria: "समूह के अनुसार फ़िल्टर", facetAria: "परीक्षा और उपयोगकर्ता फ़िल्टर", formatAria: "आउटपुट प्रारूप फ़िल्टर", legendFree: "किसी भी मुफ़्त AI पर काम करता है", legendImages: "चित्र बनाता है—image AI चाहिए", legendPhoto: "पहले फोटो जोड़ें", libraryTip: "सुझाव: हर action बटन प्रॉम्प्ट कॉपी करता है। AI खाली खुले तो पेस्ट करें, brackets भरें और भेजें।", loadingPrompts: "{count} प्रॉम्प्ट लोड हो रहे हैं…", suggestTerms: "ग्राफ|वर्कशीट|क्विज़|पाठ योजना|सूत्र पत्रक|फोटो|JEE|अभिभावक",
       feedbackKicker: "आपकी राय इसे बेहतर बनाती है", feedbackTitle: "अगला सुधार या जोड़ क्या हो?", feedbackSub: "रेटिंग दें, सुझाव लिखें या सीधे संपर्क करें। सबसे अधिक माँगे गए सुधार पहले किए जाते हैं।", feedbackWorking: "यह आपके लिए कैसा काम कर रहा है?", rating: "रेटिंग", starAria: "{count} सितारे", roleLabel: "मैं हूँ…", roleSchool: "स्कूल शिक्षक", roleCoaching: "कोचिंग / ट्यूशन शिक्षक", roleCollege: "कॉलेज / विश्वविद्यालय शिक्षक", roleStudent: "विद्यार्थी", roleParent: "अभिभावक", roleOther: "अन्य", feedbackMessage: "क्या अच्छा है, क्या नहीं, और क्या जोड़ना चाहिए?", feedbackPlaceholder: "जैसे कक्षा 9 ज्यामिति के और प्रॉम्प्ट जोड़ें और image output सुधारें।", feedbackName: "आपका नाम (वैकल्पिक)", feedbackNamePlaceholder: "ताकि मैं धन्यवाद कह सकूँ", sendFeedback: "✉️ फीडबैक भेजें", copyInstead: "कॉपी करें", feedbackHint: "Send दबाने पर भरा हुआ ईमेल खुलेगा—बस भेज दें।", reachTitle: "सीधे संपर्क करें", reachSub: "छोटा संदेश भेजना है? इनमें से कोई माध्यम चुनें।", emailMe: "✉️ ईमेल करें", openForm: "📝 सुझाव फ़ॉर्म खोलें", messageWa: "📱 WhatsApp पर संदेश", followInstagram: "📷 Instagram पर फ़ॉलो करें", promiseLabel: "मेरा वादा:", promise: "सबसे अधिक माँगे गए सुधार पहले होंगे। आपका संदेश हज़ारों शिक्षकों के काम आ सकता है।", feedbackSubject: "Maths Prompt Studio फीडबैक", feedbackRatingField: "रेटिंग", feedbackRoleField: "भूमिका", feedbackNameField: "नाम", feedbackBodyField: "फीडबैक", feedbackSentFrom: "Maths Prompt Studio से भेजा गया", none: "कोई नहीं", emailOpened: "भरी हुई जानकारी के साथ ईमेल ऐप खुल गया होगा—बस भेज दें। धन्यवाद!", feedbackCopied: "फीडबैक कॉपी हो गया—जहाँ चाहें पेस्ट करें।", whatsappLead: "नमस्ते, Maths Prompt Studio पर फीडबैक:",
-      shareKicker: "बस इतना सहयोग चाहिए", shareTitle: "इसे एक और शिक्षक या विद्यार्थी तक पहुँचाएँ", shareSub: "न कुछ खरीदना है, न डाउनलोड करना। इससे समय बचा हो तो इसे किसी ज़रूरतमंद के साथ बाँटें।", shareWhatsApp: "📱 WhatsApp पर शेयर करें", shareMore: "➤ और…", shareMessage: "गणित शिक्षकों और विद्यार्थियों के लिए मुफ़्त AI टूल—{count} तैयार प्रॉम्प्ट और चरण-दर-चरण शुरुआती गाइड:", shareLinkCopied: "लिंक कॉपी हो गया—किसी शिक्षक या विद्यार्थी को भेजें!", toastInitial: "कॉपी हो गया! अब AI chat में जाकर पेस्ट करें।", modalCloseAria: "बंद करें"
+      shareMessage: "गणित शिक्षकों और विद्यार्थियों के लिए मुफ़्त AI टूल—{count} तैयार प्रॉम्प्ट और चरण-दर-चरण शुरुआती गाइड:", shareLinkCopied: "लिंक कॉपी हो गया—किसी शिक्षक या विद्यार्थी को भेजें!", toastInitial: "कॉपी हो गया! अब AI chat में जाकर पेस्ट करें।", modalCloseAria: "बंद करें"
     },
     bn: {
       brandHome: "Maths Prompt Studio হোম", navPrimary: "প্রধান নেভিগেশন", navGuide: "শুরুর গাইড", navBuilder: "পেপার বিল্ডার", navLearn: "10× শিখুন", navVerify: "যাচাই", navPrompts: "প্রম্পট", navPlatform: "প্ল্যাটফর্ম", navAbout: "পরিচিতি", navFeedback: "মতামত", themeToggle: "ডার্ক মোড বদলান", languagePicker: "ইন্টারফেসের ভাষা", heroStart: "60 সেকেন্ডে কিছু তৈরি করুন", heroBrowse: "সব 961টি প্রম্পট দেখুন", devicePhone: "📱 ফোনে", deviceComputer: "💻 কম্পিউটারে", verifyAnswer: "🔄 যেকোনো AI উত্তর দুবার যাচাই করুন",
@@ -177,7 +183,7 @@
       optionClass6: "শ্রেণি ৬", optionClass7: "শ্রেণি ৭", optionClass8: "শ্রেণি ৮", optionClass9: "শ্রেণি ৯", optionClass10: "শ্রেণি ১০", optionClass11: "শ্রেণি ১১", optionClass12: "শ্রেণি ১২", optionCollege: "কলেজ / বিশ্ববিদ্যালয়", optionStateBoard: "রাজ্য বোর্ড", optionGeneral: "সাধারণ", optionFullPaper: "সম্পূর্ণ প্রশ্নপত্র", optionUnitTest: "ইউনিট টেস্ট", optionSamplePaper: "নমুনা / মডেল পেপার", optionDailyPractice: "দৈনিক অনুশীলন (DPP)", optionMcqTest: "MCQ পরীক্ষা", optionBalanced: "ভারসাম্যপূর্ণ", optionEasyLeaning: "কিছুটা সহজ", optionChallenging: "চ্যালেঞ্জিং",
       libraryKicker: "সংগ্রহ", libraryTitle: "প্রম্পট লাইব্রেরি", librarySub: "গ্রুপ বেছে নিন, খুঁজুন, কার্ড খুলুন ও কপি করুন। প্রতিটি কার্ড বলে এটি বিনামূল্যের AI-তে কাজ করবে কি না এবং কীভাবে ব্যবহার করবেন।", searchAria: "প্রম্পট খুঁজুন", clearSearch: "খোঁজ মুছুন", groupLabel: "গ্রুপ", groupAria: "গ্রুপ অনুযায়ী ফিল্টার", facetAria: "পরীক্ষা ও ব্যবহারকারী ফিল্টার", formatAria: "আউটপুট ফরম্যাট ফিল্টার", legendFree: "যেকোনো বিনামূল্যের AI-তে কাজ করে", legendImages: "ছবি তৈরি করে—image AI দরকার", legendPhoto: "আগে ছবি যুক্ত করুন", libraryTip: "পরামর্শ: প্রতিটি action বোতাম প্রম্পট কপি করে। AI খালি খুললে paste করুন, brackets পূরণ করে পাঠান।", loadingPrompts: "{count}টি প্রম্পট লোড হচ্ছে…", suggestTerms: "গ্রাফ|ওয়ার্কশিট|কুইজ|পাঠ পরিকল্পনা|সূত্রপত্র|ছবি|JEE|অভিভাবক",
       feedbackKicker: "আপনার মতামতেই এটি গড়ে ওঠে", feedbackTitle: "পরের বার কী ঠিক বা যোগ করা উচিত?", feedbackSub: "রেটিং দিন, পরামর্শ লিখুন বা সরাসরি যোগাযোগ করুন। সবচেয়ে বেশি চাওয়া সংশোধন আগে করা হয়।", feedbackWorking: "এটি আপনার জন্য কেমন কাজ করছে?", rating: "রেটিং", starAria: "{count}টি তারা", roleLabel: "আমি…", roleSchool: "স্কুল শিক্ষক", roleCoaching: "কোচিং / টিউশন শিক্ষক", roleCollege: "কলেজ / বিশ্ববিদ্যালয় শিক্ষক", roleStudent: "শিক্ষার্থী", roleParent: "অভিভাবক", roleOther: "অন্যান্য", feedbackMessage: "কী ভালো, কী নয়, আর কী যোগ করা উচিত?", feedbackPlaceholder: "যেমন শ্রেণি ৯ জ্যামিতির আরও প্রম্পট দিন এবং image output উন্নত করুন।", feedbackName: "আপনার নাম (ঐচ্ছিক)", feedbackNamePlaceholder: "যাতে ধন্যবাদ জানাতে পারি", sendFeedback: "✉️ মতামত পাঠান", copyInstead: "কপি করুন", feedbackHint: "Send চাপলে পূরণ করা email app খুলবে—শুধু পাঠিয়ে দিন।", reachTitle: "সরাসরি যোগাযোগ করুন", reachSub: "দ্রুত বার্তা দিতে চান? যেকোনোটি বেছে নিন।", emailMe: "✉️ email করুন", openForm: "📝 পরামর্শ ফর্ম খুলুন", messageWa: "📱 WhatsApp-এ বার্তা", followInstagram: "📷 Instagram-এ অনুসরণ করুন", promiseLabel: "আমার প্রতিশ্রুতি:", promise: "সবচেয়ে বেশি চাওয়া সংশোধন আগে হবে। আপনার একটি বার্তা হাজারো শিক্ষককে সাহায্য করতে পারে।", feedbackSubject: "Maths Prompt Studio মতামত", feedbackRatingField: "রেটিং", feedbackRoleField: "ভূমিকা", feedbackNameField: "নাম", feedbackBodyField: "মতামত", feedbackSentFrom: "Maths Prompt Studio থেকে পাঠানো", none: "কিছু নেই", emailOpened: "সব তথ্যসহ email app খোলার কথা—শুধু পাঠিয়ে দিন। ধন্যবাদ!", feedbackCopied: "মতামত কপি হয়েছে—যেখানে চান paste করুন।", whatsappLead: "নমস্কার, Maths Prompt Studio সম্পর্কে মতামত:",
-      shareKicker: "শুধু এটুকুই অনুরোধ", shareTitle: "আরও একজন শিক্ষক বা শিক্ষার্থীর কাছে পৌঁছে দিন", shareSub: "কিছু কিনতে বা download করতে হবে না। সময় বাঁচলে এমন কারও সঙ্গে ভাগ করুন যার কাজে লাগবে।", shareWhatsApp: "📱 WhatsApp-এ শেয়ার করুন", shareMore: "➤ আরও…", shareMessage: "গণিত শিক্ষক ও শিক্ষার্থীদের বিনামূল্যের AI টুল—{count}টি প্রস্তুত প্রম্পট এবং ধাপে ধাপে শুরুর গাইড:", shareLinkCopied: "লিংক কপি হয়েছে—একজন শিক্ষক বা শিক্ষার্থীকে পাঠান!", toastInitial: "কপি হয়েছে! এখন AI chat-এ গিয়ে paste করুন।", modalCloseAria: "বন্ধ করুন"
+      shareMessage: "গণিত শিক্ষক ও শিক্ষার্থীদের বিনামূল্যের AI টুল—{count}টি প্রস্তুত প্রম্পট এবং ধাপে ধাপে শুরুর গাইড:", shareLinkCopied: "লিংক কপি হয়েছে—একজন শিক্ষক বা শিক্ষার্থীকে পাঠান!", toastInitial: "কপি হয়েছে! এখন AI chat-এ গিয়ে paste করুন।", modalCloseAria: "বন্ধ করুন"
     },
     mr: {
       brandHome: "Maths Prompt Studio होम", navPrimary: "मुख्य नेव्हिगेशन", navGuide: "नवशिक्यांसाठी मार्गदर्शक", navBuilder: "पेपर बिल्डर", navLearn: "10× शिका", navVerify: "तपासा", navPrompts: "प्रॉम्प्ट", navPlatform: "प्लॅटफॉर्म", navAbout: "माहिती", navFeedback: "अभिप्राय", themeToggle: "डार्क मोड बदला", languagePicker: "इंटरफेसची भाषा", heroStart: "60 सेकंदांत काहीतरी तयार करा", heroBrowse: "सर्व 961 प्रॉम्प्ट पाहा", devicePhone: "📱 फोनवर", deviceComputer: "💻 संगणकावर", verifyAnswer: "🔄 कोणतेही AI उत्तर पुन्हा तपासा",
@@ -187,7 +193,7 @@
       optionClass6: "इयत्ता 6", optionClass7: "इयत्ता 7", optionClass8: "इयत्ता 8", optionClass9: "इयत्ता 9", optionClass10: "इयत्ता 10", optionClass11: "इयत्ता 11", optionClass12: "इयत्ता 12", optionCollege: "महाविद्यालय / विद्यापीठ", optionStateBoard: "राज्य बोर्ड", optionGeneral: "सामान्य", optionFullPaper: "पूर्ण प्रश्नपत्रिका", optionUnitTest: "घटक चाचणी", optionSamplePaper: "नमुना / मॉडेल पेपर", optionDailyPractice: "दैनिक सराव (DPP)", optionMcqTest: "MCQ चाचणी", optionBalanced: "संतुलित", optionEasyLeaning: "थोडा सोपा", optionChallenging: "आव्हानात्मक",
       libraryKicker: "संग्रह", libraryTitle: "प्रॉम्प्ट लायब्ररी", librarySub: "गट निवडा, शोधा, कार्ड उघडा आणि कॉपी करा. प्रत्येक कार्ड मोफत AI वर चालते का आणि कसे वापरायचे ते सांगते.", searchAria: "प्रॉम्प्ट शोधा", clearSearch: "शोध साफ करा", groupLabel: "गट", groupAria: "गटानुसार फिल्टर", facetAria: "परीक्षा आणि वापरकर्ता फिल्टर", formatAria: "आउटपुट फॉरमॅट फिल्टर", legendFree: "कोणत्याही मोफत AI वर चालते", legendImages: "चित्रे बनवते—image AI आवश्यक", legendPhoto: "आधी फोटो जोडा", libraryTip: "सूचना: प्रत्येक action बटण प्रॉम्प्ट कॉपी करते. AI रिकामे उघडल्यास paste करा, brackets भरा आणि पाठवा.", loadingPrompts: "{count} प्रॉम्प्ट लोड होत आहेत…", suggestTerms: "आलेख|वर्कशीट|क्विझ|पाठ योजना|सूत्रपत्र|फोटो|JEE|पालक",
       feedbackKicker: "आपल्या मताने हे घडते", feedbackTitle: "पुढे काय सुधारू किंवा जोडू?", feedbackSub: "रेटिंग द्या, सूचना लिहा किंवा थेट संपर्क करा. सर्वाधिक मागणीच्या सुधारणा आधी केल्या जातात.", feedbackWorking: "हे आपल्यासाठी कसे काम करत आहे?", rating: "रेटिंग", starAria: "{count} तारे", roleLabel: "मी आहे…", roleSchool: "शाळेतील शिक्षक", roleCoaching: "कोचिंग / शिकवणी शिक्षक", roleCollege: "महाविद्यालय / विद्यापीठ शिक्षक", roleStudent: "विद्यार्थी", roleParent: "पालक", roleOther: "इतर", feedbackMessage: "काय चांगले आहे, काय नाही आणि काय जोडावे?", feedbackPlaceholder: "उदा. इयत्ता 9 भूमितीसाठी अधिक प्रॉम्प्ट जोडा आणि image output सुधारा.", feedbackName: "आपले नाव (ऐच्छिक)", feedbackNamePlaceholder: "म्हणजे मी आभार मानू शकेन", sendFeedback: "✉️ अभिप्राय पाठवा", copyInstead: "कॉपी करा", feedbackHint: "Send दाबल्यावर भरलेले email app उघडेल—फक्त पाठवा.", reachTitle: "थेट संपर्क करा", reachSub: "झटपट संदेश हवा? यापैकी काहीही वापरा.", emailMe: "✉️ email करा", openForm: "📝 सूचना फॉर्म उघडा", messageWa: "📱 WhatsApp वर संदेश", followInstagram: "📷 Instagram वर फॉलो करा", promiseLabel: "माझे वचन:", promise: "सर्वाधिक मागणीच्या सुधारणा आधी होतील. आपला एक संदेश हजारो शिक्षकांना मदत करू शकतो.", feedbackSubject: "Maths Prompt Studio अभिप्राय", feedbackRatingField: "रेटिंग", feedbackRoleField: "भूमिका", feedbackNameField: "नाव", feedbackBodyField: "अभिप्राय", feedbackSentFrom: "Maths Prompt Studio मधून पाठवले", none: "काही नाही", emailOpened: "सर्व माहिती भरून email app उघडले असेल—फक्त पाठवा. धन्यवाद!", feedbackCopied: "अभिप्राय कॉपी झाला—हवे तिथे paste करा.", whatsappLead: "नमस्कार, Maths Prompt Studio बद्दल अभिप्राय:",
-      shareKicker: "फक्त एवढीच मदत हवी", shareTitle: "आणखी एका शिक्षक किंवा विद्यार्थ्यापर्यंत पोहोचवा", shareSub: "काही विकत घ्यायचे किंवा download करायचे नाही. वेळ वाचला असेल तर उपयोग होईल अशा व्यक्तीला शेअर करा.", shareWhatsApp: "📱 WhatsApp वर शेअर करा", shareMore: "➤ अधिक…", shareMessage: "गणित शिक्षक आणि विद्यार्थ्यांसाठी मोफत AI टूल—{count} तयार प्रॉम्प्ट आणि टप्प्याटप्प्याचा मार्गदर्शक:", shareLinkCopied: "लिंक कॉपी झाली—शिक्षक किंवा विद्यार्थ्याला पाठवा!", toastInitial: "कॉपी झाले! आता AI chat मध्ये जाऊन paste करा.", modalCloseAria: "बंद करा"
+      shareMessage: "गणित शिक्षक आणि विद्यार्थ्यांसाठी मोफत AI टूल—{count} तयार प्रॉम्प्ट आणि टप्प्याटप्प्याचा मार्गदर्शक:", shareLinkCopied: "लिंक कॉपी झाली—शिक्षक किंवा विद्यार्थ्याला पाठवा!", toastInitial: "कॉपी झाले! आता AI chat मध्ये जाऊन paste करा.", modalCloseAria: "बंद करा"
     },
     te: {
       brandHome: "Maths Prompt Studio హోమ్", navPrimary: "ప్రధాన నావిగేషన్", navGuide: "ప్రారంభ మార్గదర్శిని", navBuilder: "పేపర్ బిల్డర్", navLearn: "10× నేర్చుకోండి", navVerify: "తనిఖీ", navPrompts: "ప్రాంప్ట్‌లు", navPlatform: "వేదిక", navAbout: "గురించి", navFeedback: "అభిప్రాయం", themeToggle: "డార్క్ మోడ్ మార్చండి", languagePicker: "ఇంటర్‌ఫేస్ భాష", heroStart: "60 సెకన్లలో ఏదైనా తయారు చేయండి", heroBrowse: "961 ప్రాంప్ట్‌లన్నింటినీ చూడండి", devicePhone: "📱 ఫోన్‌లో", deviceComputer: "💻 కంప్యూటర్‌లో", verifyAnswer: "🔄 ఏదైనా AI సమాధానాన్ని మళ్లీ తనిఖీ చేయండి",
@@ -197,10 +203,18 @@
       optionClass6: "6వ తరగతి", optionClass7: "7వ తరగతి", optionClass8: "8వ తరగతి", optionClass9: "9వ తరగతి", optionClass10: "10వ తరగతి", optionClass11: "11వ తరగతి", optionClass12: "12వ తరగతి", optionCollege: "కళాశాల / విశ్వవిద్యాలయం", optionStateBoard: "రాష్ట్ర బోర్డు", optionGeneral: "సాధారణ", optionFullPaper: "పూర్తి ప్రశ్నపత్రం", optionUnitTest: "యూనిట్ పరీక్ష", optionSamplePaper: "నమూనా / మోడల్ పేపర్", optionDailyPractice: "రోజువారీ అభ్యాసం (DPP)", optionMcqTest: "MCQ పరీక్ష", optionBalanced: "సమతుల్యం", optionEasyLeaning: "కొంచెం సులభం", optionChallenging: "సవాలుతో కూడినది",
       libraryKicker: "సేకరణ", libraryTitle: "ప్రాంప్ట్ లైబ్రరీ", librarySub: "గ్రూప్ ఎంచుకోండి, వెతకండి, కార్డ్ తెరిచి కాపీ చేయండి. ప్రతి కార్డ్ ఉచిత AI లో పనిచేస్తుందా, ఎలా వాడాలో చెబుతుంది.", searchAria: "ప్రాంప్ట్‌లను వెతకండి", clearSearch: "వెతుకులాటను తొలగించండి", groupLabel: "గ్రూప్", groupAria: "గ్రూప్ ఆధారంగా ఫిల్టర్", facetAria: "పరీక్ష మరియు వినియోగదారు ఫిల్టర్లు", formatAria: "అవుట్‌పుట్ ఫార్మాట్ ఫిల్టర్లు", legendFree: "ఏ ఉచిత AI లోనైనా పనిచేస్తుంది", legendImages: "చిత్రాలు తయారు చేస్తుంది—image AI కావాలి", legendPhoto: "ముందుగా ఫోటో జోడించండి", libraryTip: "చిట్కా: ప్రతి action బటన్ ప్రాంప్ట్‌ను కాపీ చేస్తుంది. AI ఖాళీగా తెరుచుకుంటే paste చేసి, brackets పూరించి పంపండి.", loadingPrompts: "{count} ప్రాంప్ట్‌లు లోడ్ అవుతున్నాయి…", suggestTerms: "గ్రాఫ్|వర్క్‌షీట్|క్విజ్|పాఠ ప్రణాళిక|సూత్ర పత్రం|ఫోటో|JEE|తల్లిదండ్రులు",
       feedbackKicker: "మీ అభిప్రాయమే దీనిని తీర్చిదిద్దుతుంది", feedbackTitle: "తర్వాత ఏమి సరిచేయాలి లేదా జోడించాలి?", feedbackSub: "రేటింగ్ ఇవ్వండి, సూచన రాయండి లేదా నేరుగా సంప్రదించండి. ఎక్కువగా కోరిన సవరణలు ముందుగా చేస్తాను.", feedbackWorking: "ఇది మీకు ఎలా పనిచేస్తోంది?", rating: "రేటింగ్", starAria: "{count} నక్షత్రాలు", roleLabel: "నేను…", roleSchool: "పాఠశాల ఉపాధ్యాయుడు", roleCoaching: "కోచింగ్ / ట్యూషన్ ఉపాధ్యాయుడు", roleCollege: "కళాశాల / విశ్వవిద్యాలయ అధ్యాపకుడు", roleStudent: "విద్యార్థి", roleParent: "తల్లిదండ్రి", roleOther: "ఇతర", feedbackMessage: "ఏది బాగుంది, ఏది లేదు, ఏమి జోడించాలి?", feedbackPlaceholder: "ఉదా. 9వ తరగతి జ్యామితికి మరిన్ని ప్రాంప్ట్‌లు జోడించి image output మెరుగుపరచండి.", feedbackName: "మీ పేరు (ఐచ్ఛికం)", feedbackNamePlaceholder: "మీకు ధన్యవాదాలు చెప్పడానికి", sendFeedback: "✉️ అభిప్రాయం పంపండి", copyInstead: "కాపీ చేయండి", feedbackHint: "Send నొక్కితే వివరాలతో email app తెరుచుకుంటుంది—పంపండి.", reachTitle: "నేరుగా సంప్రదించండి", reachSub: "త్వరగా సందేశం పంపాలా? వీటిలో ఏదైనా ఉపయోగించండి.", emailMe: "✉️ email చేయండి", openForm: "📝 సూచనల ఫారం తెరవండి", messageWa: "📱 WhatsApp లో సందేశం", followInstagram: "📷 Instagram లో అనుసరించండి", promiseLabel: "నా హామీ:", promise: "ఎక్కువగా కోరిన సవరణలు ముందుగా జరుగుతాయి. మీ సందేశం వేలాది ఉపాధ్యాయులకు సహాయపడగలదు.", feedbackSubject: "Maths Prompt Studio అభిప్రాయం", feedbackRatingField: "రేటింగ్", feedbackRoleField: "పాత్ర", feedbackNameField: "పేరు", feedbackBodyField: "అభిప్రాయం", feedbackSentFrom: "Maths Prompt Studio నుంచి పంపబడింది", none: "ఏదీ లేదు", emailOpened: "అన్ని వివరాలతో email app తెరుచుకుని ఉండాలి—పంపండి. ధన్యవాదాలు!", feedbackCopied: "అభిప్రాయం కాపీ అయింది—ఎక్కడ కావాలంటే అక్కడ paste చేయండి.", whatsappLead: "నమస్కారం, Maths Prompt Studio పై అభిప్రాయం:",
-      shareKicker: "నేను కోరే చిన్న సహాయం", shareTitle: "మరొక ఉపాధ్యాయుడు లేదా విద్యార్థికి పంచండి", shareSub: "కొనాల్సింది, download చేయాల్సింది ఏమీ లేదు. ఇది సమయం ఆదా చేస్తే ఉపయోగపడే వ్యక్తికి పంపండి.", shareWhatsApp: "📱 WhatsApp లో షేర్ చేయండి", shareMore: "➤ మరిన్ని…", shareMessage: "గణిత ఉపాధ్యాయులు, విద్యార్థుల కోసం ఉచిత AI టూల్—{count} సిద్ధమైన ప్రాంప్ట్‌లు మరియు దశలవారీ ప్రారంభ గైడ్:", shareLinkCopied: "లింక్ కాపీ అయింది—ఉపాధ్యాయుడు లేదా విద్యార్థికి పంపండి!", toastInitial: "కాపీ అయింది! ఇప్పుడు AI chat లోకి వెళ్లి paste చేయండి.", modalCloseAria: "మూసివేయండి"
+      shareMessage: "గణిత ఉపాధ్యాయులు, విద్యార్థుల కోసం ఉచిత AI టూల్—{count} సిద్ధమైన ప్రాంప్ట్‌లు మరియు దశలవారీ ప్రారంభ గైడ్:", shareLinkCopied: "లింక్ కాపీ అయింది—ఉపాధ్యాయుడు లేదా విద్యార్థికి పంపండి!", toastInitial: "కాపీ అయింది! ఇప్పుడు AI chat లోకి వెళ్లి paste చేయండి.", modalCloseAria: "మూసివేయండి"
     }
   };
   Object.keys(STATIC_UI).forEach(function (code) { Object.keys(STATIC_UI[code]).forEach(function (key) { UI[code][key] = STATIC_UI[code][key]; }); });
+  var FEEDBACK_CHROME = {
+    en: { feedbackKicker: 'Improve the studio', feedbackTitle: 'Report an issue or suggest an improvement', feedbackSub: 'Share the teaching job, missing prompt, or confusing part. The message opens in your email app; nothing is posted publicly.' },
+    hi: { feedbackKicker: 'स्टूडियो बेहतर बनाएँ', feedbackTitle: 'समस्या बताएँ या सुधार सुझाएँ', feedbackSub: 'कौन-सा शिक्षण काम, प्रॉम्प्ट या हिस्सा अधूरा या अस्पष्ट है, लिखें। संदेश आपके ईमेल ऐप में खुलेगा; यहाँ सार्वजनिक रूप से कुछ पोस्ट नहीं होगा।' },
+    bn: { feedbackKicker: 'স্টুডিও উন্নত করুন', feedbackTitle: 'সমস্যা জানান বা উন্নতির পরামর্শ দিন', feedbackSub: 'কোন শিক্ষণ-কাজ, প্রম্পট বা অংশটি অসম্পূর্ণ বা অস্পষ্ট, তা লিখুন। বার্তাটি আপনার email app-এ খুলবে; এখানে কিছু প্রকাশিত হবে না।' },
+    mr: { feedbackKicker: 'स्टुडिओ अधिक चांगला करा', feedbackTitle: 'समस्या कळवा किंवा सुधारणा सुचवा', feedbackSub: 'कोणते अध्यापन काम, प्रॉम्प्ट किंवा भाग अपूर्ण अथवा अस्पष्ट आहे ते लिहा. संदेश आपल्या email app मध्ये उघडेल; येथे काहीही सार्वजनिक होणार नाही.' },
+    te: { feedbackKicker: 'స్టూడియోను మెరుగుపరచండి', feedbackTitle: 'సమస్యను తెలియజేయండి లేదా మెరుగుదల సూచించండి', feedbackSub: 'ఏ బోధనా పని, ప్రాంప్ట్ లేదా భాగం అసంపూర్ణంగా లేదా అస్పష్టంగా ఉందో రాయండి. సందేశం మీ email app లో తెరుచుకుంటుంది; ఇక్కడ ఏదీ బహిరంగంగా పోస్ట్ కాదు.' }
+  };
+  Object.keys(FEEDBACK_CHROME).forEach(function (code) { Object.keys(FEEDBACK_CHROME[code]).forEach(function (key) { UI[code][key] = FEEDBACK_CHROME[code][key]; }); });
   function assertUiDictionary() {
     var reference = Object.keys(UI.en).sort().join('|');
     ['en', 'hi', 'bn', 'mr', 'te'].forEach(function (code) {
@@ -224,10 +238,6 @@
     document.querySelectorAll('[data-i18n-title]').forEach(function (node) { node.setAttribute('title', tr(node.getAttribute('data-i18n-title'))); });
     document.querySelectorAll('[data-i18n-count]').forEach(function (node) { node.textContent = trf(node.getAttribute('data-i18n-count'), { count: ALL.length }); });
     document.querySelectorAll('#fbStars .star').forEach(function (node) { node.setAttribute('aria-label', trf('starAria', { count: node.getAttribute('data-v') })); });
-    var emailLink = document.getElementById('fbEmailLink');
-    if (emailLink && CFG.email) emailLink.href = 'mailto:' + CFG.email + '?subject=' + encodeURIComponent(tr('feedbackSubject'));
-    var whatsappLink = document.getElementById('fbWaLink');
-    if (whatsappLink && CFG.whatsapp) whatsappLink.href = 'https://wa.me/' + String(CFG.whatsapp).replace(/[^0-9]/g, '') + '?text=' + encodeURIComponent(tr('whatsappLead') + ' ');
   }
   function localLabel(item) { return item[state.lang] || item.en || item.id || ''; }
   var GROUP_LABELS = CATALOG.groupI18n || {
@@ -272,7 +282,7 @@
     if (catalogLanguagePromises[lang]) return catalogLanguagePromises[lang];
     catalogLanguagePromises[lang] = new Promise(function (resolve, reject) {
       var script = document.createElement('script');
-      script.src = 'data/catalog-' + lang + '.js?v=50';
+      script.src = 'data/catalog-' + lang + '.js?v=51';
       script.onload = function () { if (applyCatalogLanguage(lang)) resolve(true); else reject(new Error('missing language pack')); };
       script.onerror = function () { reject(new Error('language pack request failed')); };
       document.head.appendChild(script);
@@ -282,7 +292,7 @@
   function refreshLanguageView() {
     applyStaticChrome();
     var search = document.getElementById('search'); if (search) search.placeholder = tr('searchPlaceholder');
-    buildChips(); buildFacets(); buildFormatFacets(); buildQuickStart(); renderLearn(); render();
+    buildChips(); buildCategorySelect(); buildFacets(); buildFormatFacets(); buildQuickStart(); renderLearn(); render();
   }
   function commitLanguage(lang) {
     if (!isLanguageLive(lang)) return false;
@@ -324,7 +334,7 @@
     if (fullDataPromise) return fullDataPromise;
     fullDataPromise = new Promise(function (resolve, reject) {
       var script = document.createElement('script');
-      script.src = window.MPS_DATA_URL || 'data/prompts.js?v=50';
+      script.src = window.MPS_DATA_URL || 'data/prompts.js?v=51';
       script.async = true;
       script.onload = function () {
         if (!window.PROMPT_DATA || !window.PROMPT_DATA.categories) { reject(new Error('prompt data did not initialise')); return; }
@@ -401,9 +411,41 @@
     GROUPS.forEach(function (g) { chips.push({ id: g, title: groupLabel(g), ct: DATA.filter(function (c) { return c.group === g; }).reduce(function (t, c) { return t + (c.prompts || []).length; }, 0) }); });
     chips.forEach(function (c) {
       var b = el('<button class="fchip' + (c.id === state.group ? ' active' : '') + '" type="button" aria-pressed="' + (c.id === state.group) + '">' + esc(c.title) + ' <span class="fchip-ct">' + c.ct + '</span></button>');
-      b.addEventListener('click', function () { state.group = c.id; state.renderLimit = 60; document.querySelectorAll('#groupChips .fchip').forEach(function (x) { x.classList.remove('active'); x.setAttribute('aria-pressed', 'false'); }); b.classList.add('active'); b.setAttribute('aria-pressed', 'true'); render(); var lib = document.getElementById('library'); if (lib) lib.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+      b.addEventListener('click', function () { state.group = c.id; state.category = 'all'; state.renderLimit = 60; document.querySelectorAll('#groupChips .fchip').forEach(function (x) { x.classList.remove('active'); x.setAttribute('aria-pressed', 'false'); }); b.classList.add('active'); b.setAttribute('aria-pressed', 'true'); buildCategorySelect(); render(); var lib = document.getElementById('library'); if (lib) lib.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
       wrap.appendChild(b);
     });
+  }
+
+  function hasActiveFilters() {
+    return !!(state.query || state.group !== 'all' || state.category !== 'all' || state.exam !== 'all' || state.aud !== 'all' || state.fmt !== 'all');
+  }
+  function clearLibraryFilters() {
+    state.group = 'all'; state.category = 'all'; state.exam = 'all'; state.aud = 'all'; state.fmt = 'all'; state.query = ''; state.prevEmpty = true; state.renderLimit = 60;
+    var search = document.getElementById('search'); if (search) search.value = '';
+    var searchClear = document.getElementById('searchClear'); if (searchClear) searchClear.hidden = true;
+    buildChips(); buildCategorySelect(); buildFacets(); buildFormatFacets(); render();
+  }
+  function buildCategorySelect() {
+    var mount = document.getElementById('categoryMount'); if (!mount) return;
+    mount.innerHTML = '';
+    var label = el('<label class="category-select-wrap"><span class="filter-row-label">' + esc(tr('categoryLabel')) + '</span></label>');
+    var select = el('<select class="category-select" id="categorySelect" aria-label="' + esc(tr('categoryLabel')) + '"><option value="all">' + esc(tr('allCategories')) + '</option></select>');
+    GROUPS.forEach(function (group) {
+      var categories = DATA.filter(function (cat) { return cat.group === group && (state.group === 'all' || state.group === 'saved' || state.group === group); });
+      if (!categories.length) return;
+      var optgroup = document.createElement('optgroup'); optgroup.label = groupLabel(group);
+      categories.forEach(function (cat) { var option = document.createElement('option'); option.value = cat.category; option.textContent = categoryLabel(cat) + ' (' + (cat.prompts || []).length + ')'; optgroup.appendChild(option); });
+      select.appendChild(optgroup);
+    });
+    select.value = state.category;
+    select.addEventListener('change', function () {
+      state.category = select.value; state.renderLimit = 60;
+      if (state.category !== 'all') { var category = DATA.find(function (cat) { return cat.category === state.category; }); if (category && state.group !== 'saved') state.group = category.group; }
+      buildChips(); buildCategorySelect(); render();
+    });
+    label.appendChild(select); mount.appendChild(label);
+    var clear = el('<button class="clear-filters" id="clearFilters" type="button">' + esc(tr('clearFilters')) + '</button>');
+    clear.hidden = !hasActiveFilters(); clear.addEventListener('click', clearLibraryFilters); mount.appendChild(clear);
   }
 
   /* ---------- facet filters: exam + audience ---------- */
@@ -428,18 +470,18 @@
       if (!mount) { mount = el('<div id="facetMount"></div>'); chips.parentNode.insertBefore(mount, chips.nextSibling); }
     }
     mount.innerHTML = '';
-    var wrap = el('<div class="fchips" id="facetChips"></div>');
+    var examGroup = el('<div class="facet-group"><span class="filter-row-label">' + esc(tr('examLabel')) + '</span><div class="fchips" id="examChips" role="group" aria-label="' + esc(tr('examLabel')) + '"></div></div>');
+    var audienceGroup = el('<div class="facet-group"><span class="filter-row-label">' + esc(tr('audienceLabel')) + '</span><div class="fchips" id="audienceChips" role="group" aria-label="' + esc(tr('audienceLabel')) + '"></div></div>');
     function addChip(list, key, item) {
       var n = item.id === 'all' ? null : ALL.filter(function (p) { return key === 'exam' ? (p.exams || []).indexOf(item.id) !== -1 : (p.aud === item.id || p.aud === 'both'); }).length;
       var label = item.id === 'all' ? (key === 'exam' ? tr('allExams') : tr('everyone')) : localLabel(item);
       var b = el('<button class="fchip' + (state[key] === item.id ? ' active' : '') + '" type="button" aria-pressed="' + (state[key] === item.id) + '">' + esc(label) + (n != null ? ' <span class="fchip-ct">' + n + '</span>' : '') + '</button>');
-      b.addEventListener('click', function () { state[key] = item.id; state.renderLimit = 60; buildFacets(); render(); });
-      wrap.appendChild(b);
+      b.addEventListener('click', function () { state[key] = item.id; state.renderLimit = 60; buildFacets(); buildCategorySelect(); render(); });
+      (key === 'exam' ? examGroup.querySelector('.fchips') : audienceGroup.querySelector('.fchips')).appendChild(b);
     }
     EXAMS.forEach(function (x) { addChip(EXAMS, 'exam', x); });
-    var sep = el('<span style="display:inline-block;width:14px"></span>'); wrap.appendChild(sep);
     AUDS.forEach(function (x) { addChip(AUDS, 'aud', x); });
-    mount.appendChild(wrap);
+    mount.appendChild(examGroup); mount.appendChild(audienceGroup);
   }
 
   var FORMATS = [
@@ -457,14 +499,15 @@
     mount.innerHTML = '';
     if (!ALL.some(function (p) { return p.fmt; })) { mount.hidden = true; return; }
     mount.hidden = false;
+    var label = el('<span class="filter-row-label">' + esc(tr('formatLabel')) + '</span>');
     var wrap = el('<div class="fchips format-chips" role="group" aria-label="' + esc(tr('outputFormat')) + '"></div>');
     FORMATS.forEach(function (item) {
       var n = item.id === 'all' ? null : ALL.filter(function (p) { return p.fmt === item.id; }).length;
       var b = el('<button class="fchip' + (state.fmt === item.id ? ' active' : '') + '" type="button" aria-pressed="' + (state.fmt === item.id) + '">' + item.ic + (item.ic ? ' ' : '') + esc(localLabel(item)) + (n != null ? ' <span class="fchip-ct">' + n + '</span>' : '') + '</button>');
-      b.addEventListener('click', function () { state.fmt = item.id; state.renderLimit = 60; buildFormatFacets(); render(); });
+      b.addEventListener('click', function () { state.fmt = item.id; state.renderLimit = 60; buildFormatFacets(); buildCategorySelect(); render(); });
       wrap.appendChild(b);
     });
-    mount.appendChild(wrap);
+    mount.appendChild(label); mount.appendChild(wrap);
   }
 
   /* ---------- header language switch: one tap, always on top ---------- */
@@ -676,6 +719,7 @@
   function matches(p, useSyn) {
     if (state.group === 'saved' && !favorites.has(p.slug)) return false;
     if (state.group !== 'all' && state.group !== 'saved' && p._group !== state.group) return false;
+    if (state.category !== 'all' && p._cat !== state.category) return false;
     if (state.exam !== 'all' && (p.exams || []).indexOf(state.exam) === -1) return false;
     if (state.aud !== 'all' && p.aud !== state.aud && p.aud !== 'both') return false;
     if (state.fmt !== 'all' && p.fmt !== state.fmt) return false;
@@ -693,13 +737,18 @@
     }
     return true;
   }
-  function updateCount(n, viaSynonyms) {
+  function updateCount(n, viaSynonyms, shown) {
     var c = document.getElementById('resultCount'); if (!c) return;
     if (state.query && viaSynonyms) c.innerHTML = '<b>' + n + '</b> ' + esc(tr('related')) + ' &ldquo;' + esc(state.query) + '&rdquo;';
     else if (state.query) c.innerHTML = '<b>' + n + '</b> ' + esc(tr('found')) + ' &ldquo;' + esc(state.query) + '&rdquo;';
     else if (state.group === 'saved') c.innerHTML = '<b>' + n + '</b> ' + esc(tr('saved'));
+    else if (state.category !== 'all') c.innerHTML = '<b>' + n + '</b> ' + esc(categoryLabel(state.category));
     else if (state.group !== 'all') c.innerHTML = '<b>' + n + '</b> ' + esc(groupLabel(state.group));
     else c.innerHTML = esc(tr('browseAll')) + ' <b>' + n + '</b> ' + esc(tr('promptsNoun'));
+    var progress = document.getElementById('libraryProgress'); if (!progress) return;
+    var label = shown >= n ? trf('allVisible', { count: n }) : trf('showing', { shown: shown, count: n });
+    progress.innerHTML = '<strong>' + esc(label) + '</strong>' + (shown < n ? '<button class="btn btn-soft show-all-top" type="button">' + esc(trf('showAll', { count: n })) + '</button>' : '');
+    var showAll = progress.querySelector('.show-all-top'); if (showAll) showAll.addEventListener('click', function () { state.renderLimit = n; render(); });
   }
   function suggestTerms() { return tr('suggestTerms').split('|').filter(Boolean); }
   function persistFavorites() { try { localStorage.setItem('mps-favorites', JSON.stringify(Array.from(favorites))); } catch (e) {} }
@@ -713,13 +762,38 @@
     recentSlugs = [p.slug].concat(recentSlugs.filter(function (slug) { return slug !== p.slug; })).slice(0, 8);
     try { localStorage.setItem('mps-recent', JSON.stringify(recentSlugs)); } catch (e) {}
   }
+  var SURPRISE_LABELS = {
+    'solve-with-confidence': { en: 'Solve with confidence', hi: 'विश्वास से हल करें', bn: 'আত্মবিশ্বাসের সঙ্গে সমাধান', mr: 'आत्मविश्वासाने सोडवा', te: 'నమ్మకంగా పరిష్కరించండి' },
+    'unlock-a-stuck-learner': { en: 'Unlock a stuck learner', hi: 'अटके विद्यार्थी को आगे बढ़ाएँ', bn: 'আটকে থাকা শিক্ষার্থীকে এগিয়ে নিন', mr: 'अडकलेल्या विद्यार्थ्याला पुढे न्या', te: 'ఆగిపోయిన విద్యార్థిని ముందుకు నడిపించండి' },
+    'build-a-serious-assessment': { en: 'Build a serious assessment', hi: 'मज़बूत मूल्यांकन बनाएँ', bn: 'গভীর মূল্যায়ন তৈরি করুন', mr: 'सखोल मूल्यांकन तयार करा', te: 'లోతైన మూల్యాంకనం రూపొందించండి' },
+    'make-class-memorable': { en: 'Make class memorable', hi: 'कक्षा को यादगार बनाएँ', bn: 'ক্লাসকে স্মরণীয় করুন', mr: 'वर्ग संस्मरणीय करा', te: 'తరగతిని గుర్తుండేలా చేయండి' },
+    'train-for-the-exam': { en: 'Train for the exam', hi: 'परीक्षा की तैयारी कराएँ', bn: 'পরীক্ষার জন্য প্রশিক্ষণ দিন', mr: 'परीक्षेसाठी सराव करा', te: 'పరీక్షకు శిక్షణ ఇవ్వండి' },
+    'save-teacher-hours': { en: 'Save teacher hours', hi: 'शिक्षक के घंटे बचाएँ', bn: 'শিক্ষকের সময় বাঁচান', mr: 'शिक्षकांचे तास वाचवा', te: 'ఉపాధ్యాయుల సమయం ఆదా చేయండి' },
+    'create-a-standout-resource': { en: 'Create a standout resource', hi: 'बेहतरीन संसाधन बनाएँ', bn: 'অনন্য শিক্ষণ-সামগ্রী তৈরি করুন', mr: 'उठावदार अध्ययन-साहित्य तयार करा', te: 'ప్రత్యేకమైన బోధనా వనరు రూపొందించండి' },
+    'give-every-learner-agency': { en: 'Give every learner agency', hi: 'हर विद्यार्थी को स्वायत्तता दें', bn: 'প্রতিটি শিক্ষার্থীকে নিজস্ব নিয়ন্ত্রণ দিন', mr: 'प्रत्येक विद्यार्थ्याला स्वायत्तता द्या', te: 'ప్రతి విద్యార్థికి స్వతন্ত্রতা ఇవ్వండి' }
+  };
+  function surpriseSections() {
+    var raw = CATALOG.surpriseSections || CATALOG.surprisePools || [];
+    if (!Array.isArray(raw)) raw = raw.sections || Object.keys(raw).map(function (id) { var value = raw[id]; return { id: id, slugs: Array.isArray(value) ? value : (value.slugs || []) }; });
+    return raw.map(function (section, index) {
+      var id = section.id || section.key || ('section-' + index);
+      return { id: id, slugs: section.slugs || section.prompts || [], label: SURPRISE_LABELS[id] || section.label || { en: id } };
+    }).filter(function (section) { return section.slugs.length; });
+  }
+  function surpriseLabel(section) { return localLabel(section.label || { en: section.id }); }
+  function surpriseHistory() { try { var value = JSON.parse(localStorage.getItem('mps-surprise-history-v1') || '[]'); return Array.isArray(value) ? value : []; } catch (e) { return []; } }
+  function rememberSurprise(slug) { if (!slug) return; var history = [slug].concat(surpriseHistory().filter(function (item) { return item !== slug; })).slice(0, 24); try { localStorage.setItem('mps-surprise-history-v1', JSON.stringify(history)); } catch (e) {} }
+  function stableHash(value) { var hash = 2166136261; for (var i = 0; i < value.length; i++) { hash ^= value.charCodeAt(i); hash = Math.imul(hash, 16777619); } return hash >>> 0; }
+  function curatedPrompts() {
+    var seen = new Set(); var prompts = [];
+    surpriseSections().forEach(function (section) { section.slugs.forEach(function (slug) { var prompt = ALL_BY_SLUG[slug]; if (prompt && !seen.has(slug)) { seen.add(slug); prompts.push(prompt); } }); });
+    return prompts;
+  }
   function promptOfDay() {
-    if (!ALL.length) return null;
+    var curated = curatedPrompts(); if (!curated.length) return null;
     var day = new Date().toISOString().slice(0, 10);
-    var hash = 2166136261;
-    for (var i = 0; i < day.length; i++) { hash ^= day.charCodeAt(i); hash = Math.imul(hash, 16777619); }
-    var sorted = ALL.slice().sort(function (a, b) { return String(a.slug).localeCompare(String(b.slug)); });
-    return sorted[(hash >>> 0) % sorted.length];
+    var sorted = curated.slice().sort(function (a, b) { return String(a.slug).localeCompare(String(b.slug)); });
+    return sorted[stableHash(day) % sorted.length];
   }
 
   /* AUD-C P1/C1-P1/C2: local saved/recent/daily discovery, only unfiltered. */
@@ -732,7 +806,8 @@
     var used = new Set();
     var cardCount = 0;
     function row(title, items, max) {
-      var unique = items.filter(function (p) { if (!p || used.has(p.slug)) return false; used.add(p.slug); return true; }).slice(0, max);
+      var unique = items.filter(function (p) { return !!(p && p.slug && !used.has(p.slug)); }).slice(0, max);
+      unique.forEach(function (p) { used.add(p.slug); });
       if (!unique.length) return;
       var block = el('<section class="cat-block"></section>');
       block.appendChild(el('<div class="cat-block-head"><h3>' + title + '</h3><span class="cat-count">' + unique.length + '</span></div>'));
@@ -747,8 +822,44 @@
     row('&#10024; ' + esc(tr('added')), fresh, 6);
     return { fragment: frag, count: cardCount, slugs: used };
   }
+  function surpriseStudioHTML(matched) {
+    var sections = surpriseSections(); if (!sections.length || !matched.length) return { element: null, slug: '' };
+    var matchedSet = new Set(matched.map(function (prompt) { return prompt.slug; }));
+    function eligible(section) { return section.slugs.map(function (slug) { return ALL_BY_SLUG[slug]; }).filter(function (prompt) { return prompt && matchedSet.has(prompt.slug); }); }
+    var selected = sections.find(function (section) { return section.id === state.surpriseSection; });
+    if (!selected || !eligible(selected).length) selected = sections.find(function (section) { return eligible(section).length; }) || sections[0];
+    state.surpriseSection = selected.id;
+    var signature = [state.lang, state.group, state.category, state.exam, state.aud, state.fmt, state.query, selected.id].join('|');
+    var candidates = eligible(selected);
+    var current = state.surpriseSignature === signature ? ALL_BY_SLUG[state.surprisePromptSlug] : null;
+    if (!current || !matchedSet.has(current.slug) || selected.slugs.indexOf(current.slug) === -1) {
+      var history = surpriseHistory(); var recent = new Set(recentSlugs); var daily = promptOfDay();
+      var available = candidates.filter(function (prompt) { return (!daily || prompt.slug !== daily.slug) && history.indexOf(prompt.slug) === -1 && !recent.has(prompt.slug); });
+      if (!available.length) available = candidates.filter(function (prompt) { return prompt.slug !== state.surprisePromptSlug; });
+      if (!available.length) available = candidates;
+      current = available.length ? available[stableHash(new Date().toISOString().slice(0, 10) + '|' + signature + '|' + state.surpriseCounter) % available.length] : null;
+      state.surprisePromptSlug = current ? current.slug : ''; state.surpriseSignature = signature;
+      if (current) rememberSurprise(current.slug);
+    }
+    var studio = el('<section class="surprise-studio" aria-labelledby="surpriseTitle"><div class="surprise-head"><div><span class="kicker">' + esc(tr('surpriseKicker')) + '</span><h3 id="surpriseTitle">&#10024; ' + esc(tr('surpriseTitle')) + '</h3><p>' + esc(tr('surpriseSub')) + '</p></div></div><div class="surprise-sections" role="group" aria-label="' + esc(tr('surpriseTitle')) + '"></div><div class="surprise-stage"></div></section>');
+    var chips = studio.querySelector('.surprise-sections');
+    sections.forEach(function (section) {
+      var count = eligible(section).length;
+      var button = el('<button class="surprise-chip' + (section.id === selected.id ? ' active' : '') + '" type="button" aria-pressed="' + (section.id === selected.id) + '"' + (count ? '' : ' disabled') + '>' + esc(surpriseLabel(section)) + (count ? ' <span>' + count + '</span>' : '') + '</button>');
+      if (count) button.addEventListener('click', function () { state.surpriseSection = section.id; state.surprisePromptSlug = ''; state.surpriseCounter += 1; render(); });
+      chips.appendChild(button);
+    });
+    var stage = studio.querySelector('.surprise-stage');
+    if (!current) stage.appendChild(el('<div class="surprise-empty">' + esc(tr('surpriseNoMatch')) + '</div>'));
+    else {
+      var preview = el('<article class="surprise-preview" data-surprise-slug="' + esc(current.slug) + '"><div class="card-tags"><span class="tag tag-cat"><span aria-hidden="true">' + esc(current._catIcon) + '</span> ' + esc(categoryLabel(current._cat)) + '</span>' + formatBadge(current) + '</div><h4>' + esc(T(current, 'title')) + '</h4><p>' + esc(T(current, 'whatYouGet')) + '</p><div class="card-rel">' + relBadge(current) + '</div><div class="surprise-actions"><button class="btn btn-primary surprise-open" type="button">' + esc(tr('surpriseOpen')) + '</button><button class="btn btn-soft surprise-another" type="button">&#8635; ' + esc(tr('surpriseAnother')) + '</button></div></article>');
+      preview.querySelector('.surprise-open').addEventListener('click', function () { openPromptCard(current); });
+      preview.querySelector('.surprise-another').addEventListener('click', function () { state.surprisePromptSlug = ''; state.surpriseCounter += 1; render(); });
+      stage.appendChild(preview);
+    }
+    return { element: studio, slug: current ? current.slug : '' };
+  }
   function openPromptCard(card, options) { return withFullPrompt(card, function (full) { openModal(full, options || {}); }); }
-  function openRandom() { if (ALL.length) openPromptCard(ALL[Math.floor(Math.random() * ALL.length)]); }
   function render() {
     var stream = document.getElementById('catStream'); if (!stream) return; stream.innerHTML = '';
     var useSyn = false;
@@ -756,7 +867,8 @@
     if (state.query && !ALL.some(function (p) { return matches(p, false); }) && ALL.some(function (p) { return matches(p, true); })) useSyn = true;
     var matched = ALL.filter(function (p) { return matches(p, useSyn); });
     var count = matched.length;
-    var defaultView = !state.query && state.group === 'all' && state.exam === 'all' && state.aud === 'all' && state.fmt === 'all';
+    var defaultView = !state.query && state.group === 'all' && state.category === 'all' && state.exam === 'all' && state.aud === 'all' && state.fmt === 'all';
+    var surprise = count ? surpriseStudioHTML(matched) : { element: null, slug: '' };
     var discovery = defaultView ? discoveryHTML() : { fragment: document.createDocumentFragment(), count: 0, slugs: new Set() };
     var budget = Math.max(0, state.renderLimit - discovery.count);
     var uniqueMatched = matched.filter(function (p) { return !discovery.slugs.has(p.slug); });
@@ -768,19 +880,18 @@
         var prompts = visible.filter(function (p) { return p._cat === cat.category; }); if (!prompts.length) return; has = true;
         var fullCategoryCount = matched.filter(function (p) { return p._cat === cat.category; }).length;
         var block = el('<section class="cat-block" id="cat-' + cat.category + '"></section>');
-        block.appendChild(el('<div class="cat-block-head"><span class="cat-ic">' + (cat.categoryIcon || '') + '</span><h3>' + esc(categoryLabel(cat)) + '</h3><span class="cat-count">' + fullCategoryCount + ' ' + esc(tr('promptsNoun')) + '</span></div>'));
+        var categoryCount = prompts.length === fullCategoryCount ? String(fullCategoryCount) : (prompts.length + ' / ' + fullCategoryCount);
+        block.appendChild(el('<div class="cat-block-head"><span class="cat-ic">' + (cat.categoryIcon || '') + '</span><h3>' + esc(categoryLabel(cat)) + '</h3><span class="cat-count">' + categoryCount + ' ' + esc(tr('promptsNoun')) + '</span></div>'));
         if (cat.categoryBlurb) block.appendChild(el('<p class="cat-blurb">' + esc(cat.categoryBlurb) + '</p>'));
         var grid = el('<div class="cards"></div>'); prompts.forEach(function (p) { grid.appendChild(el(cardHTML(p))); }); block.appendChild(grid); frag.appendChild(block);
       });
       if (has) { stream.appendChild(el('<div class="group-head"><h3>' + esc(groupLabel(g)) + '</h3></div>')); stream.appendChild(frag); }
     });
-    if (useSyn && count) stream.insertBefore(el('<div class="no-results" style="margin-bottom:18px">' + esc(trf('synonymNotice', { query: state.query })) + '</div>'), stream.firstChild);
     if (defaultView && count) {
-      var randWrap = el('<div class="random-prompt-wrap"><button class="fchip" id="randBtn" type="button">&#127922; ' + esc(tr('surprise')) + '</button></div>');
-      randWrap.querySelector('#randBtn').addEventListener('click', openRandom);
       stream.insertBefore(discovery.fragment, stream.firstChild);
-      stream.insertBefore(randWrap, stream.firstChild);
     }
+    if (surprise.element) stream.insertBefore(surprise.element, stream.firstChild);
+    if (useSyn && count) stream.insertBefore(el('<div class="no-results" style="margin-bottom:18px">' + esc(trf('synonymNotice', { query: state.query })) + '</div>'), stream.firstChild);
     if (!count) {
       var nr = el('<div class="no-results">' + esc(tr('noMatch')) + ' &ldquo;' + esc(state.query) + '&rdquo;.<div class="fchips"></div></div>');
       var chipWrap = nr.querySelector('.fchips');
@@ -793,15 +904,18 @@
     }
     var remaining = uniqueMatched.length - visible.length;
     if (remaining > 0) {
-      var more = el('<div class="show-more-wrap"><button class="btn btn-soft" type="button" id="showMore" aria-controls="catStream">' + esc(tr('showMore')) + ' <span>(' + remaining + ')</span></button></div>');
+      var more = el('<div class="show-more-wrap"><button class="btn btn-soft" type="button" id="showMore" aria-controls="catStream">' + esc(tr('showMore')) + ' <span>(' + remaining + ')</span></button><button class="btn btn-primary" type="button" id="showAll" aria-controls="catStream">' + esc(trf('showAll', { count: count })) + '</button></div>');
       more.querySelector('#showMore').addEventListener('click', function () { state.renderLimit += 60; render(); });
+      more.querySelector('#showAll').addEventListener('click', function () { state.renderLimit = count; render(); });
       stream.appendChild(more);
     }
     if (!state.hasRendered) {
       stream.querySelectorAll('.cards').forEach(function (grid) { grid.classList.add('is-initial-load'); });
       state.hasRendered = true;
     }
-    updateCount(count, useSyn);
+    var shown = discovery.count + visible.length;
+    updateCount(count, useSyn, shown);
+    var clearFilters = document.getElementById('clearFilters'); if (clearFilters) clearFilters.hidden = !hasActiveFilters();
   }
 
   function findPrompt(id) { for (var i = 0; i < ALL.length; i++) if (ALL[i]._id === id) return ALL[i]; return null; }
@@ -832,6 +946,7 @@
   }
 
   /* ---------- modal ---------- */
+  var lastModalFocus = null;
   function openModal(p, options) {
     if (!p) return;
     options = options || {};
@@ -888,10 +1003,12 @@
     });
     body.querySelectorAll('[data-close]').forEach(function (x) { x.addEventListener('click', closeModal); });
     if (p.slug) { try { history.replaceState(null, '', '#p/' + p.slug); } catch (e) {} }
+    lastModalFocus = document.activeElement;
     var m = document.getElementById('modal'); m.classList.add('open'); m.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden';
+    var modalClose = m.querySelector('.modal-x'); if (modalClose) modalClose.focus();
     rememberRecent(p);
   }
-  function closeModal() { var m = document.getElementById('modal'); m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; if ((location.hash || '').indexOf('#p/') === 0) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} } }
+  function closeModal() { var m = document.getElementById('modal'); if (!m.classList.contains('open')) return; m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; if ((location.hash || '').indexOf('#p/') === 0) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} } if (lastModalFocus && typeof lastModalFocus.focus === 'function') lastModalFocus.focus(); lastModalFocus = null; }
   function findSlug(slug) { for (var i = 0; i < ALL.length; i++) if (ALL[i].slug === slug) return ALL[i]; return null; }
   function openFromHash() { var h = location.hash || ''; if (h.indexOf('#p/') === 0) { var p = findSlug(decodeURIComponent(h.slice(3))); if (p) openPromptCard(p); } }
 
@@ -918,32 +1035,16 @@
     });
   }
 
-  /* ---------- feedback / share / about / tabs / theme / reveal ---------- */
+  /* ---------- feedback / tabs / theme / reveal ---------- */
   function initFeedback() {
-    var rating = 0; var stars = document.querySelectorAll('#fbStars .star');
-    function paint(v) { stars.forEach(function (s) { s.classList.toggle('on', parseInt(s.getAttribute('data-v'), 10) <= v); }); }
-    stars.forEach(function (s) { var v = parseInt(s.getAttribute('data-v'), 10); s.addEventListener('mouseenter', function () { paint(v); }); s.addEventListener('click', function () { rating = v; paint(v); }); });
-    var sw = document.getElementById('fbStars'); if (sw) sw.addEventListener('mouseleave', function () { paint(rating); });
     function compose() {
-      var role = (document.getElementById('fbRole') || {}).value || ''; var msg = (document.getElementById('fbMsg') || {}).value || ''; var name = (document.getElementById('fbName') || {}).value || '';
-      return { subject: tr('feedbackSubject') + (rating ? ' (' + rating + '/5)' : ''), body: tr('feedbackRatingField') + ': ' + (rating ? rating + '/5' : '-') + '\n' + tr('feedbackRoleField') + ': ' + role + '\n' + tr('feedbackNameField') + ': ' + (name || '-') + '\n\n' + tr('feedbackBodyField') + ':\n' + (msg || '(' + tr('none') + ')') + '\n\n--\n' + tr('feedbackSentFrom') };
+      var role = (document.getElementById('fbRole') || {}).value || ''; var msg = (document.getElementById('fbMsg') || {}).value || '';
+      return { subject: tr('feedbackSubject'), body: tr('feedbackRoleField') + ': ' + role + '\n\n' + tr('feedbackBodyField') + ':\n' + (msg || '(' + tr('none') + ')') + '\n\n--\n' + tr('feedbackSentFrom') };
     }
     var form = document.getElementById('fbForm');
     if (form) form.addEventListener('submit', function (e) { e.preventDefault(); var c = compose(); window.location.href = 'mailto:' + CFG.email + '?subject=' + encodeURIComponent(c.subject) + '&body=' + encodeURIComponent(c.body); var h = document.getElementById('fbHint'); if (h) h.textContent = tr('emailOpened'); });
     var cb = document.getElementById('fbCopy'); if (cb) cb.addEventListener('click', function () { var c = compose(); copyText(c.body, this, tr('feedbackCopied')); });
-    var em = document.getElementById('fbEmailLink'); if (em) em.href = 'mailto:' + CFG.email + '?subject=' + encodeURIComponent(tr('feedbackSubject'));
-    var fl = document.getElementById('fbFormLink'); if (fl && CFG.googleFormUrl) { fl.href = CFG.googleFormUrl; fl.hidden = false; }
-    var wa = document.getElementById('fbWaLink'); if (wa && CFG.whatsapp) { wa.href = 'https://wa.me/' + String(CFG.whatsapp).replace(/[^0-9]/g, '') + '?text=' + encodeURIComponent(tr('whatsappLead') + ' '); wa.hidden = false; }
-    var ig = document.getElementById('fbInstaLink'); if (ig && CFG.instagram) { ig.href = 'https://instagram.com/' + String(CFG.instagram).replace(/^@/, ''); ig.hidden = false; }
   }
-  function initShare() {
-    function message() { return trf('shareMessage', { count: ALL.length }); }
-    var wa = document.getElementById('shareWa'); if (wa) wa.addEventListener('click', function () { window.open('https://wa.me/?text=' + encodeURIComponent(message() + ' ' + SITE), '_blank'); });
-    var cp = document.getElementById('shareCopy'); if (cp) cp.addEventListener('click', function () { copyText(SITE, this, tr('shareLinkCopied')); });
-    var more = document.getElementById('shareMore'); if (more && navigator.share) { more.hidden = false; more.addEventListener('click', function () { navigator.share({ title: 'Maths Prompt Studio', text: message(), url: SITE }).catch(function () {}); }); }
-    var link = document.getElementById('shareLink'); if (link) link.textContent = SITE;
-  }
-  function initAbout() { var a = document.getElementById('aboutAvatar'); if (a && CFG.photoUrl) { a.style.backgroundImage = 'url(' + CFG.photoUrl + ')'; a.style.backgroundSize = 'cover'; a.style.backgroundPosition = 'center'; a.textContent = ''; } }
   function buildPaperPrompt(o) {
     var foot = '\n\nSIGNATURE: If I filled in a name, end the paper with a "Prepared by [YOUR NAME]" footer line; otherwise add no signature.';
     var sectioned = /paper|test/i.test(o.type);
@@ -1014,10 +1115,10 @@
 
   function init() {
     document.getElementById('year').textContent = new Date().getFullYear();
-    assertUiDictionary(); applyStaticChrome(); initTheme(); initLangSwitch(); initTabs(); renderLearn(); initFeedback(); initShare(); initAbout(); initReveal(); initAnalytics();
+    assertUiDictionary(); applyStaticChrome(); initTheme(); initLangSwitch(); initTabs(); renderLearn(); initFeedback(); initReveal(); initAnalytics();
     if (!DATA.length) { document.getElementById('catStream').innerHTML = '<div class="no-results">' + esc(tr('libraryPreparing')) + '</div>'; return; }
     var search = document.getElementById('search'); if (search) search.placeholder = tr('searchPlaceholder');
-    setStats(); buildChips(); buildFacets(); buildFormatFacets(); buildQuickStart(); wireStream(); render(); initSearch(); initTrust(); initBuilder();
+    setStats(); buildChips(); buildCategorySelect(); buildFacets(); buildFormatFacets(); buildQuickStart(); wireStream(); render(); initSearch(); initTrust(); initBuilder();
     if (restoredLanguage !== 'en') ensureCatalogLanguage(restoredLanguage).then(function () { commitLanguage(restoredLanguage); }).catch(function () { commitLanguage('en'); });
     document.querySelectorAll('#modal [data-close]').forEach(function (x) { x.addEventListener('click', closeModal); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
