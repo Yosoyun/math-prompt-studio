@@ -4,7 +4,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const SIG = 'Indrajeet Yadav';
+const SIG = '[YOUR NAME]';
 const OUT = process.argv[2];
 if (!OUT) { console.error('pass workflow output file'); process.exit(1); }
 
@@ -57,7 +57,7 @@ const category = {
   categoryTitle: 'LaTeX & Compiled-PDF Sets',
   categoryIcon: '🧾',
   group: 'Writing & Content',
-  categoryBlurb: 'Senior-grade prompts that make ChatGPT or Claude PRODUCE finished, compiled PDF documents - typeset Olympiad/exam problem sets, worksheets, booklets, mock papers and solutions (minimalist black-and-white, signed Indrajeet Yadav). Best on an AI that can run code and return files.',
+  categoryBlurb: 'Senior-grade prompts that make ChatGPT or Claude PRODUCE finished, compiled PDF documents - typeset Olympiad/exam problem sets, worksheets, booklets, mock papers and solutions (minimalist black-and-white, signed [YOUR NAME]). Best on an AI that can run code and return files.',
   prompts: userPrompts.concat(gen),
 };
 

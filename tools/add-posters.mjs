@@ -15,7 +15,7 @@ function clean(t) {
     .replace(/\r\n/g, '\n').trim();
 }
 const PRE = 'Create the poster from the maths problem I provide. FIRST read the problem (pasted below or attached as a photo), SOLVE it correctly and verify the arithmetic by an independent check, then fill every [INSERT ...] slot with the verified content and render ONE image. Problem: [PASTE THE COMPLETE PROBLEM HERE, or attach a clear photo].\n\n';
-const SIGN = "\n\nSIGNATURE: add a small, elegant handwritten signature 'Indrajeet Yadav' in a bottom corner, tasteful and not overlapping any mathematics.";
+const SIGN = "\n\nSIGNATURE: add a small, elegant handwritten signature '[YOUR NAME]' in a bottom corner, tasteful and not overlapping any mathematics.";
 const EFF = ['Open ChatGPT (Plus, image) or Gemini.', 'Paste your problem or attach a clear photo of it.', 'Paste this whole prompt and send.', 'Let it solve, verify, then render the poster.', "Check the numbers; reply 'regenerate, larger cleaner text' if needed."];
 const FIX = "If the maths is wrong, reply: 'Recompute step by step, verify the answer independently, then regenerate the poster.' If it looks cluttered, reply: 'Keep all decoration in the margins only, enlarge the text, and keep the centre purely the solution.'";
 const mk = (title, file, what) => ({
@@ -50,7 +50,7 @@ const category = {
   categoryTitle: 'Single-Image Solution Posters',
   categoryIcon: '🖼️',
   group: 'Solving & Checking',
-  categoryBlurb: 'Turn ONE problem into ONE stunning, fully-solved poster image - 30 premium styles (botanical, blueprint, chalkboard, parchment, sumi-e, art deco, neon, stained-glass, palm-leaf, storybook and more). The AI solves and verifies first, then renders it, signed Indrajeet Yadav. Needs an image-making AI (e.g. ChatGPT Plus or Gemini).',
+  categoryBlurb: 'Turn ONE problem into ONE stunning, fully-solved poster image - 30 premium styles (botanical, blueprint, chalkboard, parchment, sumi-e, art deco, neon, stained-glass, palm-leaf, storybook and more). The AI solves and verifies first, then renders it, signed [YOUR NAME]. Needs an image-making AI (e.g. ChatGPT Plus or Gemini).',
   prompts: userPrompts.concat(gen),
 };
 
@@ -60,7 +60,7 @@ if (DATA.categories.some(c => c.category === 'solution-posters')) { console.erro
 DATA.categories.push(category);
 DATA.version = '2026-06-22-posters';
 const grand = DATA.categories.reduce((t, c) => t + c.prompts.length, 0);
-const banner = '/* Maths Prompt Studio data - ' + grand + ' prompts across ' + DATA.categories.length + ' categories. v' + DATA.version + '. Authored by Indrajeet Yadav. Auto-generated; do not edit by hand. */\n';
+const banner = '/* Maths Prompt Studio data - ' + grand + ' prompts across ' + DATA.categories.length + ' categories. v' + DATA.version + '. Authored by [YOUR NAME]. Auto-generated; do not edit by hand. */\n';
 writeFileSync(ROOT + '/data/prompts.js', banner + 'window.PROMPT_DATA = ' + JSON.stringify(DATA) + ';\n');
 console.log('Added "Single-Image Solution Posters" with', category.prompts.length, 'prompts (5 yours + ' + gen.length + ' inspired).');
 console.log('GRAND TOTAL', grand, '| categories', DATA.categories.length, '| version', DATA.version);

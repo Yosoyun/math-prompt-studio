@@ -8,7 +8,7 @@ const MATHS = 'MATHS FORMATTING: Write ALL mathematics so it reads correctly in 
 
 function inject(text, directive) {
   var idx = text.search(/\n[ \t]*SIGNATURE\b/i);
-  if (idx === -1) idx = text.search(/At the very end add a footer|Prepared by Indrajeet Yadav|Compiled by Indrajeet Yadav|Created with the prompt collection/i);
+  if (idx === -1) idx = text.search(/At the very end add a footer|Prepared by [YOUR NAME]|Compiled by [YOUR NAME]|Created with the prompt collection/i);
   if (idx !== -1) { var ls = text.lastIndexOf('\n', idx - 1); var pos = ls === -1 ? idx : ls; return text.slice(0, pos) + '\n\n' + directive + text.slice(pos); }
   return text.trim() + '\n\n' + directive;
 }
@@ -27,7 +27,7 @@ for (const c of DATA.categories) {
 
 DATA.version = '2026-06-18-v8';
 const grand = DATA.categories.reduce((t, c) => t + c.prompts.length, 0);
-const banner = '/* Maths Prompt Studio data - ' + grand + ' prompts across ' + DATA.categories.length + ' categories. v' + DATA.version + '. Authored by Indrajeet Yadav. Auto-generated; do not edit by hand. */\n';
+const banner = '/* Maths Prompt Studio data - ' + grand + ' prompts across ' + DATA.categories.length + ' categories. v' + DATA.version + '. Authored by [YOUR NAME]. Auto-generated; do not edit by hand. */\n';
 writeFileSync(ROOT + '/data/prompts.js', banner + 'window.PROMPT_DATA = ' + JSON.stringify(DATA) + ';\n');
 console.log('Baked maths-formatting rule into', done, 'text prompts; skipped', skipped, '(image / already had it).');
 console.log('GRAND TOTAL:', grand, '| version', DATA.version);

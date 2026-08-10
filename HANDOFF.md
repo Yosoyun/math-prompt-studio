@@ -1,78 +1,227 @@
-# HANDOFF — Maths Prompt Studio program
+# HANDOFF — Maths Prompt Studio
 
-Current verified checkpoint: **2026-08-02**, local branch `main`.
+Verified checkpoint: **2026-08-10**
+Repository: `/Users/vanindra/Desktop/Code/automate x/math-prompt-studio`
+Branch: `main`
+Latest completed product milestone: **`efb95124` — Fix prompt discovery and add curated Surprise Studio**
 
-This is the durable resume document for the whole program. Read it completely together with `AGENTS.md` and `CONTINUITY.md` before changing code or content. The older totals in `README.md` and `FINAL-REPORT.md` describe historical checkpoints; they are not the current state.
+This is the durable resume document for the project. Read it completely with `AGENTS.md` and `CONTINUITY.md` before changing code or content. Historical totals in `FINAL-REPORT.md` and old reports are not current product truth.
 
-## The full aim of this project
+## The aim of the project
 
-Maths Prompt Studio is being built as a trustworthy, teacher-first production platform, not as a loose collection of AI prompts.
+Maths Prompt Studio is a teacher-first production platform for turning a real teaching or study job into a dependable, fill-ready AI workflow.
 
-The product should let a mathematics teacher or student quickly find a dependable workflow, fill in a few details, and produce useful classroom or study material: worked solutions, verified answers, question papers, worksheets, DPPs, quizzes, presentations, visual material, documents, feedback, planning, and exam-preparation resources. Discovery, search, exam/audience/output-format filters, tool guidance, per-prompt pages, redirects, and multilingual use are all part of the product.
+It is not meant to be a pile of generic prompts. A teacher or learner should be able to:
 
-The quality goal is equally important: every prompt must be complete, practical, mathematically responsible, honest about verification, safe from fabricated exam claims, and usable by teachers who are not technical. No language may be exposed with lower-quality or partial translations.
+- find the right job by search, category, group, exam, audience, or output format;
+- understand what the prompt creates and how to use it;
+- open a full, highly structured prompt instead of a vague summary;
+- copy it or open it in an AI tool without losing the selected language;
+- create solutions, independently checked answers, papers, worksheets, DPPs, quizzes, presentations, visuals, documents, feedback, plans, and revision resources;
+- reach stable per-prompt pages through permanent URLs and redirects;
+- use the platform in a complete, natural language experience only when that language meets the established quality bar.
 
-The wider program is to grow this foundation into a connected education suite:
+The governing product promise is:
 
-1. Finish the multilingual Maths Prompt Studio at the established Hindi quality bar.
-2. Complete the governed Problem Bank milestones without inventing missing acceptance criteria.
-3. Build the Physics, Chemistry, and Biology Prompt Studios to the same standard.
-4. Run a final cross-studio quality, continuity, redirect, and browser-verification sweep.
+> Rich, classroom-ready workflows; honest mathematics; complete discovery; no fabricated exam claims; no partial languages; no generic Surprise results; no personal promotion or money solicitation.
 
-The governing principle is simple: **never ship below the bar**.
+The wider program is to finish multilingual Maths Prompt Studio, complete the governed Problem Bank milestones, build Physics, Chemistry, and Biology studios to the same standard, and run a final cross-studio quality sweep.
 
-## Sources of truth and conflict rule
+## Current verified state
 
-- `HANDOFF.md` records the current repository state and exact resume point.
-- `AGENTS.md` contains the non-negotiable repository, data, translation, safety, cache, and push rules.
-- `CONTINUITY.md` contains the Quality Constitution and full program composition order.
-- The active phase brief supplies phase-specific acceptance criteria. The detailed Problem Bank M1–M5 brief is not present in this checkout.
-- If an old report conflicts with these files, use this handoff and the current code/status tools.
-- If a governing acceptance criterion is missing, do not invent it and do not claim the milestone complete.
-- Preserve existing data and stop below-bar work instead of weakening a gate.
-
-## Current verified product state
-
-| Area | Verified state |
+| Area | State |
 |---|---|
-| Repository | `/Users/vanindra/Desktop/Code/automate x/math-prompt-studio` |
-| Branch | `main`, tracking `origin/main`; local work is ahead and must not be pushed without explicit approval |
-| Last completed production milestone | `3f43a0df` — `Translate Marathi batch 008` |
-| Corpus | **961 prompts / 50 categories** in `data/prompts.js` |
-| Generated site | 961 canonical prompt pages + 71 redirect stubs = 1,032 `/p/` directories; sitemap has 962 URLs |
-| Cache | `data/prompts.js?v=50`, `data/catalog.js?v=50`, and `app.js?v=50` |
-| English | 961/961 valid, live |
-| Hindi | **961/961 valid, remaining 0, live** |
-| Bengali | **80/961 valid, remaining 881, invalid 0, not live** |
-| Marathi | **72/961 valid, remaining 889, invalid 0, not live** |
-| Telugu | **56/961 valid, remaining 905, invalid 0, not live** |
-| Main program | Phases 0, 1, and 2 committed; Phase 3 multilingual completion is active |
-| Translation method | Frontier LLM authored only; local/offline MT is forbidden |
-| Unresolved gate failures | None at this checkpoint |
+| Corpus | **961 prompts / 50 categories / 961 unique slugs** |
+| Generated pages | **961 canonical pages + 71 redirect stubs = 1,032 `/p/` directories** |
+| Sitemap | **962 URLs** |
+| Cache | **v51** for styles, prompts, catalog, config, and app |
+| English | **961/961, live** |
+| Hindi | **961/961, remaining 0, live** |
+| Bengali | **80/961, remaining 881, invalid 0, not live** |
+| Marathi | **72/961, remaining 889, invalid 0, not live** |
+| Telugu | **56/961, remaining 905, invalid 0, not live** |
+| Curated Surprise | **8 outcome sections / 50 unique audited prompts** |
+| Surprise digest | `sha256:e9cde8e4ba46ec2b39a8ff9faa851ac1251ad09d867401add8633ac254d4abd4` |
+| Translation method | Working frontier LLM only; offline/local MT forbidden |
+| Push state | Local only; **never push without explicit current approval** |
 
-`data/catalog.js` is the current language-availability authority. `app.js` reads its `languageStatus`; incomplete Bengali, Marathi, and Telugu data is present only for production work and remains blocked from users.
+`data/catalog.js` is the runtime authority for language availability. Bengali, Marathi, and Telugu data remains intentionally inaccessible to users until complete.
 
-## Current uncommitted work — preserve it
+## Product milestone completed in `efb95124`
 
-Only these two untracked draft files existed at the checkpoint:
+### 1. All prompts are reachable
 
-- `_handoff/phase3-batches/bn/batch-010.json`
-  - Contains the first 4 of 8 records from `_handoff/bn-todo/chunk-10.json`.
-  - The four present records pass `qa-lang-batch`.
-  - Finish these titles: `Quick Class Test (20 Marks, 30 Minutes)`; `Half-Yearly Examination Paper with Full Coverage`; `Pre-Board Paper at Final-Exam Difficulty`; `Assertion-Reason Question Paper`.
-- `_handoff/phase3-batches/te/batch-007.json`
-  - Contains the first 4 of 8 records from `_handoff/te-todo/chunk-7.json`.
-  - The four present records pass `qa-lang-batch` after the `VERIFY` anchors were corrected.
-  - Finish these titles: `Careless Slip or Real Misconception? (diagnose the cause)`; `Rewrite the Corrected Solution (full marks model)`; `Turn a Wrong Answer into a Teaching Moment`; `Rank 3 Student Answers (best to weakest)`.
-- Marathi batch 009 has not been started. Its source is `_handoff/mr-todo/chunk-9.json`; translate all 8 records into `_handoff/phase3-batches/mr/batch-009.json`.
+The default Browse All renderer had a real deduplication bug. It added every fresh/saved/recent candidate to the used set before applying the visible shelf limit. The page looked like it had 60 cards, but 438 unshown prompts were permanently excluded from the ordinary category stream. A user could reach at most 523 of 961 prompts.
 
-Do not discard, overwrite, or accidentally stage one language's partial draft in another language's commit.
+The corrected renderer filters first, slices the visible shelf, and only then marks those displayed slugs as used.
 
-## Immediate work: finish Phase 3 translations
+Verified default accounting:
 
-There are 121 source chunks per language: 120 chunks of 8 prompts and a final one-record chunk. Continue in batches of about 8, using the working frontier LLM itself.
+- 13 discovery cards + 47 ordinary cards = 60 initial cards;
+- 60 unique initial slugs;
+- 901 prompts remaining;
+- Show more progresses in batches of 60;
+- Show all produces exactly 961 cards and 961 unique slugs.
 
-### Start every shell session
+`tools/qa-library-discovery.mjs` protects this with 42 assertions, including fresh > 6, saved > 4, recent > 4, duplicate shelves, initial accounting, and full slug-union parity.
+
+### 2. Prompt selection is now understandable
+
+The library now has:
+
+- a current `Showing X of Y` count;
+- Show 60 more and Show all controls;
+- an exact Category selector in addition to broad groups;
+- explicit Exam, Audience, and Format labels;
+- a visible Clear all action;
+- accessible group semantics;
+- clearer mobile chip overflow;
+- a prominent `View full prompt + instructions` action;
+- richer four-line card previews.
+
+### 3. Surprise Studio is curated, rich, and selection-aware
+
+The old implementation selected one random prompt from all 961. It ignored search and filters and had no quality bar.
+
+The new Surprise Studio has eight outcome-led sections:
+
+1. Solve with confidence
+2. Unlock a stuck learner
+3. Build a serious assessment
+4. Make class memorable
+5. Train for the exam
+6. Save teacher hours
+7. Create a standout resource
+8. Give every learner agency
+
+Its 50 prompts are manually allowlisted in `data/surprise-pools.json`. Each audited prompt is a long, structured workflow with concrete inputs, ordered phases, named output blocks, a genuine quality-control mechanism, complete facets, and a distinctive payoff. The gate strips any frozen tool contract before measuring richness and fails on missing/stale slugs, digest drift, weak structure, language gaps, placeholder drift, unsafe tool facts, fabrication bait, or verification theater.
+
+Runtime selection:
+
+- intersects the curated pool with the exact current search/category/group/exam/audience/format match set;
+- excludes recent Surprise history and immediate repeats;
+- uses deterministic seeded selection rather than uncontrolled `Math.random()`;
+- keeps one rich preview outside the ordinary 60-card budget;
+- disables sections with no eligible prompt;
+- says so honestly when no curated prompt matches;
+- uses Hindi content and chrome when Hindi is active;
+- never silently broadens outside the user's selection.
+
+### 4. Public UI is product-focused
+
+Removed:
+
+- founder/About biography;
+- personal identity presentation;
+- standalone Share/request section;
+- payment/support solicitation copy;
+- promotional Credits block;
+- support/payment FAQ;
+- personal WhatsApp, Instagram, and photo configuration;
+- rating stars, visitor-name field, and personal contact side panel.
+
+The remaining feedback form is neutral and contains only role plus message. Generated prompt-page footers now use neutral product navigation.
+
+### 5. Accessibility and behavior
+
+- Modal focus moves to the close button and restores the prior focus on close.
+- Filter controls use group semantics rather than an incorrect tablist.
+- The former sticky filter bar no longer covers controls/cards.
+- Search retains an accessible label and live result count.
+
+## Browser verification completed
+
+Served at `http://127.0.0.1:8911/`:
+
+- page title reports 961 prompts;
+- default library: 60 cards, 60 unique, 901 remaining;
+- Show all: 961 cards, 961 unique;
+- search `wolfram`: 297 related matches in the current corpus;
+- exact `verified-answers` category: 40 prompts;
+- Hindi changes the library, cards, Surprise Studio, modal title/body, and copy action;
+- Surprise opens a full Hindi prompt and focuses the modal close button;
+- Handwritten 5-Method modal has one placeholder option plus 18 styles;
+- JEE Advanced filter reports 194 prompts and selection-aware Surprise results;
+- eight consecutive Surprise rerolls produced no immediate repeat;
+- `/p/vintage-parchment-masterclass/` redirects to `/p/handwritten-5-method-solution-art/`;
+- About and standalone Share sections are absent;
+- feedback contains only `fbRole` and `fbMsg`;
+- browser console: no errors.
+
+## Passed gates at this checkpoint
+
+```bash
+/opt/homebrew/bin/node --check app.js
+/opt/homebrew/bin/node -e "new Function(require('fs').readFileSync('app.js','utf8'))"
+/opt/homebrew/bin/node tools/qa-library-discovery.mjs
+/opt/homebrew/bin/node tools/qa-surprise.mjs
+/opt/homebrew/bin/node tools/build-catalog.mjs --check
+/opt/homebrew/bin/node tools/build-pages.mjs --dry-run
+/opt/homebrew/bin/node tools/hindi-status.mjs
+/opt/homebrew/bin/node tools/lang-status.mjs --lang bn
+/opt/homebrew/bin/node tools/lang-status.mjs --lang mr
+/opt/homebrew/bin/node tools/lang-status.mjs --lang te
+/opt/homebrew/bin/node tools/repair-hindi-invariants.mjs --check
+git diff --check
+```
+
+Key outputs:
+
+- library discovery QA: `ok:true`, 42 assertions, final 961;
+- Surprise QA: 8 sections, 50 unique curated prompts, current digest;
+- compact catalog: 961 prompts, English/Hindi live, incomplete languages blocked;
+- baked-page dry run: 961 canonical pages;
+- Hindi invariant: clean;
+- all incomplete languages: invalid 0.
+
+## Historical full-phase gates that are not current green gates
+
+Do not claim all full-phase scripts pass.
+
+- `tools/qa-phase1.mjs` is a historical gate hardcoded for 848 prompts, 45 categories, cache v22, the old About section, and the old sticky-filter behavior. It fails against the intentionally evolved product.
+- `tools/qa-phase2.mjs` is hardcoded to cache v23. It currently fails only its obsolete cache-reference expectations.
+- `tools/qa-phase3.mjs` correctly fails while Bengali, Marathi, and Telugu are incomplete and while the data version remains `2026-07-17-phase2-formats-pyq-segments`. It also still expects the removed About/identity baseline, which conflicts with the owner's explicit product-removal instruction.
+- The earlier Phase 3 cache-parity defect (`50,15`) is fixed. `tools/bump-cache.mjs` now bumps all five first-party assets together, and the current index uses v51 everywhere.
+
+Do not weaken the historical gates to make them green. At the relevant exit milestone, either replace them with a newly governed consolidated gate or update them only under an explicit accepted specification.
+
+## Uncommitted translation drafts — preserve exactly
+
+The working tree intentionally contains only these two untracked translation drafts after the product commit:
+
+### Bengali batch 010
+
+Path: `_handoff/phase3-batches/bn/batch-010.json`
+
+- Contains records 1–4 of `_handoff/bn-todo/chunk-10.json`.
+- Those four records pass `qa-lang-batch`.
+- Complete the remaining four:
+  - `Quick Class Test (20 Marks, 30 Minutes)`
+  - `Half-Yearly Examination Paper with Full Coverage`
+  - `Pre-Board Paper at Final-Exam Difficulty`
+  - `Assertion-Reason Question Paper`
+
+### Telugu batch 007
+
+Path: `_handoff/phase3-batches/te/batch-007.json`
+
+- Contains records 1–4 of `_handoff/te-todo/chunk-7.json`.
+- Those four records pass `qa-lang-batch`.
+- Complete the remaining four:
+  - `Careless Slip or Real Misconception? (diagnose the cause)`
+  - `Rewrite the Corrected Solution (full marks model)`
+  - `Turn a Wrong Answer into a Teaching Moment`
+  - `Rank 3 Student Answers (best to weakest)`
+
+### Marathi batch 009
+
+No draft exists. Translate all eight records from `_handoff/mr-todo/chunk-9.json` into `_handoff/phase3-batches/mr/batch-009.json`.
+
+Never stage one of the partial drafts in another language's commit.
+
+## Exact next work: Phase 3 translations
+
+### Start each shell
 
 ```bash
 cd "/Users/vanindra/Desktop/Code/automate x/math-prompt-studio"
@@ -85,23 +234,18 @@ node tools/lang-status.mjs --lang mr
 node tools/lang-status.mjs --lang te
 ```
 
-Expected branch is `main`. At this checkpoint Hindi prints `961 | remaining: 0`; Bengali 80, Marathi 72, and Telugu 56 complete.
+Expected starting state:
 
-### Translation quality rules
+- branch `main`;
+- Hindi 961/961;
+- Bengali 80/961;
+- Marathi 72/961;
+- Telugu 56/961;
+- two untracked partial drafts above.
 
-- Author every translation directly. NLLB, MADLAD, Marian, IndicTrans, or any other local/offline translation model is forbidden.
-- Translate the full title, `whatYouGet`, `howToUse`, every `effectiveUsage` item, `commonFix`, and full `promptText`. Never summarise.
-- Preserve every `[PLACEHOLDER]` character-for-character, including brackets, spelling, case, spaces, and English text.
-- Preserve URLs, tool names, filenames, code, numbers, and protected English product/file terms.
-- Use a natural respectful teacher register: Bengali `আপনি`, Marathi `आपण`, Telugu `మీరు`.
-- Put the English technical anchor on first use where required.
-- Keep structural labels in the required form, such as `ভূমিকা (ROLE):`, `भूमिका (ROLE):`, or `పాత్ర (ROLE):`.
-- Use the natural language equivalent of `Prepared by`, while preserving `[YOUR NAME]` exactly.
-- Preserve paragraph and line structure closely enough for semantic and mechanical review.
+### Complete and gate one batch
 
-### Gate and merge one complete batch
-
-Replace the language and batch numbers in these commands:
+Example for Bengali batch 010:
 
 ```bash
 node tools/qa-lang-batch.mjs --lang bn --input _handoff/phase3-batches/bn/batch-010.json
@@ -109,16 +253,18 @@ node tools/review-lang-batch.mjs --lang bn --source _handoff/bn-todo/chunk-10.js
 node tools/merge-lang.mjs --lang bn _handoff/phase3-batches/bn/batch-010.json
 ```
 
-Before the merge, the working LLM must also read the English source and translation semantically. The QA and review scripts are necessary gates, not substitutes for that read. Fix every reject and re-run. Never edit, bypass, or weaken a QA script.
+Equivalent language paths apply to Marathi and Telugu. The review script is a candidate report; the working frontier LLM must still compare all eight records semantically. A partial batch may pass mechanical QA but must not be merged until the source chunk is fully represented.
 
-After a zero-reject merge:
+### Post-merge loop
 
 ```bash
-node tools/lang-status.mjs --lang bn
+node tools/lang-status.mjs --lang <bn|mr|te>
 node tools/bump-cache.mjs
 node tools/build-pages.mjs
 node tools/build-catalog.mjs
 node tools/build-catalog.mjs --check
+node tools/qa-library-discovery.mjs
+node tools/qa-surprise.mjs
 node tools/hindi-status.mjs
 node tools/lang-status.mjs --lang bn
 node tools/lang-status.mjs --lang mr
@@ -129,84 +275,55 @@ git diff --check
 git status --short
 ```
 
-Stage the exact accepted batch and only its generated product changes. The usual generated set is `data/prompts.js`, `data/catalog.js`, `app.js`, `index.html`, and `p/`. Inspect before staging, then commit one accepted language batch with a clear message such as `Translate Bengali batch 010`. Never push.
+Stage the exact accepted batch plus the generated corpus/catalog/pages/cache changes. Keep the other partial draft unstaged. Commit one language batch with a clear local message. Never push.
 
-## Phase 3 completion and language activation
+There are 121 source chunks per language: 120 eight-record chunks and chunk 120 with one record. Continue until every language reports `remaining: 0 | invalid: 0`.
 
-For each of Bengali, Marathi, and Telugu, continue until its status prints `remaining: 0` and `invalid: 0` across all 961 prompts.
+## Language activation
 
-Activate one completed language at a time. The current implementation derives `live` from the validated `data/catalog.js` language status; do not add a manual override that exposes partial data. Rebuild the catalog and pages, then verify in a real local browser that:
+Activate Bengali, Marathi, and Telugu one at a time only after that language is 961/961. Rebuild and verify:
 
-- the header language chip is enabled and flips cards;
-- search uses that language's searchable text;
-- the modal is fully translated;
-- style-picker text and dropdown remain correct;
-- copy text contains the full selected translation;
-- ChatGPT/Claude open actions use that translated text;
-- English, Hindi, and previously activated languages still work;
-- the browser console has no errors.
+- its chip becomes live;
+- cards and Surprise chrome change language;
+- search uses translated text;
+- modal, instructions, copy text, and AI-open text are complete;
+- style-picker dropdown remains correct;
+- placeholders are unchanged;
+- English, Hindi, and earlier activated languages do not regress;
+- browser console has no errors.
 
-Commit each language activation separately. A language is not complete merely because its data exists; it is complete only after the full status, build, and browser gate passes.
+Commit each activation separately.
 
-## Program roadmap after the current translation phase
+## Program order after translation work
 
-The canonical composition order remains:
+The durable composition order is:
 
-1. Main Phase 0 — professional product audit. **Committed.**
-2. Main Phase 1 — design and UX overhaul. **Committed.**
-3. Main Phase 2 — categorization, output formats, and segment coverage. **Committed.**
+1. Main Phase 0 — professional product audit. Committed.
+2. Main Phase 1 — design and UX overhaul. Committed.
+3. Main Phase 2 — categorization, output formats, and segment coverage. Committed.
 4. Problem Bank M1–M4, in order.
-5. Main Phase 3 — Bengali, Marathi, and Telugu completion. **In progress.**
+5. Main Phase 3 — Bengali, Marathi, Telugu. In progress.
 6. Problem Bank M5.
-7. Main Phase 4 — Physics Prompt Studio.
-8. Main Phase 5 — Chemistry Prompt Studio.
-9. Main Phase 6 — Biology Prompt Studio.
+7. Main Phase 4 — Physics Studio.
+8. Main Phase 5 — Chemistry Studio.
+9. Main Phase 6 — Biology Studio.
 10. Main Phase 7 — final sweep and report.
 
-The detailed Problem Bank M1–M5 acceptance criteria are absent from this checkout, so their completion cannot currently be verified. Do not invent them, silently skip them, or claim them done. Obtain the governing Problem Bank brief and audit M1–M4 before advancing to M5 or the science studios.
-
-## Known checkpoint discrepancies — not waived
-
-- `node tools/qa-phase3.mjs` currently fails, as it should while Bengali, Marathi, and Telugu are incomplete and the data version still identifies Phase 2. Use the per-batch gates during production, but do not report the full Phase 3 gate as clean until all three languages are complete.
-- The full Phase 3 gate also reports `index cache versions differ: 50, 15` because its parity scan sees the older `config.js?v=15` reference while the content/application bundles are on v50. This is a real Phase 3 exit item: investigate and resolve it deliberately before final activation; do not suppress or weaken the assertion.
-- Legacy baseline references to the protected owner identity still exist outside the About section in historical documentation and maintenance-source files. They pre-date this checkpoint. Do not copy, regenerate, or add any such reference, and include a deliberate baseline cleanup/audit before the final sweep rather than assuming the repository is already clean.
+The detailed M1–M5 acceptance brief is absent from this checkout. This is a known composition debt: do not invent it, do not mark M1–M4 complete, and do not start M5 without the governing brief.
 
 ## Hard stops
 
-- Never place the protected owner identity outside the existing About section of `index.html`.
-- Never push without explicit approval in the current conversation.
+- Never expose the protected owner identity.
+- Never restore personal promotion or solicitation UI.
+- Never push without explicit current approval.
 - Never hand-edit `data/prompts.js`.
-- Never delete a prompt without adding its old slug to `data/redirects.json`.
-- Never weaken or bypass translation, content, catalog, syntax, or browser gates.
-- Never ship partial or machine-translated language data.
-- Never merge or mention the separately governed institutional properties in this platform.
-- Never fabricate exam patterns, marks distributions, trends, PYQ authenticity, or tool capabilities.
-- If the same gate item fails three genuine attempts, record the evidence under `UNRESOLVED` in `NEXT-REPORT.md` and proceed only as the governing brief allows.
+- Never delete a prompt without a redirect.
+- Never change placeholders.
+- Never ship partial or offline-MT language data.
+- Never weaken a gate.
+- Never fabricate exam/tool facts.
+- If the same real blocker fails three genuine attempts, document it under `UNRESOLVED` in `NEXT-REPORT.md`.
 
-## Important implementation map
+## Resume summary
 
-- `index.html` — static shell and sections.
-- `app.js` — rendering, discovery, search, filters, languages, modal, copy/open flows.
-- `data/prompts.js` — complete generated prompt corpus; never hand-edit.
-- `data/catalog.js` — compact runtime catalog and language availability.
-- `data/redirects.json` — permanent old-slug protection.
-- `p/` — generated canonical prompt pages and redirect stubs.
-- `tools/build-pages.mjs` — rebuilds prompt pages, redirects, and sitemap.
-- `tools/build-catalog.mjs` — validates/builds the compact catalog and language status.
-- `tools/lang-status.mjs` — reports Bengali/Marathi/Telugu completeness.
-- `tools/qa-lang-batch.mjs` — per-batch mechanical/script/placeholder gate.
-- `tools/review-lang-batch.mjs` — source-to-translation semantic review aid.
-- `tools/merge-lang.mjs` — the only production merge path for Bengali/Marathi/Telugu.
-- `tools/repair-hindi-invariants.mjs --check` — proves completed Hindi has not regressed.
-- `_handoff/bn-todo`, `_handoff/mr-todo`, `_handoff/te-todo` — immutable source chunks.
-- `_handoff/phase3-batches/<lang>` — reviewed translation batch files and current work.
-
-## Known clean checkpoint
-
-- Hindi invariant check is clean at 961/961.
-- Bengali, Marathi, and Telugu report zero invalid production records.
-- Accepted production batches are Bengali 000–009, Marathi 000–008, and Telugu 000–006.
-- No translation reject remains unresolved.
-- Prohibited local/offline MT tooling and experimental outputs were removed; none may re-enter production.
-- The full `tools/qa-phase3.mjs` gate is not yet clean; its expected coverage/version failures and the cache-parity exit item are recorded above.
-- The task remains intentionally local. **Do not push.**
+The public library/Surprise/feedback milestone is complete and locally committed. No prompt was deleted. No redirect was removed. Hindi is complete. The next production action is to finish one of the three pending frontier-authored translation batches, merge it through `merge-lang.mjs`, run the full incremental loop, and commit only that language batch.

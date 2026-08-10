@@ -4,7 +4,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const SIG = 'Indrajeet Yadav';
+const SIG = '[YOUR NAME]';
 const LINK = 'https://yosoyun.github.io/math-prompt-studio/';
 
 const CONTEXT_CHECK = 'CONTEXT CHECK: Before you begin, if any [SQUARE-BRACKET] above is still empty, or I have not given you the question / photo / data you need, ask me for exactly those and wait - never guess, and never answer with the placeholder text still in brackets.';
@@ -19,7 +19,7 @@ const TAIL = '\n\n' + CONTEXT_CHECK + '\n\n' + GROUND_RULES + '\n\n' + FOOTER;
 
 // truncate any existing trailing instruction region so the upgrade is idempotent
 const MARKERS = [/\n[ \t]*CONTEXT CHECK\b/i, /\n[ \t]*GROUND RULES\b/i, /\n[ \t]*SIGNATURE\b/i,
-  /\nPrepared by Indrajeet Yadav/i, /\nCompiled by Indrajeet Yadav/i, /\nChecked with Maths Prompt Studio/i,
+  /\nPrepared by [YOUR NAME]/i, /\nCompiled by [YOUR NAME]/i, /\nChecked with Maths Prompt Studio/i,
   /\nCreated with the prompt collection/i];
 function upgradeTail(text) {
   let cut = text.length;

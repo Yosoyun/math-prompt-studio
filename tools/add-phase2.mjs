@@ -4,7 +4,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const SIG = 'Indrajeet Yadav';
+const SIG = '[YOUR NAME]';
 
 const src = readFileSync(ROOT + '/data/prompts.js', 'utf8');
 const DATA = JSON.parse(src.slice(src.indexOf('window.PROMPT_DATA =') + 'window.PROMPT_DATA ='.length, src.lastIndexOf(';')));

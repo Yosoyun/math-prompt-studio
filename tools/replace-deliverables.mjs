@@ -51,7 +51,7 @@ cat.categoryBlurb = 'Senior-grade prompts that make ChatGPT or Claude PRODUCE a 
 
 DATA.version = '2026-06-22-deliv2';
 const grand = DATA.categories.reduce((t, c) => t + c.prompts.length, 0);
-const banner = '/* Maths Prompt Studio data - ' + grand + ' prompts across ' + DATA.categories.length + ' categories. v' + DATA.version + '. Authored by Indrajeet Yadav. Auto-generated; do not edit by hand. */\n';
+const banner = '/* Maths Prompt Studio data - ' + grand + ' prompts across ' + DATA.categories.length + ' categories. v' + DATA.version + '. Authored by [YOUR NAME]. Auto-generated; do not edit by hand. */\n';
 writeFileSync(ROOT + '/data/prompts.js', banner + 'window.PROMPT_DATA = ' + JSON.stringify(DATA) + ';\n');
 
 console.log('Replaced', replaced, 'deliverable prompts with deeper multi-format versions.');

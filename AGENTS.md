@@ -1,54 +1,164 @@
-# AGENTS.md — strict operating rules for any agent working in this repo
+# AGENTS.md — non-negotiable operating rules
 
-Read `HANDOFF.md` first for state + remaining work. These rules are NON-NEGOTIABLE; the owner's teachers trust this site.
+Read `HANDOFF.md` and `CONTINUITY.md` completely before changing this repository. This file is the binding rulebook; the current phase brief supplies any additional phase-specific acceptance criteria.
 
 ## Absolute rules
 
-1. **Never write "Indrajeet Yadav" anywhere** except the existing About section of index.html. Prompt signatures are `[YOUR NAME]`. No promo footers, no site URLs inside prompt outputs.
-2. **Never edit `data/prompts.js` by hand.** It is one generated line. All changes go through scripts: `tools/merge-hindi.mjs` for translations, a Node script for structural changes, then `node tools/build-pages.mjs` (which regenerates all `/p/*` pages, redirect stubs from `data/redirects.json`, sitemap.xml, and rewrites data with slugs).
-3. **Never delete a prompt without adding its slug → survivor slug to `data/redirects.json`.** Old URLs must keep working forever.
-4. **Placeholders are sacred.** `[LIKE THIS]` tokens must survive every transformation character-for-character, including in translations. The merge script enforces this; do not weaken it.
-5. **No verification theater.** Never write prompts that make the AI print "verified ✓" for its own work. Real verification = a clickable WolframAlpha/Symbolab link the teacher checks personally, labelled "check this yourself".
-6. **No fabrication bait.** Prompts must not ask AIs for "the latest exam pattern", invented mark distributions, trend statistics, or PYQs presented as authentic. GROUND RULES blocks stay.
-7. **Tool-link facts are frozen** unless re-verified in a live browser: Desmos has NO URL prefill (typed-lines fallback only); Google Forms is created by Apps Script, never URL; Wayground/Kahoot/Blooket are paste/file-import only; mathsolver.microsoft.com is dead. Full table: `_handoff/tools-research.md`.
-8. **ALLEN properties stay separate.** Never link, merge, or mention allen-educator-studio / allen-resource-hub here.
-9. **Cache-busting**: any change to app.js or data/prompts.js requires bumping BOTH `?v=` params in index.html (keep them equal).
-10. **Do not push without the owner's explicit OK in the current conversation.** Committing locally is fine and encouraged.
+1. **Do not write or display the protected owner identity anywhere.** The public About/founder section has been removed. Use `[YOUR NAME]` inside prompt templates and neutral product language everywhere else. Do not copy legacy identity text from old reports.
+2. **Never hand-edit `data/prompts.js`.** It is generated production data. Translation changes enter through the approved merge scripts. Structural prompt/category changes must be performed by a purpose-built Node script and then rebuilt.
+3. **Never delete a prompt without a permanent redirect.** Add the deleted slug to `data/redirects.json` and point it to the surviving canonical slug before rebuilding.
+4. **Placeholders are sacred.** Every `[PLACEHOLDER IN SQUARE BRACKETS]` must remain character-for-character identical, including brackets, spelling, case, spaces, punctuation, and repeated occurrences.
+5. **Gates are law.** Fix rejects and rerun. Never bypass, weaken, edit, or special-case a QA gate merely to admit failing content.
+6. **No verification theater.** A prompt must not ask an AI to award itself a “verified” mark. Real checking means independent mathematics plus an honest teacher-checkable tool link or manual check.
+7. **No fabrication bait.** Do not ask for invented PYQs, “latest exam pattern” claims, unsupported trends, mark distributions, cut-offs, ranks, shifts, years, or sources. Generated practice must be labelled as original practice.
+8. **Hard tool facts stay frozen until re-verified in a live browser.**
+   - Never construct a Desmos URL with expression parameters; provide typed-line instructions instead.
+   - Never use `mathsolver.microsoft.com`.
+   - Google Forms may be generated only through Google Apps Script code blocks.
+   - Wayground, Kahoot, and Blooket use paste/file-import workflows only.
+   - Preserve the frozen tool-link contract where a prompt requires it.
+9. **Keep separately governed institutional properties separate.** Do not merge, link, or cross-brand their content into this platform.
+10. **No local/offline machine translation.** NLLB, MADLAD, Marian, IndicTrans, and similar MT systems are forbidden for every current and future language/studio. Translation is authored by the working frontier LLM.
+11. **No personal promotion or solicitation UI.** Keep feedback neutral and functional. Do not restore founder biography, personal-name fields, payment/support appeals, share-pressure sections, personal social links, or promotional credits.
+12. **Never push without explicit approval in the current conversation.** Local commits are required at accepted milestones. Never infer push permission from an earlier conversation.
 
-## Translation rules (Hindi — and later bn/mr/te, same rules)
+## Prompt quality rules
 
-- Register: natural, respectful teacher-Hindi (आप form) — not Sanskritised, not Hinglish slang.
-- Maths terms: Hindi term with English in brackets on first use — "द्विघात समीकरण (quadratic equation)" — then Hindi alone. Worksheet, DPP, MCQ, PDF, WhatsApp, ChatGPT stay English.
-- `[PLACEHOLDERS]` copied unchanged, in English, brackets included.
-- Structural labels: "भूमिका (ROLE):" style — Hindi first, English label in brackets, same line structure.
-- URLs, tool names, file names, numbers unchanged. "Prepared by [YOUR NAME]" → "तैयारकर्ता: [YOUR NAME]".
-- Full text, same paragraph/line breaks — never summarise.
-- Every batch goes through `node tools/merge-hindi.mjs` (QA gate). Rejects get fixed, not force-merged.
+- Prompts must be complete production workflows, not generic “make/explain X” requests.
+- A strong prompt states the job and audience, requires concrete inputs, uses ordered phases, names the output blocks, includes a real pedagogical or production mechanism, and finishes with a genuine quality-control step.
+- Preserve level/exam/context adaptation, mathematical domain restrictions, notation, and human-review boundaries.
+- Never shorten a rich prompt to make translation or maintenance easier.
+- Every tool-linked prompt must obey the hard tool facts and any frozen contract suffix exactly.
+- `data/surprise-pools.json` is a human-curated allowlist, not an automatic popularity list. Do not add a prompt because it is merely long or featured. A candidate needs distinctive value and must pass `tools/qa-surprise.mjs`.
+- The Surprise Studio must always intersect its allowlist with the active search, category, group, exam, audience, output-format, and live-language state. It must never silently escape a user's filters.
 
-## Data model (per prompt in data/prompts.js)
+## Translation rules
 
-```
-{ title, tag, needsImage, makesImage, whatYouGet, bestTool, worksOnFree,
-  howToUse, effectiveUsage[], commonFix, promptText, slug,
-  hi?: {title, whatYouGet, howToUse, effectiveUsage[], commonFix, promptText},
-  exams?: ["any"|"boards"|"jee-main"|"jee-advanced"|"olympiad"|"foundation", ...],
-  aud?: "teacher"|"student"|"both",
-  featured?: true,            // 🔥 Most important row (owner-curated, keep ~12)
-  added?: "YYYY-MM-DD",       // ✨ Recently added row
-  styles?: [{name, direction}] // style-picker prompts only; modal renders a <select> for the [STYLE] token
-}
-```
+These rules apply to Hindi, Bengali, Marathi, Telugu, and future languages.
 
-## Build & verify loop (after ANY content change)
+- Translate the full `title`, `whatYouGet`, `howToUse`, every `effectiveUsage` item, `commonFix`, and the complete `promptText`. Never summarise.
+- Preserve every placeholder exactly and preserve its full occurrence multiset.
+- Preserve URLs, filenames, code, numbers, tool/product names, and protected English terms such as Worksheet, DPP, MCQ, PDF, WhatsApp, and ChatGPT where the language convention requires them.
+- Use a natural respectful teacher register:
+  - Hindi: `आप`
+  - Bengali: `আপনি`
+  - Marathi: `आपण`
+  - Telugu: `మీరు`
+- Give a natural local-language technical term with its English anchor on first use where required.
+- Keep structural labels in the established form, for example:
+  - Hindi/Marathi: `भूमिका (ROLE):`
+  - Bengali: `ভূমিকা (ROLE):`
+  - Telugu: `పాత్ర (ROLE):`
+- Translate “Prepared by” naturally, but keep `[YOUR NAME]` unchanged.
+- Preserve paragraph, heading, list, code-block, and line structure closely. Do not collapse the workflow into prose.
+- QA scripts provide mechanical protection; the working LLM must still read source and translation semantically before merging.
+
+## Approved translation pipeline
+
+Hindi is complete. Its invariant remains protected by:
 
 ```bash
-node tools/build-pages.mjs          # rebakes 573 pages + redirects + sitemap, writes slugs
-# bump ?v= on prompts.js AND app.js in index.html
-node -e "new Function(require('fs').readFileSync('app.js','utf8'))"   # syntax gate
-python3 -m http.server 8911 --directory .    # then check http://localhost:8911
+/opt/homebrew/bin/node tools/hindi-status.mjs
+/opt/homebrew/bin/node tools/repair-hindi-invariants.mjs --check
 ```
-Manual checks: search "wolfram" (must show related prompts), हिंदी header chip (cards flip language), a style-picker modal (dropdown fills the prompt), one redirect stub URL, facet chips (JEE Advanced currently 34).
 
-## Site architecture (30-second orientation)
+Bengali, Marathi, and Telugu batches are merged only through:
 
-Static site, no build framework. `index.html` (single-page app: guide/builder/learn/library/platform/about) + `app.js` (rendering, search+synonyms, facets, language switch, modal) + `data/prompts.js` (`window.PROMPT_DATA`, generated) + `tools/build-pages.mjs` (bakes `/p/<slug>/` SEO pages) + `styles.css`. Hosting: GitHub Pages at yosoyun.github.io/math-prompt-studio. The other platform modules are separate repos on the same domain, linked from the `#more` hub.
+```bash
+/opt/homebrew/bin/node tools/qa-lang-batch.mjs --lang <bn|mr|te> --input <batch.json>
+/opt/homebrew/bin/node tools/review-lang-batch.mjs --lang <bn|mr|te> --source <chunk.json> --input <batch.json>
+/opt/homebrew/bin/node tools/merge-lang.mjs --lang <bn|mr|te> <batch.json>
+```
+
+The input is an array of records keyed by the exact English title and containing every translated field expected by the gate. Merge one complete batch, rebuild, verify, and commit it before treating that batch as accepted.
+
+## Data and generated-file rules
+
+- `data/prompts.js` — canonical generated corpus; never hand-edit.
+- `data/catalog.js` — compact browser catalog plus language status and curated Surprise sections.
+- `data/surprise-pools.json` — reviewed Surprise allowlist and review digest.
+- `data/redirects.json` — permanent old-slug map.
+- `p/` — generated canonical prompt pages and redirect stubs.
+- `sitemap.xml` — generated.
+- `_handoff/*-todo/` — source translation chunks; do not rewrite them.
+- `_handoff/phase3-batches/<lang>/` — authored translation batches.
+
+Rebuild generated files through the scripts. Do not make one-off repairs inside `p/`.
+
+## Cache discipline
+
+All first-party browser assets use one shared version:
+
+- `styles.css`
+- `data/prompts.js`
+- `data/catalog.js`
+- `config.js`
+- `app.js`
+
+Run `/opt/homebrew/bin/node tools/bump-cache.mjs`; do not bump a subset by hand. Afterward, verify that every `?v=` reference in `index.html` is identical.
+
+## Build and verification loop
+
+After any accepted content or application change:
+
+```bash
+export PATH="/opt/homebrew/bin:$PATH"
+node tools/bump-cache.mjs
+node tools/build-pages.mjs
+node tools/build-catalog.mjs
+node tools/build-catalog.mjs --check
+node tools/qa-library-discovery.mjs
+node tools/qa-surprise.mjs
+node tools/hindi-status.mjs
+node tools/lang-status.mjs --lang bn
+node tools/lang-status.mjs --lang mr
+node tools/lang-status.mjs --lang te
+node tools/repair-hindi-invariants.mjs --check
+node -e "new Function(require('fs').readFileSync('app.js','utf8'))"
+git diff --check
+```
+
+For a read-only page gate, use `node tools/build-pages.mjs --dry-run`.
+
+Serve locally:
+
+```bash
+python3 -m http.server 8911 --directory .
+```
+
+Browser acceptance includes:
+
+- title/count is current;
+- default Browse All starts with 60 unique cards and can reach all 961 unique prompts;
+- search for `wolfram` returns related prompts;
+- Category, Group, Exam, Audience, and Format filters work together and Clear all resets them;
+- curated Surprise sections honor the active selection and never show an ineligible prompt;
+- Hindi changes cards, Surprise chrome, modal content, copy/open text, and style-picker text;
+- Handwritten 5-Method has one placeholder option plus 18 selectable styles;
+- JEE Advanced returns well above the historical 34-prompt floor;
+- `/p/vintage-parchment-masterclass/` redirects to `/p/handwritten-5-method-solution-art/`;
+- feedback stays neutral and contains only role plus message;
+- browser console has no errors.
+
+## Commit discipline
+
+- Inspect `git status` before staging.
+- Stage only the accepted batch and its intended generated/product files.
+- Never stage another language's partial draft.
+- Commit one translation batch per commit and one product milestone per commit.
+- Do not rewrite or discard unrelated work in a dirty tree.
+- Never run destructive reset/checkout commands against user work.
+- Never push.
+
+## Current architecture
+
+This is a static site with no framework:
+
+- `index.html` — public shell, guide, builder, learning area, library, neutral feedback, and modal.
+- `app.js` — discovery, search, exact-category and facet filtering, languages, curated Surprise selection, modal/copy/open flows.
+- `styles.css` — responsive visual system.
+- `config.js` — feedback destination and optional privacy-friendly analytics.
+- `tools/build-pages.mjs` — canonical pages, redirect stubs, sitemap.
+- `tools/build-catalog.mjs` — compact catalog, validated language availability, Surprise embedding.
+
+The current verified corpus is 961 prompts across 50 categories. English and Hindi are live. Bengali, Marathi, and Telugu remain blocked until each reaches 961/961 with zero invalid records and passes browser activation.

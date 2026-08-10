@@ -5,7 +5,7 @@ import { dirname, resolve } from 'node:path';
 import puppeteer from 'puppeteer-core';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const SIG = 'Indrajeet Yadav';
+const SIG = '[YOUR NAME]';
 const CHROME = process.env.PUPPETEER_EXECUTABLE_PATH ||
   ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/Applications/Chromium.app/Contents/MacOS/Chromium','/usr/bin/google-chrome','/usr/bin/chromium','/usr/bin/chromium-browser']
   .find(p => { try { return readFileSync(p) && true; } catch (e) { return false; } })

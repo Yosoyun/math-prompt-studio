@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const SIG = 'Indrajeet Yadav';
+const SIG = '[YOUR NAME]';
 const OUT = process.argv[2];
 if (!OUT) { console.error('pass workflow output file'); process.exit(1); }
 

@@ -1,56 +1,94 @@
 # Maths Prompt Studio
 
-### 500+ free AI prompts for mathematics teachers & students — by **Indrajeet Yadav**
+Maths Prompt Studio is a free, teacher-first library of **961 rich AI workflows across 50 categories**.
 
-A free, no‑coding‑required website of copy‑paste prompts that turn any maths problem into
-**handwritten solutions, full question papers, worksheets, DPPs, formula sheets, books and more** —
-using free AI tools like **ChatGPT** and **Claude** (also AI Studio, Gemini, Grok).
+It helps mathematics teachers and learners create classroom-ready solutions, independently checked answers, papers, worksheets, DPPs, quizzes, presentations, visuals, documents, lesson plans, feedback, and revision resources. Each card explains what it creates, how to use it, which tool fits, and how to recover when an AI answer is weak.
 
-Built for brilliant teachers who are new to computers: it includes a **complete, illustrated
-beginner's guide** (including exactly how to attach a photo) and a **Learn 10× guide** for studying
-smarter. Every prompt asks the AI to **sign the work in the author's name**.
+## Current product
 
-> **Live site:** https://yosoyun.github.io/math-prompt-studio/
+- 961 canonical prompts with permanent slugs
+- 50 exact categories and 7 broad teaching groups
+- Search plus Category, Group, Exam, Audience, and Output Format filters
+- Complete progressive browsing: all 961 prompts are reachable
+- Curated Surprise Studio: 8 outcome sections and 50 audited, highly structured prompts
+- English and Hindi live
+- Bengali, Marathi, and Telugu held back until every prompt meets the same quality bar
+- 18-style Handwritten 5-Method solution workflow
+- Beginner guide, paper builder, learning techniques, and neutral issue/suggestion feedback
+- 961 generated prompt pages plus permanent redirect stubs
 
-There is **no bulk download** — use prompts one at a time on the site, and please **share it**
-with one more teacher or student. That's the only "payment" asked.
+Live site: [Maths Prompt Studio](https://yosoyun.github.io/math-prompt-studio/)
 
----
+## Run locally
 
-## What's inside
-- **589 prompts** across **33 categories / 7 groups** (incl. **Book & Study‑Material Writing**)
-- **18 handwritten "5‑method solution" art styles** (the flagship collection)
-- **Beginner's Guide**: what AI is, pick a tool, *how to attach a photo* (phone/computer, illustrated), copy‑paste, a 60‑second walkthrough
-- **Learn 10×**: the highest‑leverage ways to study with ChatGPT/Claude (Feynman loop, active recall, Socratic tutor, exam simulator…)
-- **About** the author, a **Feedback** box (rating + suggestion → email; optional Google Form / WhatsApp), and a **Share** section
-- Every prompt: a colour reliability dot (🟢 any free AI · 🟡 makes images · 🔵 attach a photo), a "how to use effectively" list, and a "what to say if it's wrong" line
+Node is installed at `/opt/homebrew/bin/node` on the primary development Mac.
 
-## Owner settings — `config.js`
-Edit three lines to switch on extra contact buttons:
+```bash
+cd "/Users/vanindra/Desktop/Code/automate x/math-prompt-studio"
+export PATH="/opt/homebrew/bin:$PATH"
+python3 -m http.server 8911 --directory .
+```
+
+Open [http://localhost:8911/](http://localhost:8911/).
+
+## Core files
+
+- `index.html` — static application shell
+- `app.js` — library rendering, search, filters, languages, Surprise, modal/copy/open flows
+- `styles.css` — responsive design
+- `config.js` — feedback destination and optional privacy-friendly analytics
+- `data/prompts.js` — generated canonical corpus; never hand-edit
+- `data/catalog.js` — compact runtime catalog and language availability
+- `data/surprise-pools.json` — reviewed Surprise allowlist
+- `data/redirects.json` — permanent redirects
+- `p/` — generated prompt pages
+
+## Build and QA
+
+```bash
+export PATH="/opt/homebrew/bin:$PATH"
+node tools/bump-cache.mjs
+node tools/build-pages.mjs
+node tools/build-catalog.mjs
+node tools/build-catalog.mjs --check
+node tools/qa-library-discovery.mjs
+node tools/qa-surprise.mjs
+node tools/hindi-status.mjs
+node tools/lang-status.mjs --lang bn
+node tools/lang-status.mjs --lang mr
+node tools/lang-status.mjs --lang te
+node tools/repair-hindi-invariants.mjs --check
+node -e "new Function(require('fs').readFileSync('app.js','utf8'))"
+git diff --check
+```
+
+Use `node tools/build-pages.mjs --dry-run` for a read-only generated-page check.
+
+## Configuration
+
 ```js
 window.MPS_CONFIG = {
-  email: "you@example.com",   // where the feedback form sends
-  googleFormUrl: "",          // paste a Google Form link → shows "Open suggestions form"
-  whatsapp: "",               // digits incl. country code → shows the WhatsApp button
-  photoUrl: ""                // optional photo for the About section
+  email: "feedback@example.com",
+  googleFormUrl: "",
+  analyticsSrc: "",
+  analyticsDomain: ""
 };
 ```
 
-## Run it locally
-```bash
-python3 -m http.server 8911 --directory .
-# open http://localhost:8911
-```
+The public interface intentionally avoids founder promotion, personal-name collection, payment requests, and support solicitation.
 
-## Regenerate / expand content (maintainers)
-```bash
-cd tools && npm install          # puppeteer-core (only needed if rebuilding the optional PDFs)
-node assemble.mjs <workflow.json>  # rebuild data/prompts.js from a content-workflow output
-```
+## Contributing safely
 
----
+Read `HANDOFF.md`, `AGENTS.md`, and `CONTINUITY.md` completely before editing.
 
-## Credits
-**Created, authored and signed by Indrajeet Yadav.** Free forever. If it helps you, please share it
-and keep the signature on the outputs. Prompt structure follows the best practices of the top
-prompt‑engineering resources (f/awesome‑chatgpt‑prompts, promptslab, ai‑boost, Anthropic & OpenAI guides).
+Important rules:
+
+- never hand-edit `data/prompts.js`;
+- never change or translate placeholders;
+- never delete a prompt without a redirect;
+- never weaken a QA gate;
+- never use local/offline machine translation;
+- never add generic prompts to the curated Surprise pool;
+- never push without explicit approval.
+
+The exact current resume point, translation coverage, untracked drafts, browser results, known historical-gate discrepancies, and next commands are in `HANDOFF.md`.

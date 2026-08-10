@@ -9,7 +9,7 @@ from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SIG = "Indrajeet Yadav"
+SIG = "[YOUR NAME]"
 BLUE = RGBColor(0x2b,0x3f,0x6b); GOLD = RGBColor(0xb1,0x82,0x2c); VIOLET = RGBColor(0x6b,0x4a,0xa0)
 GREY = RGBColor(0x55,0x52,0x4b); INK = RGBColor(0x23,0x26,0x2d); GREEN = RGBColor(0x2f,0x7d,0x56)
 

@@ -5,7 +5,7 @@ Your task is to study the uploaded whiteboard image(s), identify the mathematica
 ## PARAMETERS
 - Number of problems: [NUMBER]
 - Target difficulty: [RMO / INMO / ISI / JEE Advanced / Putnam]
-- Footer text: Indrajeet Yadav
+- Footer text: [YOUR NAME]
 
 # PHASE 1 - ANALYSE THE WHITEBOARD
 Silently inspect all uploaded whiteboard images before writing anything. Identify: the main mathematical topics visible; important formulas, substitutions, identities, diagrams, constraints and methods; natural connections between different topics on the board; any content that is unclear or unreadable. Do not invent material that is not reasonably supported by the images. If essential portions are unreadable, clearly request a sharper image instead of guessing. Do not include this analysis in the final PDFs.
@@ -26,13 +26,13 @@ Produce two separate, downloadable PDFs compiled from LaTeX using `pdflatex` (no
 Compile each with pdflatex, inspect the output, and correct every LaTeX error, readability-affecting warning, overfull line, broken formula, or layout problem; run pdflatex again if necessary for stable output.
 
 # PDF 1 - QUESTIONS ONLY
-`Olympiad_Problems_Indrajeet_Yadav.pdf`: one short single-line topic header derived from the major concepts on the board; problems numbered Q1, Q2, Q3, ...; no answers, hints, solution outlines, method labels, difficulty labels, or commentary; footer `Indrajeet Yadav`. Do not include an answer key in this PDF.
+`Olympiad_Problems_Indrajeet_Yadav.pdf`: one short single-line topic header derived from the major concepts on the board; problems numbered Q1, Q2, Q3, ...; no answers, hints, solution outlines, method labels, difficulty labels, or commentary; footer `[YOUR NAME]`. Do not include an answer key in this PDF.
 
 # PDF 2 - SOLUTIONS AND ANSWER KEY
-`Olympiad_Solutions_Indrajeet_Yadav.pdf`: the same one-line topic header; a concise answer-key table at the beginning (two columns: Problem | Final Answer / Conclusion; for proofs state the proved conclusion concisely; for classification list the complete solution set); detailed solutions labelled S1, S2, S3, ...; footer `Indrajeet Yadav`. Each solution must be self-contained, use rigorous reasoning, explain the central insight, show all important algebraic transformations, handle boundary and exceptional cases, and end with the exact final conclusion. Do not refer to inaccessible external theorems without proving them or stating them precisely.
+`Olympiad_Solutions_Indrajeet_Yadav.pdf`: the same one-line topic header; a concise answer-key table at the beginning (two columns: Problem | Final Answer / Conclusion; for proofs state the proved conclusion concisely; for classification list the complete solution set); detailed solutions labelled S1, S2, S3, ...; footer `[YOUR NAME]`. Each solution must be self-contained, use rigorous reasoning, explain the central insight, show all important algebraic transformations, handle boundary and exceptional cases, and end with the exact final conclusion. Do not refer to inaccessible external theorems without proving them or stating them precisely.
 
 # LATEX AND TYPOGRAPHY RULES
-Use `\documentclass[11pt]{article}` and default Computer Modern fonts. Permitted packages: `\usepackage{amsmath,amssymb}`, `\usepackage{enumitem}`, `\usepackage[margin=1in]{geometry}`, `\usepackage{array}`, `\usepackage{fancyhdr}`. Use fancyhdr only to place `Indrajeet Yadav` in the footer centre and remove all header/footer rules. Use a completely black-and-white minimalist design: no colours, decorative boxes, shaded environments, background graphics, watermarks, icons, logos, borders, or ornamental headings. Mathematical formatting: use `\dfrac{a}{b}`, `\sum`, `\prod`, `\lfloor x \rfloor`, `\lceil x \rceil`, `\binom{n}{r}`, `\sqrt{}`, and `\left`/`\right` where useful; use display maths `\[ ... \]` for long or structurally important expressions; use `\begin{aligned}` for derivations; use `enumitem` for clean numbering/spacing; keep paragraphs short; prevent formulas from extending into the margins; do not use Unicode maths symbols when a standard LaTeX command exists.
+Use `\documentclass[11pt]{article}` and default Computer Modern fonts. Permitted packages: `\usepackage{amsmath,amssymb}`, `\usepackage{enumitem}`, `\usepackage[margin=1in]{geometry}`, `\usepackage{array}`, `\usepackage{fancyhdr}`. Use fancyhdr only to place `[YOUR NAME]` in the footer centre and remove all header/footer rules. Use a completely black-and-white minimalist design: no colours, decorative boxes, shaded environments, background graphics, watermarks, icons, logos, borders, or ornamental headings. Mathematical formatting: use `\dfrac{a}{b}`, `\sum`, `\prod`, `\lfloor x \rfloor`, `\lceil x \rceil`, `\binom{n}{r}`, `\sqrt{}`, and `\left`/`\right` where useful; use display maths `\[ ... \]` for long or structurally important expressions; use `\begin{aligned}` for derivations; use `enumitem` for clean numbering/spacing; keep paragraphs short; prevent formulas from extending into the margins; do not use Unicode maths symbols when a standard LaTeX command exists.
 
 # FINAL DELIVERY
 Return only:
