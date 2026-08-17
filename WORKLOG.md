@@ -1,0 +1,136 @@
+# WORKLOG — math-prompt-studio (append-only, newest at top)
+
+_Reconstructed from git 2026-08-17 (DNA Pass 3) — one dated line per commit, newest first, straight from `git log --oneline`. Nothing below this line is a session narrative; it is the commit record. Current project state lives in HANDOFF.md — do not duplicate it here. New sessions: append a dated entry ABOVE this reconstruction block._
+
+- 2026-08-17 · 85d7d104 · Phase 0 estate backup: add bn/batch-010 + te/batch-007 translation batches
+- 2026-08-10 · e0c6cb0a · Refresh project handoff and remove legacy identity references
+- 2026-08-10 · efb95124 · Fix prompt discovery and add curated Surprise Studio
+- 2026-08-02 · 2b634d1b · Update project continuity handoff
+- 2026-07-18 · 3f43a0df · Translate Marathi batch 008
+- 2026-07-18 · 496daf9a · Translate Bengali batch 009
+- 2026-07-18 · 754eaac9 · Translate Telugu batch 006
+- 2026-07-18 · 2a20520d · Translate Marathi batch 007
+- 2026-07-18 · 891b212c · Translate Bengali batch 008
+- 2026-07-18 · 1753d09b · Translate Telugu batch 005
+- 2026-07-18 · 779262e9 · Translate Bengali batch 007
+- 2026-07-18 · cea45e28 · Translate Marathi batch 006
+- 2026-07-18 · e6de7695 · Translate Marathi batch 005
+- 2026-07-18 · eff8ba8f · Translate Telugu batch 004
+- 2026-07-18 · f132cd81 · Translate Bengali batch 006
+- 2026-07-18 · 10b444e5 · Translate Marathi batch 004
+- 2026-07-18 · 148fe430 · Translate Telugu batch 003
+- 2026-07-18 · aa0db8ae · Translate Bengali batch 005
+- 2026-07-18 · 52a2ba7c · Translate Telugu batch 002
+- 2026-07-18 · 09a10298 · Translate Bengali batch 004
+- 2026-07-18 · bd8e573c · Translate Marathi batch 003
+- 2026-07-18 · fa26153e · Translate Bengali batch 003
+- 2026-07-18 · 91ec9562 · Translate Telugu batch 001
+- 2026-07-18 · 31fe7d13 · Translate Marathi batch 002
+- 2026-07-18 · d785ad2a · Translate Bengali batch 002
+- 2026-07-18 · 679a9d28 · Add frontier translation polarity review aid
+- 2026-07-18 · 6e463b70 · Translate Marathi batch 001
+- 2026-07-18 · 3ad321d7 · Translate Bengali batch 001
+- 2026-07-18 · 087da0ed · Translate Telugu batch 000
+- 2026-07-18 · 2bceed07 · Translate Marathi batch 000
+- 2026-07-18 · 47168695 · Translate Bengali batch 000
+- 2026-07-18 · e67d6863 · Remove residual offline translation tooling
+- 2026-07-18 · ef9f27f4 · Prepare frontier language translation pipeline
+- 2026-07-18 · d138ba4f · Ban offline MT translation workflows
+- 2026-07-18 · b4ff314f · Complete Phase 2 formats and segment coverage
+- 2026-07-18 · 4af19c1e · Overhaul activation brand and retention UX
+- 2026-07-17 · 804a7a6e · Audit activation retention and output-format gaps
+- 2026-07-17 · 0a8f1445 · Rebuild v21 and add final verification report
+- 2026-07-17 · 6c72eb4c · Add old-site retirement handoff pages
+- 2026-07-17 · 9b3fed2d · Translate Wave 2 Hindi batch 22
+- 2026-07-17 · b09f87a7 · Translate Wave 2 Hindi batch 21
+- 2026-07-17 · 2cd23182 · Translate Wave 2 Hindi batch 20
+- 2026-07-17 · 7dd99b6d · Translate Wave 2 Hindi batch 19
+- 2026-07-17 · 3095c874 · Translate Wave 2 Hindi batch 18
+- 2026-07-17 · 2b18699b · Translate Wave 2 Hindi batch 17
+- 2026-07-17 · 1d14ee5f · Translate Wave 2 Hindi batch 16
+- 2026-07-17 · 80b533d6 · Translate Wave 2 Hindi batch 15
+- 2026-07-17 · 23cade5c · Translate Wave 2 Hindi batch 14
+- 2026-07-17 · b808bff7 · Translate Wave 2 Hindi batch 13
+- 2026-07-17 · 10b738a1 · Translate Wave 2 Hindi batch 12
+- 2026-07-17 · 99f1ef46 · Translate Wave 2 Hindi batch 11
+- 2026-07-17 · 6b485888 · Translate Wave 2 Hindi batch 10
+- 2026-07-17 · 9245865b · Translate Wave 2 Hindi batch 09
+- 2026-07-17 · c2d80f86 · Translate Wave 2 Hindi batch 08
+- 2026-07-17 · 57fc43f7 · Translate Wave 2 Hindi batch 07
+- 2026-07-17 · 965d7788 · Translate Wave 2 Hindi batch 06
+- 2026-07-17 · e2cb639b · Translate Wave 2 Hindi batch 05
+- 2026-07-17 · edb3b45d · Translate Wave 2 Hindi batch 04
+- 2026-07-17 · 84815799 · Translate Wave 2 Hindi batch 03
+- 2026-07-17 · da806ec8 · Translate Wave 2 Hindi batch 02
+- 2026-07-17 · 70ecab22 · Translate Wave 2 Hindi batch 01
+- 2026-07-17 · 72b3a17e · Translate Wave 2 Hindi batch 00
+- 2026-07-17 · f3abc49b · Prepare reviewed Wave 2 Hindi translations
+- 2026-07-17 · 3925b71b · Add Wave 2 click-to-tool prompt pack
+- 2026-07-17 · 625f4038 · Rebuild v20 pages and verify Wave 1 UI
+- 2026-07-17 · ab4dafc3 · Add Wave 1 tool-linked prompts and Hindi translations
+- 2026-07-16 · 804105f2 · Polish Hindi assessment and planning register
+- 2026-07-16 · e358ae62 · Polish audited Hindi teacher register
+- 2026-07-16 · cfa146fe · Fix audited Hindi numeric parity
+- 2026-07-16 · 05a1b12c · Complete Hindi translations for chunk 41
+- 2026-07-16 · a742df60 · Complete Hindi translations for chunk 40
+- 2026-07-16 · aa29ce09 · Complete Hindi translations for chunk 39
+- 2026-07-16 · 54759663 · Complete Hindi translations for chunk 38
+- 2026-07-16 · f716f93a · Complete Hindi translations for chunk 37
+- 2026-07-16 · 604a4ef9 · Complete Hindi translations for chunk 36
+- 2026-07-16 · e19879f0 · Complete Hindi translations for chunk 35
+- 2026-07-16 · e322e143 · Complete Hindi translations for chunk 34
+- 2026-07-16 · 79f3e805 · Complete Hindi translations for chunk 33
+- 2026-07-16 · 8a89d812 · Complete Hindi translations for chunk 32
+- 2026-07-16 · 292befed · Complete Hindi translations for chunk 31
+- 2026-07-16 · 9a32dee3 · Complete Hindi translations for chunk 30
+- 2026-07-16 · 77985262 · Complete Hindi translations for chunk 29
+- 2026-07-16 · 73d00fd5 · Complete Hindi translations for chunk 28
+- 2026-07-16 · 71549a44 · Complete Hindi translations for chunk 27
+- 2026-07-16 · dd660b72 · Complete Hindi translations for chunk 26
+- 2026-07-16 · 51836842 · Complete Hindi translations for chunk 24
+- 2026-07-16 · 4de331c7 · Complete Hindi translations for chunk 25
+- 2026-07-16 · c3a71ed0 · Complete Hindi translations for chunk 23
+- 2026-07-16 · 92abc9d4 · Complete Hindi translations for chunk 22
+- 2026-07-16 · 06736b65 · Complete Hindi translations for chunk 21
+- 2026-07-16 · bf115d2c · Complete Hindi translations for chunk 19
+- 2026-07-16 · dce87010 · Complete Hindi translations for chunk 20
+- 2026-07-16 · 4bbdff93 · Complete Hindi translations for chunk 18
+- 2026-07-16 · 365b9b95 · Complete Hindi translations for chunk 17
+- 2026-07-16 · edf49e01 · Complete Hindi translations for chunk 16
+- 2026-07-16 · b87f52c3 · Complete Hindi translations for chunk 15
+- 2026-07-16 · 3af10c3c · Complete Hindi translations for chunk 14
+- 2026-07-16 · 8c293e31 · Complete Hindi translations for chunk 12
+- 2026-07-16 · 0ad8dac8 · Complete Hindi translations for chunk 13
+- 2026-07-16 · d182fa34 · Complete Hindi translations for chunk 3
+- 2026-07-16 · 917e817d · Complete Hindi translations for chunk 11
+- 2026-07-16 · d7c2e7d9 · Complete Hindi translations for chunk 7
+- 2026-07-16 · a82d712d · Complete Hindi translations for chunk 6
+- 2026-07-16 · 6fb569e3 · Complete Hindi translations for chunk 2
+- 2026-07-16 · 664896a0 · Complete Hindi translations for chunk 10
+- 2026-07-16 · 6b62babb · Complete Hindi translations for chunk 5
+- 2026-07-16 · f2d68f91 · Complete Hindi translations for chunk 1
+- 2026-07-16 · e41985b5 · Complete Hindi translations for chunk 9
+- 2026-07-16 · 939e7cfd · Complete Hindi translations for chunk 0
+- 2026-07-16 · 77b90e82 · Complete Hindi translations for chunk 8
+- 2026-07-16 · f20dbb6c · Complete Hindi translations for chunk 4
+- 2026-07-16 · 56896f88 · Platform build: dedup to 573, bilingual EN/HI (238 done), facets, hub, toolbox + full handoff docs
+- 2026-07-16 · b1121a38 · Bump app.js cache version for synonym search
+- 2026-07-16 · ed6a6490 · Search: tool-name synonyms + zero-result suggestions; fix count drift to 589
+- 2026-06-28 · a9bcf96f · Add 'Single-Image Solution Posters' category: user's 5 styles + 25 inspired (589 total)
+- 2026-06-28 · 00cc3bbc · Deepen the 10 document-deliverable prompts: real teaching value + multi-format (PDF/Word/PPT)
+- 2026-06-28 · 211bf077 · Add LaTeX/Compiled-PDF category: user's 2 Olympiad prompts + 10 inspired (559 total)
+- 2026-06-22 · a3361d7b · Phase 3 (Magic): 3-Tap Exam-Paper Builder + fill-the-blanks form on every prompt
+- 2026-06-22 · e3d73f80 · v3 quality: pro-grade prompts + restored prefill + 5 flagship analytical prompts
+- 2026-06-22 · 7e1b706c · Phase 2 (Trust): Double-Check verifier, Trust section, report button, exact diagrams
+- 2026-06-21 · 9cca1ded · Phase 1 (Reach): shareable page per prompt + deep-links + sitemap + analytics hook
+- 2026-06-21 · 977d504d · v8: SEO + a11y + reliability + maths-readability quick wins (from 4-expert audit)
+- 2026-06-21 · c5d817e2 · v7: Copy is the primary action (works on every device incl. phone apps)
+- 2026-06-21 · bda93598 · v6: equal-sized buttons, prompt carried into tools, formats baked into prompts
+- 2026-06-21 · 9032e69c · v5: carry prompt into ChatGPT/Claude (prefill) + declutter cards for clarity
+- 2026-06-21 · 1862ac6a · v4: mobile search fix, Word/PDF/PPT export, 1-click ChatGPT/Claude, +30 prompts
+- 2026-06-18 · 76edc3ad · Make allen-resource-hub & amc8-math-app private; remove them from More section
+- 2026-06-18 · f5db1895 · Add contact details, Instagram, and 'More free tools' section
+- 2026-06-18 · 8a827969 · v3: remove bulk downloads, add About/Feedback/Share/Learn-10x, refine tools
+- 2026-06-18 · 2268d90a · v2: scale to 505 prompts, 31 categories, full beginner onboarding
+- 2026-06-17 · 359b5724 · Polish: reflect accurate 136-prompt count in title, meta and hero
+- 2026-06-17 · 8627432d · Maths Prompt Studio: 136 AI prompts for maths teachers, by Indrajeet Yadav
